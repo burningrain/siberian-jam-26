@@ -1,0 +1,47 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "",
+    "expandedProjectPaths": [
+    ],
+    "file.lastUsedOpenFilter": "All Files (*)",
+    "fileStates": {
+        "D:/projects/perelesoq-jam-26/assets/tiled/entrance.tmx": {
+            "scale": 3.9187499999999997,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 144.30622009569382,
+                "y": 89.95215311004786
+            }
+        },
+        "D:/projects/perelesoq-jam-26/assets/tiled/game-object.tsx": {
+            "scaleInDock": 1
+        },
+        "D:/projects/perelesoq-jam-26/assets/tiled/window-dialog.tsx": {
+            "scaleInDock": 1
+        },
+        "level-1.tmx": {
+            "scale": 1.1855208333333331,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 479.114313329233,
+                "y": 320.1124681486689
+            }
+        }
+    },
+    "map.height": 54,
+    "map.lastUsedFormat": "tmx",
+    "map.layerDataFormat": "3",
+    "map.tileHeight": 10,
+    "map.tileWidth": 10,
+    "map.width": 96,
+    "openFiles": [
+    ],
+    "project": "blind-corridor.tiled-project",
+    "recentFiles": [
+        "level-1.tmx",
+        "D:/projects/perelesoq-jam-26/assets/tiled/entrance.tmx"
+    ]
+}

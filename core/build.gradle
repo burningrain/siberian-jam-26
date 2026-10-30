@@ -8,10 +8,12 @@ dependencies {
   api "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
   api "com.badlogicgames.gdx:gdx:$gdxVersion"
   api "com.bladecoder.ink:blade-ink:$bladeInkVersion"
+
   api "com.crashinvaders.basisu:basisu-gdx:$gdxBasisUniversalVersion"
   api "com.crashinvaders.basisu:basisu-wrapper:$gdxBasisUniversalVersion"
+
   api "com.crashinvaders.vfx:gdx-vfx-core:$gdxVfxCoreVersion"
-  api "com.crashinvaders.vfx:gdx-vfx-effects:$gdxVfxEffectsVersion"
+
   api "com.github.crykn.guacamole:core:$guacamoleVersion"
   api "com.github.crykn.guacamole:gdx:$guacamoleVersion"
   api "com.github.crykn:libgdx-screenmanager:$screenManagerVersion"
@@ -36,4 +38,7 @@ dependencies {
   if(enableGraalNative == 'true') {
     implementation "io.github.berstanio:gdx-svmhelper-annotations:$graalHelperVersion"
   }
+
+  implementation project(':libgdx-br-common')
+
 }

@@ -1,0 +1,49 @@
+buildscript {
+  repositories {
+    mavenCentral()
+    gradlePluginPortal()
+    mavenLocal()
+    google()
+    maven { url = 'https://central.sonatype.com/repository/maven-snapshots/' }
+  }
+  dependencies {
+    classpath "com.android.tools.build:gradle:8.9.3"
+
+    // Подключаем плагин для костылей / трансформации байткода во время сборки
+    classpath "net.bytebuddy:byte-buddy-gradle-plugin:1.15.4"
+  }
+}
+
+plugins {
+  id 'java'
+}
+apply plugin: 'java'
+
+group = 'com.github.br'
+version = '1.0.0'
+
+java.sourceCompatibility = 8
+java.targetCompatibility = 8
+
+dependencies {
+
+  api "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
+  api "com.badlogicgames.gdx:gdx:$gdxVersion"
+
+  api "com.bladecoder.ink:blade-ink:$bladeInkVersion"
+
+  api "com.crashinvaders.vfx:gdx-vfx-core:$gdxVfxCoreVersion"
+  api "com.crashinvaders.basisu:basisu-wrapper:$gdxBasisuVersion"
+  api "com.crashinvaders.basisu:basisu-gdx:$gdxBasisuVersion"
+
+  api "com.github.tommyettinger:regexodus:$regExodusVersion"
+  api "com.github.tommyettinger:textratypist:$textratypistVersion"
+
+  // scene composer
+  implementation 'com.github.raeleus.TenPatch:tenpatch:5.2.3'
+  implementation 'com.github.raeleus.stripe:stripe:2.0.0'
+  implementation 'com.github.raeleus.stripe:colorpicker:2.0.0'
+  implementation 'com.github.raeleus.stripe:freetype:2.0.0'
+  // scene composer
+
+}

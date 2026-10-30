@@ -1,8 +1,16 @@
 package com.github.br.syberian.jam26.lwjgl3;
 
+import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.assets.loaders.FileHandleResolver;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.crashinvaders.basisu.gdx.Ktx2TextureLoader;
+import com.github.br.libgdx.common.structure.PlatformConfigurator;
 import com.github.br.syberian.jam26.Main;
+
+import workaround.ktx.tiled.Ktx2AtlasTmxMapLoader;
 
 /** Launches the desktop (LWJGL3) application. */
 public class Lwjgl3Launcher {
@@ -12,12 +20,18 @@ public class Lwjgl3Launcher {
     }
 
     private static Lwjgl3Application createApplication() {
-        return new Lwjgl3Application(new Main(), getDefaultConfiguration());
+        return new Lwjgl3Application(new Main(new PlatformConfigurator() {
+            @Override
+            public void configureLoaders(AssetManager assetManager, FileHandleResolver fileHandleResolver) {
+                assetManager.setLoader(Texture.class, ".ktx2", new Ktx2TextureLoader(fileHandleResolver));
+                assetManager.setLoader(TiledMap.class, new Ktx2AtlasTmxMapLoader(fileHandleResolver));
+            }
+        }), getDefaultConfiguration());
     }
 
     private static Lwjgl3ApplicationConfiguration getDefaultConfiguration() {
         Lwjgl3ApplicationConfiguration configuration = new Lwjgl3ApplicationConfiguration();
-        configuration.setTitle("syberian-jam-26");
+        configuration.setTitle("syberian-jam-26-blind-corridor");
         //// Vsync limits the frames per second to what your hardware can display, and helps eliminate
         //// screen tearing. This setting doesn't always work on Linux, so the line after is a safeguard.
         configuration.useVsync(true);
@@ -28,7 +42,7 @@ public class Lwjgl3Launcher {
         //// useful for testing performance, but can also be very stressful to some hardware.
         //// You may also need to configure GPU drivers to fully disable Vsync; this can cause screen tearing.
 
-        configuration.setWindowedMode(640, 480);
+        configuration.setWindowedMode(960, 540);
         //// You can change these files; they are in lwjgl3/src/main/resources/ .
         //// They can also be loaded from the root of assets/ .
         configuration.setWindowIcon("libgdx128.png", "libgdx64.png", "libgdx32.png", "libgdx16.png");

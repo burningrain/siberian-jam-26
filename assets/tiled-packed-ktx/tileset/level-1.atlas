@@ -1,0 +1,13 @@
+
+level-1.ktx2
+size: 1024, 1024
+format: RGBA8888
+filter: Linear, Linear
+repeat: none
+atlas_imagelayer_0010_586656145004500x
+  rotate: false
+  xy: 1, 1
+  size: 960, 540
+  orig: 960, 540
+  offset: 0, 0
+  index: -1

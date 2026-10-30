@@ -1,0 +1,78 @@
+[versions]
+anim8Gdx = "0.7.0"
+artemisOdb = "2.3.0"
+backendTeavm = "1.4.0"
+basisu = "1.1.2"
+bladeInk = "1.3.2"
+box2dlights = "1.5"
+byteBuddyGradlePlugin = "1.18.16"
+colorful = "0.10.0"
+construo = "2.1.0"
+desugar_jdk_libs = "2.1.5"
+freetypist = "2.4.0.0"
+gdx = "3.1.1-0"
+gdxControllers = "2.2.4"
+gdxFreetypeTeavm = "1.5.6"
+gdxVersion = "1.14.2"
+gdxcontrollerutils = "2.3.0"
+gradle = "9.5.0"
+gradleToolchainsFoojayResolverConvention = "1.0.0"
+gretty = "5.1.0"
+noise4j = "0.1.0"
+regexodus = "0.1.21"
+sjingameconsole = "1.0.1"
+stripe = "2.0.0"
+tenpatch = "5.2.3"
+textratypist = "2.4.0"
+typingLabel = "1.4.0"
+universalTweenEngine = "6.3.3"
+vfx = "0.5.5"
+
+[libraries]
+anim8-gdx = { group = "com.github.tommyettinger", name = "anim8-gdx", version.ref = "anim8Gdx" }
+artemis-odb = { group = "net.onedaybeard.artemis", name = "artemis-odb", version.ref = "artemisOdb" }
+backend-teavm = { group = "com.github.xpenatan.gdx-teavm", name = "backend-teavm", version.ref = "backendTeavm" }
+basisu-gdx = { group = "com.crashinvaders.basisu", name = "basisu-gdx", version.ref = "basisu" }
+basisu-wrapper = { group = "com.crashinvaders.basisu", name = "basisu-wrapper", version.ref = "basisu" }
+blade-ink = { group = "com.bladecoder.ink", name = "blade-ink", version.ref = "bladeInk" }
+box2dlights = { group = "com.badlogicgames.box2dlights", name = "box2dlights", version.ref = "box2dlights" }
+byte-buddy-gradle-plugin = { group = "net.bytebuddy", name = "byte-buddy-gradle-plugin", version.ref = "byteBuddyGradlePlugin" }
+colorful = { group = "com.github.tommyettinger", name = "colorful", version.ref = "colorful" }
+colorpicker = { group = "com.github.raeleus.stripe", name = "colorpicker", version.ref = "stripe" }
+construo = { group = "io.github.fourlastor", name = "construo", version.ref = "construo" }
+desugar_jdk_libs = { group = "com.android.tools", name = "desugar_jdk_libs", version.ref = "desugar_jdk_libs" }
+freetype = { group = "com.github.raeleus.stripe", name = "freetype", version.ref = "stripe" }
+freetypist = { group = "com.github.tommyettinger", name = "freetypist", version.ref = "freetypist" }
+gdx = { group = "com.badlogicgames.gdx", name = "gdx", version.ref = "gdxVersion" }
+gdx-backend-android = { group = "com.badlogicgames.gdx", name = "gdx-backend-android", version.ref = "gdxVersion" }
+gdx-backend-lwjgl = { group = "com.badlogicgames.gdx", name = "gdx-backend-lwjgl", version.ref = "gdxVersion" }
+gdx-backend-lwjgl3 = { group = "com.badlogicgames.gdx", name = "gdx-backend-lwjgl3", version.ref = "gdxVersion" }
+gdx-box2d = { group = "com.badlogicgames.gdx", name = "gdx-box2d", version.ref = "gdx" }
+gdx-box2d-gwt = { group = "com.badlogicgames.gdx", name = "gdx-box2d-gwt", version.ref = "gdxVersion" }
+gdx-box2d-platform = { group = "com.badlogicgames.gdx", name = "gdx-box2d-platform", version.ref = "gdx" }
+gdx-controllers-android = { group = "com.badlogicgames.gdx-controllers", name = "gdx-controllers-android", version.ref = "gdxControllers" }
+gdx-controllers-core = { group = "com.badlogicgames.gdx-controllers", name = "gdx-controllers-core", version.ref = "gdxControllers" }
+gdx-controllers-desktop = { group = "com.badlogicgames.gdx-controllers", name = "gdx-controllers-desktop", version.ref = "gdxControllers" }
+gdx-controllerutils-mapping = { group = "de.golfgl.gdxcontrollerutils", name = "gdx-controllerutils-mapping", version.ref = "gdxcontrollerutils" }
+gdx-controllerutils-scene2d = { group = "de.golfgl.gdxcontrollerutils", name = "gdx-controllerutils-scene2d", version.ref = "gdxcontrollerutils" }
+gdx-freetype = { group = "com.badlogicgames.gdx", name = "gdx-freetype", version.ref = "gdxVersion" }
+gdx-freetype-platform = { group = "com.badlogicgames.gdx", name = "gdx-freetype-platform", version.ref = "gdxVersion" }
+gdx-freetype-teavm = { group = "com.github.xpenatan.gdx-teavm", name = "gdx-freetype-teavm", version.ref = "gdxFreetypeTeavm" }
+gdx-lwjgl3-angle = { group = "com.badlogicgames.gdx", name = "gdx-lwjgl3-angle", version.ref = "gdxVersion" }
+gdx-platform = { group = "com.badlogicgames.gdx", name = "gdx-platform", version.ref = "gdxVersion" }
+gdx-tools = { group = "com.badlogicgames.gdx", name = "gdx-tools", version.ref = "gdxVersion" }
+gdx-vfx-core = { group = "com.crashinvaders.vfx", name = "gdx-vfx-core", version.ref = "vfx" }
+gdx-vfx-effects = { group = "com.crashinvaders.vfx", name = "gdx-vfx-effects", version.ref = "vfx" }
+gradle = { group = "com.android.tools.build", name = "gradle", version.ref = "gradle" }
+noise4j = { group = "com.github.czyzby", name = "noise4j", version.ref = "noise4j" }
+regexodus = { group = "com.github.tommyettinger", name = "regexodus", version.ref = "regexodus" }
+sjingameconsole = { group = "com.github.tommyettinger", name = "sjInGameConsole", version.ref = "sjingameconsole" }
+stripe = { group = "com.github.raeleus.stripe", name = "stripe", version.ref = "stripe" }
+tenpatch = { group = "com.github.raeleus.TenPatch", name = "tenpatch", version.ref = "tenpatch" }
+textratypist = { group = "com.github.tommyettinger", name = "textratypist", version.ref = "textratypist" }
+typing-label = { group = "com.rafaskoberg.gdx", name = "typing-label", version.ref = "typingLabel" }
+universal-tween-engine = { group = "org.mini2Dx", name = "universal-tween-engine", version.ref = "universalTweenEngine" }
+
+[plugins]
+gradle-toolchains-foojay-resolver-convention = { id = "org.gradle.toolchains.foojay-resolver-convention", version.ref = "gradleToolchainsFoojayResolverConvention" }
+gretty = { id = "org.gretty", version.ref = "gretty" }

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <title>gdx-teavm</title>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #000;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        #canvas {
+            border: none;
+        }
+    </style>
+</head>
+<body oncontextmenu="return false">
+<div>
+    <canvas id="canvas"></canvas>
+</div>
+
+<script>
+    function loadScriptDynamically(url) {
+        return new Promise((resolve, reject) => {
+            console.log("Loader: Loading script " + url + "...");
+            const script = document.createElement("script");
+            script.type = "text/javascript";
+            script.charset = "utf-8";
+            script.src = url;
+            script.onload = () => {
+                console.log("Loader: Script " + url + " completed.");
+                resolve();
+            };
+            script.onerror = () => reject(new Error("Failed to load script: " + url));
+            document.body.appendChild(script);
+        });
+    }
+
+    function waitForGlobalObject(objectName, timeout = 5000) {
+        return new Promise((resolve, reject) => {
+            if (window[objectName]) return resolve(window[objectName]);
+            const startTime = Date.now();
+            const interval = setInterval(() => {
+                if (window[objectName]) {
+                    clearInterval(interval);
+                    resolve(window[objectName]);
+                } else if (Date.now() - startTime > timeout) {
+                    clearInterval(interval);
+                    reject(new Error("Timeout waiting for window." + objectName));
+                }
+            }, 20);
+        });
+    }
+
+    async function start() {
+        // === СИСТЕМНЫЙ ВСКРЫВАТЕЛЬ СКРЫТЫХ ОШИБОК ЭМУЛЯЦИИ ТЕАVМ ===
+        // Перехватываем создание JS-таймеров, через которые бэкенд крутит AsyncExecutor
+        const originalSetTimeout = window.setTimeout;
+        window.setTimeout = function(callback, delay, ...args) {
+            if (callback && callback.toString().indexOf('AsyncResult') !== -1) {
+                // Создаем обертку вокруг фонового таска планировщика
+                const originalCallback = callback;
+                callback = function(...cbArgs) {
+                    try {
+                        return originalCallback.apply(this, cbArgs);
+                    } catch (taskError) {
+                        console.error("%c=== ОБНАРУЖЕН ПРЯМОЙ КРАШ ВНУТРИ ФОНОВОГО ТАСКА === ", "background: #ff0000; color: #fff; font-weight: bold;");
+                        console.error(taskError);
+                        throw taskError;
+                    } finally {
+                        // Сканируем область видимости на предмет созданных объектов AsyncResult
+                        // и принудительно проверяем их внутренние скрытые свойства
+                        if (window.TeaVM && window.TeaVM.currentContext) {
+                            console.log("Аудитор: Проверка контекста WasmGC...");
+                        }
+                    }
+                };
+            }
+            return originalSetTimeout.call(window, callback, delay, ...args);
+        };
+
+        // Ловушка для перехвата объекта исключения в момент, когда TeaVM пытается его упаковать
+        window.addEventListener('unhandledrejection', function(event) {
+            console.error('%c=== КРИТИЧЕСКИЙ АУДИТ Java-ИСКЛЮЧЕНИЯ ===', 'background: #ff0000; color: #fff; font-weight: bold; padding: 4px;');
+            if (event.reason) {
+                console.error('Скрытый объект ошибки:', event.reason);
+                // Разворачиваем все скрытые обфусцированные поля Throwable
+                for (var key in event.reason) {
+                    try {
+                        var val = event.reason[key];
+                        if (val && typeof val === 'object') {
+                            console.log(`Поле-Объект [${key}]:`, val);
+                            for (var sub in val) {
+                                console.log(`  -> [${sub}]:`, val[sub]);
+                            }
+                        } else {
+                            console.log(`Поле-Примитив [${key}]:`, val);
+                        }
+                    } catch(e){}
+                }
+            }
+        });
+        // =========================================================================
+
+        try {
+            // ШАГ 1: Загружаем нативный gdx-basis-universal.js
+            await loadScriptDynamically("gdx-basis-universal.js");
+
+            // ШАГ 2: Загружаем рантайм TeaVM
+            await loadScriptDynamically("wasm-gc-runtime.min.js");
+
+            // ШАГ 3: Ожидаем готовность объекта TeaVM
+            console.log("Loader: Waiting for TeaVM...");
+            await waitForGlobalObject("TeaVM");
+
+            // ШАГ 4: Запускаем LibGDX игру в контейнере WasmGC
+            console.log("TeaVM WasmGC: App init...");
+            let teavm = await TeaVM.wasmGC.load("app.wasm");
+            teavm.exports.main([]);
+        } catch (error) {
+            console.error("Critical error during start: ", error);
+        }
+    }
+
+    window.addEventListener("load", start);
+</script>
