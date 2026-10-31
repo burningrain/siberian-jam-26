@@ -3,14 +3,16 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "D:/projects/perelesoq-jam-26/assets/tiled/entrance.tmx",
+    "activeFile": "",
     "expandedProjectPaths": [
         "."
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
     "fileStates": {
         "": {
-            "dynamicWrapping": true
+            "dynamicWrapping": true,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
         },
         "D:/projects/perelesoq-jam-26/assets/tiled/entrance.tmx": {
             "scale": 3.9187499999999997,
@@ -28,14 +30,17 @@
             "scaleInDock": 1
         },
         "level-1.tmx": {
+            "expandedGroupLayers": [
+                6
+            ],
             "expandedObjectLayers": [
                 2
             ],
-            "scale": 0.33,
-            "selectedLayer": 1,
+            "scale": 0.75,
+            "selectedLayer": 2,
             "viewCenter": {
-                "x": 4827.272727272728,
-                "y": 7101.515151515152
+                "x": 4992,
+                "y": 6958
             }
         },
         "level-1.tmx#bgf": {
@@ -72,15 +77,13 @@
     "map.tileWidth": 120,
     "map.width": 100,
     "openFiles": [
-        "test-room.tmx",
-        "D:/projects/perelesoq-jam-26/assets/tiled/entrance.tmx"
     ],
     "project": "blind-corridor.tiled-project",
     "property.type": "string",
     "recentFiles": [
-        "D:/projects/perelesoq-jam-26/assets/tiled/entrance.tmx",
         "test-room.tmx",
-        "level-1.tmx"
+        "level-1.tmx",
+        "D:/projects/perelesoq-jam-26/assets/tiled/entrance.tmx"
     ],
     "tileset.embedInMap": true,
     "tileset.type": 1
