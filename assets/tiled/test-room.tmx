@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="60" tileheight="60" infinite="0" nextlayerid="3" nextobjectid="8">
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="60" tileheight="60" infinite="0" nextlayerid="3" nextobjectid="9">
  <tileset firstgid="1" name="environment" tilewidth="60" tileheight="60" tilecount="2" columns="0">
   <grid orientation="orthogonal" width="1" height="1"/>
   <tile id="0">
@@ -18,26 +18,31 @@
   <object id="1" name="hero" x="1840" y="4592" width="712" height="528">
    <properties>
     <property name="actor_type" value="HERO"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
    </properties>
   </object>
   <object id="4" name="enemy" x="580" y="1360" width="712" height="528">
    <properties>
     <property name="actor_type" value="ENEMY"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
    </properties>
   </object>
   <object id="5" name="camera" x="1612" y="1152" width="712" height="528" rotation="270">
    <properties>
     <property name="actor_type" value="CAMERA"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
    </properties>
   </object>
   <object id="6" name="camera" x="4140" y="1144" width="712" height="528" rotation="270">
    <properties>
     <property name="actor_type" value="CAMERA"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
    </properties>
   </object>
   <object id="7" name="box" x="3476" y="4632" width="712" height="792" rotation="270">
    <properties>
     <property name="actor_type" value="BOX"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
    </properties>
   </object>
  </objectgroup>

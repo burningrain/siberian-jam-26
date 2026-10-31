@@ -16,11 +16,12 @@
             "scale": 3.9187499999999997,
             "selectedLayer": 5,
             "viewCenter": {
-                "x": 144.4338118022329,
-                "y": 89.95215311004786
+                "x": 209.25039872408297,
+                "y": 136.6507177033493
             }
         },
         "D:/projects/perelesoq-jam-26/assets/tiled/game-object.tsx": {
+            "dynamicWrapping": false,
             "scaleInDock": 1
         },
         "D:/projects/perelesoq-jam-26/assets/tiled/window-dialog.tsx": {
@@ -41,8 +42,8 @@
             "scale": 0.125,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 3176,
-                "y": 2996
+                "x": 3260,
+                "y": 2992
             }
         },
         "test-room.tmx#environment": {
@@ -63,9 +64,10 @@
         "D:/projects/perelesoq-jam-26/assets/tiled/entrance.tmx"
     ],
     "project": "blind-corridor.tiled-project",
+    "property.type": "bool",
     "recentFiles": [
-        "test-room.tmx",
         "D:/projects/perelesoq-jam-26/assets/tiled/entrance.tmx",
+        "test-room.tmx",
         "level-1.tmx"
     ],
     "tileset.embedInMap": true,

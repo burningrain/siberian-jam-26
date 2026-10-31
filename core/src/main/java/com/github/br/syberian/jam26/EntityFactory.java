@@ -9,17 +9,19 @@ import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.GdxRuntimeException;
+import com.github.br.libgdx.common.structure.GameManager;
+import com.github.br.libgdx.common.structure.SimpleUtils;
 import com.github.br.syberian.jam26.ecs.components.AnimationComponent;
 import com.github.br.syberian.jam26.ecs.components.EnemyComponent;
 import com.github.br.syberian.jam26.ecs.components.PhysicsComponent;
 import com.github.br.syberian.jam26.ecs.components.PlayerComponent;
 import com.github.br.syberian.jam26.ecs.components.RenderComponent;
 import com.github.br.syberian.jam26.ecs.components.TransformComponent;
+import com.github.br.syberian.jam26.ecs.systems.physics.ContactDataImpl;
 import com.github.br.syberian.jam26.ecs.systems.physics.PhysicsSystem;
 
 public class EntityFactory extends BaseSystem {
@@ -39,13 +41,16 @@ public class EntityFactory extends BaseSystem {
     protected ComponentMapper<AnimationComponent> animationMapper;
     protected ComponentMapper<RenderComponent> renderMapper;
 
-    protected ComponentMapper<PlayerComponent> heroMapper;
+    protected ComponentMapper<PlayerComponent> playerMapper;
     protected ComponentMapper<EnemyComponent> enemyMapper;
 
     private UserActorFactory userActorFactory;
 
-    public EntityFactory(AssetManager assetManager) {
+    private final GameManager gameManager;
+
+    public EntityFactory(AssetManager assetManager, GameManager gameManager) {
         this.assetManager = assetManager;
+        this.gameManager = gameManager;
     }
 
     @Override
@@ -59,7 +64,7 @@ public class EntityFactory extends BaseSystem {
         physicsMapper = getWorld().getMapper(PhysicsComponent.class);
         animationMapper = getWorld().getMapper(AnimationComponent.class);
         renderMapper = getWorld().getMapper(RenderComponent.class);
-        heroMapper = getWorld().getMapper(PlayerComponent.class);
+        playerMapper = getWorld().getMapper(PlayerComponent.class);
         enemyMapper = getWorld().getMapper(EnemyComponent.class);
 
         setEnabled(false);  // Отключаем ежекадровое обновление
@@ -125,12 +130,14 @@ public class EntityFactory extends BaseSystem {
             id, BodyDef.BodyType.DynamicBody, x, y, width, height
         );
 
+        PlayerComponent playerComponent = playerMapper.get(id);
+
         //TODO пока анимации нету
 //        AnimationComponent animationComponent = animationMapper.get(id);
 //        animationComponent.simpleAnimationComponent = AnimationFactory.createHero();
 
         RenderComponent renderComponent = renderMapper.get(id);
-        renderComponent.actor =  userActorFactory.getCustomActor(ActorTypeEnum.HERO);
+        renderComponent.actor = userActorFactory.getCustomActor(ActorTypeEnum.HERO);
 
         return id;
     }
@@ -243,34 +250,46 @@ public class EntityFactory extends BaseSystem {
         float width,
         float height
     ) {
-        BodyDef bodyDef = new BodyDef();
-        // We set our body to dynamic, for something like ground which doesn't move we would set it to StaticBody
-        bodyDef.type = bodyType;
-        // Set our body's starting position in the world
-        bodyDef.position.set(x, y);
+        SimpleUtils simpleUtils = gameManager.simpleUtils;
 
-        // Create our body in the world using our body definition
+        // 1. Вычисляем половины размеров, так как setAsBox принимает полупериметр
+        float halfWidth = width / 2f;
+        float halfHeight = height / 2f;
+
+        BodyDef bodyDef = new BodyDef();
+        bodyDef.type = bodyType;
+
+        // 2. Смещаем точку спавна из левого нижнего угла в геометрический центр объекта
+        bodyDef.position.set(
+            simpleUtils.convertUnitsToMetres(x + halfWidth),
+            simpleUtils.convertUnitsToMetres(y + halfHeight)
+        );
+
         PhysicsSystem physics = getWorld().getSystem(PhysicsSystem.class);
         World box2dWorld = physics.getBox2dWorld();
         Body body = box2dWorld.createBody(bodyDef);
 
-        // Create a circle shape and set its radius to 6
         PolygonShape groundBox = new PolygonShape();
-        groundBox.setAsBox(width, height);
+        // 3. Передаем именно половины ширины и высоты
+        groundBox.setAsBox(
+            simpleUtils.convertUnitsToMetres(halfWidth),
+            simpleUtils.convertUnitsToMetres(halfHeight)
+        );
 
-        // Create a fixture definition to apply our shape to
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = groundBox;
         fixtureDef.density = 0.5f;
         fixtureDef.friction = 0.4f;
-        fixtureDef.restitution = 0.6f; // Make it bounce a little bit
+        // Для Hotline Miami 0.6f — это многовато (коробки и враги будут сильно отскакивать при коллизиях),
+        // лучше поставить поменьше, например 0.1f. Но можете оставить как вам нравится.
+        fixtureDef.restitution = 0.1f;
 
-        // Create our fixture and attach it to the body
-        Fixture fixture = body.createFixture(fixtureDef);
-
-        // Remember to dispose of any shapes after you're done with them!
-        // BodyDef and FixtureDef don't need disposing, but shapes do.
+        body.createFixture(fixtureDef);
         groundBox.dispose();
+
+        // 4. Привязываем id сущности к телу Box2D.
+        // Это спасет вас в будущем, когда вы будете писать обработку попадания пуль во врагов в ContactListener
+        body.setUserData(new ContactDataImpl(entityId));
 
         PhysicsComponent physicsComponent = physicsMapper.get(entityId);
         physicsComponent.body = body;

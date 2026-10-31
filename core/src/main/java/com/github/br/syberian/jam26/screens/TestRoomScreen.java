@@ -3,24 +3,22 @@ package com.github.br.syberian.jam26.screens;
 import com.artemis.World;
 import com.artemis.managers.TagManager;
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TiledMapTile;
-import com.badlogic.gdx.maps.tiled.TiledMapTileSet;
-import com.badlogic.gdx.physics.box2d.Box2D;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.github.br.libgdx.common.structure.GameManager;
 import com.github.br.libgdx.common.structure.GameSettings;
 import com.github.br.libgdx.common.structure.artemis.EmptyInjector;
 import com.github.br.libgdx.common.structure.screen.AbstractTiledMapUiScreen;
 import com.github.br.libgdx.common.structure.screen.ui.CustomOrthogonalTiledMapRenderer;
 import com.github.br.syberian.jam26.Constants;
 import com.github.br.syberian.jam26.EntityFactory;
+import com.github.br.syberian.jam26.UserActorFactory;
+import com.github.br.syberian.jam26.ecs.systems.CameraSystem;
 import com.github.br.syberian.jam26.ecs.systems.PlayerInputSystem;
 import com.github.br.syberian.jam26.ecs.systems.physics.PhysicsContactListener;
 import com.github.br.syberian.jam26.ecs.systems.physics.PhysicsSystem;
-import com.github.br.syberian.jam26.ecs.systems.renderer.RenderSystem;
-import com.github.br.syberian.jam26.UserActorFactory;
+import com.github.br.syberian.jam26.ecs.systems.renderer.Box2dRenderSystem;
 import com.github.br.syberian.jam26.ui.fx.CustomVfxEffectPooledFactoryImpl;
 
 public class TestRoomScreen extends AbstractTiledMapUiScreen<UserActorFactory, CustomVfxEffectPooledFactoryImpl> {
@@ -34,8 +32,9 @@ public class TestRoomScreen extends AbstractTiledMapUiScreen<UserActorFactory, C
 
     @Override
     public void show() {
-        AssetManager assetManager = getGameManager().assetManager;
-        entityFactory = new EntityFactory(assetManager);
+        GameManager gameManager = getGameManager();
+        AssetManager assetManager = gameManager.assetManager;
+        entityFactory = new EntityFactory(assetManager, gameManager);
         artemisWorld = createECS(entityFactory);
 
         super.show();
@@ -43,7 +42,7 @@ public class TestRoomScreen extends AbstractTiledMapUiScreen<UserActorFactory, C
 
     private World createECS(EntityFactory entityFactory) {
         PhysicsContactListener contactListener = new PhysicsContactListener();
-        PhysicsSystem physicsSystem = new PhysicsSystem(contactListener);
+        PhysicsSystem physicsSystem = new PhysicsSystem(getGameManager(), contactListener);
         com.artemis.WorldConfiguration config = new com.artemis.WorldConfigurationBuilder()
             .with(new TagManager())
 
@@ -58,9 +57,11 @@ public class TestRoomScreen extends AbstractTiledMapUiScreen<UserActorFactory, C
             .with(entityFactory)
 
             // Отрисовка
-            .with(new RenderSystem(
-                physicsSystem.getBox2dWorld()
-            ).setDebugBox2d(Constants.IS_DEBUG_BOX2D))
+            .with(new CameraSystem())
+            .with(new Box2dRenderSystem(
+                physicsSystem.getBox2dWorld(),
+                getGameManager()
+            ))
             .build();
 
         // !!! ЖЕСТКОЕ ПРАВИЛО ДЛЯ ВЕБА:
@@ -91,9 +92,19 @@ public class TestRoomScreen extends AbstractTiledMapUiScreen<UserActorFactory, C
         UserActorFactory actorFactory,
         CustomVfxEffectPooledFactoryImpl vfxEffectPoolFactory
     ) {
-        RenderSystem renderSystem = artemisWorld.getSystem(RenderSystem.class);
-        renderSystem.init(renderer, viewport, camera);
+        Box2dRenderSystem box2dRenderSystem = artemisWorld.getSystem(Box2dRenderSystem.class);
+        box2dRenderSystem.init(renderer, viewport, camera);
     }
+    @Override
+    public void render(float delta) {
+        super.render(delta);
+
+        if (Constants.IS_DEBUG_BOX2D) {
+            Box2dRenderSystem system = artemisWorld.getSystem(Box2dRenderSystem.class);
+            system.renderBox2d();
+        }
+    }
+
 
     @Override
     protected void update(float delta, Viewport viewport) {

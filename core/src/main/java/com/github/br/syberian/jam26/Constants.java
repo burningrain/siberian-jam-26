@@ -9,4 +9,6 @@ public interface Constants {
 
     boolean IS_DEBUG_BOX2D = true;
 
+    float PPM = 128f;
+
 }

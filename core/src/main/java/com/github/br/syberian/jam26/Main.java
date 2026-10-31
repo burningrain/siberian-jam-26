@@ -75,6 +75,7 @@ public class Main extends AbstractSimpleGame<UserFactoryImpl> {
         builder.setVirtualScreenHeight(Constants.VIRTUAL_HEIGHT);
 
         builder.setUseKtx2(Constants.IS_USE_KTX2);
+        builder.setUnitsPerMeter(Constants.PPM);
     }
 
 }
