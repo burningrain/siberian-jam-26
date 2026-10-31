@@ -61,7 +61,7 @@ public class RenderSystem extends BaseSystem {
             return;
         }
 
-        renderer.render();
+        //renderer.render();
     }
 
     public CustomOrthogonalTiledMapRenderer getRenderer() {

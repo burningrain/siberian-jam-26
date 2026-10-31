@@ -4,8 +4,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.profiling.GLProfiler;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapTile;
+import com.badlogic.gdx.maps.tiled.TiledMapTileSet;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -69,6 +72,7 @@ public abstract class AbstractTiledMapUiScreen<A extends ActorFactory, V extends
         Skin gameSkin = assetManager.get(pathToSkin);
         actorFactory = createActionFactory(gameSkin, assetManager, gameSettings);
         vfxEffectPoolFactory = createVfxEffectPoolFactory(assetManager, gameSettings);
+        fixBleeding(tiledMap);
         renderer = new CustomOrthogonalTiledMapRenderer(
             actorFactory,
             viewport,
@@ -81,6 +85,23 @@ public abstract class AbstractTiledMapUiScreen<A extends ActorFactory, V extends
         );
 
         afterShow(tiledMap, renderer, viewport, actorFactory, vfxEffectPoolFactory);
+    }
+
+    //TODO быстрофикс - на пиксель растягиваем каждый тайл, чтобы зазоры не были видны
+    //TODO я не знаю откуда они!
+    public void fixBleeding(TiledMap map) {
+        for (TiledMapTileSet tileset : map.getTileSets()) {
+            for (TiledMapTile tile : tileset) {
+                TextureRegion region = tile.getTextureRegion();
+                if (region == null) continue;
+                float fixX = 1.05f / region.getTexture().getWidth();
+                float fixY = 1.05f / region.getTexture().getHeight();
+                region.setU(region.getU() + fixX);
+                region.setV(region.getV() + fixY);
+                region.setU2(region.getU2() + fixX);
+                region.setV2(region.getV2() + fixY);
+            }
+        }
     }
 
     protected int getBackBufferHeight() {
@@ -107,7 +128,7 @@ public abstract class AbstractTiledMapUiScreen<A extends ActorFactory, V extends
     public void render(float delta) {
         update(delta, viewport);
 
-        Gdx.gl.glClearColor(1, 1, 1, 1);
+        Gdx.gl.glClearColor(1, 0, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         GameSettings gameSettings = getGameManager().gameSettings;
@@ -139,7 +160,8 @@ public abstract class AbstractTiledMapUiScreen<A extends ActorFactory, V extends
 
     @Override
     public void resize(int width, int height) {
-        viewport.update(width, height, true);
+        GameSettings gameSettings = getGameManager().gameSettings;
+        viewport.update(width, height, gameSettings.isCenterCamera());
         renderer.resize(width, height);
     }
 

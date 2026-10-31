@@ -60,9 +60,13 @@ public class MapPacker {
                 settings.paddingX = 2;
                 settings.paddingY = 2;
                 settings.duplicatePadding = true;
+                settings.debug = false;
                 settings.edgePadding = true;
-                settings.filterMin = Texture.TextureFilter.Linear;
-                settings.filterMag = Texture.TextureFilter.Linear;
+                settings.filterMin = Texture.TextureFilter.Nearest;
+                settings.filterMag = Texture.TextureFilter.Nearest;
+                settings.bleed = true;
+                settings.ignoreBlankImages = true;
+                settings.useIndexes = false;
 
                 String inputDir = "D:/projects/siberian-jam-26/assets/tiled";
                 String assetsDir = "D:/projects/siberian-jam-26/assets";

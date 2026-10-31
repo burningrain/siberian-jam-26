@@ -19,8 +19,8 @@ public class TestRoomAssetLoader implements AssetsLoader {
         TmxMapLoader.Parameters params = new TmxMapLoader.Parameters();
 
         // Трилинейная фильтрация для убирания лесенок из картинок
-        params.textureMinFilter = Texture.TextureFilter.Linear;
-        params.textureMagFilter = Texture.TextureFilter.Linear;
+        params.textureMinFilter = Texture.TextureFilter.Nearest;
+        params.textureMagFilter = Texture.TextureFilter.Nearest;
 
         assetManager.load(TmxUtils.getTmx(Resources.Tmx.TEST_ROOM, Constants.IS_USE_KTX2), TiledMap.class, params);
 
