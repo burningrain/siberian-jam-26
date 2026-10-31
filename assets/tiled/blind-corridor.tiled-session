@@ -40,7 +40,8 @@
         },
         "level-1.tmx#bgf": {
             "dynamicWrapping": true,
-            "scaleInDock": 0.5
+            "scaleInDock": 0.5,
+            "scaleInEditor": 1
         },
         "level-1.tmx#floor_and_walls": {
             "dynamicWrapping": false,
