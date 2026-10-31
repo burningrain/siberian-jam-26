@@ -27,7 +27,7 @@ public class TestRoomAssetLoader implements AssetsLoader {
         assetManager.load(Resources.SKIN_ATLAS, TextureAtlas.class);
         assetManager.load(Resources.SKIN, Skin.class, new SkinLoader.SkinParameter(Resources.SKIN_ATLAS));
 
-        assetManager.load(Resources.Atlases.GAME_OBJECTS, TextureAtlas.class);
+        assetManager.load(Resources.Atlases.TEST_GAME_OBJECTS, TextureAtlas.class);
 
         // animation
         //assetManager.load(Resources.ANIMATION_ATLAS, TextureAtlas.class);
@@ -36,6 +36,6 @@ public class TestRoomAssetLoader implements AssetsLoader {
     @Override
     public void unloadAssets(AssetManager assetManager) {
         assetManager.unload(TmxUtils.getTmx(Resources.Tmx.TEST_ROOM, Constants.IS_USE_KTX2));
-        assetManager.unload(Resources.Atlases.GAME_OBJECTS);
+        assetManager.unload(Resources.Atlases.TEST_GAME_OBJECTS);
     }
 }

@@ -47,7 +47,7 @@ public class CameraSystem extends IteratingSystem {
 
         float deltaTime = Gdx.graphics.getDeltaTime();
 
-        camera.zoom = 4.5f; //TODO поправить позже хардкод
+        camera.zoom = 1f; //TODO поправить позже хардкод
 
         camera.position.x += (player.x - camera.position.x) * lerp * deltaTime;
         camera.position.y += (player.y - camera.position.y) * lerp * deltaTime;

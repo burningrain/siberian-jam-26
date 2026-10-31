@@ -49,7 +49,7 @@ public class EntityFactory extends BaseSystem {
 
     protected ComponentMapper<TriggerComponent> mTrigger;
 
-    private UserActorFactory userActorFactory;
+    private IUserActorFactory userActorFactory;
 
     private final GameManager gameManager;
 
@@ -166,7 +166,7 @@ public class EntityFactory extends BaseSystem {
         return id;
     }
 
-    public int createPlayer(float x, float y, float width, float height) {
+    public int createPlayer(ActorTypeEnum actorType, float x, float y, float width, float height) {
         SimpleUtils simpleUtils = gameManager.simpleUtils;
         int id = world.create(playerArchetype);
 
@@ -202,12 +202,12 @@ public class EntityFactory extends BaseSystem {
 //        animationComponent.simpleAnimationComponent = AnimationFactory.createHero();
 
         RenderComponent renderComponent = renderMapper.get(id);
-        renderComponent.actor = userActorFactory.getCustomUiActor(ActorTypeEnum.HERO);
+        renderComponent.actor = userActorFactory.getCustomUiActor(actorType);
 
         return id;
     }
 
-    private int createEnemy(float x, float y, float width, float height) {
+    private int createEnemy(ActorTypeEnum actorType, float x, float y, float width, float height) {
         int id = world.create(enemyArchetype);
 
         TransformComponent transformComponent = transformMapper.get(id);
@@ -223,12 +223,12 @@ public class EntityFactory extends BaseSystem {
 //        animationComponent.simpleAnimationComponent = AnimationFactory.createHero();
 
         RenderComponent renderComponent = renderMapper.get(id);
-        renderComponent.actor =  userActorFactory.getCustomUiActor(ActorTypeEnum.ENEMY);
+        renderComponent.actor =  userActorFactory.getCustomUiActor(actorType);
 
         return id;
     }
 
-    public int createWall(float x, float y, float width, float height) {
+    public int createWall(ActorTypeEnum actorType, float x, float y, float width, float height) {
         int id = world.create(wallArchetype);
 
         TransformComponent transformComponent = transformMapper.get(id);
@@ -242,7 +242,7 @@ public class EntityFactory extends BaseSystem {
         return id;
     }
 
-    public int createBullet(float x, float y, float width, float height, Vector2 direction) {
+    public int createBullet(ActorTypeEnum actorType, float x, float y, float width, float height, Vector2 direction) {
         int id = world.create(bulletArchetype);
 
         TransformComponent transformComponent = transformMapper.get(id);
@@ -256,7 +256,7 @@ public class EntityFactory extends BaseSystem {
         return id;
     }
 
-    public int createDoor(float x, float y, float width, float height) {
+    public int createDoor(ActorTypeEnum actorType, float x, float y, float width, float height) {
         int id = world.create(doorArchetype);
 
         TransformComponent transformComponent = transformMapper.get(id);
@@ -268,12 +268,12 @@ public class EntityFactory extends BaseSystem {
         );
 
         RenderComponent renderComponent = renderMapper.get(id);
-        renderComponent.actor =  userActorFactory.getCustomUiActor(ActorTypeEnum.CAMERA);
+        renderComponent.actor =  userActorFactory.getCustomUiActor(actorType);
 
         return id;
     }
 
-    private int createCamera(float x, float y, float width, float height) {
+    private int createCamera(ActorTypeEnum actorType, float x, float y, float width, float height) {
         int id = world.create(cameraArchetype);
 
         TransformComponent transformComponent = transformMapper.get(id);
@@ -285,12 +285,12 @@ public class EntityFactory extends BaseSystem {
         );
 
         RenderComponent renderComponent = renderMapper.get(id);
-        renderComponent.actor =  userActorFactory.getCustomUiActor(ActorTypeEnum.CAMERA);
+        renderComponent.actor =  userActorFactory.getCustomUiActor(actorType);
 
         return id;
     }
 
-    private int createBox(float x, float y, float width, float height) {
+    private int createBox(ActorTypeEnum actorType, float x, float y, float width, float height) {
         int id = world.create(boxArchetype);
 
         TransformComponent transformComponent = transformMapper.get(id);
@@ -302,7 +302,7 @@ public class EntityFactory extends BaseSystem {
         );
 
         RenderComponent renderComponent = renderMapper.get(id);
-        renderComponent.actor =  userActorFactory.getCustomUiActor(ActorTypeEnum.BOX);
+        renderComponent.actor =  userActorFactory.getCustomUiActor(actorType);
 
         return id;
     }
@@ -364,7 +364,7 @@ public class EntityFactory extends BaseSystem {
         return physicsComponent;
     }
 
-    public void setUserActorFactory(UserActorFactory userActorFactory) {
+    public void setUserActorFactory(IUserActorFactory userActorFactory) {
         this.userActorFactory = userActorFactory;
     }
 
@@ -376,7 +376,10 @@ public class EntityFactory extends BaseSystem {
 
         switch (actorType) {
             case HERO:
-                return createPlayer(x, y, width, height);
+            case CHAR:
+            case CHAR_1:
+            case CHAR_2:
+                return createPlayer(actorType, x, y, width, height);
             case TRIGGER:
                 String triggerType = properties.get("trigger_type", String.class);
                 String useType = properties.get("use_type", String.class);
@@ -395,17 +398,17 @@ public class EntityFactory extends BaseSystem {
 
                 return createTrigger(triggerTypeEnum, useTypeEnum, conditionTypeEnum, x, y, width, height);
             case ENEMY:
-                return createEnemy(x, y, width, height);
+                return createEnemy(actorType, x, y, width, height);
             case BOX:
-                return createBox(x, y, width, height);
+                return createBox(actorType, x, y, width, height);
             case CAMERA:
-                return createCamera(x, y, width, height);
+                return createCamera(actorType, x, y, width, height);
             case BULLET:
-                return createBullet(x, y, width, height, new Vector2());
+                return createBullet(actorType, x, y, width, height, new Vector2());
             case WALL:
-                return createWall(x, y, width, height);
+                return createWall(actorType, x, y, width, height);
             case DOOR:
-                return createDoor(x, y, width, height);
+                return createDoor(actorType, x, y, width, height);
         }
 
         throw new GdxRuntimeException("createEntityFromUI: " + actorType + " is not found");

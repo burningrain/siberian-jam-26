@@ -23,7 +23,7 @@ public class PlayerInputSystem extends IteratingSystem {
     private final GameManager gameManager;
 
     // Настройка скорости игрока в МЕТРАХ в секунду (Hotline Miami — быстрый шутер, 6-8 м/с — отличная скорость)
-    private static final float MOVE_SPEED_METRES = 16.0f;
+    private static final float MOVE_SPEED_METRES = 5.0f;
 
     // Временные векторы, чтобы не создавать новые объекты в памяти каждый кадр (боремся с мусором для Android/Desktop)
     private final Vector2 moveDirection = new Vector2();

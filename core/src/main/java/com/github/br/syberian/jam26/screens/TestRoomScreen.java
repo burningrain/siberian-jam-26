@@ -13,8 +13,9 @@ import com.github.br.libgdx.common.structure.screen.AbstractTiledMapUiScreen;
 import com.github.br.libgdx.common.structure.screen.ui.CustomOrthogonalTiledMapRenderer;
 import com.github.br.syberian.jam26.Constants;
 import com.github.br.syberian.jam26.EntityFactory;
+import com.github.br.syberian.jam26.Resources;
 import com.github.br.syberian.jam26.TriggerActionFactory;
-import com.github.br.syberian.jam26.UserActorFactory;
+import com.github.br.syberian.jam26.TestUserActorFactory;
 import com.github.br.syberian.jam26.ecs.systems.CameraSystem;
 import com.github.br.syberian.jam26.ecs.systems.PlayerInputSystem;
 import com.github.br.syberian.jam26.ecs.systems.TriggerSystem;
@@ -23,7 +24,7 @@ import com.github.br.syberian.jam26.ecs.systems.physics.PhysicsSystem;
 import com.github.br.syberian.jam26.ecs.systems.renderer.Box2dRenderSystem;
 import com.github.br.syberian.jam26.ui.fx.CustomVfxEffectPooledFactoryImpl;
 
-public class TestRoomScreen extends AbstractTiledMapUiScreen<UserActorFactory, CustomVfxEffectPooledFactoryImpl> {
+public class TestRoomScreen extends AbstractTiledMapUiScreen<TestUserActorFactory, CustomVfxEffectPooledFactoryImpl> {
 
     private EntityFactory entityFactory;
     private com.artemis.World artemisWorld;
@@ -74,8 +75,12 @@ public class TestRoomScreen extends AbstractTiledMapUiScreen<UserActorFactory, C
     }
 
     @Override
-    protected UserActorFactory createActionFactory(Skin gameSkin, AssetManager assetManager, GameSettings gameSettings) {
-        UserActorFactory userActorFactory = new UserActorFactory(gameSkin, assetManager);
+    protected TestUserActorFactory createActionFactory(Skin gameSkin, AssetManager assetManager, GameSettings gameSettings) {
+        TestUserActorFactory userActorFactory = new TestUserActorFactory(
+            gameSkin,
+            assetManager,
+            Resources.Atlases.TEST_GAME_OBJECTS
+        );
         entityFactory.setUserActorFactory(userActorFactory);
         userActorFactory.setEntityFactory(entityFactory);
 
@@ -92,7 +97,7 @@ public class TestRoomScreen extends AbstractTiledMapUiScreen<UserActorFactory, C
         TiledMap tiledMap,
         CustomOrthogonalTiledMapRenderer renderer,
         Viewport viewport,
-        UserActorFactory actorFactory,
+        TestUserActorFactory actorFactory,
         CustomVfxEffectPooledFactoryImpl vfxEffectPoolFactory
     ) {
         Box2dRenderSystem box2dRenderSystem = artemisWorld.getSystem(Box2dRenderSystem.class);

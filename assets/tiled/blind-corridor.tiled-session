@@ -28,12 +28,23 @@
             "scaleInDock": 1
         },
         "level-1.tmx": {
-            "scale": 1.1855208333333331,
-            "selectedLayer": 0,
+            "expandedObjectLayers": [
+                2
+            ],
+            "scale": 0.33,
+            "selectedLayer": 1,
             "viewCenter": {
-                "x": 479.114313329233,
-                "y": 320.1124681486689
+                "x": 4827.272727272728,
+                "y": 7101.515151515152
             }
+        },
+        "level-1.tmx#bgf": {
+            "dynamicWrapping": true,
+            "scaleInDock": 0.5
+        },
+        "level-1.tmx#floor_and_walls": {
+            "dynamicWrapping": false,
+            "scaleInDock": 0.75
         },
         "test-room.tmx": {
             "expandedObjectLayers": [
@@ -42,8 +53,8 @@
             "scale": 0.125,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 3260,
-                "y": 2992
+                "x": 3480,
+                "y": 2908
             }
         },
         "test-room.tmx#environment": {
@@ -52,12 +63,12 @@
             "scaleInEditor": 1
         }
     },
-    "last.imagePath": "D:/projects/siberian-jam-26/assets/pictures/test_room",
+    "last.imagePath": "D:/projects/siberian-jam-26/assets/pictures/level",
     "map.height": 100,
     "map.lastUsedFormat": "tmx",
     "map.layerDataFormat": "3",
-    "map.tileHeight": 60,
-    "map.tileWidth": 60,
+    "map.tileHeight": 120,
+    "map.tileWidth": 120,
     "map.width": 100,
     "openFiles": [
         "test-room.tmx",
