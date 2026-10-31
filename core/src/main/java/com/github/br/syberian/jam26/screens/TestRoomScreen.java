@@ -47,7 +47,7 @@ public class TestRoomScreen extends AbstractTiledMapUiScreen<UserActorFactory, C
             .with(new TagManager())
 
             // Сбор ввода игрока
-            .with(new PlayerInputSystem())
+            .with(new PlayerInputSystem(getGameManager()))
 
             // физика
             .with(contactListener)

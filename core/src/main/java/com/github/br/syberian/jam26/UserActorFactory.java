@@ -2,6 +2,7 @@ package com.github.br.syberian.jam26;
 
 import com.artemis.ComponentMapper;
 import com.artemis.World;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapProperties;
@@ -60,6 +61,12 @@ public class UserActorFactory implements ActorFactory {
             throw new IllegalStateException("forgot RenderComponent for actorType=" + actorTypeEnum);
         }
         RenderComponent renderComponent = mapper.get(id);
+        if (renderComponent == null) {
+            Gdx.app.log("WARN", "UserActorFactory#createEcsEntity, actorTypeEnum=" +
+                actorTypeEnum + " render component is null");
+            return null;
+        }
+
         if (renderComponent.actor == null) {
             throw new IllegalStateException("renderComponent.actor is null for actorType=" + actorTypeEnum);
         }

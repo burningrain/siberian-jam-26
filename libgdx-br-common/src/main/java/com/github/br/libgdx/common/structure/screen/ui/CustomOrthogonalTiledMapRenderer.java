@@ -199,6 +199,13 @@ public class CustomOrthogonalTiledMapRenderer extends OrthogonalTiledMapRenderer
             Stage stage = new Stage(viewport, getBatch());
             for (MapObject object : objects) {
                 Actor actor = actorFactory.getActor(object);
+                if (actor == null) {
+                    Gdx.app.log("WARN", "layer=[" + layer.getName() +
+                        "] objectName=[" + object.getName() + "] has not renderComponent"
+                    );
+                    continue;
+                }
+
                 MapProperties properties = object.getProperties();
                 float x = properties.get("x", float.class);
                 float y = properties.get("y", float.class);

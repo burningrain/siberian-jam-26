@@ -125,6 +125,7 @@ public class EntityFactory extends BaseSystem {
         TransformComponent transformComponent = transformMapper.get(id);
         transformComponent.x = x;
         transformComponent.y = y;
+        transformComponent.rotation = 0f;
 
         PhysicsComponent physicsComponent = createPhysicsComponent(
             id, BodyDef.BodyType.DynamicBody, x, y, width, height
@@ -158,7 +159,7 @@ public class EntityFactory extends BaseSystem {
 //        animationComponent.simpleAnimationComponent = AnimationFactory.createHero();
 
         RenderComponent renderComponent = renderMapper.get(id);
-        renderComponent.actor =  userActorFactory.getCustomActor(ActorTypeEnum.HERO);
+        renderComponent.actor =  userActorFactory.getCustomActor(ActorTypeEnum.ENEMY);
 
         return id;
     }

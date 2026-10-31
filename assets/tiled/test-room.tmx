@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="60" tileheight="60" infinite="0" nextlayerid="3" nextobjectid="9">
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="60" tileheight="60" infinite="0" nextlayerid="3" nextobjectid="17">
  <tileset firstgid="1" name="environment" tilewidth="60" tileheight="60" tilecount="2" columns="0">
   <grid orientation="orthogonal" width="1" height="1"/>
   <tile id="0">
@@ -27,13 +27,13 @@
     <property name="is_ecs_entity" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="5" name="camera" x="1612" y="1152" width="712" height="528" rotation="270">
+  <object id="5" name="camera" x="1604" y="1240" width="712" height="528" rotation="270">
    <properties>
     <property name="actor_type" value="CAMERA"/>
     <property name="is_ecs_entity" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="6" name="camera" x="4140" y="1144" width="712" height="528" rotation="270">
+  <object id="6" name="camera" x="4156" y="1240" width="712" height="528" rotation="270">
    <properties>
     <property name="actor_type" value="CAMERA"/>
     <property name="is_ecs_entity" type="bool" value="true"/>
@@ -42,6 +42,42 @@
   <object id="7" name="box" x="3476" y="4632" width="712" height="792" rotation="270">
    <properties>
     <property name="actor_type" value="BOX"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="9" name="wall_left" x="-8" y="16" width="368" height="5984">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="12" name="wall_right" x="5640" y="8" width="368" height="5984">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="13" name="wall_bottom" x="72" y="5696" width="5632" height="304">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="14" name="wall_up" x="59.0303" y="-6.27273" width="5632" height="432.485">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="15" name="wall_left_box" x="1205.94" y="2701.09" width="834.667" height="728">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="16" name="wall_right_box" x="3958.42" y="2651.15" width="834.667" height="767.394">
+   <properties>
+    <property name="actor_type" value="WALL"/>
     <property name="is_ecs_entity" type="bool" value="true"/>
    </properties>
   </object>
