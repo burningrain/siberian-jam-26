@@ -41,7 +41,7 @@ public abstract class AbstractTiledMapUiScreen<A extends ActorFactory, V extends
         boolean isVfxEnabled,
         boolean isGlProfileActive
     ) {
-        this.tiledMapPath = TmxUtils.getTmx(tiledMapPath);
+        this.tiledMapPath = tiledMapPath;
         this.pathToSkin = pathToSkin;
         this.isVfxEnabled = isVfxEnabled;
 
@@ -54,10 +54,11 @@ public abstract class AbstractTiledMapUiScreen<A extends ActorFactory, V extends
             profiler = new GLProfiler(Gdx.graphics);
             profiler.enable();
         }
-        AssetManager assetManager = getGameManager().assetManager;
-        tiledMap = assetManager.get(tiledMapPath);
-
         GameSettings gameSettings = getGameManager().gameSettings;
+        String tiledPath = TmxUtils.getTmx(tiledMapPath, gameSettings.isUseKtx2());
+        AssetManager assetManager = getGameManager().assetManager;
+        tiledMap = assetManager.get(tiledPath);
+
         camera = new OrthographicCamera();
         viewport = new ExtendViewport(
             gameSettings.getVirtualScreenWidth(),

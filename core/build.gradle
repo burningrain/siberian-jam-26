@@ -40,5 +40,6 @@ dependencies {
   }
 
   implementation project(':libgdx-br-common')
+  implementation project(':libgdx-simple-animation')
 
 }

@@ -23,7 +23,7 @@ public class GameSettings {
     private final int positionIterations;
 
     private final GamePlaySettings gamePlaySettings;
-
+    private final boolean useKtx2;
 
     private GameSettings(Builder builder) {
         this.progressBarWidth = builder.progressBarWidth;
@@ -43,6 +43,7 @@ public class GameSettings {
         this.positionIterations = builder.positionIterations;
 
         this.gamePlaySettings = builder.gamePlaySettings;
+        this.useKtx2 = builder.useKtx2;
     }
 
     public static Builder builder() {
@@ -97,6 +98,10 @@ public class GameSettings {
         return isCenterCamera;
     }
 
+    public boolean isUseKtx2() {
+        return useKtx2;
+    }
+
     public static class Builder {
 
         private int progressBarWidth = 100;
@@ -112,6 +117,8 @@ public class GameSettings {
         private int positionIterations = 2;
 
         private boolean isCenterCamera = false;
+
+        private boolean useKtx2 = false;
 
         private GamePlaySettings gamePlaySettings;
 
@@ -165,6 +172,11 @@ public class GameSettings {
 
         public Builder setCenterCamera(boolean centerCamera) {
             this.isCenterCamera = centerCamera;
+            return this;
+        }
+
+        public Builder setUseKtx2(boolean useKtx2) {
+            this.useKtx2 = useKtx2;
             return this;
         }
 

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="60" tileheight="60" infinite="0" nextlayerid="3" nextobjectid="8">
+ <tileset firstgid="1" name="environment" tilewidth="60" tileheight="60" tilecount="2" columns="0">
+  <grid orientation="orthogonal" width="1" height="1"/>
+  <tile id="0">
+   <image source="../pictures/test_room/tile.png" width="60" height="60"/>
+  </tile>
+  <tile id="1">
+   <image source="../pictures/test_room/wall.png" width="60" height="60"/>
+  </tile>
+ </tileset>
+ <layer id="1" name="Tile Layer 1" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJzt0cEJgEAQBMH18g/aGESFPq1HvQem18wsAAD4mYNX6dGiR4seLXq06NGiR4seLXq06NGiR4seLXq06NGiR4seLXq06NGiR4seLXq06NGiR4seLXq06NGiR4seLXq06NGiR4seLXq06NGiR4seLXq06PHsP3d/qu5U+uuhR3FHj9aOHq0dPVo7erR29Gjt6NHa0aO1o0drR4/Wjh57/PN1erTo0aJHix4terTo0aJHix4terTo0aJHix4terTo0aJHix4terTo0aJHix4terTo0aJHix4terTo0aJHix4terTo0aJHix4terTo0aJHix4terRc7QEA7OMEmO4xPw==
+  </data>
+ </layer>
+ <objectgroup color="#55ff7f" id="2" name="Object Layer 1">
+  <object id="1" name="hero" x="1840" y="4592" width="712" height="528">
+   <properties>
+    <property name="actor_type" value="HERO"/>
+   </properties>
+  </object>
+  <object id="4" name="enemy" x="580" y="1360" width="712" height="528">
+   <properties>
+    <property name="actor_type" value="ENEMY"/>
+   </properties>
+  </object>
+  <object id="5" name="camera" x="1612" y="1152" width="712" height="528" rotation="270">
+   <properties>
+    <property name="actor_type" value="CAMERA"/>
+   </properties>
+  </object>
+  <object id="6" name="camera" x="4140" y="1144" width="712" height="528" rotation="270">
+   <properties>
+    <property name="actor_type" value="CAMERA"/>
+   </properties>
+  </object>
+  <object id="7" name="box" x="3476" y="4632" width="712" height="792" rotation="270">
+   <properties>
+    <property name="actor_type" value="BOX"/>
+   </properties>
+  </object>
+ </objectgroup>
+</map>

@@ -8,11 +8,14 @@
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
     "fileStates": {
+        "": {
+            "dynamicWrapping": true
+        },
         "D:/projects/perelesoq-jam-26/assets/tiled/entrance.tmx": {
             "scale": 3.9187499999999997,
-            "selectedLayer": 0,
+            "selectedLayer": 5,
             "viewCenter": {
-                "x": 144.30622009569382,
+                "x": 144.4338118022329,
                 "y": 89.95215311004786
             }
         },
@@ -29,19 +32,34 @@
                 "x": 479.114313329233,
                 "y": 320.1124681486689
             }
+        },
+        "test-room.tmx": {
+            "scale": 0.125,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 3176,
+                "y": 2996
+            }
+        },
+        "test-room.tmx#environment": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1
         }
     },
-    "map.height": 54,
+    "last.imagePath": "D:/projects/siberian-jam-26/assets/pictures/test_room",
+    "map.height": 100,
     "map.lastUsedFormat": "tmx",
     "map.layerDataFormat": "3",
-    "map.tileHeight": 10,
-    "map.tileWidth": 10,
-    "map.width": 96,
+    "map.tileHeight": 60,
+    "map.tileWidth": 60,
+    "map.width": 100,
     "openFiles": [
     ],
     "project": "blind-corridor.tiled-project",
     "recentFiles": [
         "level-1.tmx",
         "D:/projects/perelesoq-jam-26/assets/tiled/entrance.tmx"
-    ]
+    ],
+    "tileset.embedInMap": true,
+    "tileset.type": 1
 }

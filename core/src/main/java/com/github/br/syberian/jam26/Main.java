@@ -1,7 +1,5 @@
 package com.github.br.syberian.jam26;
 
-import com.badlogic.gdx.Application;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.FileHandleResolver;
 import com.badlogic.gdx.assets.loaders.MusicLoader;
@@ -42,7 +40,7 @@ public class Main extends AbstractSimpleGame<UserFactoryImpl> {
 
     @Override
     protected GameScreenState createStartState() {
-        return GameScreens.LEVEL_1;
+        return GameScreens.TEST_ROOM;
     }
 
     @Override
@@ -64,12 +62,6 @@ public class Main extends AbstractSimpleGame<UserFactoryImpl> {
 
         // карты редакторов уровней
         //assetManager.setLoader(TiledMap.class, new TmxMapLoader(fileHandleResolver));
-        if (Gdx.app.getType() == Application.ApplicationType.WebGL) {
-            // загрузчик атласов для tmx платформозависим: в html - его нет, иначе - ktx2
-            //assetManager.setLoader(TiledMap.class, new AtlasTmxMapLoader(fileHandleResolver));
-        } else {
-            // сжатые текстуры
-        }
 
         // шрифты
         assetManager.setLoader(BitmapFont.class, new FreetypeFontLoader(fileHandleResolver));
@@ -79,8 +71,10 @@ public class Main extends AbstractSimpleGame<UserFactoryImpl> {
     protected void fillGameSettings(GameSettings.Builder builder) {
         builder.setCenterCamera(false);
 
-        builder.setVirtualScreenWidth(Constants.WORLD_WIDTH);
-        builder.setVirtualScreenHeight(Constants.WORLD_HEIGHT);
+        builder.setVirtualScreenWidth(Constants.VIRTUAL_WIDTH);
+        builder.setVirtualScreenHeight(Constants.VIRTUAL_HEIGHT);
+
+        builder.setUseKtx2(Constants.IS_USE_KTX2);
     }
 
 }

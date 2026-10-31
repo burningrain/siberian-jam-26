@@ -2,7 +2,11 @@ package com.github.br.syberian.jam26;
 
 public interface Constants {
 
-    int WORLD_WIDTH = 960;
-    int WORLD_HEIGHT = 540;
+    int VIRTUAL_WIDTH = 1920;
+    int VIRTUAL_HEIGHT = 1080;
+
+    boolean IS_USE_KTX2 = false;
+
+    boolean IS_DEBUG_BOX2D = true;
 
 }

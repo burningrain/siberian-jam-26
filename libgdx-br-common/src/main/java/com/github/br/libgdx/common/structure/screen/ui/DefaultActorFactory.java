@@ -52,7 +52,9 @@ public class DefaultActorFactory implements ActorFactory {
         MapProperties properties = object.getProperties();
 
         String actorType = properties.get(ACTOR_TYPE, String.class);
-
+        if (actorType == null) {
+            throw new IllegalArgumentException("'" + ACTOR_TYPE + "' must not be null");
+        }
         switch (actorType) {
             case ActorType.IMAGE:
                 return createImage(

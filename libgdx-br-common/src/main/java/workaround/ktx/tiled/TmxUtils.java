@@ -5,11 +5,12 @@ import com.badlogic.gdx.Gdx;
 
 public class TmxUtils {
 
-    public static String getTmx(String tmx) {
-//        if (Gdx.app.getType() == Application.ApplicationType.WebGL) {
-//            return "tiled-packed/" + tmx;
-//        }
-        return "tiled-packed-ktx/" + tmx;
+    public static String getTmx(String tmx, boolean isUseKtx2) {
+        if (isUseKtx2) {
+            return "tiled-packed-ktx/" + tmx;
+        }
+
+        return "tiled-packed/" + tmx;
     }
 
 }

@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><map height="54" infinite="0" nextlayerid="3" nextobjectid="1" orientation="orthogonal" renderorder="right-down" tiledversion="1.11.2" tileheight="10" tilewidth="10" version="1.10" width="96"><properties><property name="atlas" value="tileset/level-1.atlas"/></properties>
- <imagelayer id="2" locked="1" name="Image Layer 1">
-  <image height="540" source="atlas_imagelayer_0010_586656145004500x" width="960"/>
- </imagelayer>
-</map>
