@@ -64,7 +64,7 @@
         "D:/projects/perelesoq-jam-26/assets/tiled/entrance.tmx"
     ],
     "project": "blind-corridor.tiled-project",
-    "property.type": "bool",
+    "property.type": "string",
     "recentFiles": [
         "D:/projects/perelesoq-jam-26/assets/tiled/entrance.tmx",
         "test-room.tmx",

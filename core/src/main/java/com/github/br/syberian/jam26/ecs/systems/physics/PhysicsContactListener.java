@@ -11,13 +11,22 @@ import com.badlogic.gdx.physics.box2d.Manifold;
 import com.github.br.syberian.jam26.ecs.components.DeleteIntentComponent;
 import com.github.br.syberian.jam26.ecs.components.PhysicsComponent;
 import com.github.br.syberian.jam26.ecs.components.PlayerComponent;
+import com.github.br.syberian.jam26.ecs.components.TriggerComponent;
+import com.github.br.syberian.jam26.ecs.components.TriggerContactComponent;
+import com.github.br.syberian.jam26.ecs.systems.physics.contact.ContactData;
 
 public class PhysicsContactListener extends BaseSystem implements ContactListener {
 
-    private ComponentMapper<DeleteIntentComponent> mDelete;
+    protected ComponentMapper<DeleteIntentComponent> mDelete;
 
-    private ComponentMapper<PlayerComponent> mPlayer;
-    private ComponentMapper<PhysicsComponent> mPhysics;
+    protected ComponentMapper<PlayerComponent> mPlayer;
+    protected ComponentMapper<PhysicsComponent> mPhysics;
+
+    protected ComponentMapper<TriggerComponent> mTrigger;
+    protected ComponentMapper<TriggerContactComponent> mContact;
+
+    private TriggerContactResolver triggerContactResolver;
+
 
     // ресолверы контактов
     private EmptyContactResolver emptyContactResolver = new EmptyContactResolver();
@@ -37,6 +46,11 @@ public class PhysicsContactListener extends BaseSystem implements ContactListene
         this.mPlayer = getWorld().getMapper(PlayerComponent.class);
         this.mPhysics = getWorld().getMapper(PhysicsComponent.class);
         this.mDelete = getWorld().getMapper(DeleteIntentComponent.class);
+
+        this.mTrigger = getWorld().getMapper(TriggerComponent.class);
+        this.mContact = getWorld().getMapper(TriggerContactComponent.class);
+
+        this.triggerContactResolver = new TriggerContactResolver(getWorld());
     }
 
     public PhysicsContactResolver<? extends ContactData> getPhysicsContact(ContactData data) {
@@ -44,10 +58,10 @@ public class PhysicsContactListener extends BaseSystem implements ContactListene
             return emptyContactResolver;
         }
 
-        //TODO добавить reslolver-ы
-//        if (data instanceof наследник ContactData) {
-//            return resolver;
-//        }
+        // 3. Добавляем проверку типа данных контакта для триггера
+        if (data instanceof TriggerContactDataImpl) {
+            return triggerContactResolver;
+        }
 
         return emptyContactResolver;
     }

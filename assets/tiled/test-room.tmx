@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="60" tileheight="60" infinite="0" nextlayerid="3" nextobjectid="17">
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="60" tileheight="60" infinite="0" nextlayerid="3" nextobjectid="19">
  <tileset firstgid="1" name="environment" tilewidth="60" tileheight="60" tilecount="2" columns="0">
   <grid orientation="orthogonal" width="1" height="1"/>
   <tile id="0">
@@ -79,6 +79,15 @@
    <properties>
     <property name="actor_type" value="WALL"/>
     <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="17" name="TRIGGER_EXAMPLE" x="4616" y="4536" width="960" height="1120">
+   <properties>
+    <property name="actor_type" value="TRIGGER"/>
+    <property name="condition_type" value="ON_ENTER"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+    <property name="trigger_type" value="SHOW_MESSAGE"/>
+    <property name="use_type" value="MULTI_USE"/>
    </properties>
   </object>
  </objectgroup>

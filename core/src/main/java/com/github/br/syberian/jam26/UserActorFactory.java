@@ -42,10 +42,14 @@ public class UserActorFactory implements ActorFactory {
         Boolean isEcsEntity = properties.get(IS_ECS_ENTITY, Boolean.class);
 
         if (isEcsEntity != null && isEcsEntity) {
-            return createEcsEntity(actorTypeEnum, properties);
+            try {
+                return createEcsEntity(actorTypeEnum, properties);
+            } catch (Exception e) {
+                throw new GdxRuntimeException("UserActorFactory#createEcsEntity: object=[" + object.getName() + "] " + e.getMessage());
+            }
         }
 
-        Actor actor = getCustomActor(actorTypeEnum);
+        Actor actor = getCustomUiActor(actorTypeEnum);
         if (actor != null) {
             return actor;
         }
@@ -84,8 +88,7 @@ public class UserActorFactory implements ActorFactory {
         return actorTypeEnum;
     }
 
-    public Actor getCustomActor(ActorTypeEnum actorType) {
-
+    public Actor getCustomUiActor(ActorTypeEnum actorType) {
         switch (actorType) {
             case HERO:
                 return delegate.createImage(Resources.Atlases.GAME_OBJECTS, Resources.TextureRegion.HERO);

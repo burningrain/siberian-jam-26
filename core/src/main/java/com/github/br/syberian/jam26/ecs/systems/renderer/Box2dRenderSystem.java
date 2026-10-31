@@ -57,7 +57,7 @@ public class Box2dRenderSystem extends IteratingSystem {
         debugRenderer.SHAPE_STATIC.set(1.0f, 0.0f, 0.0f, 1.0f);
         debugRenderer.SHAPE_AWAKE.set(1.0f, 1.0f, 0.0f, 1.0f);
         debugRenderer.JOINT_COLOR.set(1.0f, 1.0f, 1.0f, 1.0f);
-        debugRenderer.SHAPE_NOT_AWAKE.set(0.1f, 0.1f, 0.5f, 1.0f);
+        debugRenderer.SHAPE_NOT_AWAKE.set(0.0f, 1.0f, 1.0f, 1.0f); // Голубой цвет для сенсоров/сонных тел
     }
 
     @Override

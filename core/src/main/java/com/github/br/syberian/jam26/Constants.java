@@ -11,4 +11,7 @@ public interface Constants {
 
     float PPM = 128f;
 
+
+    String PLAYER_SENSOR = "PLAYER_SENSOR"; //FIXME кривота, должна быть явно не здесь
+
 }

@@ -1,17 +1,17 @@
-package com.github.br.syberian.jam26.ecs.systems.physics;
+package com.github.br.syberian.jam26.ecs.systems.physics.contact;
 
-public class ContactDataImpl implements ContactData {
+public class PlayerContactDataImpl implements ContactData {
 
     public int entityId;
     public boolean isDeleted;
 
-    public ContactDataImpl(int entityId) {
+    public PlayerContactDataImpl(int entityId) {
         this.entityId = entityId;
     }
 
     @Override
     public int getEntityId() {
-        return entityId;
+        return 0;
     }
 
     @Override

@@ -13,9 +13,11 @@ import com.github.br.libgdx.common.structure.screen.AbstractTiledMapUiScreen;
 import com.github.br.libgdx.common.structure.screen.ui.CustomOrthogonalTiledMapRenderer;
 import com.github.br.syberian.jam26.Constants;
 import com.github.br.syberian.jam26.EntityFactory;
+import com.github.br.syberian.jam26.TriggerActionFactory;
 import com.github.br.syberian.jam26.UserActorFactory;
 import com.github.br.syberian.jam26.ecs.systems.CameraSystem;
 import com.github.br.syberian.jam26.ecs.systems.PlayerInputSystem;
+import com.github.br.syberian.jam26.ecs.systems.TriggerSystem;
 import com.github.br.syberian.jam26.ecs.systems.physics.PhysicsContactListener;
 import com.github.br.syberian.jam26.ecs.systems.physics.PhysicsSystem;
 import com.github.br.syberian.jam26.ecs.systems.renderer.Box2dRenderSystem;
@@ -33,8 +35,7 @@ public class TestRoomScreen extends AbstractTiledMapUiScreen<UserActorFactory, C
     @Override
     public void show() {
         GameManager gameManager = getGameManager();
-        AssetManager assetManager = gameManager.assetManager;
-        entityFactory = new EntityFactory(assetManager, gameManager);
+        entityFactory = new EntityFactory(gameManager);
         artemisWorld = createECS(entityFactory);
 
         super.show();
@@ -52,6 +53,8 @@ public class TestRoomScreen extends AbstractTiledMapUiScreen<UserActorFactory, C
             // физика
             .with(contactListener)
             .with(physicsSystem)
+            .with(new TriggerSystem())
+            .with(new TriggerActionFactory())
 
             // ФАБРИКИ И СИСТЕМЫ УПРАВЛЕНИЯ
             .with(entityFactory)

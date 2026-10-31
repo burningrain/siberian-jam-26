@@ -9,6 +9,8 @@ public enum ActorTypeEnum {
     BOX,
     DOOR,
 
-    WALL
+    WALL,
+
+    TRIGGER
 
 }
