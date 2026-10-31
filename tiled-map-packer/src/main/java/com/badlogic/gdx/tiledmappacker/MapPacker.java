@@ -52,8 +52,8 @@ public class MapPacker {
                 System.out.println("Начинаем упаковку карт...");
 
                 TexturePacker.Settings settings = new TexturePacker.Settings();
-                settings.combineSubdirectories = true;
-                settings.fast = true;
+//                settings.combineSubdirectories = true;
+//                settings.fast = true;
 
                 settings.maxWidth = 2048;
                 settings.maxHeight = 2048;

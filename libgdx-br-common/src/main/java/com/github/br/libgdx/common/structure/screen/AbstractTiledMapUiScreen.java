@@ -94,8 +94,8 @@ public abstract class AbstractTiledMapUiScreen<A extends ActorFactory, V extends
             for (TiledMapTile tile : tileset) {
                 TextureRegion region = tile.getTextureRegion();
                 if (region == null) continue;
-                float fixX = 1.05f / region.getTexture().getWidth();
-                float fixY = 1.05f / region.getTexture().getHeight();
+                float fixX = 1f / region.getTexture().getWidth();
+                float fixY = 1f / region.getTexture().getHeight();
                 region.setU(region.getU() + fixX);
                 region.setV(region.getV() + fixY);
                 region.setU2(region.getU2() + fixX);
@@ -138,6 +138,8 @@ public abstract class AbstractTiledMapUiScreen<A extends ActorFactory, V extends
             viewport.apply(false);
         }
 
+        camera.position.x = Math.round(camera.position.x);
+        camera.position.y = Math.round(camera.position.y);
         camera.update();
         renderer.getBatch().setProjectionMatrix(camera.combined);
 
