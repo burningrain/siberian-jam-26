@@ -87,7 +87,7 @@
     <property name="condition_type" value="ON_ENTER"/>
     <property name="is_ecs_entity" type="bool" value="true"/>
     <property name="trigger_type" value="SHOW_MESSAGE"/>
-    <property name="use_type" value="MULTI_USE"/>
+    <property name="use_type" value="ON_ENTER_ONCE"/>
    </properties>
   </object>
  </objectgroup>
