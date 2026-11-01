@@ -94,17 +94,8 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup color="#ff5500" id="3" name="cameras" locked="1">
+ <objectgroup color="#ff5500" id="3" name="cameras">
   <object id="2" name="camera1" x="2880" y="9564" width="63" height="59">
-   <properties>
-    <property name="actor_type" value="CAM_2"/>
-    <property name="direction_degrees" type="int" value="270"/>
-    <property name="fov_degrees" type="int" value="45"/>
-    <property name="is_ecs_entity" type="bool" value="true"/>
-    <property name="range" type="int" value="8"/>
-   </properties>
-  </object>
-  <object id="27" name="camera1" x="5724.5" y="11254.5" width="63" height="59">
    <properties>
     <property name="actor_type" value="CAM_2"/>
     <property name="direction_degrees" type="int" value="270"/>
@@ -159,15 +150,6 @@
    </properties>
   </object>
   <object id="34" name="camera1" x="4016.5" y="8966.5" width="63" height="59">
-   <properties>
-    <property name="actor_type" value="CAM_2"/>
-    <property name="direction_degrees" type="int" value="270"/>
-    <property name="fov_degrees" type="int" value="45"/>
-    <property name="is_ecs_entity" type="bool" value="true"/>
-    <property name="range" type="int" value="8"/>
-   </properties>
-  </object>
-  <object id="35" name="camera1" x="5724.5" y="10454.5" width="63" height="59">
    <properties>
     <property name="actor_type" value="CAM_2"/>
     <property name="direction_degrees" type="int" value="270"/>
@@ -302,7 +284,7 @@
     <property name="range" type="int" value="8"/>
    </properties>
   </object>
-  <object id="54" name="camera1" x="4672.5" y="338.5" width="63" height="59">
+  <object id="54" name="camera1" x="4681.59" y="156.682" width="63" height="59">
    <properties>
     <property name="actor_type" value="CAM_2"/>
     <property name="direction_degrees" type="int" value="270"/>
@@ -330,15 +312,6 @@
    </properties>
   </object>
   <object id="57" name="camera1" x="7832.5" y="146.5" width="63" height="59">
-   <properties>
-    <property name="actor_type" value="CAM_2"/>
-    <property name="direction_degrees" type="int" value="270"/>
-    <property name="fov_degrees" type="int" value="45"/>
-    <property name="is_ecs_entity" type="bool" value="true"/>
-    <property name="range" type="int" value="8"/>
-   </properties>
-  </object>
-  <object id="58" name="camera1" x="6964.5" y="570.5" width="63" height="59">
    <properties>
     <property name="actor_type" value="CAM_2"/>
     <property name="direction_degrees" type="int" value="270"/>
@@ -1032,13 +1005,13 @@
     <property name="is_ecs_entity" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="60" name="box1" x="6041.95" y="1151.97" width="236.091" height="244.061">
+  <object id="60" name="box1" x="6035.89" y="1145.91" width="236.091" height="244.061">
    <properties>
     <property name="actor_type" value="BOX"/>
     <property name="is_ecs_entity" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="61" name="box1" x="7597.95" y="1139.97" width="380.091" height="332.061">
+  <object id="61" name="box1" x="7476.74" y="1321.79" width="555.849" height="513.879">
    <properties>
     <property name="actor_type" value="BOX"/>
     <property name="is_ecs_entity" type="bool" value="true"/>
