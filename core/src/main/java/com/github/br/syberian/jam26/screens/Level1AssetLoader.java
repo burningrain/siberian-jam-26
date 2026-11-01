@@ -2,6 +2,7 @@ package com.github.br.syberian.jam26.screens;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.SkinLoader;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -31,12 +32,16 @@ public class Level1AssetLoader implements AssetsLoader {
 
         // animation
         //assetManager.load(Resources.ANIMATION_ATLAS, TextureAtlas.class);
+
+        assetManager.load(Resources.Music.MAIN_THEME, Music.class);
     }
 
     @Override
     public void unloadAssets(AssetManager assetManager) {
         assetManager.unload(TmxUtils.getTmx(Resources.Tmx.LEVEL_1, Constants.IS_USE_KTX2));
         assetManager.unload(Resources.Atlases.GAME_OBJECTS);
+
+        assetManager.unload(Resources.Music.MAIN_THEME);
     }
 
 }

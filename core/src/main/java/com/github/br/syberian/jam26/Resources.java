@@ -7,6 +7,14 @@ public interface Resources {
 
     String MAIN_MENU_BACKGROUND = "pictures/post-2-zero.png";
 
+    interface Music {
+        String MAIN_THEME = "music/game_mus.mp3";
+    }
+
+    interface SoundFx {
+
+    }
+
     interface Tmx {
         String MENU = "menu.tmx";
         String LEVEL_1 = "level-1.tmx";

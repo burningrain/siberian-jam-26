@@ -3,6 +3,7 @@ package com.github.br.syberian.jam26.screens;
 import com.artemis.World;
 import com.artemis.managers.TagManager;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -30,6 +31,8 @@ public class Level1Screen extends AbstractTiledMapUiScreen<IUserActorFactory, Cu
 
     private EntityFactory entityFactory;
     private com.artemis.World artemisWorld;
+
+    private Music music;
 
     public Level1Screen(String tiledMapPath, String pathToSkin, boolean isVfxEnabled, boolean isGlProfileActive) {
         super(tiledMapPath, pathToSkin, isVfxEnabled, isGlProfileActive);
@@ -104,6 +107,10 @@ public class Level1Screen extends AbstractTiledMapUiScreen<IUserActorFactory, Cu
     ) {
         Box2dRenderSystem box2dRenderSystem = artemisWorld.getSystem(Box2dRenderSystem.class);
         box2dRenderSystem.init(renderer, viewport, camera);
+
+        music = getGameManager().assetManager.get(Resources.Music.MAIN_THEME, Music.class);
+        music.setLooping(true);
+        music.play();
     }
     @Override
     public void render(float delta) {
