@@ -2,7 +2,6 @@ package com.github.br.syberian.jam26.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -42,9 +41,19 @@ public class GameScreen extends AbstractGameScreen {
     // Переменные для логики камеры наблюдения
     private float cameraRotationTime = 0;
     private boolean isPlayerSpotted = false;
-    private final Vector2 cameraPos = new Vector2(2f, 7f); // Позиция камеры в левом верхнем углу
 
+    // Переменные-буферы для оптимизации расчетов видимости
     private final Vector2 toPlayer = new Vector2();
+    private final Vector2 rayTarget = new Vector2();
+    private float closestFraction;
+    private Body sightedBody;
+
+
+    // --- НАСТРОЙКИ КАМЕРЫ НАБЛЮДЕНИЯ ---
+    private final Vector2 cameraPos = new Vector2(2f, 7f);
+    private final float cameraRange = 8f;        // Длина луча (дистанция обзора)
+    private final float fovDegrees = 45f;        // Угол обзора камеры в градусах (FOV)
+    private float viewDirectionDegrees = 270f;   // Текущее направление (270 - смотрит строго вниз)
 
     @Override
     public void show() {
@@ -93,8 +102,8 @@ public class GameScreen extends AbstractGameScreen {
 
         // 6. Создаем Конус Света от камеры
         // Параметры: rayHandler, количество лучей (качество), цвет, дистанция луча, x, y, направление луча, угол конуса
-        cameraLight = new ConeLight(rayHandler, 120, Color.YELLOW, 8f, cameraPos.x, cameraPos.y, -45f, 35f);
-        cameraLight.setSoft(true); // Мягкие края тени
+        cameraLight = new ConeLight(rayHandler, 120, Color.YELLOW, cameraRange, cameraPos.x, cameraPos.y, viewDirectionDegrees, fovDegrees);
+        //cameraLight.setSoft(true); // мягкие тени по краям
     }
 
     @Override
@@ -114,9 +123,9 @@ public class GameScreen extends AbstractGameScreen {
 
         // --- АВТОМАТИЧЕСКИЙ ПОВОРОТ КАМЕРЫ (Регулировка угла) ---
         cameraRotationTime += delta;
-        // Камера качается влево-вправо от -70 до -20 градусов
-        float currentDirection = -45f + MathUtils.sin(cameraRotationTime * 1.5f) * 25f;
-        cameraLight.setDirection(currentDirection); //
+
+        viewDirectionDegrees = 270f + MathUtils.sin(cameraRotationTime * 1.5f) * 30f;  // Базовое направление 270 (вниз), и камера качается на 30 градусов влево-вправо
+        cameraLight.setDirection(viewDirectionDegrees); // Обязательно передаем новое направление в объект света для отрисовки
 
         // Физический шаг мира
         world.step(1 / 60f, 6, 2);
@@ -140,60 +149,61 @@ public class GameScreen extends AbstractGameScreen {
         rayHandler.updateAndRender();
     }
 
-    private float closestFraction;
-    private Body sightedBody;
-
     private void checkCameraVision() {
         isPlayerSpotted = false;
         Vector2 playerPos = playerBody.getPosition();
 
-        // --- НАДЕЖНАЯ ПРОВЕРКА ПОПАДАНИЯ В КОНУС СВЕТА ---
-
-        // 1. Считаем расстояние от камеры до игрока
+        // 1. Проверка по расстоянию (с запасом 0.5м для сглаживания краев)
         float distanceToPlayer = cameraPos.dst(playerPos);
+        if (distanceToPlayer > (cameraRange + 0.5f)) {
+            return;
+        }
 
+        // 2. Считаем угол от камеры к игроку (0...360)
+        toPlayer.set(playerPos).sub(cameraPos);
+        float angleToPlayer = toPlayer.angleDeg();
 
-        // Строгая проверка по длине визуального луча
-        if (distanceToPlayer <= cameraLight.getDistance() * 0.75f) {
+        // 3. Нормализуем текущее направление камеры в диапазон [0; 360)
+        float normalizedCameraAngle = (viewDirectionDegrees % 360 + 360) % 360;
 
-            // 2. Считаем угол от камеры к игроку
-            toPlayer.set(playerPos).sub(cameraPos);
-            float angleToPlayer = toPlayer.angleDeg(); // Угол от 0 до 360
+        // 4. Вычисляем кратчайшую разницу углов
+        float angleDiff = angleToPlayer - normalizedCameraAngle;
+        while (angleDiff < -180f) angleDiff += 360f;
+        while (angleDiff > 180f)  angleDiff -= 360f;
+        angleDiff = Math.abs(angleDiff);
 
-            // Получаем текущее направление камеры (приводим к диапазону 0-360)
-            float cameraAngle = (cameraLight.getDirection() % 360 + 360) % 360;
+        // 5. РЕШЕНИЕ: Добавляем запас к углу (padding), например +5 градусов.
+        // Это компенсирует визуальное расширение конуса из-за мягких теней (Soft Shadows) на краях.
+        float softConePadding = 5f;
 
-            // Считаем минимальную разницу между углами
-            float angleDiff = Math.abs(angleToPlayer - cameraAngle);
-            if (angleDiff > 180) {
-                angleDiff = 360 - angleDiff;
+        if (angleDiff <= (fovDegrees + softConePadding)) {
+
+            // Ограничиваем физический луч, чтобы он не бил за пределы визуального света
+            rayTarget.set(playerPos);
+            if (distanceToPlayer > cameraRange) {
+                float fractionOfDistance = cameraRange / distanceToPlayer;
+                rayTarget.set(cameraPos).lerp(playerPos, fractionOfDistance);
             }
 
-            // ИСПРАВЛЕНИЕ: Делим coneDegree на 2.
-            // Если конус равен 40 градусам, то камера видит на 20 градусов влево и на 20 вправо от центра.
-            float halfCone = cameraLight.getConeDegree() / 2f;
+            closestFraction = 1f;
+            sightedBody = null;
 
-            // Если угол входит в честную половину конуса, запускаем RayCast
-            if (angleDiff <= halfCone) {
-
-                closestFraction = 1f;
-                sightedBody = null;
-
-                world.rayCast(new RayCastCallback() {
-                    @Override
-                    public float reportRayFixture(Fixture fixture, Vector2 point, Vector2 normal, float fraction) {
-                        if (fraction < closestFraction) {
-                            closestFraction = fraction;
-                            sightedBody = fixture.getBody();
-                        }
-                        return 1;
+            // 6. Пускаем физический RayCast
+            world.rayCast(new RayCastCallback() {
+                @Override
+                public float reportRayFixture(Fixture fixture, Vector2 point, Vector2 normal, float fraction) {
+                    if (fraction < closestFraction) {
+                        closestFraction = fraction;
+                        sightedBody = fixture.getBody();
                     }
-                }, cameraPos, playerPos);
-
-                if (sightedBody == playerBody) {
-                    isPlayerSpotted = true;
-                    System.out.println("КАМЕРА ОБНАРУЖИЛА ИГРОКА!");
+                    return 1;
                 }
+            }, cameraPos, rayTarget);
+
+            // Если луч беспрепятственно дошел до игрока
+            if (sightedBody == playerBody) {
+                isPlayerSpotted = true;
+                System.out.println("КАМЕРА ОБНАРУЖИЛА ИГРОКА!");
             }
         }
     }
