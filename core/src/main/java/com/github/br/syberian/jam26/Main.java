@@ -40,7 +40,7 @@ public class Main extends AbstractSimpleGame<UserFactoryImpl> {
 
     @Override
     protected GameScreenState createStartState() {
-        return GameScreens.LEVEL_1;
+        return GameScreens.MENU;
     }
 
     @Override

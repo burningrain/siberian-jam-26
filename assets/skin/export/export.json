@@ -1,1 +1,71 @@
-{}
+{
+"com.badlogic.gdx.graphics.g2d.BitmapFont": {
+	"RubikMonoOne-Regular_60_active": {
+		"file": "RubikMonoOne-Regular(4).fnt",
+		"scaledSize": -1,
+		"markupEnabled": false,
+		"flip": false
+	},
+	"RubikMonoOne-Regular_90_active": {
+		"file": "RubikMonoOne-Regular(1).fnt",
+		"scaledSize": -1,
+		"markupEnabled": false,
+		"flip": false
+	},
+	"RubikMonoOne-Regular_90_deactivate": {
+		"file": "RubikMonoOne-Regular(2).fnt",
+		"scaledSize": -1,
+		"markupEnabled": false,
+		"flip": false
+	}
+},
+"com.badlogic.gdx.graphics.Color": {
+	"active_text": {
+		"r": 0.8980392,
+		"g": 0.74509805,
+		"b": 0.61960787,
+		"a": 1
+	},
+	"deactive": {
+		"r": 0.41568628,
+		"g": 0.46666667,
+		"b": 0.47058824,
+		"a": 1
+	},
+	"white": {
+		"r": 1,
+		"g": 1,
+		"b": 1,
+		"a": 1
+	}
+},
+"com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle": {
+	"default": {
+		"font": "RubikMonoOne-Regular_60_active"
+	},
+	"title": {
+		"font": "RubikMonoOne-Regular_90_active"
+	}
+},
+"com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle": {
+	"default": {
+		"font": "RubikMonoOne-Regular_60_active",
+		"downFontColor": "deactive",
+		"overFontColor": "active_text",
+		"focusedFontColor": "active_text",
+		"disabledFontColor": "deactive"
+	},
+	"title": {
+		"font": "RubikMonoOne-Regular_90_active",
+		"downFontColor": "deactive",
+		"overFontColor": "active_text",
+		"focusedFontColor": "active_text",
+		"disabledFontColor": "deactive"
+	}
+},
+"com.badlogic.gdx.scenes.scene2d.ui.TextTooltip$TextTooltipStyle": {
+	"default": {
+		"label": "default"
+	}
+}
+}

@@ -5,6 +5,8 @@ public interface Resources {
     String SKIN_ATLAS = "skin/export/export.atlas";
     String SKIN = "skin/export/export.json";
 
+    String MAIN_MENU_BACKGROUND = "pictures/post-2-zero.png";
+
     interface Tmx {
         String MENU = "menu.tmx";
         String LEVEL_1 = "level-1.tmx";
