@@ -9,6 +9,7 @@ public interface Resources {
 
     interface Music {
         String LEVEL_THEME = "music/game_mus.mp3";
+        String MENU_THEME = "music/menu_mus.mp3";
     }
 
     interface SoundFx {

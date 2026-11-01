@@ -7,7 +7,7 @@ public interface Constants {
 
     boolean IS_USE_KTX2 = false;
 
-    boolean IS_DEBUG_BOX2D = true;
+    boolean IS_DEBUG_BOX2D = false;
 
     float PPM = 128f;
 

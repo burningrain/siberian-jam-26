@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="120" tileheight="120" infinite="0" nextlayerid="7" nextobjectid="12">
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="120" tileheight="120" infinite="0" nextlayerid="8" nextobjectid="287">
  <tileset firstgid="1" name="walls_and_floor" tilewidth="120" tileheight="120" tilecount="26" columns="0">
   <grid orientation="orthogonal" width="1" height="1"/>
   <tile id="0">
@@ -81,21 +81,273 @@
    <image source="../pictures/level/1/wall-out-8.png" width="120" height="120"/>
   </tile>
  </tileset>
- <layer id="1" name="Tile Layer 1" width="100" height="100">
+ <layer id="1" name="Tile Layer 1" width="100" height="100" locked="1">
   <data encoding="base64" compression="zlib">
-   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
+   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
   </data>
  </layer>
- <objectgroup color="#55ff00" id="2" name="hero">
-  <object id="1" name="hero" x="3100" y="10388" width="51" height="42">
+ <objectgroup color="#55ff00" id="2" name="hero" locked="1">
+  <object id="1" name="hero" x="3796" y="11580" width="51" height="42">
    <properties>
     <property name="actor_type" value="CHAR"/>
     <property name="is_ecs_entity" type="bool" value="true"/>
    </properties>
   </object>
  </objectgroup>
- <objectgroup color="#ff5500" id="3" name="cameras">
-  <object id="2" name="camera1" x="2468" y="9088" width="63" height="59">
+ <objectgroup color="#ff5500" id="3" name="cameras" locked="1">
+  <object id="2" name="camera1" x="2880" y="9564" width="63" height="59">
+   <properties>
+    <property name="actor_type" value="CAM_2"/>
+    <property name="direction_degrees" type="int" value="270"/>
+    <property name="fov_degrees" type="int" value="45"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+    <property name="range" type="int" value="8"/>
+   </properties>
+  </object>
+  <object id="27" name="camera1" x="5724.5" y="11254.5" width="63" height="59">
+   <properties>
+    <property name="actor_type" value="CAM_2"/>
+    <property name="direction_degrees" type="int" value="270"/>
+    <property name="fov_degrees" type="int" value="45"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+    <property name="range" type="int" value="8"/>
+   </properties>
+  </object>
+  <object id="28" name="camera1" x="1868.5" y="9270.5" width="63" height="59">
+   <properties>
+    <property name="actor_type" value="CAM_2"/>
+    <property name="direction_degrees" type="int" value="270"/>
+    <property name="fov_degrees" type="int" value="45"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+    <property name="range" type="int" value="8"/>
+   </properties>
+  </object>
+  <object id="29" name="camera1" x="1908.5" y="10802.5" width="63" height="59">
+   <properties>
+    <property name="actor_type" value="CAM_2"/>
+    <property name="direction_degrees" type="int" value="270"/>
+    <property name="fov_degrees" type="int" value="45"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+    <property name="range" type="int" value="8"/>
+   </properties>
+  </object>
+  <object id="30" name="camera1" x="4612.5" y="10714.5" width="63" height="59">
+   <properties>
+    <property name="actor_type" value="CAM_2"/>
+    <property name="direction_degrees" type="int" value="270"/>
+    <property name="fov_degrees" type="int" value="45"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+    <property name="range" type="int" value="8"/>
+   </properties>
+  </object>
+  <object id="32" name="camera1" x="4612.5" y="9310.5" width="63" height="59">
+   <properties>
+    <property name="actor_type" value="CAM_2"/>
+    <property name="direction_degrees" type="int" value="270"/>
+    <property name="fov_degrees" type="int" value="45"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+    <property name="range" type="int" value="8"/>
+   </properties>
+  </object>
+  <object id="33" name="camera1" x="4808.5" y="10010.5" width="63" height="59">
+   <properties>
+    <property name="actor_type" value="CAM_2"/>
+    <property name="direction_degrees" type="int" value="270"/>
+    <property name="fov_degrees" type="int" value="45"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+    <property name="range" type="int" value="8"/>
+   </properties>
+  </object>
+  <object id="34" name="camera1" x="4016.5" y="8966.5" width="63" height="59">
+   <properties>
+    <property name="actor_type" value="CAM_2"/>
+    <property name="direction_degrees" type="int" value="270"/>
+    <property name="fov_degrees" type="int" value="45"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+    <property name="range" type="int" value="8"/>
+   </properties>
+  </object>
+  <object id="35" name="camera1" x="5724.5" y="10454.5" width="63" height="59">
+   <properties>
+    <property name="actor_type" value="CAM_2"/>
+    <property name="direction_degrees" type="int" value="270"/>
+    <property name="fov_degrees" type="int" value="45"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+    <property name="range" type="int" value="8"/>
+   </properties>
+  </object>
+  <object id="36" name="camera1" x="3524.5" y="7958.5" width="63" height="59">
+   <properties>
+    <property name="actor_type" value="CAM_2"/>
+    <property name="direction_degrees" type="int" value="270"/>
+    <property name="fov_degrees" type="int" value="45"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+    <property name="range" type="int" value="8"/>
+   </properties>
+  </object>
+  <object id="37" name="camera1" x="1920.5" y="6870.5" width="63" height="59">
+   <properties>
+    <property name="actor_type" value="CAM_2"/>
+    <property name="direction_degrees" type="int" value="270"/>
+    <property name="fov_degrees" type="int" value="45"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+    <property name="range" type="int" value="8"/>
+   </properties>
+  </object>
+  <object id="38" name="camera1" x="4523.05" y="6746.26" width="63" height="59">
+   <properties>
+    <property name="actor_type" value="CAM_2"/>
+    <property name="direction_degrees" type="int" value="270"/>
+    <property name="fov_degrees" type="int" value="45"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+    <property name="range" type="int" value="8"/>
+   </properties>
+  </object>
+  <object id="40" name="camera1" x="5462.44" y="8806.86" width="63" height="59">
+   <properties>
+    <property name="actor_type" value="CAM_2"/>
+    <property name="direction_degrees" type="int" value="270"/>
+    <property name="fov_degrees" type="int" value="45"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+    <property name="range" type="int" value="8"/>
+   </properties>
+  </object>
+  <object id="42" name="camera1" x="7420.5" y="11202.5" width="63" height="59">
+   <properties>
+    <property name="actor_type" value="CAM_2"/>
+    <property name="direction_degrees" type="int" value="270"/>
+    <property name="fov_degrees" type="int" value="45"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+    <property name="range" type="int" value="8"/>
+   </properties>
+  </object>
+  <object id="43" name="camera1" x="5884.5" y="10226.5" width="63" height="59">
+   <properties>
+    <property name="actor_type" value="CAM_2"/>
+    <property name="direction_degrees" type="int" value="270"/>
+    <property name="fov_degrees" type="int" value="45"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+    <property name="range" type="int" value="8"/>
+   </properties>
+  </object>
+  <object id="44" name="camera1" x="6608.5" y="9878.5" width="63" height="59">
+   <properties>
+    <property name="actor_type" value="CAM_2"/>
+    <property name="direction_degrees" type="int" value="270"/>
+    <property name="fov_degrees" type="int" value="45"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+    <property name="range" type="int" value="8"/>
+   </properties>
+  </object>
+  <object id="46" name="camera1" x="4664.5" y="7290.5" width="63" height="59">
+   <properties>
+    <property name="actor_type" value="CAM_2"/>
+    <property name="direction_degrees" type="int" value="270"/>
+    <property name="fov_degrees" type="int" value="45"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+    <property name="range" type="int" value="8"/>
+   </properties>
+  </object>
+  <object id="47" name="camera1" x="7140.5" y="6774.5" width="63" height="59">
+   <properties>
+    <property name="actor_type" value="CAM_2"/>
+    <property name="direction_degrees" type="int" value="270"/>
+    <property name="fov_degrees" type="int" value="45"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+    <property name="range" type="int" value="8"/>
+   </properties>
+  </object>
+  <object id="48" name="camera1" x="9184.5" y="5786.5" width="63" height="59">
+   <properties>
+    <property name="actor_type" value="CAM_2"/>
+    <property name="direction_degrees" type="int" value="270"/>
+    <property name="fov_degrees" type="int" value="45"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+    <property name="range" type="int" value="8"/>
+   </properties>
+  </object>
+  <object id="50" name="camera1" x="8292.5" y="4238.5" width="63" height="59">
+   <properties>
+    <property name="actor_type" value="CAM_2"/>
+    <property name="direction_degrees" type="int" value="270"/>
+    <property name="fov_degrees" type="int" value="45"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+    <property name="range" type="int" value="8"/>
+   </properties>
+  </object>
+  <object id="51" name="camera1" x="9184.5" y="3306.5" width="63" height="59">
+   <properties>
+    <property name="actor_type" value="CAM_2"/>
+    <property name="direction_degrees" type="int" value="270"/>
+    <property name="fov_degrees" type="int" value="45"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+    <property name="range" type="int" value="8"/>
+   </properties>
+  </object>
+  <object id="52" name="camera1" x="4680.5" y="2438.5" width="63" height="59">
+   <properties>
+    <property name="actor_type" value="CAM_2"/>
+    <property name="direction_degrees" type="int" value="270"/>
+    <property name="fov_degrees" type="int" value="45"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+    <property name="range" type="int" value="8"/>
+   </properties>
+  </object>
+  <object id="53" name="camera1" x="4680.5" y="1442.5" width="63" height="59">
+   <properties>
+    <property name="actor_type" value="CAM_2"/>
+    <property name="direction_degrees" type="int" value="270"/>
+    <property name="fov_degrees" type="int" value="45"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+    <property name="range" type="int" value="8"/>
+   </properties>
+  </object>
+  <object id="54" name="camera1" x="4672.5" y="338.5" width="63" height="59">
+   <properties>
+    <property name="actor_type" value="CAM_2"/>
+    <property name="direction_degrees" type="int" value="270"/>
+    <property name="fov_degrees" type="int" value="45"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+    <property name="range" type="int" value="8"/>
+   </properties>
+  </object>
+  <object id="55" name="camera1" x="5888.5" y="1234.5" width="63" height="59">
+   <properties>
+    <property name="actor_type" value="CAM_2"/>
+    <property name="direction_degrees" type="int" value="270"/>
+    <property name="fov_degrees" type="int" value="45"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+    <property name="range" type="int" value="8"/>
+   </properties>
+  </object>
+  <object id="56" name="camera1" x="8096.5" y="1550.5" width="63" height="59">
+   <properties>
+    <property name="actor_type" value="CAM_2"/>
+    <property name="direction_degrees" type="int" value="270"/>
+    <property name="fov_degrees" type="int" value="45"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+    <property name="range" type="int" value="8"/>
+   </properties>
+  </object>
+  <object id="57" name="camera1" x="7832.5" y="146.5" width="63" height="59">
+   <properties>
+    <property name="actor_type" value="CAM_2"/>
+    <property name="direction_degrees" type="int" value="270"/>
+    <property name="fov_degrees" type="int" value="45"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+    <property name="range" type="int" value="8"/>
+   </properties>
+  </object>
+  <object id="58" name="camera1" x="6964.5" y="570.5" width="63" height="59">
+   <properties>
+    <property name="actor_type" value="CAM_2"/>
+    <property name="direction_degrees" type="int" value="270"/>
+    <property name="fov_degrees" type="int" value="45"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+    <property name="range" type="int" value="8"/>
+   </properties>
+  </object>
+  <object id="59" name="camera1" x="7904.5" y="818.5" width="63" height="59">
    <properties>
     <property name="actor_type" value="CAM_2"/>
     <property name="direction_degrees" type="int" value="270"/>
@@ -105,42 +357,744 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup color="#005500" id="4" name="boxes">
-  <object id="11" name="box1" x="2935.11" y="9603.24" width="175.242" height="157.152">
+ <objectgroup color="#ffff00" id="7" name="walls">
+  <object id="180" name="wall_bottom" x="1788" y="11872" width="5796" height="104">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="181" name="wall_bottom" x="3006" y="11164" width="833.333" height="113.333">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="182" name="wall_bottom" x="3376" y="10208" width="804" height="104">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="183" name="wall_bottom" x="4064" y="9604" width="257.333" height="230.667">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="184" name="wall_bottom" x="3842" y="10443.3" width="237.333" height="230.667">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="185" name="wall_bottom" x="3963.33" y="11168" width="812" height="104">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="186" name="wall_bottom" x="2638.67" y="9480.67" width="237.333" height="230.667">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="187" name="wall_bottom" x="2758.67" y="8880.67" width="237.333" height="230.667">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="188" name="wall_bottom" x="4077.33" y="8880.67" width="237.333" height="230.667">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="189" name="wall_bottom" x="3597.33" y="6964.67" width="237.333" height="230.667">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="190" name="wall_bottom" x="2405.33" y="6720.67" width="237.333" height="230.667">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="191" name="wall_bottom" x="5033.33" y="8760.67" width="237.333" height="230.667">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="192" name="wall_bottom" x="5157.33" y="9960.67" width="237.333" height="230.667">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="193" name="wall_bottom" x="5161.33" y="10680.7" width="237.333" height="230.667">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="194" name="wall_bottom" x="6241.33" y="11280.7" width="237.333" height="230.667">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="195" name="wall_bottom" x="6837.33" y="10920.7" width="237.333" height="230.667">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="196" name="wall_bottom" x="6957.33" y="9956.67" width="237.333" height="230.667">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="197" name="wall_bottom" x="6357.33" y="9840.67" width="237.333" height="230.667">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="198" name="wall_bottom" x="5637.33" y="7440.67" width="237.333" height="230.667">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="199" name="wall_bottom" x="6001.33" y="6596.67" width="237.333" height="230.667">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="200" name="wall_bottom" x="6365.33" y="1316.67" width="237.333" height="230.667">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="201" name="wall_bottom" x="6721.33" y="476.666" width="237.333" height="230.667">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="202" name="wall_bottom" x="7677.33" y="728.666" width="237.333" height="230.667">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="203" name="wall_bottom" x="8173.33" y="1448.67" width="237.333" height="230.667">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="204" name="wall_bottom" x="1818" y="6476" width="128" height="5472">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="205" name="wall_bottom" x="1794" y="10206" width="486" height="104">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="206" name="wall_bottom" x="2405" y="10212" width="852" height="104">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="207" name="wall_bottom" x="2410" y="11168" width="478" height="104">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="208" name="wall_bottom" x="2407.33" y="11216.7" width="109.333" height="300.667">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="210" name="wall_bottom" x="2409.33" y="11635.7" width="109.333" height="300.667">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="211" name="wall_bottom" x="2883.33" y="11634.7" width="109.333" height="297.637">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="212" name="wall_bottom" x="3245.33" y="11227.7" width="109.333" height="748.667">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="213" name="wall_bottom" x="3379.33" y="11197.7" width="109.333" height="790.667">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="214" name="wall_bottom" x="4199.33" y="11201.7" width="235.333" height="728.667">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="215" name="wall_bottom" x="5167.33" y="11175.7" width="109.333" height="456.667">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="216" name="wall_bottom" x="4685.33" y="8527.67" width="109.333" height="2746.67">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="217" name="wall_bottom" x="5763.33" y="9371.67" width="109.333" height="2266.67">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="218" name="wall_bottom" x="5161.33" y="11755.7" width="109.333" height="214.667">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="219" name="wall_bottom" x="5761.33" y="11749.7" width="109.333" height="226.667">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="220" name="wall_bottom" x="7435.33" y="9021.67" width="109.333" height="2926.67">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="221" name="wall_bottom" x="5531.33" y="8299.67" width="109.333" height="1044.67">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="222" name="wall_bottom" x="5651.33" y="9237.67" width="109.333" height="234.667">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="223" name="wall_bottom" x="5891.33" y="8649.67" width="109.333" height="472.667">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="224" name="wall_bottom" x="7213.33" y="6451.67" width="109.333" height="972.667">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="225" name="wall_bottom" x="7331.33" y="5991.67" width="109.333" height="490.667">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="226" name="wall_bottom" x="7323.33" y="5579.67" width="109.333" height="300.667">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="227" name="wall_bottom" x="4581.33" y="5541.67" width="109.333" height="918.667">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="228" name="wall_bottom" x="4561.33" y="6497.67" width="109.333" height="932.667">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="229" name="wall_bottom" x="2637.33" y="7437.67" width="243.333" height="1186.67">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="230" name="wall_bottom" x="3603.33" y="7443.67" width="235.333" height="1180.67">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="231" name="wall_bottom" x="4561.33" y="7441.67" width="109.333" height="952">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="232" name="wall_bottom" x="9239.33" y="1949.67" width="109.333" height="4398.67">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="233" name="wall_bottom" x="8649.33" y="1319.67" width="109.333" height="946.667">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="234" name="wall_bottom" x="8163.33" y="2169.67" width="109.333" height="350.667">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="235" name="wall_bottom" x="8163.33" y="2639.67" width="109.333" height="3000.67">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="236" name="wall_bottom" x="5651.33" y="2543.67" width="109.333" height="336.667">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="237" name="wall_bottom" x="5639.33" y="601.666" width="121.333" height="1802.67">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="238" name="wall_bottom" x="4569.33" y="9.6665" width="109.333" height="2866.67">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="239" name="wall_bottom" x="5649.33" y="15.6665" width="233.333" height="340.667">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="240" name="wall_bottom" x="5769.33" y="595.666" width="109.333" height="1650.67">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="241" name="wall_bottom" x="8643.33" y="17.6665" width="109.333" height="592.667">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="242" name="wall_bottom" x="7089.33" y="7343.67" width="109.333" height="300.667">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="243" name="wall_bottom" x="6979.33" y="7461.67" width="109.333" height="300.667">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="244" name="wall_bottom" x="6851.33" y="7571.67" width="109.333" height="300.667">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="245" name="wall_bottom" x="6731.33" y="7691.67" width="109.333" height="300.667">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="246" name="wall_bottom" x="6611.33" y="7815.67" width="109.333" height="300.667">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="247" name="wall_bottom" x="6493.33" y="7925.67" width="109.333" height="300.667">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="248" name="wall_bottom" x="6377.33" y="8035.67" width="109.333" height="300.667">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="249" name="wall_bottom" x="6247.33" y="8173.67" width="109.333" height="300.667">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="250" name="wall_bottom" x="6127.33" y="8299.67" width="109.333" height="358.667">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="251" name="wall_bottom" x="6005.33" y="8519.67" width="109.333" height="300.667">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="252" name="wall_bottom" x="4318" y="10202.5" width="418" height="118">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="253" name="wall_bottom" x="4918.27" y="11171.3" width="348.303" height="118">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="254" name="wall_bottom" x="2887.97" y="11401.6" width="418" height="118">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="255" name="wall_bottom" x="1810" y="8516" width="464" height="116">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="256" name="wall_bottom" x="2400" y="8520.67" width="841.333" height="116">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="257" name="wall_bottom" x="3364" y="8520.67" width="316" height="116">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="258" name="wall_bottom" x="3752" y="8526" width="937.333" height="116">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="259" name="wall_bottom" x="4572" y="8284.67" width="1030.67" height="116">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="260" name="wall_bottom" x="5916" y="8998" width="1544" height="116">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="261" name="wall_bottom" x="1818" y="6478" width="2798" height="116">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="262" name="wall_bottom" x="1810" y="7316" width="464" height="246">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="263" name="wall_bottom" x="2400" y="7329" width="844" height="246">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="264" name="wall_bottom" x="3352" y="7321" width="844" height="246">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="265" name="wall_bottom" x="4320" y="7315" width="348" height="246">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="266" name="wall_bottom" x="6006" y="6359" width="842" height="112">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="267" name="wall_bottom" x="6943" y="6358" width="452" height="112">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="268" name="wall_bottom" x="7348" y="6238" width="1912" height="112">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="269" name="wall_bottom" x="4586" y="5524" width="3650" height="112">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="270" name="wall_bottom" x="4594" y="6352" width="324" height="112">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="271" name="wall_bottom" x="5046" y="6352" width="834" height="132">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="272" name="wall_bottom" x="8190" y="4678" width="452" height="112">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="273" name="wall_bottom" x="8762" y="4686" width="514" height="112">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="274" name="wall_bottom" x="8226" y="3722" width="540" height="236">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="275" name="wall_bottom" x="8876" y="3722" width="452" height="242">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="276" name="wall_bottom" x="8214" y="2758" width="544" height="244">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="277" name="wall_bottom" x="8874" y="2760" width="452" height="230">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="278" name="wall_bottom" x="8752" y="1924" width="494" height="112">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="279" name="wall_bottom" x="5782" y="2152" width="2928" height="112">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="280" name="wall_bottom" x="4594" y="2752" width="3646" height="112">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="281" name="wall_bottom" x="4586" y="1918" width="452" height="112">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="282" name="wall_bottom" x="5162" y="1790" width="548" height="250">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="283" name="wall_bottom" x="4588" y="1800" width="452" height="112">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="284" name="wall_bottom" x="4920" y="842" width="790" height="228">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="285" name="wall_bottom" x="4584" y="832" width="212" height="246">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="286" name="wall_bottom" x="4594" y="4" width="4094" height="112">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup color="#005500" id="4" name="boxes" locked="1">
+  <object id="11" name="box1" x="2113.05" y="11008.5" width="148.091" height="136.061">
+   <properties>
+    <property name="actor_type" value="BOX"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="31" name="box1" x="2393.95" y="9847.97" width="148.091" height="136.061">
+   <properties>
+    <property name="actor_type" value="BOX"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="39" name="box1" x="2974.44" y="6819.85" width="148.091" height="136.061">
+   <properties>
+    <property name="actor_type" value="BOX"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="41" name="box1" x="5277.47" y="9665.3" width="148.091" height="136.061">
+   <properties>
+    <property name="actor_type" value="BOX"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="45" name="box1" x="6701.95" y="10496" width="148.091" height="136.061">
+   <properties>
+    <property name="actor_type" value="BOX"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="49" name="box1" x="8537.95" y="5807.97" width="148.091" height="136.061">
+   <properties>
+    <property name="actor_type" value="BOX"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="60" name="box1" x="6041.95" y="1151.97" width="236.091" height="244.061">
+   <properties>
+    <property name="actor_type" value="BOX"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="61" name="box1" x="7597.95" y="1139.97" width="380.091" height="332.061">
+   <properties>
+    <property name="actor_type" value="BOX"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="62" name="box1" x="8637.95" y="4379.97" width="148.091" height="136.061">
+   <properties>
+    <property name="actor_type" value="BOX"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="63" name="box1" x="8805.95" y="3235.97" width="332.091" height="284.061">
+   <properties>
+    <property name="actor_type" value="BOX"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="64" name="box1" x="5093.95" y="2491.97" width="148.091" height="136.061">
+   <properties>
+    <property name="actor_type" value="BOX"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="65" name="box1" x="5125.95" y="1243.97" width="148.091" height="136.061">
+   <properties>
+    <property name="actor_type" value="BOX"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="66" name="box1" x="5013.95" y="507.97" width="148.091" height="136.061">
+   <properties>
+    <property name="actor_type" value="BOX"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="67" name="box1" x="5317.95" y="7859.97" width="148.091" height="136.061">
+   <properties>
+    <property name="actor_type" value="BOX"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="178" name="box1" x="3849.95" y="10828" width="148.091" height="136.061">
+   <properties>
+    <property name="actor_type" value="BOX"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="179" name="box1" x="3980.62" y="11404" width="148.091" height="136.061">
    <properties>
     <property name="actor_type" value="BOX"/>
     <property name="is_ecs_entity" type="bool" value="true"/>
    </properties>
   </object>
  </objectgroup>
- <objectgroup color="#ffff7f" id="5" name="walls">
-  <object id="5" name="wall_left" x="1772" y="6460" width="368" height="5520">
-   <properties>
-    <property name="actor_type" value="WALL"/>
-    <property name="is_ecs_entity" type="bool" value="true"/>
-   </properties>
-  </object>
-  <object id="6" name="wall_right" x="5480" y="6352" width="368" height="5520">
-   <properties>
-    <property name="actor_type" value="WALL"/>
-    <property name="is_ecs_entity" type="bool" value="true"/>
-   </properties>
-  </object>
-  <object id="7" name="wall_bottom" x="1816" y="11912" width="4056" height="288">
-   <properties>
-    <property name="actor_type" value="WALL"/>
-    <property name="is_ecs_entity" type="bool" value="true"/>
-   </properties>
-  </object>
-  <object id="8" name="wall_up" x="1756" y="6192" width="4056" height="288">
-   <properties>
-    <property name="actor_type" value="WALL"/>
-    <property name="is_ecs_entity" type="bool" value="true"/>
-   </properties>
-  </object>
- </objectgroup>
- <objectgroup color="#ff00ff" id="6" name="triggers">
-  <object id="9" name="EXIT_TRIGGER" x="3888" y="9856" width="960" height="1120">
+ <objectgroup color="#ff00ff" id="6" name="triggers" locked="1">
+  <object id="9" name="EXIT_TRIGGER" x="8460.54" y="618.728" width="285.116" height="711.427" rotation="359.227">
    <properties>
     <property name="actor_type" value="TRIGGER"/>
     <property name="condition_type" value="ON_ENTER"/>

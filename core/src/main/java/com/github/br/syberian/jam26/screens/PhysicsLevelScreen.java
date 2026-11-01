@@ -47,7 +47,7 @@ public class PhysicsLevelScreen extends AbstractTiledMapUiScreen<IUserActorFacto
 
     @Override
     public void restart() {
-        getGameManager().screenStateManager.changeCurrentState(GameScreens.PHYSICS_LEVEL_1_SCREEN);
+        getGameManager().screenStateManager.changeCurrentState(GameScreens.MENU);
     }
 
     @Override

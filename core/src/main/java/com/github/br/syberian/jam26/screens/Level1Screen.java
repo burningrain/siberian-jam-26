@@ -46,7 +46,7 @@ public class Level1Screen extends AbstractTiledMapUiScreen<IUserActorFactory, Cu
 
     @Override
     public void restart() {
-        getGameManager().screenStateManager.changeCurrentState(GameScreens.LEVEL_1);
+        //FIXME getGameManager().screenStateManager.changeCurrentState(GameScreens.LEVEL_1);
     }
 
     @Override

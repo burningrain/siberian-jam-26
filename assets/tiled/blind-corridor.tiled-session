@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "",
+    "activeFile": "physics-level-1.tmx",
     "expandedProjectPaths": [
         "."
     ],
@@ -12,7 +12,7 @@
         "": {
             "dynamicWrapping": true,
             "scaleInDock": 1,
-            "scaleInEditor": 0.75
+            "scaleInEditor": 1
         },
         "D:/projects/perelesoq-jam-26/assets/tiled/entrance.tmx": {
             "scale": 3.9187499999999997,
@@ -37,11 +37,11 @@
                 6,
                 2
             ],
-            "scale": 1,
+            "scale": 0.0625,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 4998.5,
-                "y": 6542.5
+                "x": 4600,
+                "y": 5976
             }
         },
         "level-1.tmx#bgf": {
@@ -55,14 +55,17 @@
         },
         "physics-level-1.tmx": {
             "expandedObjectLayers": [
+                6,
+                3,
                 2,
-                3
+                4,
+                5
             ],
-            "scale": 0.125,
-            "selectedLayer": 5,
+            "scale": 0.25,
+            "selectedLayer": 4,
             "viewCenter": {
-                "x": 3628,
-                "y": 10236
+                "x": 3686,
+                "y": 10842
             }
         },
         "physics-level-1.tmx#environment": {
@@ -71,6 +74,18 @@
         },
         "physics-level-1.tmx#walls_and_floor": {
             "dynamicWrapping": true,
+            "scaleInDock": 1
+        },
+        "physics-level-1_2.tmx": {
+            "scale": 0.25,
+            "selectedLayer": 4,
+            "viewCenter": {
+                "x": 4110,
+                "y": 9174
+            }
+        },
+        "physics-level-1_2.tmx#walls_and_floor": {
+            "dynamicWrapping": false,
             "scaleInDock": 1
         },
         "test-room.tmx": {
@@ -98,13 +113,17 @@
     "map.tileWidth": 120,
     "map.width": 100,
     "openFiles": [
-        "level-1.tmx"
+        "level-1.tmx",
+        "test-room.tmx",
+        "physics-level-1.tmx"
     ],
     "project": "blind-corridor.tiled-project",
     "property.type": "bool",
     "recentFiles": [
-        "test-room.tmx",
         "level-1.tmx",
+        "test-room.tmx",
+        "physics-level-1.tmx",
+        "physics-level-1_2.tmx",
         "D:/projects/perelesoq-jam-26/assets/tiled/entrance.tmx"
     ],
     "tileset.embedInMap": true,

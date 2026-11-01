@@ -2,6 +2,7 @@ package com.github.br.syberian.jam26.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -29,6 +30,8 @@ public class MainScreen extends AbstractGameScreen {
     private Stage stage;
 
     private Skin gameSkin;
+
+    private Music music;
 
 
     @Override
@@ -62,7 +65,7 @@ public class MainScreen extends AbstractGameScreen {
         playButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                getGameManager().screenStateManager.changeCurrentState(GameScreens.LEVEL_1);
+                getGameManager().screenStateManager.changeCurrentState(GameScreens.PHYSICS_LEVEL_1_SCREEN);
             }
         });
         stage.addActor(playButton);
@@ -79,6 +82,10 @@ public class MainScreen extends AbstractGameScreen {
         stage.addActor(settingsButton);
 
         Gdx.input.setInputProcessor(stage);
+
+        music = getGameManager().audioAssetManager.getMusic(Resources.Music.MENU_THEME);
+        this.music.setLooping(true);
+        this.music.play();
     }
 
     private Label createTitle(String text) {
