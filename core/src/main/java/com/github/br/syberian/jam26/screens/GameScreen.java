@@ -44,6 +44,8 @@ public class GameScreen extends AbstractGameScreen {
     private boolean isPlayerSpotted = false;
     private final Vector2 cameraPos = new Vector2(2f, 7f); // Позиция камеры в левом верхнем углу
 
+    private final Vector2 toPlayer = new Vector2();
+
     @Override
     public void show() {
         camera = new OrthographicCamera(WORLD_WIDTH, WORLD_HEIGHT);
@@ -150,11 +152,12 @@ public class GameScreen extends AbstractGameScreen {
         // 1. Считаем расстояние от камеры до игрока
         float distanceToPlayer = cameraPos.dst(playerPos);
 
-        // Если игрок в пределах длины луча камеры
-        if (distanceToPlayer <= cameraLight.getDistance()) {
 
-            // 2. Считаем угол от камеры к игроку (в градусах)
-            Vector2 toPlayer = new Vector2(playerPos).sub(cameraPos);
+        // Строгая проверка по длине визуального луча
+        if (distanceToPlayer <= cameraLight.getDistance() * 0.75f) {
+
+            // 2. Считаем угол от камеры к игроку
+            toPlayer.set(playerPos).sub(cameraPos);
             float angleToPlayer = toPlayer.angleDeg(); // Угол от 0 до 360
 
             // Получаем текущее направление камеры (приводим к диапазону 0-360)
@@ -166,10 +169,11 @@ public class GameScreen extends AbstractGameScreen {
                 angleDiff = 360 - angleDiff;
             }
 
-            // Получаем половину угла раскрытия конуса (например, если конус 35 градусов, то в стороны по 17.5)
-            float halfCone = cameraLight.getConeDegree();
+            // ИСПРАВЛЕНИЕ: Делим coneDegree на 2.
+            // Если конус равен 40 градусам, то камера видит на 20 градусов влево и на 20 вправо от центра.
+            float halfCone = cameraLight.getConeDegree() / 2f;
 
-            // Если угол входит в конус, запускаем RayCast для проверки стен
+            // Если угол входит в честную половину конуса, запускаем RayCast
             if (angleDiff <= halfCone) {
 
                 closestFraction = 1f;
