@@ -83,7 +83,7 @@
  </tileset>
  <layer id="1" name="Tile Layer 1" width="100" height="100">
   <data encoding="base64" compression="zlib">
-   eJzt1TFOw1AABNFIdETc/7rQThGBCzPreEb6nZu/z5Yfj82+hFOvy2OrPLbKY6s8tspjqzy2ymOrPLbKY6s8tspjqzy2ymOrPLbKYyvDI7fX2Ztnwuy982D23nkwe+88mL13HszeOw9m750Hs/fOg9l758HsvfNg9t55MHvvPJi9dx7M3jsPZu+dB7P3zoPZe+fB7L3zYPbeeTB77zyYvXcezN47D2bvnQez986D2Xvnwey982D23nkwe+88mL13HszeOw9m750Hs/fOg9l758HsvfNg9t55MHvvPFhbHs9+R/Ng9q55MHvXPJi9ax7M3jUPZu+aB7N3zYP99Z72/nf0OPJsFud0NY937+hdszi3q3jcpSt43Kmjd8/i3JY97tiqx11b9LhzR7bo2zi///wfZPF79v5ZMNsgD2Yb5MFsgyyY7ZAHsx2yYLZFHuzjkcdSeWyVx1Z5bJXHVnlslcdWeWyVx1Z5bJXHVnlslcdWeWyVx1Z5bJXHVnlslcdWnz/nKZ936xvC27Un
+   eJzt0rEJA1EQxNAPl9lc/+3aqYILHGkwEmwD8/aczW7h6rk8tspjqzy2ymOrPLbKY6s8tspjqzy2ymOrPLbKY6s8tspjqzy2Mjxye87ePBNm750Hs/fOg9l758HsvfNg9t55MHvvPJi9dx7M3jsPZu+dB7P3zoPZe+fB7L3zYPbeeTB77zyYvXcezN47D2bvnQez986D2Xvnwey982D23nkwe+88mL13HszeOw9m750Hs/fOg9l758HsvfNg9t55MHvvPJi9dx7M3jsPZu+dB7P3zoPZe+fB2vL37B/Ng9m75sHsXfNg9q55MHvXPJi9ax7M3jUPZu+aB7N3zYLZ22bB7H2zYPbGWTB75yyYvXUWzN47C2ZvngWzd8+C2dvnwezts2D2/lkw2yAPZhvkwWyDLJjtkAezHbJgtkUe7Dp5LJXHVnlslcdWeWyVx1Z5bJXHVnlslcdWeWyVx1Z5bJXHVnlslcdWeWyVx1Z5bPX63lu+f+sDhMu5nw==
   </data>
  </layer>
  <objectgroup color="#55ff00" id="2" name="hero">
