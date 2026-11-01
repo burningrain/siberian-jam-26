@@ -5,14 +5,8 @@ import com.github.br.syberian.jam26.Resources;
 
 public interface GameScreens {
 
-    GameScreenState PHYSICS_LEVEL_1_SCREEN = new GameScreenState(
-        new PhysicsLevelScreen(
-            Resources.Tmx.PHYSICS_LEVEL_1,
-            Resources.SKIN,
-            false,
-            true
-        ), new PhysicsLevelScreenLoader()
-    );
+    // начальные уровни должны быть ниже!
+    // а конечные выше!!!
 
     GameScreenState MENU = new GameScreenState(
         new MainScreen(), new MainAssetLoader()
@@ -24,6 +18,7 @@ public interface GameScreens {
 
     GameScreenState LEVEL_1 = new GameScreenState(
         new Level1Screen(
+            GameScreens.MENU,
             Resources.Tmx.LEVEL_1,
             Resources.SKIN,
             true,
@@ -31,6 +26,17 @@ public interface GameScreens {
         ),
         new Level1AssetLoader()
     );
+
+    GameScreenState PHYSICS_LEVEL_1_SCREEN = new GameScreenState(
+        new PhysicsLevelScreen(
+            GameScreens.LEVEL_1,
+            Resources.Tmx.PHYSICS_LEVEL_1,
+            Resources.SKIN,
+            false,
+            true
+        ), new PhysicsLevelScreenLoader()
+    );
+
 
     GameScreenState TEST_ROOM = new GameScreenState(
         new TestRoomScreen(

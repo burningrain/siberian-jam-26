@@ -19,7 +19,8 @@ import com.github.br.libgdx.common.structure.screen.ui.vfx.VfxEffectPooledFactor
 
 import workaround.ktx.tiled.TmxUtils;
 
-public abstract class AbstractTiledMapUiScreen<A extends ActorFactory, V extends VfxEffectPooledFactory> extends AbstractGameScreen {
+public abstract class AbstractTiledMapUiScreen<A extends ActorFactory, V extends VfxEffectPooledFactory> extends AbstractGameScreen
+    implements RestartScreen {
 
     private final String tiledMapPath;
     private final String pathToSkin;
@@ -52,7 +53,7 @@ public abstract class AbstractTiledMapUiScreen<A extends ActorFactory, V extends
     }
 
     @Override
-    public void show() {
+    public void restart() {
         if (isGlProfileActive) {
             profiler = new GLProfiler(Gdx.graphics);
             profiler.enable();
@@ -85,6 +86,11 @@ public abstract class AbstractTiledMapUiScreen<A extends ActorFactory, V extends
         );
 
         afterShow(tiledMap, renderer, viewport, actorFactory, vfxEffectPoolFactory);
+    }
+
+    @Override
+    public void show() {
+        restart();
     }
 
     //TODO быстрофикс - на пиксель растягиваем каждый тайл, чтобы зазоры не были видны

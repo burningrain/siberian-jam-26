@@ -7,6 +7,7 @@ public enum ActorTypeEnum {
 
     // TEST
     HERO,
+    KOROB_OPEN,
     BULLET,
     ENEMY,
     CAMERA,

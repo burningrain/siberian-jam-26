@@ -55,13 +55,14 @@
         },
         "physics-level-1.tmx": {
             "expandedObjectLayers": [
-                2
+                2,
+                3
             ],
             "scale": 0.125,
-            "selectedLayer": 1,
+            "selectedLayer": 5,
             "viewCenter": {
-                "x": 3620,
-                "y": 8252
+                "x": 3628,
+                "y": 10236
             }
         },
         "physics-level-1.tmx#environment": {

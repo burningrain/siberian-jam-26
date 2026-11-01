@@ -93,6 +93,9 @@ public class UserActorFactory implements IUserActorFactory {
 
     public Actor getCustomUiActor(ActorTypeEnum actorType) {
         switch (actorType) {
+            case BOX:
+            case KOROB_OPEN:
+                return delegate.createImage(atlasName, Resources.TextureRegion.BOX);
             case BED:
                 return delegate.createImage(atlasName, Resources.TextureRegion.BED);
             case BED2:

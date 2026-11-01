@@ -55,7 +55,7 @@ public class TestRoomScreen extends AbstractTiledMapUiScreen<TestUserActorFactor
             .with(contactListener)
             .with(physicsSystem)
             .with(new TriggerSystem())
-            .with(new TriggerActionFactory())
+            .with(new TriggerActionFactory(null))
 
             // ФАБРИКИ И СИСТЕМЫ УПРАВЛЕНИЯ
             .with(entityFactory)
@@ -128,4 +128,8 @@ public class TestRoomScreen extends AbstractTiledMapUiScreen<TestUserActorFactor
         super.dispose();
     }
 
+    @Override
+    public void triggerExit() {
+        throw new UnsupportedOperationException();
+    }
 }

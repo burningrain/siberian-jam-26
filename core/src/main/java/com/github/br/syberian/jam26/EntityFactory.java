@@ -456,6 +456,7 @@ public class EntityFactory extends BaseSystem {
             case ENEMY:
                 return createEnemy(actorType, x, y, width, height);
             case BOX:
+            case KOROB_OPEN:
                 return createBox(actorType, x, y, width, height);
             case CAMERA:
             case CAM_2:

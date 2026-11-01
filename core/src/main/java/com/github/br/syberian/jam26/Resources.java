@@ -62,6 +62,7 @@ public interface Resources {
         String TRA_2 = "tra-2";
         String WAT = "wat";
         String WAT_2 = "wat2";
+        String BOX = "korob-open";
     }
 
 
