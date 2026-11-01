@@ -38,7 +38,6 @@ public class AudioSettings {
 
     public void setSoundVolume(float soundVolume) {
         this.soundVolume = soundVolume;
-        notifyListeners();
     }
 
     public float getMusicVolume() {
@@ -47,7 +46,6 @@ public class AudioSettings {
 
     public void setMusicVolume(float musicVolume) {
         this.musicVolume = musicVolume;
-        notifyListeners();
     }
 
     // observer

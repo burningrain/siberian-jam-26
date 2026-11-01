@@ -65,6 +65,10 @@ public class SettingsScreen extends AbstractGameScreen {
         okButton.addListener(new ChangeListener(){
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                float musicValue = musicSlider.getValue();
+                float soundValue = soundSlider.getValue();
+                getGameManager().audioSettings.setMusicVolume(musicValue);
+                getGameManager().audioSettings.setSoundVolume(soundValue);
                 getGameManager().screenStateManager.changeCurrentState(GameScreens.MENU);
             }
         });
@@ -73,7 +77,7 @@ public class SettingsScreen extends AbstractGameScreen {
         TextButton backButton = createTextButton("НАЗАД", "title");
         backButton.setX(1300);
         backButton.setY(50);
-        backButton.addListener(new ChangeListener(){
+        backButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 getGameManager().screenStateManager.changeCurrentState(GameScreens.MENU);
@@ -96,8 +100,7 @@ public class SettingsScreen extends AbstractGameScreen {
         musicSlider.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                float musicValue = musicSlider.getValue();
-                getGameManager().audioSettings.setMusicVolume(musicValue);
+                music.setVolume(musicSlider.getValue());
             }
         });
 
@@ -117,8 +120,7 @@ public class SettingsScreen extends AbstractGameScreen {
         soundSlider.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                float soundValue = soundSlider.getValue();
-                getGameManager().audioSettings.setSoundVolume(soundValue);
+                //TODO sound.setVolume(sound.getValue());
             }
         });
 
