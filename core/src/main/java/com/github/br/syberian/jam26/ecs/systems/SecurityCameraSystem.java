@@ -69,7 +69,7 @@ public class SecurityCameraSystem extends IteratingSystem {
 
         if (camPhys.body == null || playerPhys.body == null) return;
 
-        Vector2 cameraPos = camPhys.body.getPosition();
+        Vector2 cameraCenterPos = camPhys.body.getPosition();
         Vector2 playerPos = playerPhys.body.getPosition();
         float delta = world.getDelta();
 
@@ -79,25 +79,36 @@ public class SecurityCameraSystem extends IteratingSystem {
         cam.viewDirectionDegrees = cam.baseDirectionDegrees + MathUtils.sin(cam.cameraRotationTime * cam.patrolSpeed) * cam.patrolArc;
 
         // Синхронизируем поворот физического Box2D-тела (градусы -> радианы)
-        camPhys.body.setTransform(cameraPos, cam.viewDirectionDegrees * MathUtils.degreesToRadians);
+        camPhys.body.setTransform(cameraCenterPos, cam.viewDirectionDegrees * MathUtils.degreesToRadians);
 
-        // Передаем направление в объект света box2dLight для корректного рендера конуса
+        // --- ДИНАМИЧЕСКИЙ РАСЧЕТ СМЕЩЕНИЯ ОБЪЕКТИВА (Без выделения памяти) ---
+        // Берем локальный оффсет из компонента, крутим по текущему углу тела и прибавляем к центру
+        cam.worldLightPosMetres.set(cam.localLightOffset);
+        cam.worldLightPosMetres.rotateRad(camPhys.body.getAngle());
+        cam.worldLightPosMetres.add(cameraCenterPos);
+
+        // Передаем направление и смещенную позицию в объект света box2dLight (в ПИКСЕЛЯХ)
+        SimpleUtils simpleUtils = gameManager.simpleUtils;
         if (cam.cameraLight != null) {
             cam.cameraLight.setDirection(cam.viewDirectionDegrees);
+            cam.cameraLight.setPosition(
+                simpleUtils.convertMetresToUnits(cam.worldLightPosMetres.x),
+                simpleUtils.convertMetresToUnits(cam.worldLightPosMetres.y)
+            );
         }
 
-        // --- 2. ПРОВЕРКА ВИДИМОСТИ (STEALTH LOGIC ИЗ GAME SCREEN) ---
+        // --- 2. ПРОВЕРКА ВИДИМОСТИ ОТ ТОЧКИ ОБЪЕКТИВА ---
         cam.isPlayerSpotted = false;
 
-        // Проверка 1: Дистанция до игрока (с запасом 0.5м для сглаживания краев)
-        float distanceToPlayer = cameraPos.dst(playerPos);
+        // Проверка 1: Дистанция от объектива до игрока (с запасом 0.5м)
+        float distanceToPlayer = cam.worldLightPosMetres.dst(playerPos);
         if (distanceToPlayer > (cam.cameraRange + 0.5f)) {
             resetLight(cam);
             return;
         }
 
-        // Проверка 2: Вычисляем угол от камеры к игроку (0...360)
-        cam.toPlayer.set(playerPos).sub(cameraPos);
+        // Проверка 2: Вычисляем угол от объектива камеры к игроку (0...360)
+        cam.toPlayer.set(playerPos).sub(cam.worldLightPosMetres);
         float angleToPlayer = cam.toPlayer.angleDeg();
 
         // Проверка 3: Нормализуем текущее направление камеры в диапазон [0; 360)
@@ -115,19 +126,19 @@ public class SecurityCameraSystem extends IteratingSystem {
         // Если игрок попал в сектор обзора
         if (angleDiff <= (cam.fovDegrees + softConePadding)) {
 
-            // Ограничиваем траекторию физического луча длиной обзора камеры
+            // Ограничиваем траекторию физического луча от объектива до длины обзора камеры
             cam.rayTarget.set(playerPos);
             if (distanceToPlayer > cam.cameraRange) {
                 float fractionOfDistance = cam.cameraRange / distanceToPlayer;
-                cam.rayTarget.set(cameraPos).lerp(playerPos, fractionOfDistance);
+                cam.rayTarget.set(cam.worldLightPosMetres).lerp(playerPos, fractionOfDistance);
             }
 
             cam.closestFraction = 1f;
             cam.sightedBody = null;
             this.currentCameraEntityId = cameraEntityId; // Запоминаем текущую камеру для callback
 
-            // Бросаем физический RayCast в мире Box2D (стены и шкафы перекроют луч)
-            physicsSystem.getBox2dWorld().rayCast(visionCallback, cameraPos, cam.rayTarget);
+            // Бросаем физический RayCast в мире Box2D ИЗ ТОЧКИ ОБЪЕКТИВА
+            physicsSystem.getBox2dWorld().rayCast(visionCallback, cam.worldLightPosMetres, cam.rayTarget);
 
             // Если луч беспрепятственно дошел именно до тела игрока
             if (cam.sightedBody == playerPhys.body) {
@@ -137,16 +148,9 @@ public class SecurityCameraSystem extends IteratingSystem {
 
         // --- 3. РЕАКЦИЯ СВЕТА НА ОБНАРУЖЕНИЕ ---
         if (cam.cameraLight != null) {
-            SimpleUtils simpleUtils = gameManager.simpleUtils;
-            cam.cameraLight.setPosition(
-                simpleUtils.convertMetresToUnits(cameraPos.x),
-                simpleUtils.convertMetresToUnits(cameraPos.y)
-            );
             if (cam.isPlayerSpotted) {
                 cam.cameraLight.setColor(Color.RED);
-
-                // ЗДЕСЬ ДЕЙСТВИЕ ОБНАРУЖЕНИЯ:
-                // Например, вызываем: gameManager.onPlayerSpotted(); или поднимаем глобальную тревогу.
+                System.out.println("КАМЕРА " + cameraEntityId + " ОБНАРУЖИЛА ИГРОКА!");
             } else {
                 cam.cameraLight.setColor(Color.YELLOW);
             }

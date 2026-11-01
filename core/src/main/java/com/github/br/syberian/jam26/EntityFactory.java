@@ -317,8 +317,16 @@ public class EntityFactory extends BaseSystem {
         // Считаем стартовую мировую позицию объектива (с учетом смещения)
         Vector2 startingWorldPos = physicsComponent.body.getWorldPoint(cam.localLightOffset);
 
-        float pixelX = simpleUtils.convertMetresToUnits(startingWorldPos.x);
-        float pixelY = simpleUtils.convertMetresToUnits(startingWorldPos.y);
+        // Находим стартовую мировую позицию объектива
+        Vector2 bodyCenterPos = physicsComponent.body.getPosition();
+
+        // Считаем смещение с учетом стартового угла
+        cam.worldLightPosMetres.set(cam.localLightOffset);
+        cam.worldLightPosMetres.rotateRad(physicsComponent.body.getAngle());
+        cam.worldLightPosMetres.add(bodyCenterPos);
+
+        float pixelX = simpleUtils.convertMetresToUnits(cam.worldLightPosMetres.x);
+        float pixelY = simpleUtils.convertMetresToUnits(cam.worldLightPosMetres.y);
         float pixelRange = simpleUtils.convertMetresToUnits(cam.cameraRange);
 
         cam.cameraLight = new ConeLight(
