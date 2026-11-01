@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "level-1.tmx",
+    "activeFile": "",
     "expandedProjectPaths": [
         "."
     ],
@@ -12,7 +12,7 @@
         "": {
             "dynamicWrapping": true,
             "scaleInDock": 0.5,
-            "scaleInEditor": 1
+            "scaleInEditor": 0.75
         },
         "D:/projects/perelesoq-jam-26/assets/tiled/entrance.tmx": {
             "scale": 3.9187499999999997,
@@ -37,10 +37,10 @@
                 2
             ],
             "scale": 0.5,
-            "selectedLayer": 2,
+            "selectedLayer": 1,
             "viewCenter": {
-                "x": 5124,
-                "y": 5027
+                "x": 5241,
+                "y": 5004
             }
         },
         "level-1.tmx#bgf": {

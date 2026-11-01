@@ -8,7 +8,7 @@ public interface Resources {
     String MAIN_MENU_BACKGROUND = "pictures/post-2-zero.png";
 
     interface Music {
-        String MAIN_THEME = "music/game_mus.mp3";
+        String LEVEL_THEME = "music/game_mus.mp3";
     }
 
     interface SoundFx {

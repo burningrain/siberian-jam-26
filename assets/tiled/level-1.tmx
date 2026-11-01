@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="120" tileheight="120" infinite="0" nextlayerid="8" nextobjectid="5">
+<map version="1.10" tiledversion="1.12.2" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="120" tileheight="120" infinite="0" nextlayerid="8" nextobjectid="5">
  <tileset firstgid="1" name="floor_and_walls" tilewidth="120" tileheight="120" tilecount="26" columns="0">
   <grid orientation="orthogonal" width="1" height="1"/>
   <tile id="0">
@@ -81,7 +81,7 @@
    <image source="../pictures/level/1/wall-out-8.png" width="120" height="120"/>
   </tile>
  </tileset>
- <tileset firstgid="27" name="bgf" tilewidth="275" tileheight="275" tilecount="48" columns="0">
+ <tileset firstgid="27" name="bgf" tilewidth="275" tileheight="275" tilecount="52" columns="0">
   <grid orientation="orthogonal" width="1" height="1"/>
   <tile id="0">
    <image source="../pictures/level/bed.png" width="81" height="115"/>
@@ -227,16 +227,28 @@
   <tile id="47">
    <image source="../pictures/level/vorota.png" width="120" height="99"/>
   </tile>
+  <tile id="48">
+   <image source="../pictures/level/cup.png" width="101" height="89"/>
+  </tile>
+  <tile id="49">
+   <image source="../pictures/level/secur-voda.png" width="52" height="44"/>
+  </tile>
+  <tile id="50">
+   <image source="../pictures/level/skaf-zelezo-zamok-otk.png" width="120" height="120"/>
+  </tile>
+  <tile id="51">
+   <image source="../pictures/level/tabuletta.png" width="56" height="101"/>
+  </tile>
  </tileset>
  <group id="6" name="Room_1">
   <layer id="1" name="walls_and_floor" width="100" height="100">
    <data encoding="base64" compression="zlib">
-   eJzt2utSgzAQhuGo2INtgPH+L1YY2XGb5oQVmnHfH89Qu2mHyVcIC3rnnAcAAAAAAAAAAAAAAAAAAAD+kZfJa4bUuwb21YK3yWfGXB8mpwb21YJSHh+Ty+TYwL5aUMpDHBrYVwvIoy3k0RbyaAt5tIU82qL7PfLI98fdDnXd75HH93z0yqiclrp+T4+VemoOpT4EvMpA93uXhVevL85WP7hHHjL/obkeO3585D0r96+uhTyuhTyuFXnEshhUvV/2Jbe1cv/qGXn0QR6lLLyxPErzXcqrJg/v7tcQjo/n5ZE7X3F87JeHXD+J0d1eM4X12DhL11db5xFeP40u3Y/kxlm5vlr7+11bl+vlMMsSPX7eTyv94Pz7fVfG4O/Qmrr03zVzLvOeGmslj/l8k1pvH3Vwt+fD3HynyGfI43Gx9bxGuJZbW8+3zKP0/zxd5L3Ymm9lPd86j9T398GY0n5a6j+2zsNnxsgaQR775VEaIz06eeT7h/OiVD8n6keVh5yfhFd51BwjVvLI9R+x53t6re0qPl9zfLB+/JD+wAfb+fcs/YPcK5Hzve6ZU/VB1cOecVCvyeM+D52FPh7C+ZZ51j1zmIf+LqnnnouTx30e4XEhcvM9ROr62NB5kce6PGSO561+nq7vdwxqK7mE90P09St5/D4PPYe5PLyLz7deU3Ru5LFe7v5S7nnRX9Rrx1i6fwUAAAAAAAAAAAAAAAAAAAAAAAAAAAA8yxf1W/hT
+   eJzt2W1PgzAUhuGq6DZdgahR4///oULCiWelbzgHDb0/XGHb6RZynkEpWGOMBQAAAAAAAAAAAAAAAAAAAHbkbfCuvE58n229rzX4Vv1O2Xpfa5Cbx0cB+1oD8igLeZSFPMpCHmUhj7KQR1nI49Ld4D6gWaGeuxasJY+HQav0ynGq68/0WKmHeij1zmGn7VGN/VLc96PPAnq1lzyk/66x7jt+rOezpoBereGcyOOcyOOckYcvi07V22lfYttjAb3aax6tk0cqC1tZHql+p/LKycOa+RzC8bFdHrHzFcfHenk8D16UXr0+eOq+cTJ2617tIQ/3+qk34fVIbFwt11dL/79L63K97GaZoseP+/lUQK/WMP5/H5Xeee9aUm/MfP0S6rn0PTS2ljzG801ovr3Wk7k8H8b6HSLfIY/r+ebzHO5cXtt8fss8YvcTZZ5OzeU1zee3ziP0+60zJrWfNa0/bp2HjYyROYI81ssjNUbW6OQRXz+cJqn6KVA/qDzk/CSsyiPnGKklj9j6w/d8T8+1Tcb3c44P5o9fsj6wznb8P8v6Qe6VyPler5lD9U7V3TVjp16TxzwPnYU+Htx+S5/1mtnNQ/+W1GPPxcljnod7XIhYvztPXR8bOi/yWJaH9Hjc6ufp+n5Hp7aSi3s/RF+/ksff89A9jOVhjb/fek7RuZHHcrH7S7HnRf9Rzx1T0/0rAAAAAAAAAAAAAAAAAAAAAAAAAAAAYCs/KRn7WA==
   </data>
   </layer>
   <layer id="5" name="envornment" width="100" height="100">
    <data encoding="base64" compression="zlib">
-   eJzt2WFOwjAYANDeQxQIoGhUQNHfHoWjcBSP4lE8ijPBuDSVrrBpZO8lC9CvlKXf2pUuBAAAAAAAAAAAAAAAAAAAoGtPtfeT3etgT/2b6rguaH8dfT7P1L8K4a2geVrwGMImLhvuXue7fAzjCj2xqvqmGhev9bJBFK/Hqrqb58LfSPX/KIRtYTMkTKu+fYjyl1LNO5vqeE/FPvMzlo/G4vESKx0fNJear+J4ouzH+k2sjY0iufFxqKZrJ2us3zFv2M9N65263HWZi1+ah1qVuy5z8Zl8QKf6fC8fddv29pDv9flePu627W2HzdOBfXsq8N/k/l/MCuf+UdXexRHnc+rm+f4+Kk7eKnw/F0xZ1PYTp/n4S1vn1VeDxP4tf6eej6+1zrK2v7vM5CsVb2t/uI/PWe4SZYtaf05aGD/3xzbQI7eJsno+zjJrplwcAAAAAAAAAAAAAAAAAACAMh/B8C3F
+   eJzt2Q1u0zAYAFDfg8IyjUFBwDYYfwLBQGwgBHfoUXYUjsJROApGyzTLeHGyNuvWvCdZafK5jZWvdhI7BAAAAAAAAAAAAADYbN/bws31ft0N4D9NCKfrbgMXtuUDgETTo87HWD6M3A7ObK+7AcCt8jL5vNNuZx31H8fyKNk/TkrJYbZ/N/lcevd+GMLvjtOzYp9jeRHCIj++1W7nbT628goTcRCvTewXv9JjsyyexmLdxauB5yhd/8Y790p8iuV5lr+SOO4sYvlTiv3LjzmQ/vL+kjq6vmZMUmm8yuPp/o+zY5fW7+NQ3xikKz/L6Pvs5Bnresx7Xue+9TZd7X9Ziz8wDq1U7X9Zi+/KB4xqyvfyZtzfPr3K96Z8Lx9z/eH8/ftnLF9GPA/DvO6Idc2pcDOcJOPciee1TrX3i92BY38Tf+9e3L65epM22rx+vZeK9zH1/nEQLtYFS/aS+cT79fhR7XxTfp7tY1ZYK1ql41Be071sfXfq0nycP+vsJ/O7+5V8leLp/PDQfOTj1dC1yNvuaeHYXnI9d5bsP3k+vrVjmv5R9qRwLM3Hncp4X4u/i+VZLG/b/a/tVj4AAAAAAAAAAAAAAAAAAADK/gJCxj4S
   </data>
   </layer>
   <objectgroup color="#aaff7f" id="2" name="dynamic_objects" visible="0">

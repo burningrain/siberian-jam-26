@@ -10,9 +10,10 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Slider;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.utils.viewport.ExtendViewport;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.github.br.libgdx.common.structure.GameSettings;
 import com.github.br.libgdx.common.structure.screen.AbstractGameScreen;
@@ -30,6 +31,9 @@ public class SettingsScreen extends AbstractGameScreen {
 
     private Skin gameSkin;
 
+    private Slider musicSlider;
+    private Slider soundSlider;
+
 
     @Override
     public void show() {
@@ -41,7 +45,7 @@ public class SettingsScreen extends AbstractGameScreen {
 
         // --- Инициализация вьюпорта для фона ---
         backgroundCamera = new OrthographicCamera();
-        backgroundViewport = new ExtendViewport(
+        backgroundViewport = new FitViewport(
             gameSettings.getVirtualScreenWidth(),
             gameSettings.getVirtualScreenHeight(),
             backgroundCamera
@@ -51,6 +55,21 @@ public class SettingsScreen extends AbstractGameScreen {
         spriteBatch = new SpriteBatch();
         stage = new Stage(backgroundViewport, spriteBatch);
 
+        TextButton okButton = createTextButton("OK", "title");
+        okButton.setX(1000);
+        okButton.setY(50);
+        okButton.addListener(new ChangeListener(){
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                float musicValue = musicSlider.getValue();
+                float soundValue = soundSlider.getValue();
+                getGameManager().audioSettings.setMusicVolume(musicValue);
+                getGameManager().audioSettings.setSoundVolume(soundValue);
+
+                getGameManager().screenStateManager.changeCurrentState(GameScreens.MENU);
+            }
+        });
+        stage.addActor(okButton);
 
         TextButton backButton = createTextButton("НАЗАД", "title");
         backButton.setX(1300);
@@ -63,10 +82,39 @@ public class SettingsScreen extends AbstractGameScreen {
         });
         stage.addActor(backButton);
 
+        int x = 150;
+        Label musicLabel = createLabel("музыка");
+        musicLabel.setX(x + 100f);
+        musicLabel.setY(1080 - 150);
+        stage.addActor(musicLabel);
+
+        musicSlider = new Slider(0f, 1f, 0.05f, false, gameSkin);
+        float preferredHeight = musicSlider.getPrefHeight();
+        musicSlider.setSize(350, preferredHeight);
+        musicSlider.setValue(1f);
+
+        musicSlider.setX(x + 500f);
+        musicSlider.setY(1080 - 150);
+        stage.addActor(musicSlider);
+
+        Label soundLabel = createLabel("звук");
+        soundLabel.setX(x + 100f);
+        soundLabel.setY(1080 - 250);
+        stage.addActor(soundLabel);
+
+        soundSlider = new Slider(0f, 1f, 0.05f, false, gameSkin);
+        float soundPreferredHeight = soundSlider.getPrefHeight();
+        soundSlider.setSize(350, soundPreferredHeight);
+        soundSlider.setValue(1f);
+
+        soundSlider.setX(x + 500f);
+        soundSlider.setY(1080 - 250);
+        stage.addActor(soundSlider);
+
         Gdx.input.setInputProcessor(stage);
     }
 
-    private Label createTitle(String text) {
+    private Label createLabel(String text) {
         return new Label(text, gameSkin);
     }
 

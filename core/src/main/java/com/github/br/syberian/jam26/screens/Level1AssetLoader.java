@@ -33,7 +33,7 @@ public class Level1AssetLoader implements AssetsLoader {
         // animation
         //assetManager.load(Resources.ANIMATION_ATLAS, TextureAtlas.class);
 
-        assetManager.load(Resources.Music.MAIN_THEME, Music.class);
+        assetManager.load(Resources.Music.LEVEL_THEME, Music.class);
     }
 
     @Override
@@ -41,7 +41,7 @@ public class Level1AssetLoader implements AssetsLoader {
         assetManager.unload(TmxUtils.getTmx(Resources.Tmx.LEVEL_1, Constants.IS_USE_KTX2));
         assetManager.unload(Resources.Atlases.GAME_OBJECTS);
 
-        assetManager.unload(Resources.Music.MAIN_THEME);
+        assetManager.unload(Resources.Music.LEVEL_THEME);
     }
 
 }

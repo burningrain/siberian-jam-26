@@ -17,7 +17,6 @@ import com.github.br.syberian.jam26.EntityFactory;
 import com.github.br.syberian.jam26.IUserActorFactory;
 import com.github.br.syberian.jam26.Resources;
 import com.github.br.syberian.jam26.TriggerActionFactory;
-import com.github.br.syberian.jam26.TestUserActorFactory;
 import com.github.br.syberian.jam26.UserActorFactory;
 import com.github.br.syberian.jam26.ecs.systems.CameraSystem;
 import com.github.br.syberian.jam26.ecs.systems.PlayerInputSystem;
@@ -108,10 +107,11 @@ public class Level1Screen extends AbstractTiledMapUiScreen<IUserActorFactory, Cu
         Box2dRenderSystem box2dRenderSystem = artemisWorld.getSystem(Box2dRenderSystem.class);
         box2dRenderSystem.init(renderer, viewport, camera);
 
-        music = getGameManager().assetManager.get(Resources.Music.MAIN_THEME, Music.class);
-        music.setLooping(true);
-        music.play();
+        music = getGameManager().audioAssetManager.getMusic(Resources.Music.LEVEL_THEME);
+        this.music.setLooping(true);
+        this.music.play();
     }
+
     @Override
     public void render(float delta) {
         super.render(delta);
