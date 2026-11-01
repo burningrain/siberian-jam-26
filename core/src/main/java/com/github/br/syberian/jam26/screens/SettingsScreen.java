@@ -65,11 +65,6 @@ public class SettingsScreen extends AbstractGameScreen {
         okButton.addListener(new ChangeListener(){
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                float musicValue = musicSlider.getValue();
-                float soundValue = soundSlider.getValue();
-                getGameManager().audioSettings.setMusicVolume(musicValue);
-                getGameManager().audioSettings.setSoundVolume(soundValue);
-
                 getGameManager().screenStateManager.changeCurrentState(GameScreens.MENU);
             }
         });
@@ -98,6 +93,13 @@ public class SettingsScreen extends AbstractGameScreen {
         float preferredHeight = musicSlider.getPrefHeight();
         musicSlider.setSize(350, preferredHeight);
         musicSlider.setValue(audioSettings.getMusicVolume());
+        musicSlider.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                float musicValue = musicSlider.getValue();
+                getGameManager().audioSettings.setMusicVolume(musicValue);
+            }
+        });
 
         musicSlider.setX(x + 500f);
         musicSlider.setY(1080 - 150);
@@ -112,6 +114,13 @@ public class SettingsScreen extends AbstractGameScreen {
         float soundPreferredHeight = soundSlider.getPrefHeight();
         soundSlider.setSize(350, soundPreferredHeight);
         soundSlider.setValue(audioSettings.getSoundVolume());
+        soundSlider.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                float soundValue = soundSlider.getValue();
+                getGameManager().audioSettings.setSoundVolume(soundValue);
+            }
+        });
 
         soundSlider.setX(x + 500f);
         soundSlider.setY(1080 - 250);
