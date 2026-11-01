@@ -53,7 +53,10 @@ public abstract class AbstractTiledMapUiScreen<A extends ActorFactory, V extends
     }
 
     @Override
-    public void restart() {
+    public abstract void restart();
+
+    @Override
+    public void show() {
         if (isGlProfileActive) {
             profiler = new GLProfiler(Gdx.graphics);
             profiler.enable();
@@ -86,11 +89,6 @@ public abstract class AbstractTiledMapUiScreen<A extends ActorFactory, V extends
         );
 
         afterShow(tiledMap, renderer, viewport, actorFactory, vfxEffectPoolFactory);
-    }
-
-    @Override
-    public void show() {
-        restart();
     }
 
     //TODO быстрофикс - на пиксель растягиваем каждый тайл, чтобы зазоры не были видны

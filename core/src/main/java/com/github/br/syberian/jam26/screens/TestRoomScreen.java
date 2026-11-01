@@ -34,6 +34,11 @@ public class TestRoomScreen extends AbstractTiledMapUiScreen<TestUserActorFactor
     }
 
     @Override
+    public void restart() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public void show() {
         GameManager gameManager = getGameManager();
         entityFactory = new EntityFactory(gameManager);

@@ -47,11 +47,16 @@ public class PhysicsLevelScreen extends AbstractTiledMapUiScreen<IUserActorFacto
 
     @Override
     public void restart() {
+        getGameManager().screenStateManager.changeCurrentState(GameScreens.PHYSICS_LEVEL_1_SCREEN);
+    }
+
+    @Override
+    public void show() {
         GameManager gameManager = getGameManager();
         entityFactory = new EntityFactory(gameManager);
         artemisWorld = createECS(entityFactory);
 
-        super.restart();
+        super.show();
     }
 
     @Override

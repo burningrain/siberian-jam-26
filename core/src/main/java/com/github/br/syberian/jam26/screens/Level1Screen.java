@@ -46,11 +46,16 @@ public class Level1Screen extends AbstractTiledMapUiScreen<IUserActorFactory, Cu
 
     @Override
     public void restart() {
+        getGameManager().screenStateManager.changeCurrentState(GameScreens.LEVEL_1);
+    }
+
+    @Override
+    public void show() {
         GameManager gameManager = getGameManager();
         entityFactory = new EntityFactory(gameManager);
         artemisWorld = createECS(entityFactory);
 
-        super.restart();
+        super.show();
     }
 
     @Override
