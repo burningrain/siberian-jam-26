@@ -1,327 +1,551 @@
 
 level-1.png
-size: 2048, 256
+size: 2048, 512
 format: RGBA8888
 filter: Nearest, Nearest
 repeat: none
 ../pictures/level/1/1-1
   rotate: false
-  xy: 944, 10
+  xy: 1132, 269
   size: 120, 120
   orig: 120, 120
   offset: 0, 0
   index: -1
 ../pictures/level/1/1-2
   rotate: false
-  xy: 489, 132
+  xy: 522, 269
   size: 120, 120
   orig: 120, 120
   offset: 0, 0
   index: -1
 ../pictures/level/1/1-3
   rotate: false
-  xy: 1188, 10
+  xy: 1498, 269
   size: 120, 120
   orig: 120, 120
   offset: 0, 0
   index: -1
 ../pictures/level/1/2-1
   rotate: false
-  xy: 733, 132
+  xy: 888, 269
   size: 120, 120
   orig: 120, 120
   offset: 0, 0
   index: -1
 ../pictures/level/1/2-2
   rotate: false
-  xy: 123, 41
+  xy: 278, 269
   size: 120, 120
   orig: 120, 120
   offset: 0, 0
   index: -1
 ../pictures/level/1/2-3
   rotate: false
-  xy: 1066, 10
+  xy: 1254, 269
   size: 120, 120
   orig: 120, 120
   offset: 0, 0
   index: -1
 ../pictures/level/1/3-1
   rotate: false
-  xy: 611, 132
+  xy: 644, 269
   size: 120, 120
   orig: 120, 120
   offset: 0, 0
   index: -1
 ../pictures/level/1/3-2
   rotate: false
-  xy: 1310, 10
+  xy: 1620, 269
   size: 120, 120
   orig: 120, 120
   offset: 0, 0
   index: -1
 ../pictures/level/1/3-3
   rotate: false
-  xy: 855, 132
+  xy: 1010, 269
   size: 120, 120
   orig: 120, 120
   offset: 0, 0
   index: -1
 ../pictures/level/1/4-1
   rotate: false
-  xy: 367, 132
+  xy: 400, 269
   size: 120, 120
   orig: 120, 120
   offset: 0, 0
   index: -1
 ../pictures/level/1/4-2
   rotate: false
-  xy: 1099, 132
+  xy: 1376, 269
   size: 120, 120
   orig: 120, 120
   offset: 0, 0
   index: -1
 ../pictures/level/1/4-3
   rotate: false
-  xy: 700, 10
+  xy: 766, 269
   size: 120, 120
   orig: 120, 120
   offset: 0, 0
   index: -1
 ../pictures/level/1/floo-1
   rotate: false
-  xy: 1, 41
+  xy: 278, 391
   size: 120, 120
   orig: 120, 120
   offset: 0, 0
   index: -1
 ../pictures/level/1/floo-2
   rotate: false
-  xy: 977, 132
+  xy: 1254, 391
   size: 120, 120
   orig: 120, 120
   offset: 0, 0
   index: -1
 ../pictures/level/1/floo-3
   rotate: false
-  xy: 578, 10
+  xy: 644, 391
   size: 120, 120
   orig: 120, 120
   offset: 0, 0
   index: -1
 ../pictures/level/1/floo-4
   rotate: false
-  xy: 1221, 132
+  xy: 1620, 391
   size: 120, 120
   orig: 120, 120
   offset: 0, 0
   index: -1
 ../pictures/level/1/wall
   rotate: false
-  xy: 822, 10
+  xy: 1010, 391
   size: 120, 120
   orig: 120, 120
   offset: 0, 0
   index: -1
 ../pictures/level/1/wall-de
   rotate: false
-  xy: 245, 71
+  xy: 400, 391
+  size: 120, 120
+  orig: 120, 120
+  offset: 0, 0
+  index: -1
+../pictures/level/1/wall-out-1
+  rotate: false
+  xy: 1376, 391
+  size: 120, 120
+  orig: 120, 120
+  offset: 0, 0
+  index: -1
+../pictures/level/1/wall-out-2
+  rotate: false
+  xy: 766, 391
+  size: 120, 120
+  orig: 120, 120
+  offset: 0, 0
+  index: -1
+../pictures/level/1/wall-out-3
+  rotate: false
+  xy: 1742, 391
+  size: 120, 120
+  orig: 120, 120
+  offset: 0, 0
+  index: -1
+../pictures/level/1/wall-out-4
+  rotate: false
+  xy: 1132, 391
+  size: 120, 120
+  orig: 120, 120
+  offset: 0, 0
+  index: -1
+../pictures/level/1/wall-out-5
+  rotate: false
+  xy: 522, 391
+  size: 120, 120
+  orig: 120, 120
+  offset: 0, 0
+  index: -1
+../pictures/level/1/wall-out-6
+  rotate: false
+  xy: 1498, 391
+  size: 120, 120
+  orig: 120, 120
+  offset: 0, 0
+  index: -1
+../pictures/level/1/wall-out-7
+  rotate: false
+  xy: 888, 391
+  size: 120, 120
+  orig: 120, 120
+  offset: 0, 0
+  index: -1
+../pictures/level/1/wall-out-8
+  rotate: false
+  xy: 1, 23
   size: 120, 120
   orig: 120, 120
   offset: 0, 0
   index: -1
 ../pictures/level/bed
   rotate: false
-  xy: 1432, 20
+  xy: 923, 91
   size: 81, 115
   orig: 81, 115
   offset: 0, 0
   index: -1
 ../pictures/level/bed-2
   rotate: false
-  xy: 1429, 137
+  xy: 840, 91
   size: 81, 115
   orig: 81, 115
   offset: 0, 0
   index: -1
 ../pictures/level/blin
   rotate: false
-  xy: 513, 23
+  xy: 840, 26
   size: 63, 63
   orig: 63, 63
   offset: 0, 0
   index: -1
 ../pictures/level/cab
   rotate: false
-  xy: 83, 17
+  xy: 1106, 26
   size: 53, 22
   orig: 53, 22
   offset: 0, 0
   index: -1
 ../pictures/level/cam-1
   rotate: false
-  xy: 1673, 6
+  xy: 610, 22
   size: 33, 62
   orig: 33, 62
   offset: 0, 0
   index: -1
 ../pictures/level/cam-2
   rotate: false
-  xy: 367, 71
+  xy: 1980, 151
   size: 63, 59
   orig: 63, 59
   offset: 0, 0
   index: -1
 ../pictures/level/cam-3
   rotate: false
-  xy: 444, 13
+  xy: 1980, 212
   size: 67, 61
   orig: 67, 61
   offset: 0, 0
   index: -1
 ../pictures/level/cha
   rotate: false
-  xy: 1743, 10
+  xy: 645, 1
   size: 33, 58
   orig: 33, 58
   offset: 0, 0
   index: -1
 ../pictures/level/cha-2
   rotate: false
-  xy: 1708, 9
+  xy: 1462, 49
   size: 33, 59
   orig: 33, 59
   offset: 0, 0
   index: -1
 ../pictures/level/char
   rotate: false
-  xy: 488, 88
+  xy: 1462, 5
   size: 51, 42
   orig: 51, 42
   offset: 0, 0
   index: -1
+../pictures/level/char-ment
+  rotate: false
+  xy: 1446, 161
+  size: 51, 45
+  orig: 51, 45
+  offset: 0, 0
+  index: -1
+../pictures/level/cup
+  rotate: false
+  xy: 1359, 19
+  size: 101, 89
+  orig: 101, 89
+  offset: 0, 0
+  index: -1
 ../pictures/level/door-1
   rotate: false
-  xy: 1673, 70
+  xy: 1277, 6
   size: 80, 99
   orig: 80, 99
   offset: 0, 0
   index: -1
 ../pictures/level/door-2
   rotate: false
-  xy: 1803, 107
+  xy: 661, 61
   size: 45, 145
   orig: 45, 145
   offset: 0, 0
   index: -1
 ../pictures/level/door-3
   rotate: false
-  xy: 1591, 55
+  xy: 1232, 107
   size: 80, 99
   orig: 80, 99
   offset: 0, 0
   index: -1
 ../pictures/level/door-4
   rotate: false
-  xy: 1755, 105
+  xy: 1986, 364
   size: 46, 147
   orig: 46, 147
   offset: 0, 0
   index: -1
 ../pictures/level/key
   rotate: false
-  xy: 1608, 171
+  xy: 234, 153
   size: 42, 81
   orig: 42, 81
   offset: 0, 0
   index: -1
 ../pictures/level/key-2
   rotate: false
-  xy: 1652, 171
+  xy: 235, 70
   size: 41, 81
   orig: 41, 81
   offset: 0, 0
   index: -1
 ../pictures/level/key-itm
   rotate: false
-  xy: 1842, 4
+  xy: 1226, 1
   size: 49, 101
   orig: 49, 101
   offset: 0, 0
   index: -1
+../pictures/level/korob
+  rotate: false
+  xy: 905, 28
+  size: 61, 61
+  orig: 61, 61
+  offset: 0, 0
+  index: -1
+../pictures/level/korob-open
+  rotate: false
+  xy: 1864, 155
+  size: 114, 118
+  orig: 114, 118
+  offset: 0, 0
+  index: -1
+../pictures/level/kysa4
+  rotate: false
+  xy: 708, 86
+  size: 51, 120
+  orig: 51, 120
+  offset: 0, 0
+  index: -1
+../pictures/level/kysa4-m
+  rotate: false
+  xy: 1077, 31
+  size: 27, 61
+  orig: 27, 61
+  offset: 0, 0
+  index: -1
 ../pictures/level/med-1
   rotate: false
-  xy: 1778, 1
+  xy: 1168, 104
   size: 62, 102
   orig: 62, 102
   offset: 0, 0
   index: -1
 ../pictures/level/med-2
   rotate: false
-  xy: 1515, 44
+  xy: 1092, 96
   size: 74, 110
   orig: 74, 110
   offset: 0, 0
   index: -1
+../pictures/level/oblako
+  rotate: false
+  xy: 1, 236
+  size: 275, 275
+  orig: 275, 275
+  offset: 0, 0
+  index: -1
+../pictures/level/oblako-120
+  rotate: false
+  xy: 1864, 391
+  size: 120, 120
+  orig: 120, 120
+  offset: 0, 0
+  index: -1
 ../pictures/level/pump
   rotate: false
-  xy: 44, 6
+  xy: 278, 6
   size: 37, 33
   orig: 37, 33
   offset: 0, 0
   index: -1
+../pictures/level/richag
+  rotate: false
+  xy: 235, 31
+  size: 41, 37
+  orig: 41, 37
+  offset: 0, 0
+  index: -1
+../pictures/level/richag-2
+  rotate: false
+  xy: 1410, 161
+  size: 34, 45
+  orig: 34, 45
+  offset: 0, 0
+  index: -1
 ../pictures/level/san
   rotate: false
-  xy: 1343, 140
+  xy: 1006, 94
   size: 84, 112
   orig: 84, 112
   offset: 0, 0
   index: -1
 ../pictures/level/san-2
   rotate: false
-  xy: 360, 14
+  xy: 708, 29
   size: 82, 55
   orig: 82, 55
   offset: 0, 0
   index: -1
+../pictures/level/secur
+  rotate: false
+  xy: 1410, 110
+  size: 52, 43
+  orig: 52, 43
+  offset: 0, 0
+  index: -1
+../pictures/level/secur-benis
+  rotate: false
+  xy: 968, 29
+  size: 51, 60
+  orig: 51, 60
+  offset: 0, 0
+  index: -1
+../pictures/level/secur-voda
+  rotate: false
+  xy: 1106, 50
+  size: 52, 44
+  orig: 52, 44
+  offset: 0, 0
+  index: -1
+../pictures/level/shtanga
+  rotate: false
+  xy: 495, 14
+  size: 113, 70
+  orig: 113, 70
+  offset: 0, 0
+  index: -1
+../pictures/level/skaf-zelezo
+  rotate: false
+  xy: 491, 86
+  size: 89, 120
+  orig: 89, 120
+  offset: 0, 0
+  index: -1
+../pictures/level/skaf-zelezo-zamok
+  rotate: false
+  xy: 400, 86
+  size: 89, 120
+  orig: 89, 120
+  offset: 0, 0
+  index: -1
+../pictures/level/skaf-zelezo-zamok-otk
+  rotate: false
+  xy: 1742, 269
+  size: 120, 120
+  orig: 120, 120
+  offset: 0, 0
+  index: -1
+../pictures/level/stelaz-korob
+  rotate: false
+  xy: 123, 23
+  size: 110, 120
+  orig: 110, 120
+  offset: 0, 0
+  index: -1
+../pictures/level/stol-styl
+  rotate: false
+  xy: 1864, 275
+  size: 120, 114
+  orig: 120, 114
+  offset: 0, 0
+  index: -1
 ../pictures/level/tabl
   rotate: false
-  xy: 245, 5
+  xy: 278, 41
   size: 113, 64
   orig: 113, 64
   offset: 0, 0
   index: -1
 ../pictures/level/table-comp
   rotate: false
-  xy: 1, 163
+  xy: 1, 145
   size: 231, 89
   orig: 231, 89
   offset: 0, 0
   index: -1
+../pictures/level/tabuletta
+  rotate: false
+  xy: 1168, 1
+  size: 56, 101
+  orig: 56, 101
+  offset: 0, 0
+  index: -1
+../pictures/level/telezka
+  rotate: false
+  xy: 761, 86
+  size: 77, 120
+  orig: 77, 120
+  offset: 0, 0
+  index: -1
+../pictures/level/telezka-koleso
+  rotate: false
+  xy: 582, 86
+  size: 77, 120
+  orig: 77, 120
+  offset: 0, 0
+  index: -1
 ../pictures/level/tra-1
   rotate: false
-  xy: 234, 193
+  xy: 278, 208
   size: 131, 59
   orig: 131, 59
   offset: 0, 0
   index: -1
 ../pictures/level/tra-2
   rotate: false
-  xy: 1512, 156
+  xy: 1314, 110
   size: 94, 96
   orig: 94, 96
   offset: 0, 0
   index: -1
+../pictures/level/unifaorm
+  rotate: false
+  xy: 393, 11
+  size: 100, 73
+  orig: 100, 73
+  offset: 0, 0
+  index: -1
+../pictures/level/vorota
+  rotate: false
+  xy: 278, 107
+  size: 120, 99
+  orig: 120, 99
+  offset: 0, 0
+  index: -1
 ../pictures/level/wat
   rotate: false
-  xy: 432, 76
+  xy: 1021, 38
   size: 54, 54
   orig: 54, 54
   offset: 0, 0
   index: -1
 ../pictures/level/wat-2
   rotate: false
-  xy: 1, 4
+  xy: 1021, 1
   size: 41, 35
   orig: 41, 35
   offset: 0, 0

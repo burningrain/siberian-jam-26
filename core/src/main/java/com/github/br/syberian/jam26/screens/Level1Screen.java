@@ -122,7 +122,6 @@ public class Level1Screen extends AbstractTiledMapUiScreen<IUserActorFactory, Cu
         }
     }
 
-
     @Override
     protected void update(float delta, Viewport viewport) {
         //TODO InputSystem встроена в ECS - нормально или будет глючить ???

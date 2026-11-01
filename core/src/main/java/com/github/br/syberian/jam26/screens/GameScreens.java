@@ -5,8 +5,13 @@ import com.github.br.syberian.jam26.Resources;
 
 public interface GameScreens {
 
-    GameScreenState GAME_SCREEN = new GameScreenState(
-        new GameScreen(), new GameScreenAssetLoader()
+    GameScreenState PHYSICS_LEVEL_1_SCREEN = new GameScreenState(
+        new PhysicsLevelScreen(
+            Resources.Tmx.PHYSICS_LEVEL_1,
+            Resources.SKIN,
+            false,
+            true
+        ), new PhysicsLevelScreenLoader()
     );
 
     GameScreenState MENU = new GameScreenState(
@@ -35,6 +40,10 @@ public interface GameScreens {
             true
         ),
         new TestRoomAssetLoader()
+    );
+
+    GameScreenState GAME_SCREEN = new GameScreenState(
+        new GameScreen(), new GameScreenAssetLoader()
     );
 
 }

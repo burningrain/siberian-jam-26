@@ -18,11 +18,16 @@ import com.github.br.syberian.jam26.ecs.components.PhysicsComponent;
 import com.github.br.syberian.jam26.ecs.components.PlayerComponent;
 import com.github.br.syberian.jam26.ecs.components.TransformComponent;
 
+import box2dLight.RayHandler;
+
 public class PhysicsSystem extends BaseSystem implements EntitySubscription.SubscriptionListener {
 
     private final GameManager gameManager;
 
     private final World world;
+
+    private RayHandler rayHandler; // для света
+
     private static final float TIME_STEP = 1 / 60f;
     private static final int VELOCITY_ITERATIONS = 6;
     private static final int POSITION_ITERATIONS = 2;
@@ -35,6 +40,10 @@ public class PhysicsSystem extends BaseSystem implements EntitySubscription.Subs
 
     public World getBox2dWorld() {
         return world;
+    }
+
+    public RayHandler getRayHandler() {
+        return rayHandler;
     }
 
     public PhysicsSystem(GameManager gameManager, PhysicsContactListener contactListener) {
@@ -57,6 +66,9 @@ public class PhysicsSystem extends BaseSystem implements EntitySubscription.Subs
         this.mPhysics = getWorld().getMapper(PhysicsComponent.class);
         this.mPlayer = getWorld().getMapper(PlayerComponent.class);
         this.mTransform = getWorld().getMapper(TransformComponent.class);
+
+        rayHandler = new RayHandler(world);
+        rayHandler.setAmbientLight(0.1f, 0.1f, 0.1f, 0.7f); // Темнота вокруг, как в твоем GameScreen
     }
 
     @Override

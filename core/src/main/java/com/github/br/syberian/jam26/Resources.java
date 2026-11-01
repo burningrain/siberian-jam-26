@@ -20,6 +20,8 @@ public interface Resources {
         String LEVEL_1 = "level-1.tmx";
 
         String TEST_ROOM = "test-room.tmx";
+
+        String PHYSICS_LEVEL_1 = "physics-level-1.tmx";
     }
 
     interface Atlases {

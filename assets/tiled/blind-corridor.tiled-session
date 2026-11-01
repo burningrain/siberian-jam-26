@@ -100,7 +100,7 @@
         "level-1.tmx"
     ],
     "project": "blind-corridor.tiled-project",
-    "property.type": "string",
+    "property.type": "bool",
     "recentFiles": [
         "test-room.tmx",
         "level-1.tmx",

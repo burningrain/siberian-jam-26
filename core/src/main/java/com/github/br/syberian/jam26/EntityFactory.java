@@ -4,6 +4,7 @@ import com.artemis.Archetype;
 import com.artemis.ArchetypeBuilder;
 import com.artemis.BaseSystem;
 import com.artemis.ComponentMapper;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -20,12 +21,15 @@ import com.github.br.syberian.jam26.ecs.components.EnemyComponent;
 import com.github.br.syberian.jam26.ecs.components.PhysicsComponent;
 import com.github.br.syberian.jam26.ecs.components.PlayerComponent;
 import com.github.br.syberian.jam26.ecs.components.RenderComponent;
+import com.github.br.syberian.jam26.ecs.components.SecurityCameraComponent;
 import com.github.br.syberian.jam26.ecs.components.TransformComponent;
 import com.github.br.syberian.jam26.ecs.components.TriggerComponent;
 import com.github.br.syberian.jam26.ecs.systems.physics.contact.ContactDataImpl;
 import com.github.br.syberian.jam26.ecs.systems.physics.PhysicsSystem;
 import com.github.br.syberian.jam26.ecs.systems.physics.TriggerContactDataImpl;
 import com.github.br.syberian.jam26.ecs.systems.physics.contact.PlayerContactDataImpl;
+
+import box2dLight.ConeLight;
 
 public class EntityFactory extends BaseSystem {
 
@@ -49,6 +53,8 @@ public class EntityFactory extends BaseSystem {
 
     protected ComponentMapper<TriggerComponent> mTrigger;
 
+    protected ComponentMapper<SecurityCameraComponent> cameraLogicMapper;
+
     private IUserActorFactory userActorFactory;
 
     private final GameManager gameManager;
@@ -71,6 +77,7 @@ public class EntityFactory extends BaseSystem {
         playerMapper = getWorld().getMapper(PlayerComponent.class);
         enemyMapper = getWorld().getMapper(EnemyComponent.class);
         mTrigger = getWorld().getMapper(TriggerComponent.class);
+        cameraLogicMapper = getWorld().getMapper(SecurityCameraComponent.class);
 
         setEnabled(false);  // Отключаем ежекадровое обновление
 
@@ -116,6 +123,7 @@ public class EntityFactory extends BaseSystem {
         cameraArchetype = new ArchetypeBuilder()
             .add(TransformComponent.class)
             .add(PhysicsComponent.class)
+            .add(SecurityCameraComponent.class)
             .add(RenderComponent.class)
             .build(world);
 
@@ -281,11 +289,51 @@ public class EntityFactory extends BaseSystem {
         transformComponent.y = y;
 
         PhysicsComponent physicsComponent = createPhysicsComponent(
-            id, BodyDef.BodyType.DynamicBody, false, x, y, width, height
+            id, BodyDef.BodyType.KinematicBody, false, x, y, width, height
+        );
+
+        SecurityCameraComponent cam = cameraLogicMapper.get(id);
+
+        // --- АВТОМАТИЧЕСКИЙ РАСЧЕТ СМЕЩЕНИЯ ИЗ ФОРМЫ ТЕЛА ---
+        if (physicsComponent.body != null && !physicsComponent.body.getFixtureList().isEmpty()) {
+            com.badlogic.gdx.physics.box2d.Fixture fixture = physicsComponent.body.getFixtureList().first();
+            if (fixture.getShape() instanceof com.badlogic.gdx.physics.box2d.PolygonShape) {
+                com.badlogic.gdx.physics.box2d.PolygonShape shape = (com.badlogic.gdx.physics.box2d.PolygonShape) fixture.getShape();
+                Vector2 tmpVertex = new Vector2();
+
+                // Забираем правый верхний угол (индекс 2) в ЛОКАЛЬНЫХ МЕТРАХ Box2D формы.
+                // tmpVertex.x будет в точности равен половине ширины тела камеры в метрах!
+                shape.getVertex(2, tmpVertex);
+
+                // Выставляем точку испускания луча строго на правый край камеры
+                cam.localLightOffset.set(tmpVertex.x, 0f);
+            }
+        }
+
+        // Инициализируем свет с учетом динамического оффсета
+        SimpleUtils simpleUtils = gameManager.simpleUtils;
+        PhysicsSystem physics = world.getSystem(PhysicsSystem.class);
+
+        // Считаем стартовую мировую позицию объектива (с учетом смещения)
+        Vector2 startingWorldPos = physicsComponent.body.getWorldPoint(cam.localLightOffset);
+
+        float pixelX = simpleUtils.convertMetresToUnits(startingWorldPos.x);
+        float pixelY = simpleUtils.convertMetresToUnits(startingWorldPos.y);
+        float pixelRange = simpleUtils.convertMetresToUnits(cam.cameraRange);
+
+        cam.cameraLight = new ConeLight(
+            physics.getRayHandler(),
+            120,
+            com.badlogic.gdx.graphics.Color.YELLOW,
+            pixelRange,
+            pixelX,
+            pixelY,
+            cam.viewDirectionDegrees,
+            cam.fovDegrees
         );
 
         RenderComponent renderComponent = renderMapper.get(id);
-        renderComponent.actor =  userActorFactory.getCustomUiActor(actorType);
+        renderComponent.actor = userActorFactory.getCustomUiActor(actorType);
 
         return id;
     }
@@ -402,6 +450,8 @@ public class EntityFactory extends BaseSystem {
             case BOX:
                 return createBox(actorType, x, y, width, height);
             case CAMERA:
+            case CAM_2:
+            case CAM_3:
                 return createCamera(actorType, x, y, width, height);
             case BULLET:
                 return createBullet(actorType, x, y, width, height, new Vector2());

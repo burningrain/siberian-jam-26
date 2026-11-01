@@ -14,6 +14,9 @@ import com.github.br.libgdx.common.structure.screen.ui.CustomOrthogonalTiledMapR
 import com.github.br.syberian.jam26.Constants;
 import com.github.br.syberian.jam26.ecs.components.RenderComponent;
 import com.github.br.syberian.jam26.ecs.components.TransformComponent;
+import com.github.br.syberian.jam26.ecs.systems.physics.PhysicsSystem;
+
+import box2dLight.RayHandler;
 
 @All({TransformComponent.class, RenderComponent.class})
 public class Box2dRenderSystem extends IteratingSystem {
@@ -106,6 +109,12 @@ public class Box2dRenderSystem extends IteratingSystem {
         }
     }
 
+    public void renderLightsOnly() {
+        RayHandler rayHandler = world.getSystem(PhysicsSystem.class).getRayHandler();
+        rayHandler.setCombinedMatrix(camera.combined); // Камера из AbstractTiledMapUiScreen
+        rayHandler.updateAndRender();
+    }
+
     @Override
     protected void dispose() {
         if (debugRenderer != null) {
@@ -113,7 +122,16 @@ public class Box2dRenderSystem extends IteratingSystem {
         }
     }
 
-    public CustomOrthogonalTiledMapRenderer getRenderer() { return renderer; }
-    public Viewport getViewport() { return viewport; }
-    public Camera getCamera() { return camera; }
+    public CustomOrthogonalTiledMapRenderer getRenderer() {
+        return renderer;
+    }
+
+    public Viewport getViewport() {
+        return viewport;
+    }
+
+    public Camera getCamera() {
+        return camera;
+    }
+
 }
