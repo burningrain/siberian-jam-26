@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "",
+    "activeFile": "level-1.tmx",
     "expandedProjectPaths": [
         "."
     ],
@@ -36,11 +36,11 @@
             "expandedObjectLayers": [
                 2
             ],
-            "scale": 0.75,
+            "scale": 0.5,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 4992,
-                "y": 6958
+                "x": 5124,
+                "y": 5027
             }
         },
         "level-1.tmx#bgf": {
@@ -77,12 +77,13 @@
     "map.tileWidth": 120,
     "map.width": 100,
     "openFiles": [
+        "level-1.tmx"
     ],
     "project": "blind-corridor.tiled-project",
     "property.type": "string",
     "recentFiles": [
-        "test-room.tmx",
         "level-1.tmx",
+        "test-room.tmx",
         "D:/projects/perelesoq-jam-26/assets/tiled/entrance.tmx"
     ],
     "tileset.embedInMap": true,

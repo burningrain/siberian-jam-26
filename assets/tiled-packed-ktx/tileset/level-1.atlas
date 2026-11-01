@@ -1,0 +1,328 @@
+
+level-1.ktx2
+size: 2048, 256
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+../pictures/level/1/1-1
+  rotate: false
+  xy: 944, 10
+  size: 120, 120
+  orig: 120, 120
+  offset: 0, 0
+  index: -1
+../pictures/level/1/1-2
+  rotate: false
+  xy: 489, 132
+  size: 120, 120
+  orig: 120, 120
+  offset: 0, 0
+  index: -1
+../pictures/level/1/1-3
+  rotate: false
+  xy: 1188, 10
+  size: 120, 120
+  orig: 120, 120
+  offset: 0, 0
+  index: -1
+../pictures/level/1/2-1
+  rotate: false
+  xy: 733, 132
+  size: 120, 120
+  orig: 120, 120
+  offset: 0, 0
+  index: -1
+../pictures/level/1/2-2
+  rotate: false
+  xy: 123, 41
+  size: 120, 120
+  orig: 120, 120
+  offset: 0, 0
+  index: -1
+../pictures/level/1/2-3
+  rotate: false
+  xy: 1066, 10
+  size: 120, 120
+  orig: 120, 120
+  offset: 0, 0
+  index: -1
+../pictures/level/1/3-1
+  rotate: false
+  xy: 611, 132
+  size: 120, 120
+  orig: 120, 120
+  offset: 0, 0
+  index: -1
+../pictures/level/1/3-2
+  rotate: false
+  xy: 1310, 10
+  size: 120, 120
+  orig: 120, 120
+  offset: 0, 0
+  index: -1
+../pictures/level/1/3-3
+  rotate: false
+  xy: 855, 132
+  size: 120, 120
+  orig: 120, 120
+  offset: 0, 0
+  index: -1
+../pictures/level/1/4-1
+  rotate: false
+  xy: 367, 132
+  size: 120, 120
+  orig: 120, 120
+  offset: 0, 0
+  index: -1
+../pictures/level/1/4-2
+  rotate: false
+  xy: 1099, 132
+  size: 120, 120
+  orig: 120, 120
+  offset: 0, 0
+  index: -1
+../pictures/level/1/4-3
+  rotate: false
+  xy: 700, 10
+  size: 120, 120
+  orig: 120, 120
+  offset: 0, 0
+  index: -1
+../pictures/level/1/floo-1
+  rotate: false
+  xy: 1, 41
+  size: 120, 120
+  orig: 120, 120
+  offset: 0, 0
+  index: -1
+../pictures/level/1/floo-2
+  rotate: false
+  xy: 977, 132
+  size: 120, 120
+  orig: 120, 120
+  offset: 0, 0
+  index: -1
+../pictures/level/1/floo-3
+  rotate: false
+  xy: 578, 10
+  size: 120, 120
+  orig: 120, 120
+  offset: 0, 0
+  index: -1
+../pictures/level/1/floo-4
+  rotate: false
+  xy: 1221, 132
+  size: 120, 120
+  orig: 120, 120
+  offset: 0, 0
+  index: -1
+../pictures/level/1/wall
+  rotate: false
+  xy: 822, 10
+  size: 120, 120
+  orig: 120, 120
+  offset: 0, 0
+  index: -1
+../pictures/level/1/wall-de
+  rotate: false
+  xy: 245, 71
+  size: 120, 120
+  orig: 120, 120
+  offset: 0, 0
+  index: -1
+../pictures/level/bed
+  rotate: false
+  xy: 1432, 20
+  size: 81, 115
+  orig: 81, 115
+  offset: 0, 0
+  index: -1
+../pictures/level/bed-2
+  rotate: false
+  xy: 1429, 137
+  size: 81, 115
+  orig: 81, 115
+  offset: 0, 0
+  index: -1
+../pictures/level/blin
+  rotate: false
+  xy: 513, 23
+  size: 63, 63
+  orig: 63, 63
+  offset: 0, 0
+  index: -1
+../pictures/level/cab
+  rotate: false
+  xy: 83, 17
+  size: 53, 22
+  orig: 53, 22
+  offset: 0, 0
+  index: -1
+../pictures/level/cam-1
+  rotate: false
+  xy: 1673, 6
+  size: 33, 62
+  orig: 33, 62
+  offset: 0, 0
+  index: -1
+../pictures/level/cam-2
+  rotate: false
+  xy: 367, 71
+  size: 63, 59
+  orig: 63, 59
+  offset: 0, 0
+  index: -1
+../pictures/level/cam-3
+  rotate: false
+  xy: 444, 13
+  size: 67, 61
+  orig: 67, 61
+  offset: 0, 0
+  index: -1
+../pictures/level/cha
+  rotate: false
+  xy: 1743, 10
+  size: 33, 58
+  orig: 33, 58
+  offset: 0, 0
+  index: -1
+../pictures/level/cha-2
+  rotate: false
+  xy: 1708, 9
+  size: 33, 59
+  orig: 33, 59
+  offset: 0, 0
+  index: -1
+../pictures/level/char
+  rotate: false
+  xy: 488, 88
+  size: 51, 42
+  orig: 51, 42
+  offset: 0, 0
+  index: -1
+../pictures/level/door-1
+  rotate: false
+  xy: 1673, 70
+  size: 80, 99
+  orig: 80, 99
+  offset: 0, 0
+  index: -1
+../pictures/level/door-2
+  rotate: false
+  xy: 1803, 107
+  size: 45, 145
+  orig: 45, 145
+  offset: 0, 0
+  index: -1
+../pictures/level/door-3
+  rotate: false
+  xy: 1591, 55
+  size: 80, 99
+  orig: 80, 99
+  offset: 0, 0
+  index: -1
+../pictures/level/door-4
+  rotate: false
+  xy: 1755, 105
+  size: 46, 147
+  orig: 46, 147
+  offset: 0, 0
+  index: -1
+../pictures/level/key
+  rotate: false
+  xy: 1608, 171
+  size: 42, 81
+  orig: 42, 81
+  offset: 0, 0
+  index: -1
+../pictures/level/key-2
+  rotate: false
+  xy: 1652, 171
+  size: 41, 81
+  orig: 41, 81
+  offset: 0, 0
+  index: -1
+../pictures/level/key-itm
+  rotate: false
+  xy: 1842, 4
+  size: 49, 101
+  orig: 49, 101
+  offset: 0, 0
+  index: -1
+../pictures/level/med-1
+  rotate: false
+  xy: 1778, 1
+  size: 62, 102
+  orig: 62, 102
+  offset: 0, 0
+  index: -1
+../pictures/level/med-2
+  rotate: false
+  xy: 1515, 44
+  size: 74, 110
+  orig: 74, 110
+  offset: 0, 0
+  index: -1
+../pictures/level/pump
+  rotate: false
+  xy: 44, 6
+  size: 37, 33
+  orig: 37, 33
+  offset: 0, 0
+  index: -1
+../pictures/level/san
+  rotate: false
+  xy: 1343, 140
+  size: 84, 112
+  orig: 84, 112
+  offset: 0, 0
+  index: -1
+../pictures/level/san-2
+  rotate: false
+  xy: 360, 14
+  size: 82, 55
+  orig: 82, 55
+  offset: 0, 0
+  index: -1
+../pictures/level/tabl
+  rotate: false
+  xy: 245, 5
+  size: 113, 64
+  orig: 113, 64
+  offset: 0, 0
+  index: -1
+../pictures/level/table-comp
+  rotate: false
+  xy: 1, 163
+  size: 231, 89
+  orig: 231, 89
+  offset: 0, 0
+  index: -1
+../pictures/level/tra-1
+  rotate: false
+  xy: 234, 193
+  size: 131, 59
+  orig: 131, 59
+  offset: 0, 0
+  index: -1
+../pictures/level/tra-2
+  rotate: false
+  xy: 1512, 156
+  size: 94, 96
+  orig: 94, 96
+  offset: 0, 0
+  index: -1
+../pictures/level/wat
+  rotate: false
+  xy: 432, 76
+  size: 54, 54
+  orig: 54, 54
+  offset: 0, 0
+  index: -1
+../pictures/level/wat-2
+  rotate: false
+  xy: 1, 4
+  size: 41, 35
+  orig: 41, 35
+  offset: 0, 0
+  index: -1

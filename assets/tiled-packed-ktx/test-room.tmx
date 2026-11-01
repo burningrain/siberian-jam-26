@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><map height="100" infinite="0" nextlayerid="3" nextobjectid="19" orientation="orthogonal" renderorder="right-down" tiledversion="1.11.2" tileheight="60" tilewidth="60" version="1.10" width="100"><properties><property name="atlas" value="tileset/test-room.atlas"/></properties>
+ <tileset columns="0" firstgid="1" name="environment" tilecount="2" tileheight="60" tilewidth="60">
+  <grid height="1" orientation="orthogonal" width="1"/>
+  <tile id="0">
+   <image height="60" source="../pictures/test_room/tile.png" width="60"/>
+  </tile>
+  <tile id="1">
+   <image height="60" source="../pictures/test_room/wall.png" width="60"/>
+  </tile>
+ </tileset>
+ <layer height="100" id="1" name="Tile Layer 1" width="100">
+  <data compression="zlib" encoding="base64">
+   eJzt0cEJgEAQBMH18g/aGESFPq1HvQem18wsAAD4mYNX6dGiR4seLXq06NGiR4seLXq06NGiR4seLXq06NGiR4seLXq06NGiR4seLXq06NGiR4seLXq06NGiR4seLXq06NGiR4seLXq06NGiR4seLXq06PHsP3d/qu5U+uuhR3FHj9aOHq0dPVo7erR29Gjt6NHa0aO1o0drR4/Wjh57/PN1erTo0aJHix4terTo0aJHix4terTo0aJHix4terTo0aJHix4terTo0aJHix4terTo0aJHix4terTo0aJHix4terTo0aJHix4terTo0aJHix4terRc7QEA7OMEmO4xPw==
+  </data>
+ </layer>
+ <objectgroup color="#55ff7f" id="2" name="Object Layer 1">
+  <object height="528" id="1" name="hero" width="712" x="1840" y="4592">
+   <properties>
+    <property name="actor_type" value="HERO"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object height="528" id="4" name="enemy" width="712" x="580" y="1360">
+   <properties>
+    <property name="actor_type" value="ENEMY"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object height="528" id="5" name="camera" rotation="270" width="712" x="1604" y="1240">
+   <properties>
+    <property name="actor_type" value="CAMERA"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object height="528" id="6" name="camera" rotation="270" width="712" x="4156" y="1240">
+   <properties>
+    <property name="actor_type" value="CAMERA"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object height="792" id="7" name="box" rotation="270" width="712" x="3476" y="4632">
+   <properties>
+    <property name="actor_type" value="BOX"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object height="5984" id="9" name="wall_left" width="368" x="-8" y="16">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object height="5984" id="12" name="wall_right" width="368" x="5640" y="8">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object height="304" id="13" name="wall_bottom" width="5632" x="72" y="5696">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object height="432.485" id="14" name="wall_up" width="5632" x="59.0303" y="-6.27273">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object height="728" id="15" name="wall_left_box" width="834.667" x="1205.94" y="2701.09">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object height="767.394" id="16" name="wall_right_box" width="834.667" x="3958.42" y="2651.15">
+   <properties>
+    <property name="actor_type" value="WALL"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object height="1120" id="17" name="TRIGGER_EXAMPLE" width="960" x="4616" y="4536">
+   <properties>
+    <property name="actor_type" value="TRIGGER"/>
+    <property name="condition_type" value="ON_ENTER"/>
+    <property name="is_ecs_entity" type="bool" value="true"/>
+    <property name="trigger_type" value="SHOW_MESSAGE"/>
+    <property name="use_type" value="ON_ENTER_ONCE"/>
+   </properties>
+  </object>
+ </objectgroup>
+</map>

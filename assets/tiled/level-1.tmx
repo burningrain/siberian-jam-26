@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.12.2" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="120" tileheight="120" infinite="0" nextlayerid="8" nextobjectid="5">
- <tileset firstgid="1" name="floor_and_walls" tilewidth="120" tileheight="120" tilecount="18" columns="0">
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="120" tileheight="120" infinite="0" nextlayerid="8" nextobjectid="5">
+ <tileset firstgid="1" name="floor_and_walls" tilewidth="120" tileheight="120" tilecount="26" columns="0">
   <grid orientation="orthogonal" width="1" height="1"/>
   <tile id="0">
    <image source="../pictures/level/1/1-1.png" width="120" height="120"/>
@@ -56,8 +56,32 @@
   <tile id="17">
    <image source="../pictures/level/1/wall-de.png" width="120" height="120"/>
   </tile>
+  <tile id="18">
+   <image source="../pictures/level/1/wall-out-1.png" width="120" height="120"/>
+  </tile>
+  <tile id="19">
+   <image source="../pictures/level/1/wall-out-2.png" width="120" height="120"/>
+  </tile>
+  <tile id="20">
+   <image source="../pictures/level/1/wall-out-3.png" width="120" height="120"/>
+  </tile>
+  <tile id="21">
+   <image source="../pictures/level/1/wall-out-4.png" width="120" height="120"/>
+  </tile>
+  <tile id="22">
+   <image source="../pictures/level/1/wall-out-5.png" width="120" height="120"/>
+  </tile>
+  <tile id="23">
+   <image source="../pictures/level/1/wall-out-6.png" width="120" height="120"/>
+  </tile>
+  <tile id="24">
+   <image source="../pictures/level/1/wall-out-7.png" width="120" height="120"/>
+  </tile>
+  <tile id="25">
+   <image source="../pictures/level/1/wall-out-8.png" width="120" height="120"/>
+  </tile>
  </tileset>
- <tileset firstgid="19" name="bgf" tilewidth="231" tileheight="147" tilecount="28" columns="0">
+ <tileset firstgid="27" name="bgf" tilewidth="275" tileheight="275" tilecount="48" columns="0">
   <grid orientation="orthogonal" width="1" height="1"/>
   <tile id="0">
    <image source="../pictures/level/bed.png" width="81" height="115"/>
@@ -143,6 +167,66 @@
   <tile id="27">
    <image source="../pictures/level/wat-2.png" width="41" height="35"/>
   </tile>
+  <tile id="28">
+   <image source="../pictures/level/char-ment.png" width="51" height="45"/>
+  </tile>
+  <tile id="29">
+   <image source="../pictures/level/korob.png" width="61" height="61"/>
+  </tile>
+  <tile id="30">
+   <image source="../pictures/level/korob-open.png" width="114" height="118"/>
+  </tile>
+  <tile id="31">
+   <image source="../pictures/level/kysa4.png" width="51" height="120"/>
+  </tile>
+  <tile id="32">
+   <image source="../pictures/level/kysa4-m.png" width="27" height="61"/>
+  </tile>
+  <tile id="33">
+   <image source="../pictures/level/oblako.png" width="275" height="275"/>
+  </tile>
+  <tile id="34">
+   <image source="../pictures/level/oblako-120.png" width="120" height="120"/>
+  </tile>
+  <tile id="35">
+   <image source="../pictures/level/richag.png" width="41" height="37"/>
+  </tile>
+  <tile id="36">
+   <image source="../pictures/level/richag-2.png" width="34" height="45"/>
+  </tile>
+  <tile id="37">
+   <image source="../pictures/level/secur.png" width="52" height="43"/>
+  </tile>
+  <tile id="38">
+   <image source="../pictures/level/secur-benis.png" width="51" height="60"/>
+  </tile>
+  <tile id="39">
+   <image source="../pictures/level/shtanga.png" width="113" height="70"/>
+  </tile>
+  <tile id="40">
+   <image source="../pictures/level/skaf-zelezo.png" width="89" height="120"/>
+  </tile>
+  <tile id="41">
+   <image source="../pictures/level/skaf-zelezo-zamok.png" width="89" height="120"/>
+  </tile>
+  <tile id="42">
+   <image source="../pictures/level/stelaz-korob.png" width="110" height="120"/>
+  </tile>
+  <tile id="43">
+   <image source="../pictures/level/stol-styl.png" width="120" height="114"/>
+  </tile>
+  <tile id="44">
+   <image source="../pictures/level/telezka.png" width="77" height="120"/>
+  </tile>
+  <tile id="45">
+   <image source="../pictures/level/telezka-koleso.png" width="77" height="120"/>
+  </tile>
+  <tile id="46">
+   <image source="../pictures/level/unifaorm.png" width="100" height="73"/>
+  </tile>
+  <tile id="47">
+   <image source="../pictures/level/vorota.png" width="120" height="99"/>
+  </tile>
  </tileset>
  <group id="6" name="Room_1">
   <layer id="1" name="walls_and_floor" width="100" height="100">
@@ -152,7 +236,7 @@
   </layer>
   <layer id="5" name="envornment" width="100" height="100">
    <data encoding="base64" compression="zlib">
-   eJzt2Q1OwjAYANDeQfwhgE6jAoqewaNwFI7iUTyKR3EkGJem0hU2je69ZBn0K2XpR7vShQAAAAAAAAAAAAAAAAAAAPTtqfF6sjuP9tS/qY/rgvZX0fvTTP2rEN4KmqcDjyGs47Lz3bna5eM8rjAQy7pv6nHx2iwbRfFmrK67fi78jlT/X4SwKWyGhGndtw9R/lLqeWddH++p2DY/Y/loLR4vsdLxQXup+SqOJ8q+rd/Gytgokhsfh2q7drLG+hlVy35uW++/y/0uc/FL81Cnqkx/5+Iz+YBeDfleftFv25tDPlcNOB/jftve9Ng8Pdi3pwJ/Te7/xaxw7t/eY86OuaB/rsr391Fx8pbh67lgyryxnzjNx1+6uq6hGiX2b/k9zXx8rnUWjf3dRSZfqXhX+8NDfM5ylyibN/pz0sH4uT+2gQG5TZQ183GSWTPl4gAAAAAAAAAAAAAAAAAAAJT5AM18Kz0=
+   eJzt2WFOwjAYANDeQxQIoGhUQNHfHoWjcBSP4lE8ijPBuDSVrrBpZO8lC9CvlKXf2pUuBAAAAAAAAAAAAAAAAAAAoGtPtfeT3etgT/2b6rguaH8dfT7P1L8K4a2geVrwGMImLhvuXue7fAzjCj2xqvqmGhev9bJBFK/Hqrqb58LfSPX/KIRtYTMkTKu+fYjyl1LNO5vqeE/FPvMzlo/G4vESKx0fNJear+J4ouzH+k2sjY0iufFxqKZrJ2us3zFv2M9N65263HWZi1+ah1qVuy5z8Zl8QKf6fC8fddv29pDv9flePu627W2HzdOBfXsq8N/k/l/MCuf+UdXexRHnc+rm+f4+Kk7eKnw/F0xZ1PYTp/n4S1vn1VeDxP4tf6eej6+1zrK2v7vM5CsVb2t/uI/PWe4SZYtaf05aGD/3xzbQI7eJsno+zjJrplwcAAAAAAAAAAAAAAAAAACAMh/B8C3F
   </data>
   </layer>
   <objectgroup color="#aaff7f" id="2" name="dynamic_objects" visible="0">
