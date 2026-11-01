@@ -5,6 +5,10 @@ import com.github.br.syberian.jam26.Resources;
 
 public interface GameScreens {
 
+    GameScreenState GAME_SCREEN = new GameScreenState(
+        new GameScreen(), new GameScreenAssetLoader()
+    );
+
     GameScreenState MENU = new GameScreenState(
         new MainScreen(), new MainAssetLoader()
     );
