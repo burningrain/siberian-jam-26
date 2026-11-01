@@ -53,8 +53,8 @@ public class SettingsScreen extends AbstractGameScreen {
 
 
         TextButton backButton = createTextButton("НАЗАД", "title");
-        backButton.setX(1920 - 500);
-        backButton.setY(60);
+        backButton.setX(1300);
+        backButton.setY(50);
         backButton.addListener(new ChangeListener(){
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -79,24 +79,15 @@ public class SettingsScreen extends AbstractGameScreen {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        GameSettings gameSettings = getGameManager().gameSettings;
-        float virtualWidth = gameSettings.getVirtualScreenWidth();   // 1920
-        float virtualHeight = gameSettings.getVirtualScreenHeight(); // 1080
-
-        backgroundCamera.update();
-        backgroundViewport.apply(true);
+        // 1. Применяем вьюпорт (камера обновится сама благодаря корректному resize)
+        backgroundViewport.apply();
         spriteBatch.setProjectionMatrix(backgroundCamera.combined);
 
         spriteBatch.begin();
-
-        // Рассчитываем центрирование по X: (1920 - 2560) / 2 = -320
-        // По Y картинка (1080) идеально совпадает с виртуальной высотой (1080), поэтому 0
-        float backgroundX = (virtualWidth - background.getWidth()) / 2f;
-        float backgroundY = 0f;
-
-        // Обязательно передаем ширину и высоту текстуры, чтобы LibGDX правильно ее масштабировал
-        spriteBatch.draw(background, backgroundX, backgroundY, background.getWidth(), background.getHeight());
-
+        // Так как камера теперь отцентрирована по умолчанию (из-за true в resize),
+        // начало координат (0,0) находится в левом нижнем углу ВИДИМОЙ области.
+        // Рисуем картинку от нуля до её реальных размеров, либо используем размеры мира:
+        spriteBatch.draw(background, 0, 0, backgroundViewport.getWorldWidth(), backgroundViewport.getWorldHeight());
         spriteBatch.end();
 
         spriteBatch.setProjectionMatrix(backgroundCamera.combined);
@@ -106,7 +97,7 @@ public class SettingsScreen extends AbstractGameScreen {
 
     @Override
     public void resize(int width, int height) {
-        backgroundViewport.update(width, height, false);
+        backgroundViewport.update(width, height, true);
     }
 
     @Override

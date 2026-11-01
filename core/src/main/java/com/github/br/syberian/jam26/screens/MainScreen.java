@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -14,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.github.br.libgdx.common.structure.GameSettings;
 import com.github.br.libgdx.common.structure.screen.AbstractGameScreen;
@@ -42,7 +42,7 @@ public class MainScreen extends AbstractGameScreen {
 
         // --- Инициализация вьюпорта для фона ---
         backgroundCamera = new OrthographicCamera();
-        backgroundViewport = new ExtendViewport(
+        backgroundViewport = new FitViewport(
             gameSettings.getVirtualScreenWidth(),
             gameSettings.getVirtualScreenHeight(),
             backgroundCamera
@@ -52,13 +52,13 @@ public class MainScreen extends AbstractGameScreen {
         spriteBatch = new SpriteBatch();
         stage = new Stage(backgroundViewport, spriteBatch);
 
-        Label title = createTitle("BlIND CORRIDOR");
-        title.setX(812);
-        title.setY(60);
+        Label title = createTitle("BlIND\nCORRIDOR");
+        title.setX(1070);
+        title.setY(50);
         stage.addActor(title);
 
         TextButton playButton = createTextButton("играть");
-        playButton.setX(100);
+        playButton.setX(230);
         playButton.setY(1080 - 250);
         playButton.addListener(new ChangeListener() {
             @Override
@@ -69,7 +69,7 @@ public class MainScreen extends AbstractGameScreen {
         stage.addActor(playButton);
 
         TextButton settingsButton = createTextButton("настройки");
-        settingsButton.setX(500);
+        settingsButton.setX(570);
         settingsButton.setY(1080 - 250);
         settingsButton.addListener(new ChangeListener(){
             @Override
@@ -95,24 +95,15 @@ public class MainScreen extends AbstractGameScreen {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        GameSettings gameSettings = getGameManager().gameSettings;
-        float virtualWidth = gameSettings.getVirtualScreenWidth();   // 1920
-        float virtualHeight = gameSettings.getVirtualScreenHeight(); // 1080
-
-        backgroundCamera.update();
-        backgroundViewport.apply(true);
+        // 1. Применяем вьюпорт (камера обновится сама благодаря корректному resize)
+        backgroundViewport.apply();
         spriteBatch.setProjectionMatrix(backgroundCamera.combined);
 
         spriteBatch.begin();
-
-        // Рассчитываем центрирование по X: (1920 - 2560) / 2 = -320
-        // По Y картинка (1080) идеально совпадает с виртуальной высотой (1080), поэтому 0
-        float backgroundX = (virtualWidth - background.getWidth()) / 2f;
-        float backgroundY = 0f;
-
-        // Обязательно передаем ширину и высоту текстуры, чтобы LibGDX правильно ее масштабировал
-        spriteBatch.draw(background, backgroundX, backgroundY, background.getWidth(), background.getHeight());
-
+        // Так как камера теперь отцентрирована по умолчанию (из-за true в resize),
+        // начало координат (0,0) находится в левом нижнем углу ВИДИМОЙ области.
+        // Рисуем картинку от нуля до её реальных размеров, либо используем размеры мира:
+        spriteBatch.draw(background, 0, 0, backgroundViewport.getWorldWidth(), backgroundViewport.getWorldHeight());
         spriteBatch.end();
 
         spriteBatch.setProjectionMatrix(backgroundCamera.combined);
@@ -122,7 +113,7 @@ public class MainScreen extends AbstractGameScreen {
 
     @Override
     public void resize(int width, int height) {
-        backgroundViewport.update(width, height, false);
+        backgroundViewport.update(width, height, true);
     }
 
     @Override
