@@ -4,10 +4,10 @@ import com.badlogic.gdx.utils.Array;
 
 public class AudioSettings {
 
-    private float soundVolume;
+    private float soundVolume = 0.5f;
     private boolean turnOffSound = false;
 
-    private float musicVolume;
+    private float musicVolume = 0.5f;
     private boolean turnOffMusic = false;
 
     private final Array<AudioChangeListener> listeners = new Array<>(false, 16);

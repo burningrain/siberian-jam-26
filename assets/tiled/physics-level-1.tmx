@@ -357,7 +357,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup color="#ffff00" id="7" name="walls">
+ <objectgroup color="#ffff00" id="7" name="walls" locked="1">
   <object id="180" name="wall_bottom" x="1788" y="11872" width="5796" height="104">
    <properties>
     <property name="actor_type" value="WALL"/>
@@ -995,7 +995,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup color="#005500" id="4" name="boxes" locked="1">
+ <objectgroup color="#005500" id="4" name="boxes">
   <object id="11" name="box1" x="2113.05" y="11008.5" width="148.091" height="136.061">
    <properties>
     <property name="actor_type" value="BOX"/>

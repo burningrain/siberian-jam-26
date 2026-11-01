@@ -16,6 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.github.br.libgdx.common.structure.AudioSettings;
 import com.github.br.libgdx.common.structure.GameSettings;
 import com.github.br.libgdx.common.structure.screen.AbstractGameScreen;
 import com.github.br.syberian.jam26.Resources;
@@ -85,6 +86,8 @@ public class SettingsScreen extends AbstractGameScreen {
         });
         stage.addActor(backButton);
 
+        AudioSettings audioSettings = getGameManager().audioSettings;
+
         int x = 150;
         Label musicLabel = createLabel("музыка");
         musicLabel.setX(x + 100f);
@@ -94,7 +97,7 @@ public class SettingsScreen extends AbstractGameScreen {
         musicSlider = new Slider(0f, 1f, 0.05f, false, gameSkin);
         float preferredHeight = musicSlider.getPrefHeight();
         musicSlider.setSize(350, preferredHeight);
-        musicSlider.setValue(1f);
+        musicSlider.setValue(audioSettings.getMusicVolume());
 
         musicSlider.setX(x + 500f);
         musicSlider.setY(1080 - 150);
@@ -108,7 +111,7 @@ public class SettingsScreen extends AbstractGameScreen {
         soundSlider = new Slider(0f, 1f, 0.05f, false, gameSkin);
         float soundPreferredHeight = soundSlider.getPrefHeight();
         soundSlider.setSize(350, soundPreferredHeight);
-        soundSlider.setValue(1f);
+        soundSlider.setValue(audioSettings.getSoundVolume());
 
         soundSlider.setX(x + 500f);
         soundSlider.setY(1080 - 250);
