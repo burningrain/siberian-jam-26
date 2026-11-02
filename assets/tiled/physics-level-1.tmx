@@ -1041,7 +1041,7 @@
     <property name="is_ecs_entity" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="66" name="box1" x="5013.95" y="507.97" width="148.091" height="136.061">
+  <object id="66" name="box1" x="4756.37" y="429.182" width="148.091" height="136.061">
    <properties>
     <property name="actor_type" value="BOX"/>
     <property name="is_ecs_entity" type="bool" value="true"/>
