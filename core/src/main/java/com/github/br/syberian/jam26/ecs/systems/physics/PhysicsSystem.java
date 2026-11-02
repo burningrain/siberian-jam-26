@@ -12,7 +12,6 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.github.br.libgdx.common.structure.GameManager;
-import com.github.br.libgdx.common.structure.GameSettings;
 import com.github.br.libgdx.common.structure.SimpleUtils;
 import com.github.br.libgdx.common.structure.TempDataSingleton;
 import com.github.br.syberian.jam26.ecs.components.DeleteIntentComponent;
@@ -72,13 +71,6 @@ public class PhysicsSystem extends BaseSystem implements EntitySubscription.Subs
         // свет
         rayHandler = new RayHandler(world);
         rayHandler.setAmbientLight(0.1f, 0.1f, 0.1f, 0.7f); // Темнота вокруг
-
-//        GameSettings gameSettings = gameManager.gameSettings;
-//        float ppm = gameSettings.getPpu();
-//        rayHandler.resizeFBO(
-//            (int)(gameSettings.getVirtualScreenWidth()),
-//            (int)(gameSettings.getVirtualScreenHeight())
-//        );
     }
 
     @Override

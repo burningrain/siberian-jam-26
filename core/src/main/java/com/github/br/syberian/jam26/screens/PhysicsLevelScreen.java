@@ -2,6 +2,7 @@ package com.github.br.syberian.jam26.screens;
 
 import com.artemis.World;
 import com.artemis.managers.TagManager;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -14,7 +15,6 @@ import com.github.br.libgdx.common.structure.screen.AbstractTiledMapUiScreen;
 import com.github.br.libgdx.common.structure.screen.RestartScreen;
 import com.github.br.libgdx.common.structure.screen.statemachine.GameScreenState;
 import com.github.br.libgdx.common.structure.screen.ui.CustomOrthogonalTiledMapRenderer;
-import com.github.br.syberian.jam26.Constants;
 import com.github.br.syberian.jam26.EntityFactory;
 import com.github.br.syberian.jam26.IUserActorFactory;
 import com.github.br.syberian.jam26.Resources;
@@ -65,6 +65,7 @@ public class PhysicsLevelScreen extends AbstractTiledMapUiScreen<IUserActorFacto
         artemisWorld = createECS(entityFactory);
 
         super.show();
+        Gdx.app.log("DEBUG", "Screen [" + this.getClass().getSimpleName() + " is loaded");
     }
 
     @Override
@@ -89,7 +90,7 @@ public class PhysicsLevelScreen extends AbstractTiledMapUiScreen<IUserActorFacto
 
             // бизнес-логика игры
             .with(new SecurityCameraSystem(getGameManager()))
-            .with(new LevelControlSystem(getGameManager()))
+            .with(new LevelControlSystem())
 
             // Отрисовка
             .with(new CameraSystem())
@@ -150,6 +151,14 @@ public class PhysicsLevelScreen extends AbstractTiledMapUiScreen<IUserActorFacto
     public void render(float delta) {
         super.render(delta);
 
+        // FIXME кривота... нужно как-то засунуть рендеринг внутрь artemisOdb, иначе еще где вылезет что
+        LevelControlSystem levelControlSystem = artemisWorld.getSystem(LevelControlSystem.class);
+        if (levelControlSystem.isGameOver()) {
+            return;
+        }
+
+        // рендеринг физики света после слоев tiled
+        //TODO будут проблемы с шейдерами из-за того, что свет им не подчиняется?
         Box2dRenderSystem box2dRenderSystem = artemisWorld.getSystem(Box2dRenderSystem.class);
         box2dRenderSystem.renderBox2dLight(viewport);
     }
@@ -164,8 +173,12 @@ public class PhysicsLevelScreen extends AbstractTiledMapUiScreen<IUserActorFacto
 
     @Override
     public void dispose() {
-        artemisWorld.dispose();
-        super.dispose();
+        try {
+            artemisWorld.dispose();
+            super.dispose();
+        } catch (Exception e) {
+            Gdx.app.debug(e.getMessage(), e.toString());
+        }
     }
 
 }

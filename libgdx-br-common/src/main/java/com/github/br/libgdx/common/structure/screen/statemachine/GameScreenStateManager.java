@@ -62,11 +62,12 @@ public class GameScreenStateManager implements Screen {
         hideScreen(currentState.screen);
 
         this.currentState.assetsLoader.unloadAssets(this.gameManager.assetManager);
+        this.currentState.screen.dispose();
         this.currentState = newState;
         this.currentState.screen.setGameManager(gameManager);
-        this.currentState.assetsLoader.loadAssets(this.gameManager.assetManager);
 
         showScreen(loadingScreen);
+        this.currentState.assetsLoader.loadAssets(this.gameManager.assetManager);
         this.isLoading = true;
 
         System.gc();

@@ -85,7 +85,7 @@ public class Level1Screen extends AbstractTiledMapUiScreen<IUserActorFactory, Cu
             .with(new TriggerSystem())
             .with(new TriggerActionFactory(this))
 
-            .with(new LevelControlSystem(getGameManager()))
+            .with(new LevelControlSystem())
 
             // ФАБРИКИ И СИСТЕМЫ УПРАВЛЕНИЯ
             .with(entityFactory)

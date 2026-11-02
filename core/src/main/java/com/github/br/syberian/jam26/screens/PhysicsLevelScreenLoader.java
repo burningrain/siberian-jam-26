@@ -39,6 +39,8 @@ public class PhysicsLevelScreenLoader implements AssetsLoader {
 
     @Override
     public void unloadAssets(AssetManager assetManager) {
+        assetManager.unload(Resources.SKIN_ATLAS);
+        assetManager.unload(Resources.SKIN);
         assetManager.unload(TmxUtils.getTmx(Resources.Tmx.PHYSICS_LEVEL_1, Constants.IS_USE_KTX2));
         assetManager.unload(Resources.Atlases.GAME_OBJECTS);
 

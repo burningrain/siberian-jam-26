@@ -48,8 +48,8 @@ public class SecurityCameraSystem extends IteratingSystem {
 
     @Override
     protected void initialize() {
-        mCamera = getWorld().getMapper(SecurityCameraComponent.class);;
-        mPhysics = getWorld().getMapper(PhysicsComponent.class);;
+        mCamera = getWorld().getMapper(SecurityCameraComponent.class);
+        mPhysics = getWorld().getMapper(PhysicsComponent.class);
 
         physicsSystem = world.getSystem(PhysicsSystem.class);
         // Автоматически подписываемся на сущность игрока
@@ -117,7 +117,7 @@ public class SecurityCameraSystem extends IteratingSystem {
         // Проверка 4: Вычисляем кратчайшую разницу углов
         float angleDiff = angleToPlayer - normalizedCameraAngle;
         while (angleDiff < -180f) angleDiff += 360f;
-        while (angleDiff > 180f)  angleDiff -= 360f;
+        while (angleDiff > 180f) angleDiff -= 360f;
         angleDiff = Math.abs(angleDiff);
 
         // Компенсируем мягкие тени на краях визуального конуса (Soft Shadows)
@@ -147,20 +147,17 @@ public class SecurityCameraSystem extends IteratingSystem {
         }
 
         // --- 3. РЕАКЦИЯ СВЕТА НА ОБНАРУЖЕНИЕ ---
-        if (cam.cameraLight != null) {
-            if (cam.isPlayerSpotted) {
-                cam.cameraLight.setColor(Color.RED);
-                System.out.println("КАМЕРА " + cameraEntityId + " ОБНАРУЖИЛА ИГРОКА!");
-            } else {
-                cam.cameraLight.setColor(Color.YELLOW);
-            }
+        if (cam.isPlayerSpotted) {
+            cam.cameraLight.setColor(Color.RED);
+            System.out.println("КАМЕРА " + cameraEntityId + " ОБНАРУЖИЛА ИГРОКА!");
+        } else {
+            cam.cameraLight.setColor(Color.YELLOW);
         }
+
     }
 
     private void resetLight(SecurityCameraComponent cam) {
-        if (cam.cameraLight != null) {
-            cam.cameraLight.setColor(Color.YELLOW);
-        }
+        cam.cameraLight.setColor(Color.YELLOW);
     }
 
 }
