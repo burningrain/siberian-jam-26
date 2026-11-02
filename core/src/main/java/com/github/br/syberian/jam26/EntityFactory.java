@@ -4,7 +4,6 @@ import com.artemis.Archetype;
 import com.artemis.ArchetypeBuilder;
 import com.artemis.BaseSystem;
 import com.artemis.ComponentMapper;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -16,6 +15,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.github.br.libgdx.common.structure.GameManager;
 import com.github.br.libgdx.common.structure.SimpleUtils;
+import com.github.br.libgdx.common.structure.TempDataSingleton;
 import com.github.br.syberian.jam26.ecs.components.AnimationComponent;
 import com.github.br.syberian.jam26.ecs.components.EnemyComponent;
 import com.github.br.syberian.jam26.ecs.components.PhysicsComponent;
@@ -191,8 +191,8 @@ public class EntityFactory extends BaseSystem {
         Body body = physicsComponent.body;
         PolygonShape sensorShape = new PolygonShape();
         sensorShape.setAsBox(
-            simpleUtils.convertUnitsToMetres(width / 2 * 1.3f),
-            simpleUtils.convertUnitsToMetres(height / 2 * 1.3f)
+            simpleUtils.convertPixelsToMetres(width / 2 * 1.3f),
+            simpleUtils.convertPixelsToMetres(height / 2 * 1.3f)
         );
 
         FixtureDef sensorDef = new FixtureDef();
@@ -231,7 +231,7 @@ public class EntityFactory extends BaseSystem {
 //        animationComponent.simpleAnimationComponent = AnimationFactory.createHero();
 
         RenderComponent renderComponent = renderMapper.get(id);
-        renderComponent.actor =  userActorFactory.getCustomUiActor(actorType);
+        renderComponent.actor = userActorFactory.getCustomUiActor(actorType);
 
         return id;
     }
@@ -276,11 +276,12 @@ public class EntityFactory extends BaseSystem {
         );
 
         RenderComponent renderComponent = renderMapper.get(id);
-        renderComponent.actor =  userActorFactory.getCustomUiActor(actorType);
+        renderComponent.actor = userActorFactory.getCustomUiActor(actorType);
 
         return id;
     }
 
+    // все в пикселях приходит
     private int createCamera(ActorTypeEnum actorType, float x, float y, float width, float height) {
         int id = world.create(cameraArchetype);
 
@@ -296,9 +297,9 @@ public class EntityFactory extends BaseSystem {
 
         // --- АВТОМАТИЧЕСКИЙ РАСЧЕТ СМЕЩЕНИЯ ИЗ ФОРМЫ ТЕЛА ---
         if (physicsComponent.body != null && !physicsComponent.body.getFixtureList().isEmpty()) {
-            com.badlogic.gdx.physics.box2d.Fixture fixture = physicsComponent.body.getFixtureList().first();
-            if (fixture.getShape() instanceof com.badlogic.gdx.physics.box2d.PolygonShape) {
-                com.badlogic.gdx.physics.box2d.PolygonShape shape = (com.badlogic.gdx.physics.box2d.PolygonShape) fixture.getShape();
+            Fixture fixture = physicsComponent.body.getFixtureList().first();
+            if (fixture.getShape() instanceof PolygonShape) {
+                PolygonShape shape = (PolygonShape) fixture.getShape();
                 Vector2 tmpVertex = new Vector2();
 
                 // Забираем правый верхний угол (индекс 2) в ЛОКАЛЬНЫХ МЕТРАХ Box2D формы.
@@ -314,9 +315,6 @@ public class EntityFactory extends BaseSystem {
         SimpleUtils simpleUtils = gameManager.simpleUtils;
         PhysicsSystem physics = world.getSystem(PhysicsSystem.class);
 
-        // Считаем стартовую мировую позицию объектива (с учетом смещения)
-        Vector2 startingWorldPos = physicsComponent.body.getWorldPoint(cam.localLightOffset);
-
         // Находим стартовую мировую позицию объектива
         Vector2 bodyCenterPos = physicsComponent.body.getPosition();
 
@@ -325,17 +323,13 @@ public class EntityFactory extends BaseSystem {
         cam.worldLightPosMetres.rotateRad(physicsComponent.body.getAngle());
         cam.worldLightPosMetres.add(bodyCenterPos);
 
-        float pixelX = simpleUtils.convertMetresToUnits(cam.worldLightPosMetres.x);
-        float pixelY = simpleUtils.convertMetresToUnits(cam.worldLightPosMetres.y);
-        float pixelRange = simpleUtils.convertMetresToUnits(cam.cameraRange);
-
         cam.cameraLight = new ConeLight(
             physics.getRayHandler(),
             120,
             com.badlogic.gdx.graphics.Color.YELLOW,
-            pixelRange,
-            pixelX,
-            pixelY,
+            cam.cameraRange,
+            cam.worldLightPosMetres.x,
+            cam.worldLightPosMetres.y,
             cam.viewDirectionDegrees,
             cam.fovDegrees
         );
@@ -358,7 +352,7 @@ public class EntityFactory extends BaseSystem {
         );
 
         RenderComponent renderComponent = renderMapper.get(id);
-        renderComponent.actor =  userActorFactory.getCustomUiActor(actorType);
+        renderComponent.actor = userActorFactory.getCustomUiActor(actorType);
 
         return id;
     }
@@ -383,8 +377,8 @@ public class EntityFactory extends BaseSystem {
 
         // 2. Смещаем точку спавна из левого нижнего угла в геометрический центр объекта
         bodyDef.position.set(
-            simpleUtils.convertUnitsToMetres(x + halfWidth),
-            simpleUtils.convertUnitsToMetres(y + halfHeight)
+            simpleUtils.convertPixelsToMetres(x + halfWidth),
+            simpleUtils.convertPixelsToMetres(y + halfHeight)
         );
 
         PhysicsSystem physics = getWorld().getSystem(PhysicsSystem.class);
@@ -394,8 +388,8 @@ public class EntityFactory extends BaseSystem {
         PolygonShape groundBox = new PolygonShape();
         // 3. Передаем именно половины ширины и высоты
         groundBox.setAsBox(
-            simpleUtils.convertUnitsToMetres(halfWidth),
-            simpleUtils.convertUnitsToMetres(halfHeight)
+            simpleUtils.convertPixelsToMetres(halfWidth),
+            simpleUtils.convertPixelsToMetres(halfHeight)
         );
 
         FixtureDef fixtureDef = new FixtureDef();
@@ -412,7 +406,7 @@ public class EntityFactory extends BaseSystem {
 
         // 4. Привязываем id сущности к телу Box2D.
         // Это спасет вас в будущем, когда вы будете писать обработку попадания пуль во врагов в ContactListener
-        body.setUserData(isSensor? new TriggerContactDataImpl(entityId) : new ContactDataImpl(entityId));
+        body.setUserData(isSensor ? new TriggerContactDataImpl(entityId) : new ContactDataImpl(entityId));
 
         PhysicsComponent physicsComponent = physicsMapper.get(entityId);
         physicsComponent.body = body;

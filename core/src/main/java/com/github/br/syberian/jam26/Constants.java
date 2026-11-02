@@ -7,11 +7,9 @@ public interface Constants {
 
     boolean IS_USE_KTX2 = false;
 
+    boolean IS_TILED_RENDER_ACTIVE = true;
     boolean IS_DEBUG_BOX2D = false;
 
     float PPM = 128f;
-
-
-    String PLAYER_SENSOR = "PLAYER_SENSOR"; //FIXME кривота, должна быть явно не здесь
 
 }

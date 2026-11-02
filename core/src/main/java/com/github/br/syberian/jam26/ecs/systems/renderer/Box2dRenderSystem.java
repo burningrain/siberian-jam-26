@@ -3,8 +3,8 @@ package com.github.br.syberian.jam26.ecs.systems.renderer;
 import com.artemis.ComponentMapper;
 import com.artemis.annotations.All;
 import com.artemis.systems.IteratingSystem;
-import com.badlogic.gdx.graphics.Camera;
-import com.badlogic.gdx.math.Matrix4; // Импортируем Matrix4 для масштабирования
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -18,7 +18,7 @@ import com.github.br.syberian.jam26.ecs.systems.physics.PhysicsSystem;
 
 import box2dLight.RayHandler;
 
-@All({TransformComponent.class, RenderComponent.class})
+@All({TransformComponent.class})
 public class Box2dRenderSystem extends IteratingSystem {
 
     private final GameManager gameManager;
@@ -26,8 +26,6 @@ public class Box2dRenderSystem extends IteratingSystem {
     private Box2DDebugRenderer debugRenderer;
     private final World box2dWorld;
     private CustomOrthogonalTiledMapRenderer renderer;
-    private Viewport viewport;
-    private Camera camera;
 
     // Выделяем память под матрицу один раз, чтобы не мусорить в куче (GC) каждый кадр
     private final Matrix4 debugMatrix = new Matrix4();
@@ -40,21 +38,15 @@ public class Box2dRenderSystem extends IteratingSystem {
         this.box2dWorld = box2dWorld;
     }
 
-    public void init(
-        CustomOrthogonalTiledMapRenderer renderer,
-        Viewport viewport,
-        Camera camera
-    ) {
+    public void init(CustomOrthogonalTiledMapRenderer renderer) {
         this.renderer = renderer;
-        this.viewport = viewport;
-        this.camera = camera;
 
         this.debugRenderer = new Box2DDebugRenderer();
         this.debugRenderer.setDrawBodies(true);
         this.debugRenderer.setDrawJoints(true);
-        this.debugRenderer.setDrawAABBs(false);
-        this.debugRenderer.setDrawInactiveBodies(false);
-        this.debugRenderer.setDrawVelocities(false);
+        this.debugRenderer.setDrawAABBs(true);
+        this.debugRenderer.setDrawInactiveBodies(true);
+        this.debugRenderer.setDrawVelocities(true);
 
         // --- КАСТОМИЗАЦИЯ ЦВЕТОВ ДЕБАГА ---
         debugRenderer.SHAPE_STATIC.set(1.0f, 0.0f, 0.0f, 1.0f);
@@ -74,64 +66,52 @@ public class Box2dRenderSystem extends IteratingSystem {
         TransformComponent transform = mTransform.get(entityId);
         RenderComponent render = mRender.get(entityId);
 
-        Actor actor = render.actor;
-        if (actor != null) {
-            float width = actor.getWidth();
-            float height = actor.getHeight();
-
-            // Точку вращения (Origin) обязательно оставляем по центру
-            actor.setOrigin(width / 2f, height / 2f);
-
-            // ИСПРАВЛЕНИЕ 1: Передаем координаты напрямую, так как мы вернули
-            // Transform к пикселям левого нижнего угла в PhysicsSystem
-            actor.setPosition(
-                transform.x,
-                transform.y
-            );
-
-            // Передаем угол вращения из физики (в градусах)
-            actor.setRotation(transform.rotation);
+        if (render == null) {
+            return;
         }
+
+        Actor actor = render.actor;
+        if (actor == null) {
+            return;
+        }
+
+        float width = actor.getWidth();
+        float height = actor.getHeight();
+
+        // Точку вращения (Origin) обязательно оставляем по центру
+        actor.setOrigin(width / 2f, height / 2f);
+
+        // ИСПРАВЛЕНИЕ 1: Передаем координаты напрямую, так как мы вернули
+        // Transform к пикселям левого нижнего угла в PhysicsSystem
+        actor.setPosition(
+            transform.x,
+            transform.y
+        );
+
+        // Передаем угол вращения из физики (в градусах)
+        actor.setRotation(transform.rotation);
     }
 
-    public void renderBox2d() {
+    public void renderBox2dLight(Viewport viewport) {
+        float ppm = gameManager.gameSettings.getPpu();
+
+        debugMatrix.set(viewport.getCamera().combined).scl(ppm); // потому что 1 метр - это 128
         if (Constants.IS_DEBUG_BOX2D) {
-            // ИСПРАВЛЕНИЕ 2: Масштабируем матрицу камеры из метров в пиксели (Units) вашего экрана.
-            // Берем текущую матрицу пиксельной камеры
-            debugMatrix.set(camera.combined);
-
-            // Умножаем матрицу на коэффициент PPM, чтобы дебаг-линии увеличились до размеров спрайтов
-            float ppm = gameManager.gameSettings.getUnitsPerMeter();
-            debugMatrix.scl(ppm);
-
-            // Рендерим дебаг Box2D по новой масштабированной матрице
             debugRenderer.render(box2dWorld, debugMatrix);
         }
-    }
 
-    public void renderLightsOnly() {
         RayHandler rayHandler = world.getSystem(PhysicsSystem.class).getRayHandler();
-        rayHandler.setCombinedMatrix(camera.combined); // Камера из AbstractTiledMapUiScreen
+        rayHandler.setCombinedMatrix(debugMatrix);
         rayHandler.updateAndRender();
     }
 
     @Override
     protected void dispose() {
-        if (debugRenderer != null) {
-            debugRenderer.dispose();
-        }
+        debugRenderer.dispose();
     }
 
     public CustomOrthogonalTiledMapRenderer getRenderer() {
         return renderer;
-    }
-
-    public Viewport getViewport() {
-        return viewport;
-    }
-
-    public Camera getCamera() {
-        return camera;
     }
 
 }

@@ -30,7 +30,7 @@ public class TestRoomScreen extends AbstractTiledMapUiScreen<TestUserActorFactor
     private com.artemis.World artemisWorld;
 
     public TestRoomScreen(String tiledMapPath, String pathToSkin, boolean isVfxEnabled, boolean isGlProfileActive) {
-        super(tiledMapPath, pathToSkin, isVfxEnabled, isGlProfileActive);
+        super(tiledMapPath, pathToSkin, isVfxEnabled, isGlProfileActive, Constants.IS_TILED_RENDER_ACTIVE);
     }
 
     @Override
@@ -106,7 +106,7 @@ public class TestRoomScreen extends AbstractTiledMapUiScreen<TestUserActorFactor
         CustomVfxEffectPooledFactoryImpl vfxEffectPoolFactory
     ) {
         Box2dRenderSystem box2dRenderSystem = artemisWorld.getSystem(Box2dRenderSystem.class);
-        box2dRenderSystem.init(renderer, viewport, camera);
+        box2dRenderSystem.init(renderer);
     }
     @Override
     public void render(float delta) {
@@ -114,7 +114,7 @@ public class TestRoomScreen extends AbstractTiledMapUiScreen<TestUserActorFactor
 
         if (Constants.IS_DEBUG_BOX2D) {
             Box2dRenderSystem system = artemisWorld.getSystem(Box2dRenderSystem.class);
-            system.renderBox2d();
+            system.renderBox2dLight(viewport);
         }
     }
 

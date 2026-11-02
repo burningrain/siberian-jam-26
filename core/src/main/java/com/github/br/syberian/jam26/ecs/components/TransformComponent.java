@@ -3,9 +3,10 @@ package com.github.br.syberian.jam26.ecs.components;
 import com.artemis.Component;
 
 public class TransformComponent extends Component {
+    // в пикселях
     public float x;
     public float y;
-    public float rotation;
+    public float rotation; // в градусах
 
     @Override
     public String toString() {

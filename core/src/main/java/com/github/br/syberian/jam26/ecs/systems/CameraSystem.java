@@ -6,10 +6,10 @@ import com.artemis.annotations.All;
 import com.artemis.systems.IteratingSystem;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import com.github.br.syberian.jam26.ecs.components.PhysicsComponent;
 import com.github.br.syberian.jam26.ecs.components.PlayerComponent;
 import com.github.br.syberian.jam26.ecs.components.TransformComponent;
-import com.github.br.syberian.jam26.ecs.systems.renderer.Box2dRenderSystem;
 
 @All({PlayerComponent.class})
 public class CameraSystem extends IteratingSystem {
@@ -40,9 +40,8 @@ public class CameraSystem extends IteratingSystem {
 
     @Override
     protected void process(int entityId) {
-        Box2dRenderSystem system = getWorld().getSystem(Box2dRenderSystem.class);
-        OrthographicCamera camera = (OrthographicCamera) system.getCamera();
-
+        UtilsObjectsHolder utilsObjectsHolder = getWorld().getSystem(UtilsObjectsHolder.class);
+        OrthographicCamera camera = (OrthographicCamera) utilsObjectsHolder.getViewport().getCamera();
         TransformComponent player = mTransform.get(entityId);
 
         float deltaTime = Gdx.graphics.getDeltaTime();

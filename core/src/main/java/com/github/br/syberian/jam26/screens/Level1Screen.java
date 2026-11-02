@@ -39,8 +39,15 @@ public class Level1Screen extends AbstractTiledMapUiScreen<IUserActorFactory, Cu
 
     private GameScreenState nextState;
 
-    public Level1Screen(GameScreenState nextState, String tiledMapPath, String pathToSkin, boolean isVfxEnabled, boolean isGlProfileActive) {
-        super(tiledMapPath, pathToSkin, isVfxEnabled, isGlProfileActive);
+    public Level1Screen(
+        GameScreenState nextState,
+        String tiledMapPath,
+        String pathToSkin,
+        boolean isVfxEnabled,
+        boolean isGlProfileActive,
+        boolean isTiledRenderActive
+    ) {
+        super(tiledMapPath, pathToSkin, isVfxEnabled, isGlProfileActive, isTiledRenderActive);
         this.nextState = nextState;
     }
 
@@ -124,7 +131,7 @@ public class Level1Screen extends AbstractTiledMapUiScreen<IUserActorFactory, Cu
         CustomVfxEffectPooledFactoryImpl vfxEffectPoolFactory
     ) {
         Box2dRenderSystem box2dRenderSystem = artemisWorld.getSystem(Box2dRenderSystem.class);
-        box2dRenderSystem.init(renderer, viewport, camera);
+        box2dRenderSystem.init(renderer);
 
         music = getGameManager().audioAssetManager.getMusic(Resources.Music.LEVEL_THEME);
         this.music.setLooping(true);
@@ -137,7 +144,7 @@ public class Level1Screen extends AbstractTiledMapUiScreen<IUserActorFactory, Cu
 
         if (Constants.IS_DEBUG_BOX2D) {
             Box2dRenderSystem system = artemisWorld.getSystem(Box2dRenderSystem.class);
-            system.renderBox2d();
+            system.renderBox2dLight(viewport);
         }
     }
 

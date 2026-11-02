@@ -92,8 +92,8 @@ public class SecurityCameraSystem extends IteratingSystem {
         if (cam.cameraLight != null) {
             cam.cameraLight.setDirection(cam.viewDirectionDegrees);
             cam.cameraLight.setPosition(
-                simpleUtils.convertMetresToUnits(cam.worldLightPosMetres.x),
-                simpleUtils.convertMetresToUnits(cam.worldLightPosMetres.y)
+                cam.worldLightPosMetres.x,
+                cam.worldLightPosMetres.y
             );
         }
 

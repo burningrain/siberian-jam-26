@@ -12,7 +12,9 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.github.br.libgdx.common.structure.GameManager;
+import com.github.br.libgdx.common.structure.GameSettings;
 import com.github.br.libgdx.common.structure.SimpleUtils;
+import com.github.br.libgdx.common.structure.TempDataSingleton;
 import com.github.br.syberian.jam26.ecs.components.DeleteIntentComponent;
 import com.github.br.syberian.jam26.ecs.components.PhysicsComponent;
 import com.github.br.syberian.jam26.ecs.components.PlayerComponent;
@@ -67,8 +69,16 @@ public class PhysicsSystem extends BaseSystem implements EntitySubscription.Subs
         this.mPlayer = getWorld().getMapper(PlayerComponent.class);
         this.mTransform = getWorld().getMapper(TransformComponent.class);
 
+        // свет
         rayHandler = new RayHandler(world);
-        rayHandler.setAmbientLight(0.1f, 0.1f, 0.1f, 0.7f); // Темнота вокруг, как в твоем GameScreen
+        rayHandler.setAmbientLight(0.1f, 0.1f, 0.1f, 0.7f); // Темнота вокруг
+
+//        GameSettings gameSettings = gameManager.gameSettings;
+//        float ppm = gameSettings.getPpu();
+//        rayHandler.resizeFBO(
+//            (int)(gameSettings.getVirtualScreenWidth()),
+//            (int)(gameSettings.getVirtualScreenHeight())
+//        );
     }
 
     @Override
@@ -92,10 +102,7 @@ public class PhysicsSystem extends BaseSystem implements EntitySubscription.Subs
             accumulator -= TIME_STEP;
         }
 
-        // --- ИСПРАВЛЕНИЕ: ФИЗИКА ЗАВЕРШИЛАСЬ, СИНХРОНИЗИРУЕМ ДАННЫЕ В ECS СЕТКУ ---
         syncPhysicsToTransform();
-
-        // --- ТЕПЕРЬ БЕЗОПАСНО УДАЛЯЕМ ---
         handleDeletedEntities();
     }
 
@@ -112,39 +119,37 @@ public class PhysicsSystem extends BaseSystem implements EntitySubscription.Subs
             PhysicsComponent physics = mPhysics.get(entityId);
             TransformComponent transform = mTransform.get(entityId);
 
-            if (physics != null && physics.body != null && transform != null) {
-                // 1. Получаем позицию ЦЕНТРА тела в метрах из Box2D
-                Vector2 centerMetres = physics.body.getPosition();
+            // 1. Получаем позицию ЦЕНТРА тела в метрах из Box2D
+            Vector2 centerMetres = physics.body.getPosition();
 
-                // 2. Переводим координаты центра в ПИКСЕЛИ (Units)
-                float centerPixelsX = simpleUtils.convertMetresToUnits(centerMetres.x);
-                float centerPixelsY = simpleUtils.convertMetresToUnits(centerMetres.y);
+            // 2. Переводим координаты центра в ПИКСЕЛИ (Units)
+            float centerPixelsX = simpleUtils.convertMetresToPixels(centerMetres.x);
+            float centerPixelsY = simpleUtils.convertMetresToPixels(centerMetres.y);
 
-                // 3. Достаем полу-размеры объекта в ПИКСЕЛЯХ напрямую из формы тела.
-                // Это сработает автоматически для любого размера коробки/игрока/стены.
-                float halfWidthPixels = 0;
-                float halfHeightPixels = 0;
+            // 3. Достаем полу-размеры объекта в ПИКСЕЛЯХ напрямую из формы тела.
+            // Это сработает автоматически для любого размера коробки/игрока/стены.
+            float halfWidthPixels = 0;
+            float halfHeightPixels = 0;
 
-                if (!physics.body.getFixtureList().isEmpty()) {
-                    Fixture fixture = physics.body.getFixtureList().first();
-                    if (fixture.getShape() instanceof PolygonShape) {
-                        PolygonShape shape = (PolygonShape) fixture.getShape();
-                        Vector2 tmpVertex = new Vector2();
-                        shape.getVertex(2, tmpVertex); // Извлекаем правый верхний угол в локальных метрах
+            if (!physics.body.getFixtureList().isEmpty()) {
+                Fixture fixture = physics.body.getFixtureList().first();
+                if (fixture.getShape() instanceof PolygonShape) {
+                    PolygonShape shape = (PolygonShape) fixture.getShape();
+                    Vector2 tmpVertex = TempDataSingleton.INSTANCE.tempVector;
+                    shape.getVertex(2, tmpVertex); // Извлекаем правый верхний угол в локальных метрах
 
-                        // Переводим локальные метры формы в пиксели
-                        halfWidthPixels = simpleUtils.convertMetresToUnits(tmpVertex.x);
-                        halfHeightPixels = simpleUtils.convertMetresToUnits(tmpVertex.y);
-                    }
+                    // Переводим локальные метры формы в пиксели
+                    halfWidthPixels = simpleUtils.convertMetresToPixels(tmpVertex.x);
+                    halfHeightPixels = simpleUtils.convertMetresToPixels(tmpVertex.y);
                 }
-
-                // 4. ИСПРАВЛЕНИЕ: Вычитаем половину пикселей из центра, получая ЛЕВЫЙ НИЖНИЙ УГОЛ
-                transform.x = centerPixelsX - halfWidthPixels;
-                transform.y = centerPixelsY - halfHeightPixels;
-
-                // Переводим угол из радиан в градусы для рендерера LibGDX
-                transform.rotation = physics.body.getAngle() * MathUtils.radiansToDegrees;
             }
+
+            // 4. Вычитаем половину пикселей из центра, получая ЛЕВЫЙ НИЖНИЙ УГОЛ
+            transform.x = centerPixelsX - halfWidthPixels;
+            transform.y = centerPixelsY - halfHeightPixels;
+
+            // Переводим угол из радиан в градусы для рендерера LibGDX
+            transform.rotation = physics.body.getAngle() * MathUtils.radiansToDegrees;
         }
     }
 
@@ -165,7 +170,8 @@ public class PhysicsSystem extends BaseSystem implements EntitySubscription.Subs
 
     @Override
     protected void dispose() {
-        this.world.dispose();
+        world.dispose();
+        rayHandler.dispose(); // Не забываем чистить за собой ресурсы света!
     }
 
     private void destroyPhysicsBody(int entityId) {

@@ -14,7 +14,7 @@ public class GameSettings {
     private final boolean isCenterCamera;
 
     // box2d
-    private final float unitsPerMeter;
+    private final float ppu; // pixel per unit
     private final float unitWidth;
     private final float unitHeight;
 
@@ -34,9 +34,9 @@ public class GameSettings {
         this.virtualScreenHeight = builder.virtualScreenHeight;
         this.isCenterCamera = builder.isCenterCamera;
 
-        this.unitsPerMeter = builder.unitsPerMeter;
-        this.unitWidth = this.virtualScreenWidth / this.unitsPerMeter;
-        this.unitHeight = this.virtualScreenHeight / this.unitsPerMeter;
+        this.ppu = builder.ppu;
+        this.unitWidth = this.virtualScreenWidth / this.ppu;
+        this.unitHeight = this.virtualScreenHeight / this.ppu;
 
         this.timeStep = builder.timeStep;
         this.velocityIterations = builder.velocityIterations;
@@ -66,8 +66,8 @@ public class GameSettings {
         return virtualScreenHeight;
     }
 
-    public float getUnitsPerMeter() {
-        return unitsPerMeter;
+    public float getPpu() {
+        return ppu;
     }
 
     public float getUnitWidth() {
@@ -110,7 +110,7 @@ public class GameSettings {
         private int virtualScreenWidth = 1280;
         private int virtualScreenHeight = 720;
 
-        private float unitsPerMeter = 128f;
+        private float ppu = 128f;
 
         private float timeStep = 1 / 60f;
         private int velocityIterations = 6;
@@ -142,8 +142,8 @@ public class GameSettings {
             return this;
         }
 
-        public Builder setUnitsPerMeter(float unitsPerMeter) {
-            this.unitsPerMeter = unitsPerMeter;
+        public Builder setPpu(float ppu) {
+            this.ppu = ppu;
             return this;
         }
 

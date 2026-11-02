@@ -25,6 +25,7 @@ import com.github.br.syberian.jam26.ecs.systems.LevelControlSystem;
 import com.github.br.syberian.jam26.ecs.systems.PlayerInputSystem;
 import com.github.br.syberian.jam26.ecs.systems.SecurityCameraSystem;
 import com.github.br.syberian.jam26.ecs.systems.TriggerSystem;
+import com.github.br.syberian.jam26.ecs.systems.UtilsObjectsHolder;
 import com.github.br.syberian.jam26.ecs.systems.physics.PhysicsContactListener;
 import com.github.br.syberian.jam26.ecs.systems.physics.PhysicsSystem;
 import com.github.br.syberian.jam26.ecs.systems.renderer.Box2dRenderSystem;
@@ -40,8 +41,15 @@ public class PhysicsLevelScreen extends AbstractTiledMapUiScreen<IUserActorFacto
 
     private GameScreenState nextState;
 
-    public PhysicsLevelScreen(GameScreenState nextState, String tiledMapPath, String pathToSkin, boolean isVfxEnabled, boolean isGlProfileActive) {
-        super(tiledMapPath, pathToSkin, isVfxEnabled, isGlProfileActive);
+    public PhysicsLevelScreen(
+        GameScreenState nextState,
+        String tiledMapPath,
+        String pathToSkin,
+        boolean isVfxEnabled,
+        boolean isGlProfileActive,
+        boolean isTiledRenderActive
+    ) {
+        super(tiledMapPath, pathToSkin, isVfxEnabled, isGlProfileActive, isTiledRenderActive);
         this.nextState = nextState;
     }
 
@@ -83,15 +91,16 @@ public class PhysicsLevelScreen extends AbstractTiledMapUiScreen<IUserActorFacto
             .with(new SecurityCameraSystem(getGameManager()))
             .with(new LevelControlSystem(getGameManager()))
 
-            // ФАБРИКИ И СИСТЕМЫ УПРАВЛЕНИЯ
-            .with(entityFactory)
-
             // Отрисовка
             .with(new CameraSystem())
             .with(new Box2dRenderSystem(
                 physicsSystem.getBox2dWorld(),
                 getGameManager()
             ))
+
+            // ФАБРИКИ И СИСТЕМЫ УПРАВЛЕНИЯ
+            .with(entityFactory)
+            .with(new UtilsObjectsHolder())
             .build();
 
         // !!! ЖЕСТКОЕ ПРАВИЛО ДЛЯ ВЕБА:
@@ -127,7 +136,10 @@ public class PhysicsLevelScreen extends AbstractTiledMapUiScreen<IUserActorFacto
         CustomVfxEffectPooledFactoryImpl vfxEffectPoolFactory
     ) {
         Box2dRenderSystem box2dRenderSystem = artemisWorld.getSystem(Box2dRenderSystem.class);
-        box2dRenderSystem.init(renderer, viewport, camera);
+        box2dRenderSystem.init(renderer);
+
+        UtilsObjectsHolder objectsHolder = artemisWorld.getSystem(UtilsObjectsHolder.class);
+        objectsHolder.setViewport(viewport);
 
         music = getGameManager().audioAssetManager.getMusic(Resources.Music.LEVEL_THEME);
         this.music.setLooping(true);
@@ -139,11 +151,7 @@ public class PhysicsLevelScreen extends AbstractTiledMapUiScreen<IUserActorFacto
         super.render(delta);
 
         Box2dRenderSystem box2dRenderSystem = artemisWorld.getSystem(Box2dRenderSystem.class);
-        if (Constants.IS_DEBUG_BOX2D) {
-            box2dRenderSystem.renderBox2d();
-        }
-
-        box2dRenderSystem.renderLightsOnly();
+        box2dRenderSystem.renderBox2dLight(viewport);
     }
 
     @Override

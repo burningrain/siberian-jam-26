@@ -86,32 +86,30 @@ public class PlayerInputSystem extends IteratingSystem {
         // 2. ПОВОРОТ ГЕРОЯ ЗА МЫШКОЙ (LOOK AT MOUSE)
         // ==========================================
 
-        // Получаем камеру из системы рендеринга для перевода координат
-        Box2dRenderSystem renderSystem = getWorld().getSystem(Box2dRenderSystem.class);
-        Camera camera = renderSystem.getCamera();
+        // Считываем позицию мыши на экране
+        mouseWorldPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
+        // Переводим экранные пиксели мыши в мировые ПИКСЕЛИ (Units) нашей карты
 
-        if (camera != null) {
-            // Считываем позицию мыши на экране
-            mouseWorldPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
-            // Переводим экранные пиксели мыши в мировые ПИКСЕЛИ (Units) нашей карты
-            camera.unproject(mouseWorldPos);
+        UtilsObjectsHolder utilsObjectsHolder = getWorld().getSystem(UtilsObjectsHolder.class);
+        Camera camera = utilsObjectsHolder.getViewport().getCamera();
+        camera.unproject(mouseWorldPos);
 
-            // Так как в твоем TransformComponent хранятся пиксели ЛЕВОГО НИЖНЕГО УГЛА,
-            // для точного расчета угла нам нужно найти физический ЦЕНТР игрока в пикселях.
-            // Берем координаты тела в метрах и переводим их в пиксели:
-            playerCenterPixels.x = simpleUtils.convertMetresToUnits(body.getPosition().x);
-            playerCenterPixels.y = simpleUtils.convertMetresToUnits(body.getPosition().y);
+        // Так как в твоем TransformComponent хранятся пиксели ЛЕВОГО НИЖНЕГО УГЛА,
+        // для точного расчета угла нам нужно найти физический ЦЕНТР игрока в пикселях.
+        // Берем координаты тела в метрах и переводим их в пиксели:
+        playerCenterPixels.x = simpleUtils.convertMetresToPixels(body.getPosition().x);
+        playerCenterPixels.y = simpleUtils.convertMetresToPixels(body.getPosition().y);
 
-            // Находим вектор направления от центра игрока до курсора мыши в пикселях
-            float deltaX = mouseWorldPos.x - playerCenterPixels.x;
-            float deltaY = mouseWorldPos.y - playerCenterPixels.y;
+        // Находим вектор направления от центра игрока до курсора мыши в пикселях
+        float deltaX = mouseWorldPos.x - playerCenterPixels.x;
+        float deltaY = mouseWorldPos.y - playerCenterPixels.y;
 
-            // Считаем угол поворота в радианах через арктангенс
-            float angleRad = MathUtils.atan2(deltaY, deltaX);
-            angleRad += 90 * MathUtils.degreesToRadians; // FIXME грязь, но иначе боком герой повернут
+        // Считаем угол поворота в радианах через арктангенс
+        float angleRad = MathUtils.atan2(deltaY, deltaX);
+        angleRad += 90 * MathUtils.degreesToRadians; // FIXME грязь, но иначе боком герой повернут
 
-            // Поворачиваем тело в Box2D. Позицию оставляем текущую, меняем только угол симуляции
-            body.setTransform(body.getPosition(), angleRad);
-        }
+        // Поворачиваем тело в Box2D. Позицию оставляем текущую, меняем только угол симуляции
+        body.setTransform(body.getPosition(), angleRad);
     }
+
 }

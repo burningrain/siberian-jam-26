@@ -37,19 +37,22 @@ public abstract class AbstractTiledMapUiScreen<A extends ActorFactory, V extends
     protected boolean isVfxEnabled;
 
     private boolean isGlProfileActive;
+    private  boolean isTiledRenderActive;
     private GLProfiler profiler;
 
     public AbstractTiledMapUiScreen(
         String tiledMapPath,
         String pathToSkin,
         boolean isVfxEnabled,
-        boolean isGlProfileActive
+        boolean isGlProfileActive,
+        boolean isTiledRenderActive
     ) {
         this.tiledMapPath = tiledMapPath;
         this.pathToSkin = pathToSkin;
         this.isVfxEnabled = isVfxEnabled;
 
         this.isGlProfileActive = isGlProfileActive;
+        this.isTiledRenderActive = isTiledRenderActive;
     }
 
     @Override
@@ -132,7 +135,7 @@ public abstract class AbstractTiledMapUiScreen<A extends ActorFactory, V extends
     public void render(float delta) {
         update(delta, viewport);
 
-        Gdx.gl.glClearColor(1, 0, 1, 1);
+        Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         GameSettings gameSettings = getGameManager().gameSettings;
@@ -148,7 +151,9 @@ public abstract class AbstractTiledMapUiScreen<A extends ActorFactory, V extends
         renderer.getBatch().setProjectionMatrix(camera.combined);
 
         renderer.setView(camera);
-        renderer.render();
+        if (isTiledRenderActive) {
+            renderer.render();
+        }
 
         if (isGlProfileActive) {
             String simpleName = this.getClass().getSimpleName();

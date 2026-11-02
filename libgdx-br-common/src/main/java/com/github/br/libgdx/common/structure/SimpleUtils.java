@@ -11,12 +11,12 @@ public final class SimpleUtils {
         this.gameSettings = gameSettings;
     }
 
-    public float convertUnitsToMetres(float pixels) {
-        return pixels / gameSettings.getUnitsPerMeter();
+    public float convertPixelsToMetres(float pixels) {
+        return pixels / gameSettings.getPpu();
     }
 
-    public float convertMetresToUnits(float metres) {
-        return metres * gameSettings.getUnitsPerMeter();
+    public float convertMetresToPixels(float metres) {
+        return metres * gameSettings.getPpu();
     }
 
     public Vector2 rotatePointToAngle(float pointX, float pointY, float degreeAngle) {

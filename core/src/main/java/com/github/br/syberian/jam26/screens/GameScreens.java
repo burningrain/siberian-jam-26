@@ -1,6 +1,7 @@
 package com.github.br.syberian.jam26.screens;
 
 import com.github.br.libgdx.common.structure.screen.statemachine.GameScreenState;
+import com.github.br.syberian.jam26.Constants;
 import com.github.br.syberian.jam26.Resources;
 
 public interface GameScreens {
@@ -33,7 +34,8 @@ public interface GameScreens {
             Resources.Tmx.PHYSICS_LEVEL_1,
             Resources.SKIN,
             false,
-            true
+            true,
+            Constants.IS_TILED_RENDER_ACTIVE
         ), new PhysicsLevelScreenLoader()
     );
 
@@ -48,8 +50,8 @@ public interface GameScreens {
 //        new TestRoomAssetLoader()
 //    );
 //
-//    GameScreenState GAME_SCREEN = new GameScreenState(
-//        new GameScreen(), new GameScreenAssetLoader()
-//    );
+    GameScreenState GAME_SCREEN = new GameScreenState(
+        new GameScreen(), new GameScreenAssetLoader()
+    );
 
 }
