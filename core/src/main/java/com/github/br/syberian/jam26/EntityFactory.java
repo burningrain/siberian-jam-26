@@ -15,8 +15,6 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.github.br.libgdx.common.structure.GameManager;
 import com.github.br.libgdx.common.structure.SimpleUtils;
-import com.github.br.libgdx.common.structure.TempDataSingleton;
-import com.github.br.syberian.jam26.ecs.components.AnimationComponent;
 import com.github.br.syberian.jam26.ecs.components.EnemyComponent;
 import com.github.br.syberian.jam26.ecs.components.PhysicsComponent;
 import com.github.br.syberian.jam26.ecs.components.PlayerComponent;
@@ -24,9 +22,9 @@ import com.github.br.syberian.jam26.ecs.components.RenderComponent;
 import com.github.br.syberian.jam26.ecs.components.SecurityCameraComponent;
 import com.github.br.syberian.jam26.ecs.components.TransformComponent;
 import com.github.br.syberian.jam26.ecs.components.TriggerComponent;
-import com.github.br.syberian.jam26.ecs.systems.physics.contact.ContactDataImpl;
 import com.github.br.syberian.jam26.ecs.systems.physics.PhysicsSystem;
 import com.github.br.syberian.jam26.ecs.systems.physics.TriggerContactDataImpl;
+import com.github.br.syberian.jam26.ecs.systems.physics.contact.ContactDataImpl;
 import com.github.br.syberian.jam26.ecs.systems.physics.contact.PlayerContactDataImpl;
 
 import box2dLight.ConeLight;
@@ -45,7 +43,6 @@ public class EntityFactory extends BaseSystem {
 
     protected ComponentMapper<TransformComponent> transformMapper;
     protected ComponentMapper<PhysicsComponent> physicsMapper;
-    protected ComponentMapper<AnimationComponent> animationMapper;
     protected ComponentMapper<RenderComponent> renderMapper;
 
     protected ComponentMapper<PlayerComponent> playerMapper;
@@ -72,7 +69,6 @@ public class EntityFactory extends BaseSystem {
     protected void initialize() {
         transformMapper = getWorld().getMapper(TransformComponent.class);
         physicsMapper = getWorld().getMapper(PhysicsComponent.class);
-        animationMapper = getWorld().getMapper(AnimationComponent.class);
         renderMapper = getWorld().getMapper(RenderComponent.class);
         playerMapper = getWorld().getMapper(PlayerComponent.class);
         enemyMapper = getWorld().getMapper(EnemyComponent.class);
@@ -85,7 +81,6 @@ public class EntityFactory extends BaseSystem {
             .add(TransformComponent.class)
             .add(PhysicsComponent.class)
             .add(PlayerComponent.class)
-            .add(AnimationComponent.class)
             .add(RenderComponent.class)
             .build(world);
 
@@ -93,7 +88,6 @@ public class EntityFactory extends BaseSystem {
             .add(TransformComponent.class)
             .add(PhysicsComponent.class)
             .add(EnemyComponent.class)
-            .add(AnimationComponent.class)
             .add(RenderComponent.class)
             .build(world);
 

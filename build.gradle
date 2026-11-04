@@ -25,7 +25,7 @@ allprojects {
   }
 }
 
-configure(subprojects /*- project(':android') */) {
+configure(subprojects - project(':android')) {
   apply plugin: 'java-library'
   java.sourceCompatibility = 17
 
@@ -56,7 +56,7 @@ configure(subprojects /*- project(':android') */) {
 
 subprojects {
   version = "$projectVersion"
-  ext.appName = 'syberian-jam-26'
+  ext.appName = 'blind-corridor'
   repositories {
     mavenCentral()
     // You may want to remove the following line if you have errors downloading dependencies.

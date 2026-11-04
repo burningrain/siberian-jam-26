@@ -58,14 +58,13 @@
                 6,
                 3,
                 2,
-                4,
-                5
+                4
             ],
-            "scale": 0.25,
+            "scale": 0.33,
             "selectedLayer": 4,
             "viewCenter": {
-                "x": 3686,
-                "y": 10842
+                "x": 5795.454545454546,
+                "y": 898.4848484848485
             }
         },
         "physics-level-1.tmx#environment": {
