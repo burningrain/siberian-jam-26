@@ -16,6 +16,12 @@ import workaround.ktx.tiled.TmxUtils;
 
 public class PhysicsLevelScreenLoader implements AssetsLoader {
 
+    private final String levelThemeLoopMusic;
+
+    public PhysicsLevelScreenLoader(String levelThemeLoopMusic) {
+        this.levelThemeLoopMusic = levelThemeLoopMusic;
+    }
+
     @Override
     public void loadAssets(AssetManager assetManager) {
         TmxMapLoader.Parameters params = new TmxMapLoader.Parameters();
@@ -34,7 +40,7 @@ public class PhysicsLevelScreenLoader implements AssetsLoader {
         // animation
         //assetManager.load(Resources.ANIMATION_ATLAS, TextureAtlas.class);
 
-        assetManager.load(Resources.Music.LEVEL_THEME, Music.class);
+        assetManager.load(levelThemeLoopMusic, Music.class);
     }
 
     @Override
@@ -44,7 +50,7 @@ public class PhysicsLevelScreenLoader implements AssetsLoader {
         assetManager.unload(TmxUtils.getTmx(Resources.Tmx.PHYSICS_LEVEL_1, Constants.IS_USE_KTX2));
         assetManager.unload(Resources.Atlases.GAME_OBJECTS);
 
-        assetManager.unload(Resources.Music.LEVEL_THEME);
+        assetManager.unload(levelThemeLoopMusic);
     }
 
 }

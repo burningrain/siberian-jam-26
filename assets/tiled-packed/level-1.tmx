@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><map height="100" infinite="0" nextlayerid="8" nextobjectid="5" orientation="orthogonal" renderorder="right-down" tiledversion="1.11.2" tileheight="120" tilewidth="120" version="1.10" width="100"><properties><property name="atlas" value="tileset/level-1.atlas"/></properties>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><map height="100" infinite="0" nextlayerid="15" nextobjectid="139" orientation="orthogonal" renderorder="right-down" tiledversion="1.11.2" tileheight="120" tilewidth="120" version="1.10" width="100"><properties><property name="atlas" value="tileset/level-1.atlas"/></properties>
  <tileset columns="0" firstgid="1" name="floor_and_walls" tilecount="26" tileheight="120" tilewidth="120">
   <grid height="1" orientation="orthogonal" width="1"/>
   <tile id="0">
@@ -80,7 +80,7 @@
    <image height="120" source="../pictures/level/1/wall-out-8.png" width="120"/>
   </tile>
  </tileset>
- <tileset columns="0" firstgid="27" name="bgf" tilecount="52" tileheight="275" tilewidth="275">
+ <tileset columns="0" firstgid="27" name="bgf" tilecount="40" tileheight="275" tilewidth="275">
   <grid height="1" orientation="orthogonal" width="1"/>
   <tile id="0">
    <image height="115" source="../pictures/level/bed.png" width="81"/>
@@ -94,15 +94,6 @@
   <tile id="3">
    <image height="22" source="../pictures/level/cab.png" width="53"/>
   </tile>
-  <tile id="4">
-   <image height="62" source="../pictures/level/cam-1.png" width="33"/>
-  </tile>
-  <tile id="5">
-   <image height="59" source="../pictures/level/cam-2.png" width="63"/>
-  </tile>
-  <tile id="6">
-   <image height="61" source="../pictures/level/cam-3.png" width="67"/>
-  </tile>
   <tile id="7">
    <image height="58" source="../pictures/level/cha.png" width="33"/>
   </tile>
@@ -110,34 +101,10 @@
    <image height="59" source="../pictures/level/cha-2.png" width="33"/>
   </tile>
   <tile id="9">
-   <image height="42" source="../pictures/level/char.png" width="51"/>
-  </tile>
-  <tile id="10">
-   <image height="99" source="../pictures/level/door-1.png" width="80"/>
-  </tile>
-  <tile id="11">
-   <image height="145" source="../pictures/level/door-2.png" width="45"/>
-  </tile>
-  <tile id="12">
-   <image height="99" source="../pictures/level/door-3.png" width="80"/>
-  </tile>
-  <tile id="13">
-   <image height="147" source="../pictures/level/door-4.png" width="46"/>
-  </tile>
-  <tile id="14">
-   <image height="81" source="../pictures/level/key.png" width="42"/>
-  </tile>
-  <tile id="15">
-   <image height="81" source="../pictures/level/key-2.png" width="41"/>
+   <image height="42" source="../pictures/level/char1_1.png" width="51"/>
   </tile>
   <tile id="16">
    <image height="101" source="../pictures/level/key-itm.png" width="49"/>
-  </tile>
-  <tile id="17">
-   <image height="102" source="../pictures/level/med-1.png" width="62"/>
-  </tile>
-  <tile id="18">
-   <image height="110" source="../pictures/level/med-2.png" width="74"/>
   </tile>
   <tile id="19">
    <image height="33" source="../pictures/level/pump.png" width="37"/>
@@ -167,7 +134,7 @@
    <image height="35" source="../pictures/level/wat-2.png" width="41"/>
   </tile>
   <tile id="28">
-   <image height="45" source="../pictures/level/char-ment.png" width="51"/>
+   <image height="45" source="../pictures/level/char1_2.png" width="51"/>
   </tile>
   <tile id="29">
    <image height="61" source="../pictures/level/korob.png" width="61"/>
@@ -175,50 +142,20 @@
   <tile id="30">
    <image height="118" source="../pictures/level/korob-open.png" width="114"/>
   </tile>
-  <tile id="31">
-   <image height="120" source="../pictures/level/kysa4.png" width="51"/>
-  </tile>
   <tile id="32">
    <image height="61" source="../pictures/level/kysa4-m.png" width="27"/>
   </tile>
   <tile id="33">
    <image height="275" source="../pictures/level/oblako.png" width="275"/>
   </tile>
-  <tile id="34">
-   <image height="120" source="../pictures/level/oblako-120.png" width="120"/>
-  </tile>
-  <tile id="35">
-   <image height="37" source="../pictures/level/richag.png" width="41"/>
-  </tile>
-  <tile id="36">
-   <image height="45" source="../pictures/level/richag-2.png" width="34"/>
-  </tile>
-  <tile id="37">
-   <image height="43" source="../pictures/level/secur.png" width="52"/>
-  </tile>
-  <tile id="38">
-   <image height="60" source="../pictures/level/secur-benis.png" width="51"/>
-  </tile>
   <tile id="39">
    <image height="70" source="../pictures/level/shtanga.png" width="113"/>
-  </tile>
-  <tile id="40">
-   <image height="120" source="../pictures/level/skaf-zelezo.png" width="89"/>
-  </tile>
-  <tile id="41">
-   <image height="120" source="../pictures/level/skaf-zelezo-zamok.png" width="89"/>
   </tile>
   <tile id="42">
    <image height="120" source="../pictures/level/stelaz-korob.png" width="110"/>
   </tile>
   <tile id="43">
    <image height="114" source="../pictures/level/stol-styl.png" width="120"/>
-  </tile>
-  <tile id="44">
-   <image height="120" source="../pictures/level/telezka.png" width="77"/>
-  </tile>
-  <tile id="45">
-   <image height="120" source="../pictures/level/telezka-koleso.png" width="77"/>
   </tile>
   <tile id="46">
    <image height="73" source="../pictures/level/unifaorm.png" width="100"/>
@@ -229,37 +166,742 @@
   <tile id="48">
    <image height="89" source="../pictures/level/cup.png" width="101"/>
   </tile>
-  <tile id="49">
-   <image height="44" source="../pictures/level/secur-voda.png" width="52"/>
-  </tile>
-  <tile id="50">
-   <image height="120" source="../pictures/level/skaf-zelezo-zamok-otk.png" width="120"/>
-  </tile>
   <tile id="51">
    <image height="101" source="../pictures/level/tabuletta.png" width="56"/>
   </tile>
+  <tile id="52">
+   <image height="59" source="../pictures/level/cam1_1.png" width="63"/>
+  </tile>
+  <tile id="53">
+   <image height="61" source="../pictures/level/cam1_2.png" width="67"/>
+  </tile>
+  <tile id="54">
+   <image height="62" source="../pictures/level/cam2.png" width="33"/>
+  </tile>
+  <tile id="55">
+   <image height="99" source="../pictures/level/door1_1.png" width="80"/>
+  </tile>
+  <tile id="56">
+   <image height="99" source="../pictures/level/door2_1.png" width="80"/>
+  </tile>
+  <tile id="57">
+   <image height="81" source="../pictures/level/key1_1.png" width="42"/>
+  </tile>
+  <tile id="58">
+   <image height="102" source="../pictures/level/med1_1.png" width="62"/>
+  </tile>
+  <tile id="59">
+   <image height="37" source="../pictures/level/richag1_1.png" width="41"/>
+  </tile>
+  <tile id="60">
+   <image height="43" source="../pictures/level/secur1_1.png" width="52"/>
+  </tile>
+  <tile id="61">
+   <image height="120" source="../pictures/level/skaf_zelezo1_1.png" width="89"/>
+  </tile>
+  <tile id="62">
+   <image height="120" source="../pictures/level/telezka1_1.png" width="77"/>
+  </tile>
  </tileset>
  <group id="6" name="Room_1">
-  <layer height="100" id="1" name="walls_and_floor" width="100">
+  <layer height="100" id="1" locked="1" name="walls_and_floor" width="100">
    <data compression="zlib" encoding="base64">
    eJzt2W1PgzAUhuGq6DZdgahR4///oULCiWelbzgHDb0/XGHb6RZynkEpWGOMBQAAAAAAAAAAAAAAAAAAAHbkbfCuvE58n229rzX4Vv1O2Xpfa5Cbx0cB+1oD8igLeZSFPMpCHmUhj7KQR1nI49Ld4D6gWaGeuxasJY+HQav0ynGq68/0WKmHeij1zmGn7VGN/VLc96PPAnq1lzyk/66x7jt+rOezpoBereGcyOOcyOOckYcvi07V22lfYttjAb3aax6tk0cqC1tZHql+p/LKycOa+RzC8bFdHrHzFcfHenk8D16UXr0+eOq+cTJ2617tIQ/3+qk34fVIbFwt11dL/79L63K97GaZoseP+/lUQK/WMP5/H5Xeee9aUm/MfP0S6rn0PTS2ljzG801ovr3Wk7k8H8b6HSLfIY/r+ebzHO5cXtt8fss8YvcTZZ5OzeU1zee3ziP0+60zJrWfNa0/bp2HjYyROYI81ssjNUbW6OQRXz+cJqn6KVA/qDzk/CSsyiPnGKklj9j6w/d8T8+1Tcb3c44P5o9fsj6wznb8P8v6Qe6VyPler5lD9U7V3TVjp16TxzwPnYU+Htx+S5/1mtnNQ/+W1GPPxcljnod7XIhYvztPXR8bOi/yWJaH9Hjc6ufp+n5Hp7aSi3s/RF+/ksff89A9jOVhjb/fek7RuZHHcrH7S7HnRf9Rzx1T0/0rAAAAAAAAAAAAAAAAAAAAAAAAAAAAYCs/KRn7WA==
   </data>
   </layer>
   <layer height="100" id="5" name="envornment" width="100">
    <data compression="zlib" encoding="base64">
-   eJzt2Q1u0zAYAFDfg8IyjUFBwDYYfwLBQGwgBHfoUXYUjsJROApGyzTLeHGyNuvWvCdZafK5jZWvdhI7BAAAAAAAAAAAAADYbN/bws31ft0N4D9NCKfrbgMXtuUDgETTo87HWD6M3A7ObK+7AcCt8jL5vNNuZx31H8fyKNk/TkrJYbZ/N/lcevd+GMLvjtOzYp9jeRHCIj++1W7nbT628goTcRCvTewXv9JjsyyexmLdxauB5yhd/8Y790p8iuV5lr+SOO4sYvlTiv3LjzmQ/vL+kjq6vmZMUmm8yuPp/o+zY5fW7+NQ3xikKz/L6Pvs5Bnresx7Xue+9TZd7X9Ziz8wDq1U7X9Zi+/KB4xqyvfyZtzfPr3K96Z8Lx9z/eH8/ftnLF9GPA/DvO6Idc2pcDOcJOPciee1TrX3i92BY38Tf+9e3L65epM22rx+vZeK9zH1/nEQLtYFS/aS+cT79fhR7XxTfp7tY1ZYK1ql41Be071sfXfq0nycP+vsJ/O7+5V8leLp/PDQfOTj1dC1yNvuaeHYXnI9d5bsP3k+vrVjmv5R9qRwLM3Hncp4X4u/i+VZLG/b/a/tVj4AAAAAAAAAAAAAAAAAAADK/gJCxj4S
+   eJzt291OwjAABtDeaLxgg3DJm5h4y3v56GYRQi3duh9gSM9Jmk2qtfZrN8piCAAAAAAAAAAAAADw2vanwvP6WrsDXDmE8L12H7iQBwCxw4jv2Qf3j0cZkwfAWRud75Lj+XwXvdYmP3OMSs4uKU3UVm7v7fOSYWkeS9voa+vtdGyTr2uTzvfOlPVRksuiK+9zOsvsPLrx3oT8upDHNG1yHmcw9boVZ7D0uleD0hjl8pgypn3XK8YbWh9LjM3hFr/rVa2Rh/XzqzQOpfrS3kEe0yzNwzjCfdW8xjZ3bHvufq+5aS/+l0fkYb/xXIbm+7ZQz7qankLerd/vfoTLM5Gc2rN4hv1HEx1rzGNofnZyzw+n1Ke2YzpVsXvPwWPIP9Pte75b45qIxXO6TY7peU6uPm5zbh613s/jv/e8H5l6DRqS5rGPXufa0ntCqf4z/P0/G3lAXm33AgAAAAAAAAAAAAAAAAAA+v0AzksQ6Q==
   </data>
   </layer>
-  <objectgroup color="#aaff7f" id="2" name="dynamic_objects">
-   <object height="42" id="1" name="hero" width="51" x="5000.33" y="7048.5">
+  <objectgroup color="#ffff7f" id="9" locked="1" name="walls">
+   <object height="112" id="5" name="wall" width="5146.97" x="3490.15" y="7319.76">
+    <properties>
+     <property name="actor_type" value="WALL"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object height="122.667" id="6" name="wall" width="3834.73" x="3478.15" y="4439.39">
+    <properties>
+     <property name="actor_type" value="WALL"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object height="2784.73" id="7" name="wall" width="114.124" x="3484.27" y="4541.09">
+    <properties>
+     <property name="actor_type" value="WALL"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object height="4099.88" id="8" name="wall" width="114.124" x="8524.76" y="3231.88">
+    <properties>
+     <property name="actor_type" value="WALL"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object height="231.682" id="9" name="wall" width="835.26" x="4085.6" y="6483.39">
+    <properties>
+     <property name="actor_type" value="WALL"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object height="230.182" id="10" name="wall" width="456.063" x="3499.24" y="6478.85">
+    <properties>
+     <property name="actor_type" value="WALL"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object height="230.182" id="11" name="wall" width="846.972" x="4071.97" y="5524.3">
+    <properties>
+     <property name="actor_type" value="WALL"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object height="237.182" id="12" name="wall" width="837.76" x="5041.73" y="5518.24">
+    <properties>
+     <property name="actor_type" value="WALL"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object height="230.182" id="13" name="wall" width="231.821" x="6002.27" y="5524.3">
+    <properties>
+     <property name="actor_type" value="WALL"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object height="959.03" id="14" name="wall" width="238.73" x="5280.15" y="4559.7">
+    <properties>
+     <property name="actor_type" value="WALL"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object height="959.03" id="15" name="wall" width="238.73" x="4322.64" y="4560.48">
+    <properties>
+     <property name="actor_type" value="WALL"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object height="2401.33" id="16" name="wall" rotation="180" width="238.73" x="6482.03" y="7341.45">
+    <properties>
+     <property name="actor_type" value="WALL"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object height="731.03" id="17" name="wall" width="244.73" x="7320.64" y="6598.48">
+    <properties>
+     <property name="actor_type" value="WALL"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object height="833.03" id="18" name="wall" rotation="180" width="238.73" x="7446.03" y="5282.85">
+    <properties>
+     <property name="actor_type" value="WALL"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object height="1205.7" id="19" name="wall" width="118.73" x="7323.64" y="3242.48">
+    <properties>
+     <property name="actor_type" value="WALL"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object height="242.182" id="20" name="wall" width="1439.82" x="6481.85" y="5879.88">
+    <properties>
+     <property name="actor_type" value="WALL"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object height="240.182" id="21" name="wall" width="499.821" x="8036.09" y="5880.91">
+    <properties>
+     <property name="actor_type" value="WALL"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object height="240.182" id="22" name="wall" width="1075.82" x="6960.09" y="5274.91">
+    <properties>
+     <property name="actor_type" value="WALL"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object height="242.182" id="23" name="wall" width="375.821" x="8158.09" y="5278.91">
+    <properties>
+     <property name="actor_type" value="WALL"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object height="230.182" id="24" name="wall" width="355.821" x="6482.09" y="5282.91">
+    <properties>
+     <property name="actor_type" value="WALL"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object height="376.182" id="25" name="wall" width="231.821" x="6244.09" y="4564.91">
+    <properties>
+     <property name="actor_type" value="WALL"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object height="230.182" id="26" name="wall" width="361.821" x="3598.09" y="5524.91">
+    <properties>
+     <property name="actor_type" value="WALL"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object height="230.182" id="27" name="wall" width="837.821" x="5042.09" y="6484.91">
+    <properties>
+     <property name="actor_type" value="WALL"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object height="239.515" id="28" name="wall" width="231.821" x="6002.09" y="6479.58">
+    <properties>
+     <property name="actor_type" value="WALL"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object height="116.182" id="29" name="wall" width="473.82" x="6484.09" y="6720.91">
+    <properties>
+     <property name="actor_type" value="WALL"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object height="116.182" id="30" name="wall" width="245.82" x="7077.76" y="6720.24">
+    <properties>
+     <property name="actor_type" value="WALL"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object height="116.182" id="31" name="wall" width="245.82" x="7319.09" y="6121.91">
+    <properties>
+     <property name="actor_type" value="WALL"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object height="119.515" id="32" name="wall" width="242.487" x="7320.42" y="6358.91">
+    <properties>
+     <property name="actor_type" value="WALL"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object height="121.515" id="33" name="wall" width="116.153" x="7320.42" y="6475.91">
+    <properties>
+     <property name="actor_type" value="WALL"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object height="242.182" id="34" name="wall" width="484.821" x="8041.7" y="4556.18">
+    <properties>
+     <property name="actor_type" value="WALL"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object height="242.182" id="35" name="wall" width="473.821" x="7446.09" y="4558.91">
+    <properties>
+     <property name="actor_type" value="WALL"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object height="122.182" id="36" name="wall" width="481.821" x="8041.09" y="3236.91">
+    <properties>
+     <property name="actor_type" value="WALL"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object height="116.182" id="37" name="wall" width="350.821" x="7446.09" y="3240.91">
+    <properties>
+     <property name="actor_type" value="WALL"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object height="603.182" id="38" name="wall" width="238.821" x="4320.09" y="6716.91">
+    <properties>
+     <property name="actor_type" value="WALL"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object height="238.182" id="39" name="wall" width="120.821" x="3958.59" y="7079.41">
+    <properties>
+     <property name="actor_type" value="WALL"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object height="120.182" id="40" name="wall" width="364.76" x="3958.12" y="6838.91">
+    <properties>
+     <property name="actor_type" value="WALL"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object height="603.182" id="41" name="wall" width="238.821" x="5280.17" y="6716.29">
+    <properties>
+     <property name="actor_type" value="WALL"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object height="476.182" id="42" name="wall" width="116.153" x="7203.26" y="6837.91">
+    <properties>
+     <property name="actor_type" value="WALL"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object height="353.515" id="43" name="wall" width="458.82" x="6488.59" y="6843.24">
+    <properties>
+     <property name="actor_type" value="WALL"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object height="111.515" id="44" name="wall" width="348.153" x="5519.92" y="4565.24">
+    <properties>
+     <property name="actor_type" value="WALL"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+  </objectgroup>
+  <objectgroup color="#55aa7f" id="14" name="objects_bottom">
+   <object gid="30" height="22" id="66" name="wires" width="53" x="7436" y="6579">
+    <properties>
+     <property name="actor_type" value="WIRES"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object gid="59" height="61" id="72" name="wire_cutters" rotation="90" width="27" x="6501" y="7259">
+    <properties>
+     <property name="actor_type" value="WIRE_CUTTERS"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object gid="47" height="112" id="81" name="toilet" rotation="90" width="84" x="4200.67" y="7115.33">
+    <properties>
+     <property name="actor_type" value="TOILET"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object gid="47" height="112" id="82" name="toilet" rotation="90" width="84" x="4200.67" y="7236">
+    <properties>
+     <property name="actor_type" value="TOILET"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object gid="48" height="55" id="83" name="sink" width="82" x="4157.67" y="7014.33">
+    <properties>
+     <property name="actor_type" value="SINK"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object gid="48" height="55" id="85" name="sink" width="82" x="4237.67" y="7013.83">
+    <properties>
+     <property name="actor_type" value="SINK"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object gid="47" height="112" id="86" name="toilet" rotation="-90" width="84" x="4672.67" y="6840">
+    <properties>
+     <property name="actor_type" value="TOILET"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object gid="48" height="55" id="87" name="sink" rotation="-90" width="82" x="4613.67" y="6940.83">
+    <properties>
+     <property name="actor_type" value="SINK"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object gid="47" height="112" id="88" name="toilet" rotation="-90" width="84" x="5632" y="6841">
+    <properties>
+     <property name="actor_type" value="TOILET"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object gid="48" height="55" id="89" name="sink" rotation="-90" width="82" x="5576" y="7080.5">
+    <properties>
+     <property name="actor_type" value="SINK"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object gid="49" height="64" id="90" name="table" width="113" x="3602" y="6778.67">
+    <properties>
+     <property name="actor_type" value="TABLE"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object gid="35" height="59" id="92" name="chair" width="33" x="3728.67" y="6775.33">
+    <properties>
+     <property name="actor_type" value="CHAIR"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object gid="35" height="59" id="93" name="chair" rotation="180" width="33" x="4699" y="7258.33">
+    <properties>
+     <property name="actor_type" value="CHAIR"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object gid="35" height="59" id="94" name="chair" rotation="90" width="33" x="6150.5" y="7121.5">
+    <properties>
+     <property name="actor_type" value="CHAIR"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object gid="49" height="64" id="95" name="table" rotation="-90" width="113" x="3663.38" y="4922.33">
+    <properties>
+     <property name="actor_type" value="TABLE"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object gid="49" height="64" id="96" name="table" rotation="-90" width="113" x="3662.5" y="5280">
+    <properties>
+     <property name="actor_type" value="TABLE"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object gid="35" height="59" id="97" name="chair" rotation="90" width="33" x="3652.17" y="4849.17">
+    <properties>
+     <property name="actor_type" value="CHAIR"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object gid="35" height="59" id="98" name="chair" rotation="90" width="33" x="3655.5" y="5212.5">
+    <properties>
+     <property name="actor_type" value="CHAIR"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object gid="35" height="59" id="99" name="chair" rotation="90" width="33" x="4200.83" y="5115.17">
+    <properties>
+     <property name="actor_type" value="CHAIR"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object gid="35" height="59" id="100" name="chair" rotation="90" width="33" x="4200.17" y="5353.17">
+    <properties>
+     <property name="actor_type" value="CHAIR"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object gid="35" height="59" id="101" name="chair" width="33" x="4130.17" y="4622.5">
+    <properties>
+     <property name="actor_type" value="CHAIR"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object gid="49" height="64" id="102" name="table" rotation="-90" width="113" x="4623.5" y="5281.33">
+    <properties>
+     <property name="actor_type" value="TABLE"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object gid="49" height="64" id="103" name="table" rotation="-90" width="113" x="4626.17" y="4920">
+    <properties>
+     <property name="actor_type" value="TABLE"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object gid="49" height="64" id="104" name="table" rotation="90" width="113" x="5211.5" y="5045.33">
+    <properties>
+     <property name="actor_type" value="TABLE"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object gid="35" height="59" id="105" name="chair" rotation="-90" width="33" x="5187.5" y="4831.83">
+    <properties>
+     <property name="actor_type" value="CHAIR"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object gid="35" height="59" id="106" name="chair" rotation="-90" width="33" x="5186.83" y="4933.17">
+    <properties>
+     <property name="actor_type" value="CHAIR"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object gid="28" height="115" id="108" name="bed_white" rotation="-90" width="81" x="3716" y="6938">
+    <properties>
+     <property name="actor_type" value="BED_WHITE"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object gid="28" height="115" id="109" name="bed_white" rotation="-90" width="81" x="3715.5" y="7058.5">
+    <properties>
+     <property name="actor_type" value="BED_WHITE"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object gid="28" height="115" id="110" name="bed_white" rotation="-90" width="81" x="3714.5" y="7182.5">
+    <properties>
+     <property name="actor_type" value="BED_WHITE"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object gid="27" height="115" id="113" name="bed_green" rotation="180" width="81" x="4642" y="7202">
+    <properties>
+     <property name="actor_type" value="BED_GREEN"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object gid="27" height="115" id="114" name="bed_green" rotation="180" width="81" x="5602.17" y="7199.83">
+    <properties>
+     <property name="actor_type" value="BED_GREEN"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object gid="28" height="115" id="115" name="bed_white" width="81" x="4238.17" y="4675.83">
+    <properties>
+     <property name="actor_type" value="BED_WHITE"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object gid="28" height="115" id="116" name="bed_white" width="81" x="4237.83" y="4916.83">
+    <properties>
+     <property name="actor_type" value="BED_WHITE"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object gid="53" height="54" id="117" name="cooler" rotation="-90" width="54" x="3657.5" y="4676">
+    <properties>
+     <property name="actor_type" value="COOLER"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object gid="51" height="59" id="123" name="sport_bench" rotation="-90" width="131" x="6697.5" y="5041.5">
+    <properties>
+     <property name="actor_type" value="SPORT_BENCH"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object gid="51" height="59" id="124" name="sport_bench" rotation="-90" width="131" x="7195.5" y="5042.5">
+    <properties>
+     <property name="actor_type" value="SPORT_BENCH"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object gid="51" height="59" id="125" name="sport_bench" rotation="-90" width="131" x="7192.5" y="4802.5">
+    <properties>
+     <property name="actor_type" value="SPORT_BENCH"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object gid="52" height="96" id="126" name="fid_sport_bench" width="94" x="6484.33" y="4671.33">
+    <properties>
+     <property name="actor_type" value="FID_SPORT_BENCH"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object gid="2147483700" height="96" id="127" name="fid_sport_bench" width="94" x="7100" y="5262">
+    <properties>
+     <property name="actor_type" value="FID_SPORT_BENCH"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object gid="70" height="114" id="128" name="dining_bench" width="120" x="7919.33" y="6478">
+    <properties>
+     <property name="actor_type" value="DINING_BENCH"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object gid="70" height="114" id="129" name="dining_bench" width="120" x="8279.33" y="6479">
+    <properties>
+     <property name="actor_type" value="DINING_BENCH"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object gid="70" height="114" id="130" name="dining_bench" width="120" x="7920" y="6718.33">
+    <properties>
+     <property name="actor_type" value="DINING_BENCH"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object gid="70" height="114" id="131" name="dining_bench" width="120" x="8282" y="6719">
+    <properties>
+     <property name="actor_type" value="DINING_BENCH"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object gid="70" height="114" id="132" name="dining_bench" width="120" x="7919.33" y="7079.67">
+    <properties>
+     <property name="actor_type" value="DINING_BENCH"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object gid="70" height="114" id="133" name="dining_bench" width="120" x="8280.67" y="7079">
+    <properties>
+     <property name="actor_type" value="DINING_BENCH"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object gid="36" height="42" id="134" name="npc" rotation="180" width="51" x="5965.06" y="6763.15">
+    <properties>
+     <property name="actor_type" value="NPC"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object gid="35" height="59" id="135" name="chair" rotation="-90" width="33" x="5198.17" y="5119.83">
+    <properties>
+     <property name="actor_type" value="CHAIR"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object gid="47" height="112" id="138" name="toilet111" rotation="-90" width="84" x="4912.67" y="6816.67">
+    <properties>
+     <property name="actor_type" value="TOILET"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+  </objectgroup>
+  <objectgroup color="#aaff7f" id="2" locked="1" name="hero">
+   <object gid="36" height="42" id="112" name="hero" rotation="180" width="51" x="5003" y="7005">
     <properties>
      <property name="actor_type" value="CHAR"/>
      <property name="is_ecs_entity" type="bool" value="true"/>
     </properties>
    </object>
-   <object height="88.6667" id="4" name="hero" width="51" x="5161.17" y="6623">
+  </objectgroup>
+  <objectgroup color="#aa5500" id="10" locked="1" name="doors">
+   <object gid="83" height="118.5" id="61" name="brown_door" width="115.5" x="4803.83" y="6459">
     <properties>
-     <property name="actor_type" value="CHAR"/>
+     <property name="actor_type" value="DOOR_BROWN"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object gid="82" height="125.667" id="63" name="gray_door" width="117.333" x="5767.33" y="5920.33">
+    <properties>
+     <property name="actor_type" value="DOOR_GRAY"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+  </objectgroup>
+  <objectgroup color="#00aaff" id="11" locked="1" name="cameras">
+   <object gid="81" height="62" id="50" name="camera" width="33" x="7723" y="4801">
+    <properties>
+     <property name="actor_type" value="CAMERA_2"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object gid="81" height="62" id="51" name="camera" width="33" x="8204.5" y="4799">
+    <properties>
+     <property name="actor_type" value="CAMERA_2"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object gid="79" height="59" id="52" name="camera" width="63" x="3514.33" y="5959.67">
+    <properties>
+     <property name="actor_type" value="CAMERA"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object gid="79" height="59" id="53" name="camera" width="63" x="3512.67" y="6338.33">
+    <properties>
+     <property name="actor_type" value="CAMERA"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object gid="2147483727" height="59" id="54" name="camera" width="63" x="6249.03" y="5959.67">
+    <properties>
+     <property name="actor_type" value="CAMERA"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object gid="2147483727" height="59" id="55" name="camera" width="63" x="6246" y="6338.33">
+    <properties>
+     <property name="actor_type" value="CAMERA"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object gid="2147483727" height="59" id="60" name="camera" width="63" x="7325" y="6571.33">
+    <properties>
+     <property name="actor_type" value="CAMERA"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+  </objectgroup>
+  <objectgroup color="#55ff7f" id="12" locked="1" name="objects_top">
+   <object gid="85" height="102" id="57" name="med" width="62" x="3601" y="7311.67">
+    <properties>
+     <property name="actor_type" value="MED"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object gid="88" height="120" id="58" name="iron_cabinet" width="89" x="6497.33" y="6241.33">
+    <properties>
+     <property name="actor_type" value="IRON_CABINET"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object gid="88" height="120" id="59" name="iron_cabinet" width="89" x="6616" y="6239.67">
+    <properties>
+     <property name="actor_type" value="IRON_CABINET"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object gid="89" height="120" id="62" name="cart" width="77" x="6962.67" y="7315">
+    <properties>
+     <property name="actor_type" value="CART"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object gid="3221225522" height="89" id="64" name="security_monitors" rotation="-90" width="231" x="5277.67" y="4974.33">
+    <properties>
+     <property name="actor_type" value="SECURITY_MONITORS"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object gid="56" height="114.667" id="67" name="box" width="119.667" x="7437.33" y="6596.83">
+    <properties>
+     <property name="actor_type" value="BOX"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object gid="74" height="132.333" id="69" name="GATE" width="124.667" x="7796" y="3360">
+    <properties>
+     <property name="actor_type" value="GATE"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object gid="74" height="132.333" id="71" name="GATE" width="124.667" x="7918.17" y="3360">
+    <properties>
+     <property name="actor_type" value="GATE"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object gid="46" height="83" id="73" name="pumpkin" width="87" x="6496" y="7303">
+    <properties>
+     <property name="actor_type" value="PUMPKIN"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object gid="66" height="70" id="120" name="barbell" width="113" x="6959" y="4801">
+    <properties>
+     <property name="actor_type" value="BARBELL"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object gid="29" height="63" id="121" name="weight_plate" width="63" x="6985" y="4728">
+    <properties>
+     <property name="actor_type" value="WEIGHT_PLATE"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+  </objectgroup>
+  <objectgroup color="#aaaaff" id="13" name="cups">
+   <object gid="54" height="19" id="65" name="cup" width="22.3333" x="8363.33" y="7024.67">
+    <properties>
+     <property name="actor_type" value="CUP"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object gid="54" height="29" id="68" name="cup" rotation="-90" width="33" x="5228.33" y="4786.5">
+    <properties>
+     <property name="actor_type" value="CUP"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object gid="54" height="29" id="107" name="cup" rotation="90" width="33" x="5204.67" y="4882.83">
+    <properties>
+     <property name="actor_type" value="CUP"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object gid="54" height="19" id="119" name="cup" width="22.3333" x="7998.17" y="6655.83">
+    <properties>
+     <property name="actor_type" value="CUP"/>
      <property name="is_ecs_entity" type="bool" value="true"/>
     </properties>
    </object>

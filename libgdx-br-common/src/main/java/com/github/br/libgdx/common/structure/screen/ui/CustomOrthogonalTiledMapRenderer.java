@@ -13,6 +13,7 @@ import com.badlogic.gdx.maps.MapLayers;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.MapProperties;
+import com.badlogic.gdx.maps.objects.TextureMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapImageLayer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
@@ -212,6 +213,7 @@ public class CustomOrthogonalTiledMapRenderer extends OrthogonalTiledMapRenderer
                 float width = properties.get("width", Float.class);
                 float height = properties.get("height", Float.class);
                 actor.setBounds(x, y, width, height);
+                //TODO понять, почему не работают повороты
 
                 actor.setName(object.getName());
                 stage.addActor(actor);

@@ -37,11 +37,13 @@ public class PhysicsLevelScreen extends AbstractTiledMapUiScreen<IUserActorFacto
     private EntityFactory entityFactory;
     private com.artemis.World artemisWorld;
 
+    private String levelLoopMusic;
     private Music music;
 
     private GameScreenState nextState;
 
     public PhysicsLevelScreen(
+        String levelLoopMusic,
         GameScreenState nextState,
         String tiledMapPath,
         String pathToSkin,
@@ -50,12 +52,13 @@ public class PhysicsLevelScreen extends AbstractTiledMapUiScreen<IUserActorFacto
         boolean isTiledRenderActive
     ) {
         super(tiledMapPath, pathToSkin, isVfxEnabled, isGlProfileActive, isTiledRenderActive);
+        this.levelLoopMusic = levelLoopMusic;
         this.nextState = nextState;
     }
 
     @Override
     public void restart() {
-        getGameManager().screenStateManager.changeCurrentState(GameScreens.PHYSICS_LEVEL_1_SCREEN);
+        getGameManager().screenStateManager.restartCurrentState();
     }
 
     @Override
@@ -142,7 +145,11 @@ public class PhysicsLevelScreen extends AbstractTiledMapUiScreen<IUserActorFacto
         UtilsObjectsHolder objectsHolder = artemisWorld.getSystem(UtilsObjectsHolder.class);
         objectsHolder.setViewport(viewport);
 
-        music = getGameManager().audioAssetManager.getMusic(Resources.Music.LEVEL_THEME);
+        playLoopMusic();
+    }
+
+    protected void playLoopMusic() {
+        music = getGameManager().audioAssetManager.getMusic(levelLoopMusic);
         this.music.setLooping(true);
         this.music.play();
     }

@@ -32,41 +32,51 @@ public interface Resources {
 
 
     interface TextureRegion {
-        String BED = "bed";
-        String BED2 = "bed-2";
+        String BED_GREEN = "bed";
+        String BED_GRAY = "bed-2";
         String BLIN = "blin";
         String CAB = "cab";
-        String CAM_1 = "cam-1";
-        String CAM_2 = "cam-2";
+        String CAM_1 = "cam1";
+        String CAM_2 = "cam2";
         String CAM_3 = "cam-3";
         String CHA = "cha";
         String CHA_2 = "cha-2";
-        String CHAR = "char";
-        String CHAR_1 = "char-1";
-        String CHAR_2 = "char-2";
-        String DOOR_1 = "door-1";
-        String DOOR_2 = "door-2";
-        String DOOR_3 = "door-3";
-        String DOOR_4 = "door-4";
-        String KEY = "key";
-        String KEY_2 = "key-2";
+        String HERO = "char1";
+        String DOOR_GRAY = "door1";
+        String DOOR_BROWN = "door2";
+        String KEY = "key1";
         String KEY_ITM = "key-itm";
-        String MED_1 = "med-1";
-        String MED_2 = "med-2";
+        String MED = "med1";
         String PUMP = "pump";
         String SAN = "san";
-        String ENEMY = "san-2";
         String SAN_2 = "san-2";
         String TABL = "tabl";
         String TABLE_COMP = "table-comp";
         String TRA_1 = "tra-1";
         String TRA_2 = "tra-2";
-        String WAT = "wat";
-        String WAT_2 = "wat2";
-        String BOX = "korob-open";
+        String COOLER = "wat";
+        String CUP = "wat-2";
+        String BOX_OPEN = "korob-open";
+        String SECURITY = "secur1";
+        String LEVER = "richag1";
+        String IRON_CABINET = "skaf_zelezo1";
+        String CART = "telezka1";
+        String BOX_CLOSED = "korob";
+        String WIRES = "cab";
+        String WIRE_CUTTERS = "kysa4-m";
+        String TOILET = "san";
+        String SINK = "san-2";
+        String TABLE = "tabl";
+        String CHAIR = "cha-2";
+        String SPORT_BENCH = "tra-1";
+        String FID_SPORT_BENCH = "tra-2";
+        String DINING_BENCH = "stol-styl";
+        String SECURITY_MONITORS = "table-comp";
+        String GATE = "vorota";
+        String PUMPKIN = "pump";
+        String BARBELL = "shtanga";
+        String WEIGHT_PLATE = "blin";
     }
-
-
 
     /**
      * это текстурные регионы нестатичных объектов аля GameObject.

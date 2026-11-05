@@ -188,177 +188,142 @@ repeat: none
   index: -1
 ../pictures/level/bed
   rotate: false
-  xy: 923, 91
+  xy: 488, 28
   size: 81, 115
   orig: 81, 115
   offset: 0, 0
   index: -1
 ../pictures/level/bed-2
   rotate: false
-  xy: 840, 91
+  xy: 405, 28
   size: 81, 115
   orig: 81, 115
   offset: 0, 0
   index: -1
 ../pictures/level/blin
   rotate: false
-  xy: 840, 26
+  xy: 1979, 219
   size: 63, 63
   orig: 63, 63
   offset: 0, 0
   index: -1
 ../pictures/level/cab
   rotate: false
-  xy: 1106, 26
+  xy: 422, 184
   size: 53, 22
   orig: 53, 22
   offset: 0, 0
   index: -1
-../pictures/level/cam-1
+../pictures/level/cam1_1
   rotate: false
-  xy: 610, 22
-  size: 33, 62
-  orig: 33, 62
-  offset: 0, 0
-  index: -1
-../pictures/level/cam-2
-  rotate: false
-  xy: 1980, 151
+  xy: 1006, 60
   size: 63, 59
   orig: 63, 59
   offset: 0, 0
   index: -1
-../pictures/level/cam-3
+../pictures/level/cam1_2
   rotate: false
-  xy: 1980, 212
+  xy: 1980, 450
   size: 67, 61
   orig: 67, 61
   offset: 0, 0
   index: -1
+../pictures/level/cam2
+  rotate: false
+  xy: 936, 57
+  size: 33, 62
+  orig: 33, 62
+  offset: 0, 0
+  index: -1
 ../pictures/level/cha
   rotate: false
-  xy: 645, 1
+  xy: 1071, 61
   size: 33, 58
   orig: 33, 58
   offset: 0, 0
   index: -1
 ../pictures/level/cha-2
   rotate: false
-  xy: 1462, 49
+  xy: 971, 60
   size: 33, 59
   orig: 33, 59
   offset: 0, 0
   index: -1
-../pictures/level/char
+../pictures/level/char1_1
   rotate: false
-  xy: 1462, 5
+  xy: 1129, 32
   size: 51, 42
   orig: 51, 42
   offset: 0, 0
   index: -1
-../pictures/level/char-ment
+../pictures/level/char1_2
   rotate: false
-  xy: 1446, 161
+  xy: 1076, 14
   size: 51, 45
   orig: 51, 45
   offset: 0, 0
   index: -1
 ../pictures/level/cup
   rotate: false
-  xy: 1359, 19
+  xy: 1742, 184
   size: 101, 89
   orig: 101, 89
   offset: 0, 0
   index: -1
-../pictures/level/door-1
+../pictures/level/door1_1
   rotate: false
-  xy: 1277, 6
+  xy: 854, 44
   size: 80, 99
   orig: 80, 99
   offset: 0, 0
   index: -1
-../pictures/level/door-2
+../pictures/level/door2_1
   rotate: false
-  xy: 661, 61
-  size: 45, 145
-  orig: 45, 145
-  offset: 0, 0
-  index: -1
-../pictures/level/door-3
-  rotate: false
-  xy: 1232, 107
+  xy: 772, 44
   size: 80, 99
   orig: 80, 99
   offset: 0, 0
   index: -1
-../pictures/level/door-4
+../pictures/level/key-itm
   rotate: false
-  xy: 1986, 364
-  size: 46, 147
-  orig: 46, 147
+  xy: 721, 42
+  size: 49, 101
+  orig: 49, 101
   offset: 0, 0
   index: -1
-../pictures/level/key
+../pictures/level/key1_1
   rotate: false
   xy: 234, 153
   size: 42, 81
   orig: 42, 81
   offset: 0, 0
   index: -1
-../pictures/level/key-2
-  rotate: false
-  xy: 235, 70
-  size: 41, 81
-  orig: 41, 81
-  offset: 0, 0
-  index: -1
-../pictures/level/key-itm
-  rotate: false
-  xy: 1226, 1
-  size: 49, 101
-  orig: 49, 101
-  offset: 0, 0
-  index: -1
 ../pictures/level/korob
   rotate: false
-  xy: 905, 28
+  xy: 1986, 387
   size: 61, 61
   orig: 61, 61
   offset: 0, 0
   index: -1
 ../pictures/level/korob-open
   rotate: false
-  xy: 1864, 155
+  xy: 1864, 393
   size: 114, 118
   orig: 114, 118
   offset: 0, 0
   index: -1
-../pictures/level/kysa4
-  rotate: false
-  xy: 708, 86
-  size: 51, 120
-  orig: 51, 120
-  offset: 0, 0
-  index: -1
 ../pictures/level/kysa4-m
   rotate: false
-  xy: 1077, 31
+  xy: 393, 145
   size: 27, 61
   orig: 27, 61
   offset: 0, 0
   index: -1
-../pictures/level/med-1
+../pictures/level/med1_1
   rotate: false
-  xy: 1168, 104
+  xy: 657, 41
   size: 62, 102
   orig: 62, 102
-  offset: 0, 0
-  index: -1
-../pictures/level/med-2
-  rotate: false
-  xy: 1092, 96
-  size: 74, 110
-  orig: 74, 110
   offset: 0, 0
   index: -1
 ../pictures/level/oblako
@@ -368,95 +333,53 @@ repeat: none
   orig: 275, 275
   offset: 0, 0
   index: -1
-../pictures/level/oblako-120
-  rotate: false
-  xy: 1864, 391
-  size: 120, 120
-  orig: 120, 120
-  offset: 0, 0
-  index: -1
 ../pictures/level/pump
   rotate: false
-  xy: 278, 6
+  xy: 700, 6
   size: 37, 33
   orig: 37, 33
   offset: 0, 0
   index: -1
-../pictures/level/richag
+../pictures/level/richag1_1
   rotate: false
-  xy: 235, 31
+  xy: 422, 145
   size: 41, 37
   orig: 41, 37
   offset: 0, 0
   index: -1
-../pictures/level/richag-2
-  rotate: false
-  xy: 1410, 161
-  size: 34, 45
-  orig: 34, 45
-  offset: 0, 0
-  index: -1
 ../pictures/level/san
   rotate: false
-  xy: 1006, 94
+  xy: 571, 31
   size: 84, 112
   orig: 84, 112
   offset: 0, 0
   index: -1
 ../pictures/level/san-2
   rotate: false
-  xy: 708, 29
+  xy: 992, 3
   size: 82, 55
   orig: 82, 55
   offset: 0, 0
   index: -1
-../pictures/level/secur
+../pictures/level/secur1_1
   rotate: false
-  xy: 1410, 110
+  xy: 1106, 76
   size: 52, 43
   orig: 52, 43
   offset: 0, 0
   index: -1
-../pictures/level/secur-benis
-  rotate: false
-  xy: 968, 29
-  size: 51, 60
-  orig: 51, 60
-  offset: 0, 0
-  index: -1
-../pictures/level/secur-voda
-  rotate: false
-  xy: 1106, 50
-  size: 52, 44
-  orig: 52, 44
-  offset: 0, 0
-  index: -1
 ../pictures/level/shtanga
   rotate: false
-  xy: 495, 14
+  xy: 1864, 220
   size: 113, 70
   orig: 113, 70
   offset: 0, 0
   index: -1
-../pictures/level/skaf-zelezo
+../pictures/level/skaf_zelezo1_1
   rotate: false
-  xy: 491, 86
+  xy: 235, 20
   size: 89, 120
   orig: 89, 120
-  offset: 0, 0
-  index: -1
-../pictures/level/skaf-zelezo-zamok
-  rotate: false
-  xy: 400, 86
-  size: 89, 120
-  orig: 89, 120
-  offset: 0, 0
-  index: -1
-../pictures/level/skaf-zelezo-zamok-otk
-  rotate: false
-  xy: 1742, 269
-  size: 120, 120
-  orig: 120, 120
   offset: 0, 0
   index: -1
 ../pictures/level/stelaz-korob
@@ -468,14 +391,14 @@ repeat: none
   index: -1
 ../pictures/level/stol-styl
   rotate: false
-  xy: 1864, 275
+  xy: 1742, 275
   size: 120, 114
   orig: 120, 114
   offset: 0, 0
   index: -1
 ../pictures/level/tabl
   rotate: false
-  xy: 278, 41
+  xy: 278, 142
   size: 113, 64
   orig: 113, 64
   offset: 0, 0
@@ -489,21 +412,14 @@ repeat: none
   index: -1
 ../pictures/level/tabuletta
   rotate: false
-  xy: 1168, 1
+  xy: 1986, 284
   size: 56, 101
   orig: 56, 101
   offset: 0, 0
   index: -1
-../pictures/level/telezka
+../pictures/level/telezka1_1
   rotate: false
-  xy: 761, 86
-  size: 77, 120
-  orig: 77, 120
-  offset: 0, 0
-  index: -1
-../pictures/level/telezka-koleso
-  rotate: false
-  xy: 582, 86
+  xy: 326, 20
   size: 77, 120
   orig: 77, 120
   offset: 0, 0
@@ -517,35 +433,35 @@ repeat: none
   index: -1
 ../pictures/level/tra-2
   rotate: false
-  xy: 1314, 110
+  xy: 1947, 121
   size: 94, 96
   orig: 94, 96
   offset: 0, 0
   index: -1
 ../pictures/level/unifaorm
   rotate: false
-  xy: 393, 11
+  xy: 1845, 145
   size: 100, 73
   orig: 100, 73
   offset: 0, 0
   index: -1
 ../pictures/level/vorota
   rotate: false
-  xy: 278, 107
+  xy: 1864, 292
   size: 120, 99
   orig: 120, 99
   offset: 0, 0
   index: -1
 ../pictures/level/wat
   rotate: false
-  xy: 1021, 38
+  xy: 936, 1
   size: 54, 54
   orig: 54, 54
   offset: 0, 0
   index: -1
 ../pictures/level/wat-2
   rotate: false
-  xy: 1021, 1
+  xy: 657, 4
   size: 41, 35
   orig: 41, 35
   offset: 0, 0

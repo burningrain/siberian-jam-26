@@ -4,12 +4,14 @@ import com.artemis.ComponentMapper;
 import com.artemis.World;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapProperties;
+import com.badlogic.gdx.maps.objects.TextMapObject;
+import com.badlogic.gdx.maps.objects.TextureMapObject;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.GdxRuntimeException;
-import com.github.br.libgdx.common.structure.screen.ui.ActorFactory;
 import com.github.br.libgdx.common.structure.screen.ui.DefaultActorFactory;
 import com.github.br.syberian.jam26.ecs.components.RenderComponent;
 
@@ -68,14 +70,10 @@ public class UserActorFactory implements IUserActorFactory {
             throw new IllegalStateException("forgot RenderComponent for actorType=" + actorTypeEnum);
         }
         RenderComponent renderComponent = mapper.get(id);
-        if (renderComponent == null) {
+        if (renderComponent == null || renderComponent.actor == null) {
             Gdx.app.log("WARN", "UserActorFactory#createEcsEntity, actorTypeEnum=" +
                 actorTypeEnum + " render component is null");
             return null;
-        }
-
-        if (renderComponent.actor == null) {
-            throw new IllegalStateException("renderComponent.actor is null for actorType=" + actorTypeEnum);
         }
 
         return renderComponent.actor;
@@ -93,55 +91,61 @@ public class UserActorFactory implements IUserActorFactory {
 
     public Actor getCustomUiActor(ActorTypeEnum actorType) {
         switch (actorType) {
-            case BOX:
+            case BOX_OPEN:
             case KOROB_OPEN:
-                return delegate.createImage(atlasName, Resources.TextureRegion.BOX);
+                return delegate.createImage(atlasName, Resources.TextureRegion.BOX_OPEN);
+            case BOX:
+            case KOROB:
+                return delegate.createImage(atlasName, Resources.TextureRegion.BOX_CLOSED);
             case BED:
-                return delegate.createImage(atlasName, Resources.TextureRegion.BED);
+                return delegate.createImage(atlasName, Resources.TextureRegion.BED_GREEN);
             case BED2:
-                return delegate.createImage(atlasName, Resources.TextureRegion.BED2);
+                return delegate.createImage(atlasName, Resources.TextureRegion.BED_GRAY);
             case BLIN:
                 return delegate.createImage(atlasName, Resources.TextureRegion.BLIN);
             case CAB:
                 return delegate.createImage(atlasName, Resources.TextureRegion.CAB);
+            case CAMERA:
             case CAM_1:
-                return delegate.createImage(atlasName, Resources.TextureRegion.CAM_1);
+                return delegate.createAnimatedImage(
+                    atlasName, Resources.TextureRegion.CAM_1, Animation.PlayMode.NORMAL, 0f
+                );
             case CAM_2:
+            case CAMERA_2:
                 return delegate.createImage(atlasName, Resources.TextureRegion.CAM_2);
-            case CAM_3:
-                return delegate.createImage(atlasName, Resources.TextureRegion.CAM_3);
             case CHA:
                 return delegate.createImage(atlasName, Resources.TextureRegion.CHA);
             case CHA_2:
                 return delegate.createImage(atlasName, Resources.TextureRegion.CHA_2);
-            case CHAR:
-                return delegate.createImage(atlasName, Resources.TextureRegion.CHAR);
-            case CHAR_1:
-                return delegate.createImage(atlasName, Resources.TextureRegion.CHAR_1);
-            case CHAR_2:
-                return delegate.createImage(atlasName, Resources.TextureRegion.CHAR_2);
-            case DOOR_1:
-                return delegate.createImage(atlasName, Resources.TextureRegion.DOOR_1);
-            case DOOR_2:
-                return delegate.createImage(atlasName, Resources.TextureRegion.DOOR_2);
-            case DOOR_3:
-                return delegate.createImage(atlasName, Resources.TextureRegion.DOOR_3);
-            case DOOR_4:
-                return delegate.createImage(atlasName, Resources.TextureRegion.DOOR_4);
+            case CHAR: // hero
+            case NPC:
+                return delegate.createAnimatedImage(
+                    atlasName, Resources.TextureRegion.HERO, Animation.PlayMode.NORMAL, 0f
+                );
+            case DOOR_GRAY:
+                return delegate.createAnimatedImage(atlasName, Resources.TextureRegion.DOOR_GRAY, Animation.PlayMode.NORMAL, 0f);
+            case DOOR_BROWN:
+                return delegate.createAnimatedImage(atlasName, Resources.TextureRegion.DOOR_BROWN, Animation.PlayMode.NORMAL, 0f);
             case KEY:
-                return delegate.createImage(atlasName, Resources.TextureRegion.KEY);
-            case KEY_2:
-                return delegate.createImage(atlasName, Resources.TextureRegion.KEY_2);
+                return delegate.createAnimatedImage(atlasName, Resources.TextureRegion.KEY, Animation.PlayMode.NORMAL, 0f);
             case KEY_ITM:
                 return delegate.createImage(atlasName, Resources.TextureRegion.KEY_ITM);
-            case MED_1:
-                return delegate.createImage(atlasName, Resources.TextureRegion.MED_1);
-            case MED_2:
-                return delegate.createImage(atlasName, Resources.TextureRegion.MED_2);
+            case MED:
+                return delegate.createAnimatedImage(atlasName, Resources.TextureRegion.MED, Animation.PlayMode.NORMAL, 0f);
+            case LEVER: // РЫЧАГ
+                return delegate.createAnimatedImage(atlasName, Resources.TextureRegion.LEVER, Animation.PlayMode.NORMAL, 0f);
+            case SECURITY:
+                return delegate.createAnimatedImage(atlasName, Resources.TextureRegion.SECURITY, Animation.PlayMode.NORMAL, 0f);
+            case IRON_CABINET: // железный шкаф
+                return delegate.createAnimatedImage(atlasName, Resources.TextureRegion.IRON_CABINET, Animation.PlayMode.NORMAL, 0f);
+            case CART: // тележка
+                return delegate.createAnimatedImage(atlasName, Resources.TextureRegion.CART, Animation.PlayMode.NORMAL, 0f);
             case PUMP:
                 return delegate.createImage(atlasName, Resources.TextureRegion.PUMP);
+            case TOILET:
             case SAN:
                 return delegate.createImage(atlasName, Resources.TextureRegion.SAN);
+            case SINK:
             case SAN_2:
                 return delegate.createImage(atlasName, Resources.TextureRegion.SAN_2);
             case TABL:
@@ -152,11 +156,38 @@ public class UserActorFactory implements IUserActorFactory {
                 return delegate.createImage(atlasName, Resources.TextureRegion.TRA_1);
             case TRA_2:
                 return delegate.createImage(atlasName, Resources.TextureRegion.TRA_2);
-            case WAT:
-                return delegate.createImage(atlasName, Resources.TextureRegion.WAT);
-            case WAT_2:
-                return delegate.createImage(atlasName, Resources.TextureRegion.WAT_2);
-
+            case COOLER:
+                return delegate.createImage(atlasName, Resources.TextureRegion.COOLER);
+            case CUP:
+                return delegate.createImage(atlasName, Resources.TextureRegion.CUP);
+            case WIRES:
+                return delegate.createImage(atlasName, Resources.TextureRegion.WIRES);
+            case WIRE_CUTTERS:
+                return delegate.createImage(atlasName, Resources.TextureRegion.WIRE_CUTTERS);
+            case TABLE:
+                return delegate.createImage(atlasName, Resources.TextureRegion.TABLE);
+            case CHAIR:
+                return delegate.createImage(atlasName, Resources.TextureRegion.CHAIR);
+            case BED_WHITE:
+                return delegate.createImage(atlasName, Resources.TextureRegion.BED_GRAY);
+            case BED_GREEN:
+                return delegate.createImage(atlasName, Resources.TextureRegion.BED_GREEN);
+            case SPORT_BENCH:
+                return delegate.createImage(atlasName, Resources.TextureRegion.SPORT_BENCH);
+            case FID_SPORT_BENCH:
+                return delegate.createImage(atlasName, Resources.TextureRegion.FID_SPORT_BENCH);
+            case DINING_BENCH:
+                return delegate.createImage(atlasName, Resources.TextureRegion.DINING_BENCH);
+            case SECURITY_MONITORS:
+                return delegate.createImage(atlasName, Resources.TextureRegion.SECURITY_MONITORS);
+            case GATE:
+                return delegate.createImage(atlasName, Resources.TextureRegion.GATE);
+            case PUMPKIN:
+                return delegate.createImage(atlasName, Resources.TextureRegion.PUMPKIN);
+            case BARBELL:
+                return delegate.createImage(atlasName, Resources.TextureRegion.BARBELL);
+            case WEIGHT_PLATE:
+                return delegate.createImage(atlasName, Resources.TextureRegion.WEIGHT_PLATE);
 
             default:
                 throw new GdxRuntimeException(

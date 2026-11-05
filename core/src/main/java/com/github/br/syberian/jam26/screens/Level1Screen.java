@@ -133,7 +133,7 @@ public class Level1Screen extends AbstractTiledMapUiScreen<IUserActorFactory, Cu
         Box2dRenderSystem box2dRenderSystem = artemisWorld.getSystem(Box2dRenderSystem.class);
         box2dRenderSystem.init(renderer);
 
-        music = getGameManager().audioAssetManager.getMusic(Resources.Music.LEVEL_THEME);
+        music = getGameManager().audioAssetManager.getMusic(Resources.Music.MENU_THEME);
         this.music.setLooping(true);
         this.music.play();
     }

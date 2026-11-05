@@ -73,6 +73,10 @@ public class GameScreenStateManager implements Screen {
         System.gc();
     }
 
+    public void restartCurrentState() {
+        changeCurrentState(currentState);
+    }
+
     private void hideScreen(Screen screen) {
         if (screen != null) screen.hide();
     }

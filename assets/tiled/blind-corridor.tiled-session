@@ -34,19 +34,25 @@
                 6
             ],
             "expandedObjectLayers": [
+                10,
+                11,
+                14,
+                2,
+                9,
+                13,
                 6,
-                2
+                12
             ],
-            "scale": 0.0625,
-            "selectedLayer": 2,
+            "scale": 0.33,
+            "selectedLayer": 8,
             "viewCenter": {
-                "x": 4600,
-                "y": 5976
+                "x": 5356.060606060606,
+                "y": 5689.39393939394
             }
         },
         "level-1.tmx#bgf": {
             "dynamicWrapping": true,
-            "scaleInDock": 0.5,
+            "scaleInDock": 0.25,
             "scaleInEditor": 1
         },
         "level-1.tmx#floor_and_walls": {
@@ -55,16 +61,17 @@
         },
         "physics-level-1.tmx": {
             "expandedObjectLayers": [
-                6,
-                3,
+                7,
+                4,
                 2,
-                4
+                6,
+                3
             ],
-            "scale": 0.33,
-            "selectedLayer": 4,
+            "scale": 0.125,
+            "selectedLayer": 3,
             "viewCenter": {
-                "x": 5795.454545454546,
-                "y": 898.4848484848485
+                "x": 5036,
+                "y": 6764
             }
         },
         "physics-level-1.tmx#environment": {
@@ -87,6 +94,18 @@
             "dynamicWrapping": false,
             "scaleInDock": 1
         },
+        "physics-level-1_99.tmx": {
+            "scale": 0.11083333333333333,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 5995.4887218045105,
+                "y": 5995.488721804511
+            }
+        },
+        "physics-level-1_99.tmx#walls_and_floor": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1
+        },
         "test-room.tmx": {
             "expandedObjectLayers": [
                 2
@@ -104,7 +123,7 @@
             "scaleInEditor": 1
         }
     },
-    "last.imagePath": "D:/projects/siberian-jam-26/assets/pictures/level/1",
+    "last.imagePath": "D:/projects/siberian-jam-26/assets/pictures/level",
     "map.height": 100,
     "map.lastUsedFormat": "tmx",
     "map.layerDataFormat": "3",
@@ -119,9 +138,10 @@
     "project": "blind-corridor.tiled-project",
     "property.type": "bool",
     "recentFiles": [
-        "level-1.tmx",
-        "test-room.tmx",
         "physics-level-1.tmx",
+        "physics-level-1_99.tmx",
+        "test-room.tmx",
+        "level-1.tmx",
         "physics-level-1_2.tmx",
         "D:/projects/perelesoq-jam-26/assets/tiled/entrance.tmx"
     ],

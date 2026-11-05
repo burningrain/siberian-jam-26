@@ -17,28 +17,30 @@ public interface GameScreens {
         new SettingsScreen(), new SettingsScreenLoader()
     );
 
-//    GameScreenState LEVEL_1 = new GameScreenState(
-//        new Level1Screen(
-//            GameScreens.MENU,
-//            Resources.Tmx.LEVEL_1,
-//            Resources.SKIN,
-//            true,
-//            true
-//        ),
-//        new Level1AssetLoader()
-//    );
-
     GameScreenState PHYSICS_LEVEL_1_SCREEN = new GameScreenState(
         new PhysicsLevelScreen(
+            Resources.Music.LEVEL_THEME,
             GameScreens.MENU,
             Resources.Tmx.PHYSICS_LEVEL_1,
             Resources.SKIN,
             false,
-            true,
+            Constants.IS_GL_PROFILE_ACTIVE,
             Constants.IS_TILED_RENDER_ACTIVE
-        ), new PhysicsLevelScreenLoader()
+        ), new PhysicsLevelScreenLoader(Resources.Music.LEVEL_THEME)
     );
 
+    GameScreenState LEVEL_1 = new GameScreenState(
+        new PhysicsLevelScreen(
+            Resources.Music.MENU_THEME,
+            GameScreens.PHYSICS_LEVEL_1_SCREEN,
+            Resources.Tmx.LEVEL_1,
+            Resources.SKIN,
+            Constants.IS_GL_PROFILE_ACTIVE,
+            true,
+            Constants.IS_TILED_RENDER_ACTIVE
+        ),
+        new Level1AssetLoader(Resources.Music.MENU_THEME)
+    );
 
 //    GameScreenState TEST_ROOM = new GameScreenState(
 //        new TestRoomScreen(

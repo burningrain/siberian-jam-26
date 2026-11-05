@@ -15,6 +15,12 @@ import com.github.br.syberian.jam26.Resources;
 import workaround.ktx.tiled.TmxUtils;
 
 public class Level1AssetLoader implements AssetsLoader {
+
+    private final String levelThemeLoopMusic;
+    public Level1AssetLoader(String levelThemeLoopMusic) {
+        this.levelThemeLoopMusic = levelThemeLoopMusic;
+    }
+
     @Override
     public void loadAssets(AssetManager assetManager) {
         TmxMapLoader.Parameters params = new TmxMapLoader.Parameters();
@@ -33,7 +39,7 @@ public class Level1AssetLoader implements AssetsLoader {
         // animation
         //assetManager.load(Resources.ANIMATION_ATLAS, TextureAtlas.class);
 
-        assetManager.load(Resources.Music.LEVEL_THEME, Music.class);
+        assetManager.load(levelThemeLoopMusic, Music.class);
     }
 
     @Override
@@ -41,7 +47,7 @@ public class Level1AssetLoader implements AssetsLoader {
         assetManager.unload(TmxUtils.getTmx(Resources.Tmx.LEVEL_1, Constants.IS_USE_KTX2));
         assetManager.unload(Resources.Atlases.GAME_OBJECTS);
 
-        assetManager.unload(Resources.Music.LEVEL_THEME);
+        assetManager.unload(levelThemeLoopMusic);
     }
 
 }

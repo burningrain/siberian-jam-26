@@ -9,7 +9,6 @@ import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.GdxRuntimeException;
-import com.github.br.libgdx.common.structure.screen.ui.ActorFactory;
 import com.github.br.libgdx.common.structure.screen.ui.DefaultActorFactory;
 import com.github.br.syberian.jam26.ecs.components.RenderComponent;
 
@@ -68,7 +67,7 @@ public class TestUserActorFactory implements IUserActorFactory {
                 return delegate.createImage(atlasName, Resources.TestTextureRegion.ENEMY);
             case CAMERA:
                 return delegate.createImage(atlasName, Resources.TestTextureRegion.CAMERA);
-            case BOX:
+            case BOX_OPEN:
                 return delegate.createImage(atlasName, Resources.TestTextureRegion.BOX);
             case DOOR:
                 return delegate.createImage(atlasName, Resources.TestTextureRegion.DOOR);
