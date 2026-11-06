@@ -4,7 +4,9 @@ import com.artemis.Archetype;
 import com.artemis.ArchetypeBuilder;
 import com.artemis.BaseSystem;
 import com.artemis.ComponentMapper;
+import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapProperties;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -145,16 +147,20 @@ public class EntityFactory extends BaseSystem {
         float x,
         float y,
         float width,
-        float height
+        float height,
+        float originX,
+        float originY,
+        float rotation
     ) {
         int id = world.create(triggerArchetype);
 
         TransformComponent transformComponent = transformMapper.get(id);
         transformComponent.x = x;
         transformComponent.y = y;
+        transformComponent.rotation = rotation;
 
         PhysicsComponent physicsComponent = createPhysicsComponent(
-            id, BodyDef.BodyType.StaticBody, true, x, y, width, height
+            id, BodyDef.BodyType.StaticBody, true, x, y, width, height, rotation
         );
 
 
@@ -169,17 +175,26 @@ public class EntityFactory extends BaseSystem {
         return id;
     }
 
-    public int createPlayer(ActorTypeEnum actorType, float x, float y, float width, float height) {
+    public int createPlayer(
+        ActorTypeEnum actorType,
+        float x,
+        float y,
+        float width,
+        float height,
+        float originX,
+        float originY,
+        float rotation
+    ) {
         SimpleUtils simpleUtils = gameManager.simpleUtils;
         int id = world.create(playerArchetype);
 
         TransformComponent transformComponent = transformMapper.get(id);
         transformComponent.x = x;
         transformComponent.y = y;
-        transformComponent.rotation = 0f;
+        transformComponent.rotation = rotation;
 
         PhysicsComponent physicsComponent = createPhysicsComponent(
-            id, BodyDef.BodyType.DynamicBody, false, x, y, width, height
+            id, BodyDef.BodyType.DynamicBody, false, x, y, width, height, rotation
         );
 
         // сенсор для столкновений и триггеров
@@ -210,15 +225,25 @@ public class EntityFactory extends BaseSystem {
         return id;
     }
 
-    private int createEnemy(ActorTypeEnum actorType, float x, float y, float width, float height) {
+    private int createEnemy(
+        ActorTypeEnum actorType,
+        float x,
+        float y,
+        float width,
+        float height,
+        float originX,
+        float originY,
+        float rotation
+    ) {
         int id = world.create(enemyArchetype);
 
         TransformComponent transformComponent = transformMapper.get(id);
         transformComponent.x = x;
         transformComponent.y = y;
+        transformComponent.rotation = rotation;
 
         PhysicsComponent physicsComponent = createPhysicsComponent(
-            id, BodyDef.BodyType.DynamicBody, false, x, y, width, height
+            id, BodyDef.BodyType.DynamicBody, false, x, y, width, height, rotation
         );
 
         //TODO пока анимации нету
@@ -231,15 +256,25 @@ public class EntityFactory extends BaseSystem {
         return id;
     }
 
-    private int createNpc(ActorTypeEnum actorType, float x, float y, float width, float height) {
+    private int createNpc(
+        ActorTypeEnum actorType,
+        float x,
+        float y,
+        float width,
+        float height,
+        float originX,
+        float originY,
+        float rotation
+    ) {
         int id = world.create(enemyArchetype);
 
         TransformComponent transformComponent = transformMapper.get(id);
         transformComponent.x = x;
         transformComponent.y = y;
+        transformComponent.rotation = rotation;
 
         PhysicsComponent physicsComponent = createPhysicsComponent(
-            id, BodyDef.BodyType.DynamicBody, false, x, y, width, height
+            id, BodyDef.BodyType.DynamicBody, false, x, y, width, height, rotation
         );
 
         //TODO пока анимации нету
@@ -253,16 +288,25 @@ public class EntityFactory extends BaseSystem {
     }
 
     public int createWall(
-        ActorTypeEnum actorType, float x, float y, float width, float height, boolean isVisible
+        ActorTypeEnum actorType,
+        boolean isVisible,
+        float x,
+        float y,
+        float width,
+        float height,
+        float originX,
+        float originY,
+        float rotation
     ) {
         int id = world.create(wallArchetype);
 
         TransformComponent transformComponent = transformMapper.get(id);
         transformComponent.x = x;
         transformComponent.y = y;
+        transformComponent.rotation = rotation;
 
         PhysicsComponent physicsComponent = createPhysicsComponent(
-            id, BodyDef.BodyType.StaticBody, false, x, y, width, height
+            id, BodyDef.BodyType.StaticBody, false, x, y, width, height, rotation
         );
 
         if (isVisible) {
@@ -273,29 +317,50 @@ public class EntityFactory extends BaseSystem {
         return id;
     }
 
-    public int createBullet(ActorTypeEnum actorType, float x, float y, float width, float height, Vector2 direction) {
+    public int createBullet(
+        ActorTypeEnum actorType,
+        Vector2 direction,
+        float x,
+        float y,
+        float width,
+        float height,
+        float originX,
+        float originY,
+        float rotation
+    ) {
         int id = world.create(bulletArchetype);
 
         TransformComponent transformComponent = transformMapper.get(id);
         transformComponent.x = x;
         transformComponent.y = y;
+        transformComponent.rotation = rotation;
 
         PhysicsComponent physicsComponent = createPhysicsComponent(
-            id, BodyDef.BodyType.DynamicBody, false, x, y, width, height
+            id, BodyDef.BodyType.DynamicBody, false, x, y, width, height, rotation
         );
 
         return id;
     }
 
-    public int createDoor(ActorTypeEnum actorType, float x, float y, float width, float height) {
+    public int createDoor(
+        ActorTypeEnum actorType,
+        float x,
+        float y,
+        float width,
+        float height,
+        float originX,
+        float originY,
+        float rotation
+    ) {
         int id = world.create(doorArchetype);
 
         TransformComponent transformComponent = transformMapper.get(id);
         transformComponent.x = x;
         transformComponent.y = y;
+        transformComponent.rotation = rotation;
 
         PhysicsComponent physicsComponent = createPhysicsComponent(
-            id, BodyDef.BodyType.DynamicBody, false, x, y, width, height
+            id, BodyDef.BodyType.DynamicBody, false, x, y, width, height, rotation
         );
 
         RenderComponent renderComponent = renderMapper.get(id);
@@ -305,15 +370,25 @@ public class EntityFactory extends BaseSystem {
     }
 
     // все в пикселях приходит
-    public int createCamera(ActorTypeEnum actorType, float x, float y, float width, float height) {
+    public int createCamera(
+        ActorTypeEnum actorType,
+        float x,
+        float y,
+        float width,
+        float height,
+        float originX,
+        float originY,
+        float rotation
+    ) {
         int id = world.create(cameraArchetype);
 
         TransformComponent transformComponent = transformMapper.get(id);
         transformComponent.x = x;
         transformComponent.y = y;
+        transformComponent.rotation = rotation;
 
         PhysicsComponent physicsComponent = createPhysicsComponent(
-            id, BodyDef.BodyType.KinematicBody, false, x, y, width, height
+            id, BodyDef.BodyType.KinematicBody, false, x, y, width, height, rotation
         );
 
         SecurityCameraComponent cam = cameraLogicMapper.get(id);
@@ -363,15 +438,25 @@ public class EntityFactory extends BaseSystem {
         return id;
     }
 
-    public int createBox(ActorTypeEnum actorType, float x, float y, float width, float height) {
+    public int createBox(
+        ActorTypeEnum actorType,
+        float x,
+        float y,
+        float width,
+        float height,
+        float originX,
+        float originY,
+        float rotation
+    ) {
         int id = world.create(boxArchetype);
 
         TransformComponent transformComponent = transformMapper.get(id);
         transformComponent.x = x;
         transformComponent.y = y;
+        transformComponent.rotation = rotation;
 
         PhysicsComponent physicsComponent = createPhysicsComponent(
-            id, BodyDef.BodyType.DynamicBody, false, x, y, width, height
+            id, BodyDef.BodyType.DynamicBody, false, x, y, width, height, rotation
         );
 
         RenderComponent renderComponent = renderMapper.get(id);
@@ -380,27 +465,64 @@ public class EntityFactory extends BaseSystem {
         return id;
     }
 
-    public int createWires(ActorTypeEnum actorType, float x, float y, float width, float height) {
-        return createItem(actorType, x, y, width, height);
+    public int createWires(
+        ActorTypeEnum actorType,
+        float x,
+        float y,
+        float width,
+        float height,
+        float originX,
+        float originY,
+        float rotation
+    ) {
+        return createItem(actorType, x, y, width, height, originX, originY, rotation);
     }
 
-    public int createWireCutters(ActorTypeEnum actorType, float x, float y, float width, float height) {
-        return createItem(actorType, x, y, width, height);
+    public int createWireCutters(
+        ActorTypeEnum actorType,
+        float x,
+        float y,
+        float width,
+        float height,
+        float originX,
+        float originY,
+        float rotation
+    ) {
+        return createItem(actorType, x, y, width, height, originX, originY, rotation);
     }
 
-    public int createPump(ActorTypeEnum actorType, float x, float y, float width, float height) {
-        return createItem(actorType, x, y, width, height);
+    public int createPump(
+        ActorTypeEnum actorType,
+        float x,
+        float y,
+        float width,
+        float height,
+        float originX,
+        float originY,
+        float rotation
+    ) {
+        return createItem(actorType, x, y, width, height, originX, originY, rotation);
     }
 
-    private int createItem(ActorTypeEnum actorType, float x, float y, float width, float height) {
+    private int createItem(
+        ActorTypeEnum actorType,
+        float x,
+        float y,
+        float width,
+        float height,
+        float originX,
+        float originY,
+        float rotation
+    ) {
         int id = world.create(boxArchetype);
 
         TransformComponent transformComponent = transformMapper.get(id);
         transformComponent.x = x;
         transformComponent.y = y;
+        transformComponent.rotation = rotation;
 
         PhysicsComponent physicsComponent = createPhysicsComponent(
-            id, BodyDef.BodyType.DynamicBody, true, x, y, width, height
+            id, BodyDef.BodyType.DynamicBody, true, x, y, width, height, rotation
         );
 
         RenderComponent renderComponent = renderMapper.get(id);
@@ -409,41 +531,96 @@ public class EntityFactory extends BaseSystem {
         return id;
     }
 
-    public int createBedWhite(ActorTypeEnum actorType, float x, float y, float width, float height) {
-        return createBed(actorType, x, y, width, height);
+    public int createMed(
+        ActorTypeEnum actorType,
+        float x,
+        float y,
+        float width,
+        float height,
+        float originX,
+        float originY,
+        float rotation
+    ) {
+        return createItem(actorType, x, y, width, height, originX, originY, rotation);
     }
 
-    public int createBedGreen(ActorTypeEnum actorType, float x, float y, float width, float height) {
-        return createBed(actorType, x, y, width, height);
+    public int createIronCabinet(
+        ActorTypeEnum actorType,
+        float x,
+        float y,
+        float width,
+        float height,
+        float originX,
+        float originY,
+        float rotation
+    ) {
+        return createItem(actorType, x, y, width, height, originX, originY, rotation);
     }
 
-    public int createMed(ActorTypeEnum actorType, float x, float y, float width, float height) {
-        return createItem(actorType, x, y, width, height);
+    private int createWeightPlate(
+        ActorTypeEnum actorType,
+        float x,
+        float y,
+        float width,
+        float height,
+        float originX,
+        float originY,
+        float rotation
+    ) {
+        return createItem(actorType, x, y, width, height, originX, originY, rotation);
     }
 
-    public int createIronCabinet(ActorTypeEnum actorType, float x, float y, float width, float height) {
-        return createItem(actorType, x, y, width, height);
-    }
-
-    private int createWeightPlate(ActorTypeEnum actorType, float x, float y, float width, float height) {
-        return createItem(actorType, x, y, width, height);
-    }
-
-    private int createBed(ActorTypeEnum actorType, float x, float y, float width, float height) {
+    private int createBed(
+        ActorTypeEnum actorType,
+        float x,
+        float y,
+        float width,
+        float height,
+        float originX,
+        float originY,
+        float rotation
+    ) {
         int id = world.create(boxArchetype);
 
         TransformComponent transformComponent = transformMapper.get(id);
         transformComponent.x = x;
         transformComponent.y = y;
+        transformComponent.rotation = rotation;
 
         PhysicsComponent physicsComponent = createPhysicsComponent(
-            id, BodyDef.BodyType.KinematicBody, false, x, y, width, height
+            id, BodyDef.BodyType.KinematicBody, false, x, y, width, height, rotation
         );
 
         RenderComponent renderComponent = renderMapper.get(id);
         renderComponent.actor = userActorFactory.getCustomUiActor(actorType);
 
         return id;
+    }
+
+    public int createBedWhite(
+        ActorTypeEnum actorType,
+        float x,
+        float y,
+        float width,
+        float height,
+        float originX,
+        float originY,
+        float rotation
+    ) {
+        return createBed(actorType, x, y, width, height, originX, originY, rotation);
+    }
+
+    public int createBedGreen(
+        ActorTypeEnum actorType,
+        float x,
+        float y,
+        float width,
+        float height,
+        float originX,
+        float originY,
+        float rotation
+    ) {
+        return createBed(actorType, x, y, width, height, originX, originY, rotation);
     }
 
     private PhysicsComponent createPhysicsComponent(
@@ -453,7 +630,8 @@ public class EntityFactory extends BaseSystem {
         float x,
         float y,
         float width,
-        float height
+        float height,
+        float rotationDegree
     ) {
         SimpleUtils simpleUtils = gameManager.simpleUtils;
 
@@ -469,6 +647,7 @@ public class EntityFactory extends BaseSystem {
             simpleUtils.convertPixelsToMetres(x + halfWidth),
             simpleUtils.convertPixelsToMetres(y + halfHeight)
         );
+        bodyDef.angle = MathUtils.degreesToRadians * rotationDegree;
 
         PhysicsSystem physics = getWorld().getSystem(PhysicsSystem.class);
         World box2dWorld = physics.getBox2dWorld();
@@ -507,19 +686,26 @@ public class EntityFactory extends BaseSystem {
         this.userActorFactory = userActorFactory;
     }
 
-    public int createEntityFromUI(ActorTypeEnum actorType, MapProperties properties) {
-        float x = properties.get("x", float.class);
-        float y = properties.get("y", float.class);
-        float width = properties.get("width", float.class);
-        float height = properties.get("height", float.class);
+    public int createEntityFromUI(
+        ActorTypeEnum actorType,
+        MapObject mapObject,
+        float x,
+        float y,
+        float width,
+        float height,
+        float originX,
+        float originY,
+        float rotation
+    ) {
+        MapProperties properties = mapObject.getProperties();
 
         switch (actorType) {
             case HERO:
             case CHAR:
             case CHAR_1:
-                return createPlayer(actorType, x, y, width, height);
+                return createPlayer(actorType, x, y, width, height, originX, originY, rotation);
             case NPC:
-                return createNpc(actorType, x, y, width, height);
+                return createNpc(actorType, x, y, width, height, originX, originY, rotation);
             case TRIGGER:
                 String triggerType = properties.get("trigger_type", String.class);
                 String useType = properties.get("use_type", String.class);
@@ -536,70 +722,70 @@ public class EntityFactory extends BaseSystem {
                     throw new GdxRuntimeException("TRIGGER params are not valid");
                 }
 
-                return createTrigger(triggerTypeEnum, useTypeEnum, conditionTypeEnum, x, y, width, height);
+                return createTrigger(triggerTypeEnum, useTypeEnum, conditionTypeEnum, x, y, width, height, originX, originY, rotation);
             case ENEMY:
-                return createEnemy(actorType, x, y, width, height);
+                return createEnemy(actorType, x, y, width, height, originX, originY, rotation);
             case BOX_OPEN:
             case KOROB_OPEN:
-                return createBox(actorType, x, y, width, height);
+                return createBox(actorType, x, y, width, height, originX, originY, rotation);
             case BOX:
             case KOROB:
-                return createBox(actorType, x, y, width, height);
+                return createBox(actorType, x, y, width, height, originX, originY, rotation);
             case CAMERA:
             case CAM_1:
-                return createCamera(actorType, x, y, width, height);
+                return createCamera(actorType, x, y, width, height, originX, originY, rotation);
             case CAMERA_2:
             case CAM_2: // TODO это камера, которая смотрит прямо на игрока
-                return createCamera(actorType, x, y, width, height);
+                return createCamera(actorType, x, y, width, height, originX, originY, rotation);
             case BULLET:
-                return createBullet(actorType, x, y, width, height, new Vector2());
+                return createBullet(actorType, new Vector2(), x, y, width, height, originX, originY, rotation);
             case WALL:
-                return createWall(actorType, x, y, width, height, false);
+                return createWall(actorType, false, x, y, width, height, originX, originY, rotation);
             case DOOR:
             case DOOR_BROWN:
             case DOOR_GRAY:
-                return createDoor(actorType, x, y, width, height);
+                return createDoor(actorType, x, y, width, height, originX, originY, rotation);
             case WIRES:
-                return createWires(actorType, x, y, width, height);
+                return createWires(actorType, x, y, width, height, originX, originY, rotation);
             case WIRE_CUTTERS:
-                return createWireCutters(actorType, x, y, width, height);
+                return createWireCutters(actorType, x, y, width, height, originX, originY, rotation);
             case PUMPKIN:
             case PUMP:
-                return createPump(actorType, x, y, width, height);
+                return createPump(actorType, x, y, width, height, originX, originY, rotation);
             case WEIGHT_PLATE:
-                return createWeightPlate(actorType, x, y, width, height);
+                return createWeightPlate(actorType, x, y, width, height, originX, originY, rotation);
             case TOILET:
-                return createWall(actorType, x, y, width, height, true);
+                return createWall(actorType, true, x, y, width, height, originX, originY, rotation);
             case SINK:
-                return createWall(actorType, x, y, width, height, true);
+                return createWall(actorType, true, x, y, width, height, originX, originY, rotation);
             case TABLE:
-                return createBox(actorType, x, y, width, height);
+                return createBox(actorType, x, y, width, height, originX, originY, rotation);
             case CHAIR:
-                return createBox(actorType, x, y, width, height);
+                return createBox(actorType, x, y, width, height, originX, originY, rotation);
             case BED_WHITE:
-                return createBedWhite(actorType, x, y, width, height);
+                return createBedWhite(actorType, x, y, width, height, originX, originY, rotation);
             case BED_GREEN:
-                return createBedGreen(actorType, x, y, width, height);
+                return createBedGreen(actorType, x, y, width, height, originX, originY, rotation);
             case COOLER:
-                return createBox(actorType, x, y, width, height);
+                return createBox(actorType, x, y, width, height, originX, originY, rotation);
             case SPORT_BENCH:
             case FID_SPORT_BENCH:
             case DINING_BENCH:
-                return createWall(actorType, x, y, width, height, true);
+                return createWall(actorType, true, x, y, width, height, originX, originY, rotation);
             case CUP:
-                return createBox(actorType, x, y, width, height);
+                return createBox(actorType, x, y, width, height, originX, originY, rotation);
             case MED:
-                return createMed(actorType, x, y, width, height);
+                return createMed(actorType, x, y, width, height, originX, originY, rotation);
             case IRON_CABINET:
-                return createIronCabinet(actorType, x, y, width, height);
+                return createIronCabinet(actorType, x, y, width, height, originX, originY, rotation);
             case CART:
-                return createIronCabinet(actorType, x, y, width, height);
+                return createIronCabinet(actorType, x, y, width, height, originX, originY, rotation);
             case SECURITY_MONITORS:
-                return createWall(actorType, x, y, width, height, true);
+                return createWall(actorType, true, x, y, width, height, originX, originY, rotation);
             case GATE:
-                return createWall(actorType, x, y, width, height, true);
+                return createWall(actorType, true, x, y, width, height, originX, originY, rotation);
             case BARBELL:
-                return createWall(actorType, x, y, width, height, true);
+                return createWall(actorType, true, x, y, width, height, originX, originY, rotation);
         }
 
         throw new GdxRuntimeException("createEntityFromUI: " + actorType + " is not found");

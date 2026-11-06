@@ -7,11 +7,11 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapProperties;
-import com.badlogic.gdx.maps.objects.TextMapObject;
 import com.badlogic.gdx.maps.objects.TextureMapObject;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.GdxRuntimeException;
+import com.badlogic.gdx.utils.Null;
 import com.github.br.libgdx.common.structure.screen.ui.DefaultActorFactory;
 import com.github.br.syberian.jam26.ecs.components.RenderComponent;
 
@@ -38,32 +38,66 @@ public class UserActorFactory implements IUserActorFactory {
     }
 
     @Override
-    public Actor getActor(MapObject object) {
-        MapProperties properties = object.getProperties();
+    public Actor getActor(MapObject mapObject) {
+        MapProperties properties = mapObject.getProperties();
+
+        float x = properties.get("x", float.class);
+        float y = properties.get("y", float.class);
+        float width = properties.get("width", float.class);
+        float height = properties.get("height", float.class);
+
+        float originX = 0, originY = 0, rotationDegrees = 0;
+        if (mapObject instanceof TextureMapObject) {
+            TextureMapObject textureMapObject = (TextureMapObject) mapObject;
+            originX = textureMapObject.getOriginX();
+            originY = textureMapObject.getOriginY();
+            rotationDegrees = textureMapObject.getRotation();
+        }
 
         String actorType = properties.get(DefaultActorFactory.ACTOR_TYPE, String.class);
         ActorTypeEnum actorTypeEnum = getActorTypeEnum(actorType);
 
+        Actor actor = null;
         Boolean isEcsEntity = properties.get(IS_ECS_ENTITY, Boolean.class);
-
         if (isEcsEntity != null && isEcsEntity) {
             try {
-                return createEcsEntity(actorTypeEnum, properties);
+                actor = createEcsEntity(actorTypeEnum, mapObject, x, y, width, height, originX, originY, rotationDegrees);
             } catch (Exception e) {
-                throw new GdxRuntimeException("UserActorFactory#createEcsEntity: object=[" + object.getName() + "] " + e.getMessage());
+                throw new GdxRuntimeException("UserActorFactory#createEcsEntity: object=[" + mapObject.getName() + "] " + e.getMessage());
+            }
+        } else {
+            actor = getCustomUiActor(actorTypeEnum);
+            if (actor == null) {
+                actor = delegate.getActor(mapObject);
             }
         }
 
-        Actor actor = getCustomUiActor(actorTypeEnum);
         if (actor != null) {
-            return actor;
+            actor.setX(x);
+            actor.setY(y);
+            actor.setWidth(width);
+            actor.setHeight(height);
+            actor.setOriginX(originX);
+            actor.setOriginY(originY);
+            actor.setRotation(rotationDegrees);
         }
 
-        return delegate.getActor(object);
+        return actor;
     }
 
-    private @NonNull Actor createEcsEntity(ActorTypeEnum actorTypeEnum, MapProperties properties) {
-        int id = entityFactory.createEntityFromUI(actorTypeEnum, properties);
+    private @Null Actor createEcsEntity(
+        ActorTypeEnum actorTypeEnum,
+        MapObject mapObject, float x,
+        float y,
+        float width,
+        float height,
+        float originX,
+        float originY,
+        float rotation
+    ) {
+        int id = entityFactory.createEntityFromUI(
+            actorTypeEnum, mapObject, x, y, width, height, originX, originY, rotation
+        );
         World world = entityFactory.getWorld();
         ComponentMapper<RenderComponent> mapper = world.getMapper(RenderComponent.class);
         if (mapper == null) {
@@ -83,10 +117,10 @@ public class UserActorFactory implements IUserActorFactory {
         ActorTypeEnum actorTypeEnum;
         try {
             actorTypeEnum = ActorTypeEnum.valueOf(actorType);
+            return actorTypeEnum;
         } catch (Exception exception) {
             throw new GdxRuntimeException("actorType=" + actorType + " is not found");
         }
-        return actorTypeEnum;
     }
 
     public Actor getCustomUiActor(ActorTypeEnum actorType) {
@@ -144,7 +178,7 @@ public class UserActorFactory implements IUserActorFactory {
                 return delegate.createImage(atlasName, Resources.TextureRegion.PUMP);
             case TOILET:
             case SAN:
-                return delegate.createImage(atlasName, Resources.TextureRegion.SAN);
+                return delegate.createTestImage(atlasName, Resources.TextureRegion.SAN);
             case SINK:
             case SAN_2:
                 return delegate.createImage(atlasName, Resources.TextureRegion.SAN_2);

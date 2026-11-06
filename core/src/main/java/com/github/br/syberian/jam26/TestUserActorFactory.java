@@ -9,6 +9,7 @@ import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.GdxRuntimeException;
+import com.badlogic.gdx.utils.Null;
 import com.github.br.libgdx.common.structure.screen.ui.DefaultActorFactory;
 import com.github.br.syberian.jam26.ecs.components.RenderComponent;
 
@@ -35,8 +36,8 @@ public class TestUserActorFactory implements IUserActorFactory {
     }
 
     @Override
-    public Actor getActor(MapObject object) {
-        MapProperties properties = object.getProperties();
+    public Actor getActor(MapObject mapObject) {
+        MapProperties properties = mapObject.getProperties();
 
         String actorType = properties.get(DefaultActorFactory.ACTOR_TYPE, String.class);
         ActorTypeEnum actorTypeEnum = getActorTypeEnum(actorType);
@@ -45,9 +46,9 @@ public class TestUserActorFactory implements IUserActorFactory {
 
         if (isEcsEntity != null && isEcsEntity) {
             try {
-                return createEcsEntity(actorTypeEnum, properties);
+                return createEcsEntity(actorTypeEnum, mapObject);
             } catch (Exception e) {
-                throw new GdxRuntimeException("UserActorFactory#createEcsEntity: object=[" + object.getName() + "] " + e.getMessage());
+                throw new GdxRuntimeException("UserActorFactory#createEcsEntity: object=[" + mapObject.getName() + "] " + e.getMessage());
             }
         }
 
@@ -56,7 +57,7 @@ public class TestUserActorFactory implements IUserActorFactory {
             return actor;
         }
 
-        return delegate.getActor(object);
+        return delegate.getActor(mapObject);
     }
 
     public Actor getCustomUiActor(ActorTypeEnum actorType) {
@@ -93,8 +94,9 @@ public class TestUserActorFactory implements IUserActorFactory {
         return actorTypeEnum;
     }
 
-    private @NonNull Actor createEcsEntity(ActorTypeEnum actorTypeEnum, MapProperties properties) {
-        int id = entityFactory.createEntityFromUI(actorTypeEnum, properties);
+    private @Null Actor createEcsEntity(ActorTypeEnum actorTypeEnum, MapObject mapObject) {
+        //FIXME ? тестовый уровень сломан
+        int id = entityFactory.createEntityFromUI(actorTypeEnum, mapObject, 0f, 0f, 0f, 0f, 0f, 0f, 0f);
         World world = entityFactory.getWorld();
         ComponentMapper<RenderComponent> mapper = world.getMapper(RenderComponent.class);
         if (mapper == null) {

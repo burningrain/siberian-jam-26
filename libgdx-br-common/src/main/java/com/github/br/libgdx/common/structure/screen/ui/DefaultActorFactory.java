@@ -100,6 +100,13 @@ public class DefaultActorFactory implements ActorFactory {
         return new Image(region);
     }
 
+    public Image createTestImage(String atlasName, String regionName) {
+        TextureAtlas textureAtlas = assetManager.get(atlasName, TextureAtlas.class);
+        TextureAtlas.AtlasRegion region = textureAtlas.findRegion(regionName);
+
+        return new Image(region);
+    }
+
     public Label createLabel(String buttonText, String styleName, float width, float height) {
         //TODO сам текст нужно брать из файлика локализации !!!
         Label label = new Label(buttonText, skin, styleName);
