@@ -8,11 +8,13 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.objects.TextureMapObject;
+import com.badlogic.gdx.maps.tiled.objects.TiledMapTileMapObject;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.badlogic.gdx.utils.Null;
+import com.github.br.libgdx.common.structure.screen.ui.ActorUtils;
 import com.github.br.libgdx.common.structure.screen.ui.DefaultActorFactory;
 import com.github.br.syberian.jam26.ecs.components.RenderComponent;
 
@@ -47,12 +49,20 @@ public class UserActorFactory implements IUserActorFactory {
         float width = properties.get("width", float.class);
         float height = properties.get("height", float.class);
 
+        boolean flipX = false;
+        boolean flipY = false;
         float originX = 0, originY = 0, rotationDegrees = 0;
         if (mapObject instanceof TextureMapObject) {
             TextureMapObject textureMapObject = (TextureMapObject) mapObject;
             originX = textureMapObject.getOriginX();
             originY = textureMapObject.getOriginY();
             rotationDegrees = -textureMapObject.getRotation();
+
+            if (mapObject instanceof TiledMapTileMapObject) {
+                TiledMapTileMapObject tiledMapTileMapObject = (TiledMapTileMapObject) mapObject;
+                flipX = tiledMapTileMapObject.isFlipHorizontally();
+                flipY = tiledMapTileMapObject.isFlipVertically();
+            }
         }
 
         String actorType = properties.get(DefaultActorFactory.ACTOR_TYPE, String.class);
@@ -81,6 +91,13 @@ public class UserActorFactory implements IUserActorFactory {
             actor.setOriginX(originX);
             actor.setOriginY(originY);
             actor.setRotation(rotationDegrees);
+
+            if (flipX) {
+                ActorUtils.flipHorizontal(actor, flipX);
+            }
+            if (flipY) {
+                ActorUtils.flipVertical(actor, flipY);
+            }
         }
 
         return actor;

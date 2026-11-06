@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="120" tileheight="120" infinite="0" nextlayerid="15" nextobjectid="140">
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="120" tileheight="120" infinite="0" nextlayerid="15" nextobjectid="152">
  <tileset firstgid="1" name="floor_and_walls" tilewidth="120" tileheight="120" tilecount="26" columns="0">
   <grid orientation="orthogonal" width="1" height="1"/>
   <tile id="0">
@@ -264,7 +264,7 @@
      <property name="is_ecs_entity" type="bool" value="true"/>
     </properties>
    </object>
-   <object id="13" name="wall" x="6002.27" y="5524.3" width="231.821" height="230.182">
+   <object id="13" name="wall" x="6002.27" y="5524.3" width="253.821" height="230.182">
     <properties>
      <property name="actor_type" value="WALL"/>
      <property name="is_ecs_entity" type="bool" value="true"/>
@@ -348,7 +348,7 @@
      <property name="is_ecs_entity" type="bool" value="true"/>
     </properties>
    </object>
-   <object id="28" name="wall" x="6002.09" y="6479.58" width="231.821" height="239.515">
+   <object id="28" name="wall" x="6002.09" y="6479.58" width="253.821" height="239.515">
     <properties>
      <property name="actor_type" value="WALL"/>
      <property name="is_ecs_entity" type="bool" value="true"/>
@@ -451,7 +451,7 @@
     </properties>
    </object>
   </objectgroup>
-  <objectgroup color="#55aa7f" id="14" name="objects_bottom">
+  <objectgroup color="#55aa7f" id="14" name="objects_bottom" locked="1">
    <object id="66" name="wires" gid="30" x="7436" y="6579" width="53" height="22">
     <properties>
      <property name="actor_type" value="WIRES"/>
@@ -763,7 +763,7 @@
     </properties>
    </object>
   </objectgroup>
-  <objectgroup color="#00aaff" id="11" name="cameras" locked="1">
+  <objectgroup color="#00aaff" id="11" name="cameras">
    <object id="50" name="camera" gid="81" x="7723" y="4801" width="33" height="62">
     <properties>
      <property name="actor_type" value="CAMERA_2"/>
@@ -875,7 +875,7 @@
     </properties>
    </object>
   </objectgroup>
-  <objectgroup color="#aaaaff" id="13" name="cups">
+  <objectgroup color="#aaaaff" id="13" name="cups" locked="1">
    <object id="65" name="cup" gid="54" x="8363.33" y="7024.67" width="22.3333" height="19">
     <properties>
      <property name="actor_type" value="CUP"/>

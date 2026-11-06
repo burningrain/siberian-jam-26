@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><map height="100" infinite="0" nextlayerid="15" nextobjectid="140" orientation="orthogonal" renderorder="right-down" tiledversion="1.11.2" tileheight="120" tilewidth="120" version="1.10" width="100"><properties><property name="atlas" value="tileset/level-1.atlas"/></properties>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><map height="100" infinite="0" nextlayerid="15" nextobjectid="152" orientation="orthogonal" renderorder="right-down" tiledversion="1.11.2" tileheight="120" tilewidth="120" version="1.10" width="100"><properties><property name="atlas" value="tileset/level-1.atlas"/></properties>
  <tileset columns="0" firstgid="1" name="floor_and_walls" tilecount="26" tileheight="120" tilewidth="120">
   <grid height="1" orientation="orthogonal" width="1"/>
   <tile id="0">
@@ -281,19 +281,13 @@
      <property name="is_ecs_entity" type="bool" value="true"/>
     </properties>
    </object>
-   <object height="2401.33" id="16" name="wall" rotation="180" width="238.73" x="6482.03" y="7341.45">
-    <properties>
-     <property name="actor_type" value="WALL"/>
-     <property name="is_ecs_entity" type="bool" value="true"/>
-    </properties>
-   </object>
    <object height="731.03" id="17" name="wall" width="244.73" x="7320.64" y="6598.48">
     <properties>
      <property name="actor_type" value="WALL"/>
      <property name="is_ecs_entity" type="bool" value="true"/>
     </properties>
    </object>
-   <object height="833.03" id="18" name="wall" rotation="180" width="238.73" x="7446.03" y="5282.85">
+   <object height="833.03" id="18" name="wall" width="238.73" x="7202.03" y="4445.52">
     <properties>
      <property name="actor_type" value="WALL"/>
      <property name="is_ecs_entity" type="bool" value="true"/>
@@ -335,7 +329,7 @@
      <property name="is_ecs_entity" type="bool" value="true"/>
     </properties>
    </object>
-   <object height="376.182" id="25" name="wall" width="231.821" x="6244.09" y="4564.91">
+   <object height="2788.18" id="25" name="wall" width="231.821" x="6244.09" y="4564.91">
     <properties>
      <property name="actor_type" value="WALL"/>
      <property name="is_ecs_entity" type="bool" value="true"/>
@@ -353,7 +347,7 @@
      <property name="is_ecs_entity" type="bool" value="true"/>
     </properties>
    </object>
-   <object height="239.515" id="28" name="wall" width="231.821" x="6002.09" y="6479.58">
+   <object height="239.515" id="28" name="wall" width="253.821" x="6002.09" y="6479.58">
     <properties>
      <property name="actor_type" value="WALL"/>
      <property name="is_ecs_entity" type="bool" value="true"/>
@@ -456,7 +450,7 @@
     </properties>
    </object>
   </objectgroup>
-  <objectgroup color="#55aa7f" id="14" name="objects_bottom">
+  <objectgroup color="#55aa7f" id="14" locked="1" name="objects_bottom">
    <object gid="30" height="22" id="66" name="wires" width="53" x="7436" y="6579">
     <properties>
      <property name="actor_type" value="WIRES"/>
@@ -880,7 +874,7 @@
     </properties>
    </object>
   </objectgroup>
-  <objectgroup color="#aaaaff" id="13" name="cups">
+  <objectgroup color="#aaaaff" id="13" locked="1" name="cups">
    <object gid="54" height="19" id="65" name="cup" width="22.3333" x="8363.33" y="7024.67">
     <properties>
      <property name="actor_type" value="CUP"/>
