@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.objects.TextureMapObject;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.GdxRuntimeException;
@@ -51,7 +52,7 @@ public class UserActorFactory implements IUserActorFactory {
             TextureMapObject textureMapObject = (TextureMapObject) mapObject;
             originX = textureMapObject.getOriginX();
             originY = textureMapObject.getOriginY();
-            rotationDegrees = textureMapObject.getRotation();
+            rotationDegrees = -textureMapObject.getRotation();
         }
 
         String actorType = properties.get(DefaultActorFactory.ACTOR_TYPE, String.class);

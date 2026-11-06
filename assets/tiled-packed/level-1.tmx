@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><map height="100" infinite="0" nextlayerid="15" nextobjectid="139" orientation="orthogonal" renderorder="right-down" tiledversion="1.11.2" tileheight="120" tilewidth="120" version="1.10" width="100"><properties><property name="atlas" value="tileset/level-1.atlas"/></properties>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><map height="100" infinite="0" nextlayerid="15" nextobjectid="140" orientation="orthogonal" renderorder="right-down" tiledversion="1.11.2" tileheight="120" tilewidth="120" version="1.10" width="100"><properties><property name="atlas" value="tileset/level-1.atlas"/></properties>
  <tileset columns="0" firstgid="1" name="floor_and_walls" tilecount="26" tileheight="120" tilewidth="120">
   <grid height="1" orientation="orthogonal" width="1"/>
   <tile id="0">
@@ -214,7 +214,7 @@
    eJzt291OwjAABtDeaLxgg3DJm5h4y3v56GYRQi3duh9gSM9Jmk2qtfZrN8piCAAAAAAAAAAAAADw2vanwvP6WrsDXDmE8L12H7iQBwCxw4jv2Qf3j0cZkwfAWRud75Lj+XwXvdYmP3OMSs4uKU3UVm7v7fOSYWkeS9voa+vtdGyTr2uTzvfOlPVRksuiK+9zOsvsPLrx3oT8upDHNG1yHmcw9boVZ7D0uleD0hjl8pgypn3XK8YbWh9LjM3hFr/rVa2Rh/XzqzQOpfrS3kEe0yzNwzjCfdW8xjZ3bHvufq+5aS/+l0fkYb/xXIbm+7ZQz7qankLerd/vfoTLM5Gc2rN4hv1HEx1rzGNofnZyzw+n1Ke2YzpVsXvPwWPIP9Pte75b45qIxXO6TY7peU6uPm5zbh613s/jv/e8H5l6DRqS5rGPXufa0ntCqf4z/P0/G3lAXm33AgAAAAAAAAAAAAAAAAAA+v0AzksQ6Q==
   </data>
   </layer>
-  <objectgroup color="#ffff7f" id="9" locked="1" name="walls">
+  <objectgroup color="#ffff7f" id="9" name="walls">
    <object height="112" id="5" name="wall" width="5146.97" x="3490.15" y="7319.76">
     <properties>
      <property name="actor_type" value="WALL"/>

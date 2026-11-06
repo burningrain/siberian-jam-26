@@ -642,12 +642,15 @@ public class EntityFactory extends BaseSystem {
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = bodyType;
 
+        float angleRad = rotationDegree * MathUtils.degreesToRadians;
+        float deltaX = width / 2f * MathUtils.cos(angleRad) - height / 2f * MathUtils.sin(angleRad);
+        float deltaY = width / 2f * MathUtils.sin(angleRad) + height / 2f * MathUtils.cos(angleRad);
         // 2. Смещаем точку спавна из левого нижнего угла в геометрический центр объекта
         bodyDef.position.set(
-            simpleUtils.convertPixelsToMetres(x + halfWidth),
-            simpleUtils.convertPixelsToMetres(y + halfHeight)
+            simpleUtils.convertPixelsToMetres(x + deltaX),
+            simpleUtils.convertPixelsToMetres(y + deltaY)
         );
-        bodyDef.angle = MathUtils.degreesToRadians * rotationDegree;
+        bodyDef.angle = angleRad;
 
         PhysicsSystem physics = getWorld().getSystem(PhysicsSystem.class);
         World box2dWorld = physics.getBox2dWorld();

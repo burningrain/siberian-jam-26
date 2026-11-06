@@ -80,14 +80,10 @@ public class Box2dRenderSystem extends IteratingSystem {
         // Точку вращения (Origin) обязательно оставляем по центру
         actor.setOrigin(width / 2f, height / 2f);
 
-        // ИСПРАВЛЕНИЕ 1: Передаем координаты напрямую, так как мы вернули
-        // Transform к пикселям левого нижнего угла в PhysicsSystem
         actor.setPosition(
             transform.x,
             transform.y
         );
-
-        // Передаем угол вращения из физики (в градусах)
         actor.setRotation(transform.rotation);
     }
 
