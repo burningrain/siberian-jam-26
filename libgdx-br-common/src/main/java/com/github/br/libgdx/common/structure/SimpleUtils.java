@@ -19,11 +19,12 @@ public final class SimpleUtils {
         return metres * gameSettings.getPpu();
     }
 
-    public Vector2 rotatePointToAngle(float pointX, float pointY, float degreeAngle) {
+    public void rotatePointToAngle(Vector2 mutableVector, float degreeAngle) {
         float sinT = MathUtils.sinDeg(degreeAngle);
         float cosT = MathUtils.cosDeg(degreeAngle);
 
-        return new Vector2(pointX * cosT - pointY * sinT, pointX * sinT + pointY * cosT);
+        mutableVector.x = mutableVector.x * cosT - mutableVector.y * sinT;
+        mutableVector.y = mutableVector.x * sinT + mutableVector.y * cosT;
     }
 
 }

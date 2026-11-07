@@ -11,7 +11,7 @@ public class PlayerContactDataImpl implements ContactData {
 
     @Override
     public int getEntityId() {
-        return 0;
+        return entityId;
     }
 
     @Override

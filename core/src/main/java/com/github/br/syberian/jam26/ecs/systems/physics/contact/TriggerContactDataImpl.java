@@ -1,6 +1,4 @@
-package com.github.br.syberian.jam26.ecs.systems.physics;
-
-import com.github.br.syberian.jam26.ecs.systems.physics.contact.ContactData;
+package com.github.br.syberian.jam26.ecs.systems.physics.contact;
 
 public class TriggerContactDataImpl implements ContactData {
 

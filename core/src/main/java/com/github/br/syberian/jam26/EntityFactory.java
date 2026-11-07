@@ -25,7 +25,7 @@ import com.github.br.syberian.jam26.ecs.components.SecurityCameraComponent;
 import com.github.br.syberian.jam26.ecs.components.TransformComponent;
 import com.github.br.syberian.jam26.ecs.components.TriggerComponent;
 import com.github.br.syberian.jam26.ecs.systems.physics.PhysicsSystem;
-import com.github.br.syberian.jam26.ecs.systems.physics.TriggerContactDataImpl;
+import com.github.br.syberian.jam26.ecs.systems.physics.contact.TriggerContactDataImpl;
 import com.github.br.syberian.jam26.ecs.systems.physics.contact.ContactDataImpl;
 import com.github.br.syberian.jam26.ecs.systems.physics.contact.PlayerContactDataImpl;
 
@@ -522,7 +522,7 @@ public class EntityFactory extends BaseSystem {
         transformComponent.rotation = rotation;
 
         PhysicsComponent physicsComponent = createPhysicsComponent(
-            id, BodyDef.BodyType.DynamicBody, true, x, y, width, height, rotation
+            id, BodyDef.BodyType.KinematicBody, true, x, y, width, height, rotation
         );
 
         RenderComponent renderComponent = renderMapper.get(id);

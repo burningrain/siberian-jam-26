@@ -14,6 +14,7 @@ import com.github.br.syberian.jam26.ecs.components.PlayerComponent;
 import com.github.br.syberian.jam26.ecs.components.TriggerComponent;
 import com.github.br.syberian.jam26.ecs.components.TriggerContactComponent;
 import com.github.br.syberian.jam26.ecs.systems.physics.contact.ContactData;
+import com.github.br.syberian.jam26.ecs.systems.physics.contact.TriggerContactDataImpl;
 
 public class PhysicsContactListener extends BaseSystem implements ContactListener {
 

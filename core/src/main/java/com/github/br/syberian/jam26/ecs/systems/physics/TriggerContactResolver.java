@@ -9,8 +9,8 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.github.br.syberian.jam26.ecs.components.TriggerContactComponent;
 import com.github.br.syberian.jam26.ecs.systems.physics.contact.ContactData;
-import com.github.br.syberian.jam26.ecs.systems.physics.contact.ContactDataImpl;
 import com.github.br.syberian.jam26.ecs.systems.physics.contact.PlayerContactDataImpl;
+import com.github.br.syberian.jam26.ecs.systems.physics.contact.TriggerContactDataImpl;
 
 public class TriggerContactResolver implements PhysicsContactResolver<TriggerContactDataImpl> {
 
