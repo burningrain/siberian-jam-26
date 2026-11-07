@@ -5,6 +5,7 @@ import com.artemis.World;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.github.br.syberian.jam26.ecs.components.TriggerAction;
 import com.github.br.libgdx.common.structure.screen.RestartScreen;
+import com.github.br.syberian.jam26.ecs.systems.renderer.Box2dRenderSystem;
 
 public class TriggerActionFactory extends BaseSystem {
 
@@ -48,6 +49,8 @@ public class TriggerActionFactory extends BaseSystem {
         return new TriggerAction() {
             @Override
             public void execute(World world, int triggerEntityId, int activatorEntityId) {
+                //fixme нужно нормально честно удалять объекты, чтобы они не попадали на отрисовку
+                world.getSystem(Box2dRenderSystem.class).setEnabled(false);
                 currentScreen.restart();
             }
         };

@@ -23,7 +23,11 @@ public class GameSettings {
     private final int positionIterations;
 
     private final GamePlaySettings gamePlaySettings;
-    private final boolean useKtx2;
+
+    private final boolean isUsingKtx2;
+    private final boolean isActiveGlProfiler;
+    private final boolean isActiveTiledRender;
+    private final boolean isRenderDebugBox2d;
 
     private GameSettings(Builder builder) {
         this.progressBarWidth = builder.progressBarWidth;
@@ -43,7 +47,10 @@ public class GameSettings {
         this.positionIterations = builder.positionIterations;
 
         this.gamePlaySettings = builder.gamePlaySettings;
-        this.useKtx2 = builder.useKtx2;
+        this.isUsingKtx2 = builder.isUsingKtx2;
+        this.isActiveTiledRender = builder.isActiveTiledRender;
+        this.isRenderDebugBox2d = builder.isDebugBox2d;
+        this.isActiveGlProfiler = builder.isActiveGlProfiler;
     }
 
     public static Builder builder() {
@@ -98,8 +105,20 @@ public class GameSettings {
         return isCenterCamera;
     }
 
-    public boolean isUseKtx2() {
-        return useKtx2;
+    public boolean isUsingKtx2() {
+        return isUsingKtx2;
+    }
+
+    public boolean isActiveGlProfiler() {
+        return isActiveGlProfiler;
+    }
+
+    public boolean isActiveTiledRender() {
+        return isActiveTiledRender;
+    }
+
+    public boolean isRenderDebugBox2d() {
+        return isRenderDebugBox2d;
     }
 
     public static class Builder {
@@ -118,7 +137,10 @@ public class GameSettings {
 
         private boolean isCenterCamera = false;
 
-        private boolean useKtx2 = false;
+        private boolean isUsingKtx2 = false;
+        private boolean isActiveGlProfiler = true;
+        private boolean isActiveTiledRender = true;
+        private boolean isDebugBox2d = true;
 
         private GamePlaySettings gamePlaySettings;
 
@@ -175,8 +197,23 @@ public class GameSettings {
             return this;
         }
 
-        public Builder setUseKtx2(boolean useKtx2) {
-            this.useKtx2 = useKtx2;
+        public Builder setUsingKtx2(boolean usingKtx2) {
+            this.isUsingKtx2 = usingKtx2;
+            return this;
+        }
+
+        public Builder setActiveGlProfiler(boolean activeGlProfiler) {
+            isActiveGlProfiler = activeGlProfiler;
+            return this;
+        }
+
+        public Builder setActiveTiledRender(boolean activeTiledRender) {
+            isActiveTiledRender = activeTiledRender;
+            return this;
+        }
+
+        public Builder setDebugBox2d(boolean debugBox2d) {
+            isDebugBox2d = debugBox2d;
             return this;
         }
 

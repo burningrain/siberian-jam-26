@@ -2,10 +2,12 @@ package com.github.br.syberian.jam26.ecs.systems;
 
 import com.artemis.BaseSystem;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.github.br.libgdx.common.structure.GameManager;
 
 public class UtilsObjectsHolder extends BaseSystem {
 
     private Viewport viewport;
+    private GameManager gameManager;
 
     public UtilsObjectsHolder() {
     }
@@ -16,6 +18,14 @@ public class UtilsObjectsHolder extends BaseSystem {
 
     public void setViewport(Viewport viewport) {
         this.viewport = viewport;
+    }
+
+    public GameManager getGameManager() {
+        return gameManager;
+    }
+
+    public void setGameManager(GameManager gameManager) {
+        this.gameManager = gameManager;
     }
 
     @Override

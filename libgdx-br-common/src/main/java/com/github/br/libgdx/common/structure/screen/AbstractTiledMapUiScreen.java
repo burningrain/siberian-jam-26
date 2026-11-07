@@ -56,7 +56,9 @@ public abstract class AbstractTiledMapUiScreen<A extends ActorFactory, V extends
     }
 
     @Override
-    public abstract void restart();
+    public void restart() {
+        getGameManager().screenStateManager.restartCurrentState();
+    }
 
     @Override
     public void show() {
@@ -65,7 +67,7 @@ public abstract class AbstractTiledMapUiScreen<A extends ActorFactory, V extends
             profiler.enable();
         }
         GameSettings gameSettings = getGameManager().gameSettings;
-        String tiledPath = TmxUtils.getTmx(tiledMapPath, gameSettings.isUseKtx2());
+        String tiledPath = TmxUtils.getTmx(tiledMapPath, gameSettings.isUsingKtx2());
         AssetManager assetManager = getGameManager().assetManager;
         tiledMap = assetManager.get(tiledPath);
 

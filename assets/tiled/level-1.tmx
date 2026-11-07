@@ -451,7 +451,7 @@
     </properties>
    </object>
   </objectgroup>
-  <objectgroup color="#55aa7f" id="14" name="objects_bottom" locked="1">
+  <objectgroup color="#55aa7f" id="14" name="objects_bottom">
    <object id="66" name="wires" gid="30" x="7436" y="6579" width="53" height="22">
     <properties>
      <property name="actor_type" value="WIRES"/>
@@ -734,12 +734,6 @@
      <property name="is_ecs_entity" type="bool" value="true"/>
     </properties>
    </object>
-   <object id="138" name="toilet111" gid="47" x="4912.67" y="6816.67" width="84" height="112" rotation="-90">
-    <properties>
-     <property name="actor_type" value="TOILET"/>
-     <property name="is_ecs_entity" type="bool" value="true"/>
-    </properties>
-   </object>
   </objectgroup>
   <objectgroup color="#aaff7f" id="2" name="hero" locked="1">
    <object id="112" name="hero" gid="36" x="5003" y="7005" width="51" height="42" rotation="180">
@@ -807,7 +801,7 @@
     </properties>
    </object>
   </objectgroup>
-  <objectgroup color="#55ff7f" id="12" name="objects_top" locked="1">
+  <objectgroup color="#55ff7f" id="12" name="objects_top">
    <object id="57" name="med" gid="85" x="3601" y="7311.67" width="62" height="102">
     <properties>
      <property name="actor_type" value="MED"/>

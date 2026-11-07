@@ -2,15 +2,14 @@ package com.github.br.syberian.jam26.ecs.systems.renderer;
 
 import com.artemis.ComponentMapper;
 import com.artemis.annotations.All;
-import com.artemis.systems.IteratingSystem;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.github.br.libgdx.common.structure.GameManager;
+import com.github.br.libgdx.common.structure.GameSettings;
 import com.github.br.libgdx.common.structure.screen.ui.CustomOrthogonalTiledMapRenderer;
-import com.github.br.syberian.jam26.Constants;
 import com.github.br.syberian.jam26.ecs.components.RenderComponent;
 import com.github.br.syberian.jam26.ecs.components.TransformComponent;
 import com.github.br.syberian.jam26.ecs.systems.physics.PhysicsSystem;
@@ -18,13 +17,10 @@ import com.github.br.syberian.jam26.ecs.systems.physics.PhysicsSystem;
 import box2dLight.RayHandler;
 
 @All({TransformComponent.class})
-public class Box2dRenderSystem extends IteratingSystem {
-
-    private final GameManager gameManager;
+public class Box2dRenderSystem extends RenderSystem {
 
     private Box2DDebugRenderer debugRenderer;
     private final World box2dWorld;
-    private CustomOrthogonalTiledMapRenderer renderer;
 
     // Выделяем память под матрицу один раз, чтобы не мусорить в куче (GC) каждый кадр
     private final Matrix4 debugMatrix = new Matrix4();
@@ -32,13 +28,12 @@ public class Box2dRenderSystem extends IteratingSystem {
     protected ComponentMapper<TransformComponent> mTransform;
     protected ComponentMapper<RenderComponent> mRender;
 
-    public Box2dRenderSystem(World box2dWorld, GameManager gameManager) {
-        this.gameManager = gameManager;
+    public Box2dRenderSystem(World box2dWorld) {
         this.box2dWorld = box2dWorld;
     }
 
     public void init(CustomOrthogonalTiledMapRenderer renderer) {
-        this.renderer = renderer;
+        super.init(renderer);
 
         this.debugRenderer = new Box2DDebugRenderer();
         this.debugRenderer.setDrawBodies(true);
@@ -61,6 +56,12 @@ public class Box2dRenderSystem extends IteratingSystem {
     }
 
     @Override
+    protected void render(Viewport viewport, OrthographicCamera camera, GameSettings gameSettings) {
+        super.render(viewport, camera, gameSettings);
+        renderBox2dLight(camera, gameSettings);
+    }
+
+    @Override
     protected void process(int entityId) {
         TransformComponent transform = mTransform.get(entityId);
         RenderComponent render = mRender.get(entityId);
@@ -77,7 +78,7 @@ public class Box2dRenderSystem extends IteratingSystem {
         float width = actor.getWidth();
         float height = actor.getHeight();
 
-        // Точку вращения (Origin) обязательно оставляем по центру
+        // Точка вращения (Origin) в box2d по центру, поэтому и у актора так ставим
         actor.setOrigin(width / 2f, height / 2f);
 
         actor.setPosition(
@@ -87,11 +88,11 @@ public class Box2dRenderSystem extends IteratingSystem {
         actor.setRotation(transform.rotation);
     }
 
-    public void renderBox2dLight(Viewport viewport) {
-        float ppm = gameManager.gameSettings.getPpu();
+    public void renderBox2dLight(OrthographicCamera camera, GameSettings gameSettings) {
+        float ppm = gameSettings.getPpu();
 
-        debugMatrix.set(viewport.getCamera().combined).scl(ppm); // потому что 1 метр - это 128
-        if (Constants.IS_DEBUG_BOX2D) {
+        debugMatrix.set(camera.combined).scl(ppm); // переводим из метров в пиксели
+        if (gameSettings.isRenderDebugBox2d()) {
             debugRenderer.render(box2dWorld, debugMatrix);
         }
 
@@ -103,10 +104,6 @@ public class Box2dRenderSystem extends IteratingSystem {
     @Override
     protected void dispose() {
         debugRenderer.dispose();
-    }
-
-    public CustomOrthogonalTiledMapRenderer getRenderer() {
-        return renderer;
     }
 
 }

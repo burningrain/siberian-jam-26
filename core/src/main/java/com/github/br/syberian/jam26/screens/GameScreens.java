@@ -1,7 +1,6 @@
 package com.github.br.syberian.jam26.screens;
 
 import com.github.br.libgdx.common.structure.screen.statemachine.GameScreenState;
-import com.github.br.syberian.jam26.Constants;
 import com.github.br.syberian.jam26.Resources;
 
 public interface GameScreens {
@@ -22,10 +21,7 @@ public interface GameScreens {
             Resources.Music.LEVEL_THEME,
             GameScreens.MENU,
             Resources.Tmx.PHYSICS_LEVEL_1,
-            Resources.SKIN,
-            false,
-            Constants.IS_GL_PROFILE_ACTIVE,
-            Constants.IS_TILED_RENDER_ACTIVE
+            Resources.SKIN
         ), new PhysicsLevelScreenLoader(Resources.Music.LEVEL_THEME)
     );
 
@@ -34,10 +30,7 @@ public interface GameScreens {
             Resources.Music.MENU_THEME,
             GameScreens.PHYSICS_LEVEL_1_SCREEN,
             Resources.Tmx.LEVEL_1,
-            Resources.SKIN,
-            Constants.IS_GL_PROFILE_ACTIVE,
-            true,
-            Constants.IS_TILED_RENDER_ACTIVE
+            Resources.SKIN
         ),
         new Level1AssetLoader(Resources.Music.MENU_THEME)
     );

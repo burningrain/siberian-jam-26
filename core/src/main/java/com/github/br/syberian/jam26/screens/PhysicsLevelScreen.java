@@ -1,6 +1,8 @@
 package com.github.br.syberian.jam26.screens;
 
 import com.artemis.World;
+import com.artemis.WorldConfiguration;
+import com.artemis.WorldConfigurationBuilder;
 import com.artemis.managers.TagManager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
@@ -11,7 +13,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.github.br.libgdx.common.structure.GameManager;
 import com.github.br.libgdx.common.structure.GameSettings;
 import com.github.br.libgdx.common.structure.artemis.EmptyInjector;
-import com.github.br.libgdx.common.structure.screen.AbstractTiledMapUiScreen;
+import com.github.br.libgdx.common.structure.screen.AbstractTiledMapScreen;
 import com.github.br.libgdx.common.structure.screen.RestartScreen;
 import com.github.br.libgdx.common.structure.screen.statemachine.GameScreenState;
 import com.github.br.libgdx.common.structure.screen.ui.CustomOrthogonalTiledMapRenderer;
@@ -31,7 +33,7 @@ import com.github.br.syberian.jam26.ecs.systems.physics.PhysicsSystem;
 import com.github.br.syberian.jam26.ecs.systems.renderer.Box2dRenderSystem;
 import com.github.br.syberian.jam26.ui.fx.CustomVfxEffectPooledFactoryImpl;
 
-public class PhysicsLevelScreen extends AbstractTiledMapUiScreen<IUserActorFactory, CustomVfxEffectPooledFactoryImpl>
+public class PhysicsLevelScreen extends AbstractTiledMapScreen<IUserActorFactory>
     implements RestartScreen {
 
     private EntityFactory entityFactory;
@@ -46,19 +48,11 @@ public class PhysicsLevelScreen extends AbstractTiledMapUiScreen<IUserActorFacto
         String levelLoopMusic,
         GameScreenState nextState,
         String tiledMapPath,
-        String pathToSkin,
-        boolean isVfxEnabled,
-        boolean isGlProfileActive,
-        boolean isTiledRenderActive
+        String pathToSkin
     ) {
-        super(tiledMapPath, pathToSkin, isVfxEnabled, isGlProfileActive, isTiledRenderActive);
+        super(tiledMapPath, pathToSkin);
         this.levelLoopMusic = levelLoopMusic;
         this.nextState = nextState;
-    }
-
-    @Override
-    public void restart() {
-        getGameManager().screenStateManager.restartCurrentState();
     }
 
     @Override
@@ -79,7 +73,7 @@ public class PhysicsLevelScreen extends AbstractTiledMapUiScreen<IUserActorFacto
     private World createECS(EntityFactory entityFactory) {
         PhysicsContactListener contactListener = new PhysicsContactListener();
         PhysicsSystem physicsSystem = new PhysicsSystem(getGameManager(), contactListener);
-        com.artemis.WorldConfiguration config = new com.artemis.WorldConfigurationBuilder()
+        WorldConfiguration config = new WorldConfigurationBuilder()
             .with(new TagManager())
 
             // Сбор ввода игрока
@@ -97,10 +91,7 @@ public class PhysicsLevelScreen extends AbstractTiledMapUiScreen<IUserActorFacto
 
             // Отрисовка
             .with(new CameraSystem())
-            .with(new Box2dRenderSystem(
-                physicsSystem.getBox2dWorld(),
-                getGameManager()
-            ))
+            .with(new Box2dRenderSystem(physicsSystem.getBox2dWorld()))
 
             // ФАБРИКИ И СИСТЕМЫ УПРАВЛЕНИЯ
             .with(entityFactory)
@@ -110,7 +101,7 @@ public class PhysicsLevelScreen extends AbstractTiledMapUiScreen<IUserActorFacto
         // !!! ЖЕСТКОЕ ПРАВИЛО ДЛЯ ВЕБА:
         // Говорим Artemis отказаться от автоматического сканирования полей дженериков
         config.setInjector(EmptyInjector.INSTANCE);
-        return new com.artemis.World(config);
+        return new World(config);
     }
 
     @Override
@@ -127,23 +118,18 @@ public class PhysicsLevelScreen extends AbstractTiledMapUiScreen<IUserActorFacto
     }
 
     @Override
-    protected CustomVfxEffectPooledFactoryImpl createVfxEffectPoolFactory(AssetManager assetManager, GameSettings gameSettings) {
-        return new CustomVfxEffectPooledFactoryImpl();
-    }
-
-    @Override
     protected void afterShow(
         TiledMap tiledMap,
         CustomOrthogonalTiledMapRenderer renderer,
         Viewport viewport,
-        IUserActorFactory actorFactory,
-        CustomVfxEffectPooledFactoryImpl vfxEffectPoolFactory
+        IUserActorFactory actorFactory
     ) {
         Box2dRenderSystem box2dRenderSystem = artemisWorld.getSystem(Box2dRenderSystem.class);
         box2dRenderSystem.init(renderer);
 
         UtilsObjectsHolder objectsHolder = artemisWorld.getSystem(UtilsObjectsHolder.class);
         objectsHolder.setViewport(viewport);
+        objectsHolder.setGameManager(getGameManager());
 
         playLoopMusic();
     }
@@ -156,33 +142,32 @@ public class PhysicsLevelScreen extends AbstractTiledMapUiScreen<IUserActorFacto
 
     @Override
     public void render(float delta) {
-        super.render(delta);
+        artemisWorld.setDelta(delta);
+        artemisWorld.process();
 
         // FIXME кривота... нужно как-то засунуть рендеринг внутрь artemisOdb, иначе еще где вылезет что
         LevelControlSystem levelControlSystem = artemisWorld.getSystem(LevelControlSystem.class);
         if (levelControlSystem.isGameOver()) {
             return;
         }
-
-        // рендеринг физики света после слоев tiled
-        //TODO будут проблемы с шейдерами из-за того, что свет им не подчиняется?
-        Box2dRenderSystem box2dRenderSystem = artemisWorld.getSystem(Box2dRenderSystem.class);
-        box2dRenderSystem.renderBox2dLight(viewport);
     }
 
     @Override
-    protected void update(float delta, Viewport viewport) {
-        //TODO InputSystem встроена в ECS - нормально или будет глючить ???
+    public void pause() {
+    }
 
-        artemisWorld.setDelta(delta);
-        artemisWorld.process();
+    @Override
+    public void resume() {
+    }
+
+    @Override
+    public void hide() {
     }
 
     @Override
     public void dispose() {
         try {
             artemisWorld.dispose();
-            super.dispose();
         } catch (Exception e) {
             Gdx.app.debug(e.getMessage(), e.toString());
         }

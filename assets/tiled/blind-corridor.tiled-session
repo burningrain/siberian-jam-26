@@ -34,20 +34,20 @@
                 6
             ],
             "expandedObjectLayers": [
+                9,
+                12,
+                14,
+                13,
+                2,
                 10,
                 11,
-                14,
-                2,
-                9,
-                13,
-                6,
-                12
+                6
             ],
             "scale": 0.33,
             "selectedLayer": 8,
             "viewCenter": {
-                "x": 5356.060606060606,
-                "y": 5689.39393939394
+                "x": 6098.484848484848,
+                "y": 6000
             }
         },
         "level-1.tmx#bgf": {
@@ -61,17 +61,17 @@
         },
         "physics-level-1.tmx": {
             "expandedObjectLayers": [
-                7,
                 4,
                 2,
-                6,
-                3
+                3,
+                7,
+                6
             ],
             "scale": 0.125,
             "selectedLayer": 3,
             "viewCenter": {
-                "x": 5036,
-                "y": 6764
+                "x": 5348,
+                "y": 6812
             }
         },
         "physics-level-1.tmx#environment": {
