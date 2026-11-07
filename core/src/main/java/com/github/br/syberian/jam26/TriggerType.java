@@ -5,6 +5,10 @@ public enum TriggerType {
     EXIT_TRIGGER,
     RESTART_LEVEL,
     PICK_UP_ITEM,
-     SHOW_MESSAGE
+    USE_ITEM_ZONE,
+     SHOW_MESSAGE,
+
+    TOGGLE_DOOR,
+    TOGGLE_CONTAINER
 
 }

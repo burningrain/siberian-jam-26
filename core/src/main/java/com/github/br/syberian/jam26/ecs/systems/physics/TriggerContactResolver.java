@@ -33,14 +33,7 @@ public class TriggerContactResolver implements PhysicsContactResolver<TriggerCon
     private void handleTriggerContact(Contact contact, TriggerContactDataImpl triggerData, ContactData objectData, boolean isBegin) {
         if (objectData == null || objectData.isDeleted()) return;
 
-        // Получаем фикстуру объекта, который наступил на триггер
-        // Нам нужно определить, какая из фикстур принадлежит триггеру, а какая — объекту
-        Fixture objectFixture =
-            contact.getFixtureA().getBody().getUserData() == objectData ?
-                contact.getFixtureA() : contact.getFixtureB();
-
-        // Проверяем, что коллизия произошла именно с сенсором игрока "PLAYER_SENSOR"
-        if (objectFixture.getUserData() instanceof PlayerContactDataImpl) {
+        if (objectData instanceof PlayerContactDataImpl) {
             // Безопасно вытаскиваем entityId игрока (предполагаем, что ContactDataImpl хранит его)
             int playerId = objectData.getEntityId();
             int triggerId = triggerData.getEntityId();

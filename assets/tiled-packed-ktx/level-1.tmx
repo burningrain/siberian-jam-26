@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><map height="100" infinite="0" nextlayerid="15" nextobjectid="152" orientation="orthogonal" renderorder="right-down" tiledversion="1.11.2" tileheight="120" tilewidth="120" version="1.10" width="100"><properties><property name="atlas" value="tileset/level-1.atlas"/></properties>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><map height="100" infinite="0" nextlayerid="15" nextobjectid="156" orientation="orthogonal" renderorder="right-down" tiledversion="1.11.2" tileheight="120" tilewidth="120" version="1.10" width="100"><properties><property name="atlas" value="tileset/level-1.atlas"/></properties>
  <tileset columns="0" firstgid="1" name="floor_and_walls" tilecount="26" tileheight="120" tilewidth="120">
   <grid height="1" orientation="orthogonal" width="1"/>
   <tile id="0">
@@ -742,16 +742,40 @@
     </properties>
    </object>
   </objectgroup>
-  <objectgroup color="#aa5500" id="10" locked="1" name="doors">
-   <object gid="83" height="118.5" id="61" name="brown_door" width="115.5" x="4803.83" y="6459">
+  <objectgroup color="#aa5500" id="10" name="doors">
+   <object gid="83" height="118.5" id="61" name="brown_door" width="115.5" x="5883.83" y="5755.67">
     <properties>
      <property name="actor_type" value="DOOR_BROWN"/>
      <property name="is_ecs_entity" type="bool" value="true"/>
     </properties>
    </object>
-   <object gid="82" height="125.667" id="63" name="gray_door" width="117.333" x="5767.33" y="5920.33">
+   <object gid="82" height="125.667" id="63" name="gray_door" width="117.333" x="5882.33" y="6606.33">
     <properties>
      <property name="actor_type" value="DOOR_GRAY"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object gid="82" height="125.667" id="152" name="gray_door" width="117.333" x="4921.33" y="6607.83">
+    <properties>
+     <property name="actor_type" value="DOOR_GRAY"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object gid="83" height="118.5" id="153" name="brown_door" width="115.5" x="4923.58" y="5757.75">
+    <properties>
+     <property name="actor_type" value="DOOR_BROWN"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object gid="83" height="118.5" id="154" name="brown_door" width="115.5" x="3960.92" y="5757.42">
+    <properties>
+     <property name="actor_type" value="DOOR_BROWN"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object gid="83" height="118.5" id="155" name="brown_door" width="115.5" x="3963.58" y="6599.42">
+    <properties>
+     <property name="actor_type" value="DOOR_BROWN"/>
      <property name="is_ecs_entity" type="bool" value="true"/>
     </properties>
    </object>

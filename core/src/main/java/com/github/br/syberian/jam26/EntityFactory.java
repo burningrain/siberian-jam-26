@@ -3,7 +3,6 @@ package com.github.br.syberian.jam26;
 import com.artemis.Archetype;
 import com.artemis.ArchetypeBuilder;
 import com.artemis.BaseSystem;
-import com.artemis.ComponentMapper;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.math.MathUtils;
@@ -18,16 +17,22 @@ import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.github.br.libgdx.common.structure.GameManager;
 import com.github.br.libgdx.common.structure.SimpleUtils;
 import com.github.br.syberian.jam26.ecs.components.EnemyComponent;
+import com.github.br.syberian.jam26.ecs.components.InteractableStateComponent;
+import com.github.br.syberian.jam26.ecs.components.ItemComponent;
 import com.github.br.syberian.jam26.ecs.components.PhysicsComponent;
 import com.github.br.syberian.jam26.ecs.components.PlayerComponent;
 import com.github.br.syberian.jam26.ecs.components.RenderComponent;
 import com.github.br.syberian.jam26.ecs.components.SecurityCameraComponent;
 import com.github.br.syberian.jam26.ecs.components.TransformComponent;
+import com.github.br.syberian.jam26.ecs.components.TriggerAction;
 import com.github.br.syberian.jam26.ecs.components.TriggerComponent;
+import com.github.br.syberian.jam26.ecs.systems.UtilsObjectsHolder;
+import com.github.br.syberian.jam26.ecs.systems.physics.CollisionType;
 import com.github.br.syberian.jam26.ecs.systems.physics.PhysicsSystem;
-import com.github.br.syberian.jam26.ecs.systems.physics.contact.TriggerContactDataImpl;
+import com.github.br.syberian.jam26.ecs.systems.physics.contact.ContactData;
 import com.github.br.syberian.jam26.ecs.systems.physics.contact.ContactDataImpl;
 import com.github.br.syberian.jam26.ecs.systems.physics.contact.PlayerContactDataImpl;
+import com.github.br.syberian.jam26.ecs.systems.physics.contact.TriggerContactDataImpl;
 
 import box2dLight.ConeLight;
 
@@ -42,25 +47,15 @@ public class EntityFactory extends BaseSystem {
     private Archetype boxArchetype;
     private Archetype cameraArchetype;
     private Archetype doorArchetype;
-
-    protected ComponentMapper<TransformComponent> transformMapper;
-    protected ComponentMapper<PhysicsComponent> physicsMapper;
-    protected ComponentMapper<RenderComponent> renderMapper;
-
-    protected ComponentMapper<PlayerComponent> playerMapper;
-    protected ComponentMapper<EnemyComponent> enemyMapper;
-
-    protected ComponentMapper<TriggerComponent> mTrigger;
-
-    protected ComponentMapper<SecurityCameraComponent> cameraLogicMapper;
+    private Archetype itemArchetype;
+    private Archetype interactableArchetype;
 
     private IUserActorFactory userActorFactory;
 
-    private final GameManager gameManager;
+    private GameManager gameManager;
+    private TriggerActionFactory triggerActionFactory;
 
-    public EntityFactory(GameManager gameManager) {
-        this.gameManager = gameManager;
-    }
+    private Mappers mappers;
 
     @Override
     public com.artemis.World getWorld() {
@@ -69,15 +64,13 @@ public class EntityFactory extends BaseSystem {
 
     @Override
     protected void initialize() {
-        transformMapper = getWorld().getMapper(TransformComponent.class);
-        physicsMapper = getWorld().getMapper(PhysicsComponent.class);
-        renderMapper = getWorld().getMapper(RenderComponent.class);
-        playerMapper = getWorld().getMapper(PlayerComponent.class);
-        enemyMapper = getWorld().getMapper(EnemyComponent.class);
-        mTrigger = getWorld().getMapper(TriggerComponent.class);
-        cameraLogicMapper = getWorld().getMapper(SecurityCameraComponent.class);
-
         setEnabled(false);  // Отключаем ежекадровое обновление
+
+        triggerActionFactory = getWorld().getSystem(TriggerActionFactory.class);
+        mappers = getWorld().getSystem(Mappers.class);
+
+        UtilsObjectsHolder utilsObjectsHolder = getWorld().getSystem(UtilsObjectsHolder.class);
+        gameManager = utilsObjectsHolder.getGameManager();
 
         playerArchetype = new ArchetypeBuilder()
             .add(TransformComponent.class)
@@ -129,6 +122,22 @@ public class EntityFactory extends BaseSystem {
             .add(PhysicsComponent.class)
             .add(RenderComponent.class)
             .build(world);
+
+        itemArchetype = new ArchetypeBuilder()
+            .add(TransformComponent.class)
+            .add(PhysicsComponent.class)
+            .add(ItemComponent.class)
+            .add(TriggerComponent.class)
+            .add(RenderComponent.class)
+            .build(world);
+
+        interactableArchetype = new ArchetypeBuilder()
+            .add(TransformComponent.class)
+            .add(PhysicsComponent.class)
+            .add(InteractableStateComponent.class)
+            .add(TriggerComponent.class)
+            .add(RenderComponent.class)
+            .build(world);
     }
 
     @Override
@@ -154,17 +163,16 @@ public class EntityFactory extends BaseSystem {
     ) {
         int id = world.create(triggerArchetype);
 
-        TransformComponent transformComponent = transformMapper.get(id);
+        TransformComponent transformComponent = mappers.transformMapper.get(id);
         transformComponent.x = x;
         transformComponent.y = y;
         transformComponent.rotation = rotation;
 
         PhysicsComponent physicsComponent = createPhysicsComponent(
-            id, BodyDef.BodyType.StaticBody, true, x, y, width, height, rotation
+            id, BodyDef.BodyType.StaticBody, true, x, y, width, height, rotation, new TriggerContactDataImpl(id)
         );
 
-
-        TriggerComponent trigger = mTrigger.get(id);
+        TriggerComponent trigger = mappers.triggerMapper.get(id);
         trigger.conditionType = conditionType;
         trigger.useType = useType;
 
@@ -188,16 +196,37 @@ public class EntityFactory extends BaseSystem {
         SimpleUtils simpleUtils = gameManager.simpleUtils;
         int id = world.create(playerArchetype);
 
-        TransformComponent transformComponent = transformMapper.get(id);
+        TransformComponent transformComponent = mappers.transformMapper.get(id);
         transformComponent.x = x;
         transformComponent.y = y;
         transformComponent.rotation = rotation;
 
         PhysicsComponent physicsComponent = createPhysicsComponent(
-            id, BodyDef.BodyType.DynamicBody, false, x, y, width, height, rotation
+            id, BodyDef.BodyType.DynamicBody, false, x, y, width, height, rotation, new PlayerContactDataImpl(id)
         );
 
+        createPhysicsSensor(width, height, physicsComponent);
+
+        PlayerComponent playerComponent = mappers.playerMapper.get(id);
+
+        //TODO пока анимации нету
+//        AnimationComponent animationComponent = animationMapper.get(id);
+//        animationComponent.simpleAnimationComponent = AnimationFactory.createHero();
+
+        RenderComponent renderComponent = mappers.renderMapper.get(id);
+        renderComponent.actor = userActorFactory.getCustomUiActor(actorType);
+
+        return id;
+    }
+
+    private void createPhysicsSensor(
+        float width,
+        float height,
+        PhysicsComponent physicsComponent
+    ) {
+        SimpleUtils simpleUtils = gameManager.simpleUtils;
         // сенсор для столкновений и триггеров
+
         Body body = physicsComponent.body;
         PolygonShape sensorShape = new PolygonShape();
         sensorShape.setAsBox(
@@ -208,21 +237,11 @@ public class EntityFactory extends BaseSystem {
         FixtureDef sensorDef = new FixtureDef();
         sensorDef.shape = sensorShape;
         sensorDef.isSensor = true;
+        sensorDef.filter.categoryBits = CollisionType.CATEGORY_SENSOR;
 
         Fixture sensorFixture = body.createFixture(sensorDef);
-        sensorFixture.setUserData(new PlayerContactDataImpl(id));
+
         sensorShape.dispose();
-
-        PlayerComponent playerComponent = playerMapper.get(id);
-
-        //TODO пока анимации нету
-//        AnimationComponent animationComponent = animationMapper.get(id);
-//        animationComponent.simpleAnimationComponent = AnimationFactory.createHero();
-
-        RenderComponent renderComponent = renderMapper.get(id);
-        renderComponent.actor = userActorFactory.getCustomUiActor(actorType);
-
-        return id;
     }
 
     private int createEnemy(
@@ -237,20 +256,20 @@ public class EntityFactory extends BaseSystem {
     ) {
         int id = world.create(enemyArchetype);
 
-        TransformComponent transformComponent = transformMapper.get(id);
+        TransformComponent transformComponent = mappers.transformMapper.get(id);
         transformComponent.x = x;
         transformComponent.y = y;
         transformComponent.rotation = rotation;
 
         PhysicsComponent physicsComponent = createPhysicsComponent(
-            id, BodyDef.BodyType.DynamicBody, false, x, y, width, height, rotation
+            id, BodyDef.BodyType.DynamicBody, false, x, y, width, height, rotation, new TriggerContactDataImpl(id)
         );
 
         //TODO пока анимации нету
 //        AnimationComponent animationComponent = animationMapper.get(id);
 //        animationComponent.simpleAnimationComponent = AnimationFactory.createHero();
 
-        RenderComponent renderComponent = renderMapper.get(id);
+        RenderComponent renderComponent = mappers.renderMapper.get(id);
         renderComponent.actor = userActorFactory.getCustomUiActor(actorType);
 
         return id;
@@ -268,20 +287,20 @@ public class EntityFactory extends BaseSystem {
     ) {
         int id = world.create(enemyArchetype);
 
-        TransformComponent transformComponent = transformMapper.get(id);
+        TransformComponent transformComponent = mappers.transformMapper.get(id);
         transformComponent.x = x;
         transformComponent.y = y;
         transformComponent.rotation = rotation;
 
         PhysicsComponent physicsComponent = createPhysicsComponent(
-            id, BodyDef.BodyType.DynamicBody, false, x, y, width, height, rotation
+            id, BodyDef.BodyType.DynamicBody, false, x, y, width, height, rotation, new TriggerContactDataImpl(id)
         );
 
         //TODO пока анимации нету
 //        AnimationComponent animationComponent = animationMapper.get(id);
 //        animationComponent.simpleAnimationComponent = AnimationFactory.createHero();
 
-        RenderComponent renderComponent = renderMapper.get(id);
+        RenderComponent renderComponent = mappers.renderMapper.get(id);
         renderComponent.actor = userActorFactory.getCustomUiActor(actorType);
 
         return id;
@@ -300,17 +319,17 @@ public class EntityFactory extends BaseSystem {
     ) {
         int id = world.create(wallArchetype);
 
-        TransformComponent transformComponent = transformMapper.get(id);
+        TransformComponent transformComponent = mappers.transformMapper.get(id);
         transformComponent.x = x;
         transformComponent.y = y;
         transformComponent.rotation = rotation;
 
         PhysicsComponent physicsComponent = createPhysicsComponent(
-            id, BodyDef.BodyType.StaticBody, false, x, y, width, height, rotation
+            id, BodyDef.BodyType.StaticBody, false, x, y, width, height, rotation, new ContactDataImpl(id)
         );
 
         if (isVisible) {
-            RenderComponent renderComponent = renderMapper.get(id);
+            RenderComponent renderComponent = mappers.renderMapper.get(id);
             renderComponent.actor = userActorFactory.getCustomUiActor(actorType);
         }
 
@@ -330,13 +349,13 @@ public class EntityFactory extends BaseSystem {
     ) {
         int id = world.create(bulletArchetype);
 
-        TransformComponent transformComponent = transformMapper.get(id);
+        TransformComponent transformComponent = mappers.transformMapper.get(id);
         transformComponent.x = x;
         transformComponent.y = y;
         transformComponent.rotation = rotation;
 
         PhysicsComponent physicsComponent = createPhysicsComponent(
-            id, BodyDef.BodyType.DynamicBody, false, x, y, width, height, rotation
+            id, BodyDef.BodyType.DynamicBody, false, x, y, width, height, rotation, new TriggerContactDataImpl(id)
         );
 
         return id;
@@ -352,21 +371,9 @@ public class EntityFactory extends BaseSystem {
         float originY,
         float rotation
     ) {
-        int id = world.create(doorArchetype);
-
-        TransformComponent transformComponent = transformMapper.get(id);
-        transformComponent.x = x;
-        transformComponent.y = y;
-        transformComponent.rotation = rotation;
-
-        PhysicsComponent physicsComponent = createPhysicsComponent(
-            id, BodyDef.BodyType.DynamicBody, false, x, y, width, height, rotation
+        return createInteractableObject(
+            actorType, x, y, width, height, originX, originY, rotation, null, triggerActionFactory.TOGGLE_DOOR
         );
-
-        RenderComponent renderComponent = renderMapper.get(id);
-        renderComponent.actor = userActorFactory.getCustomUiActor(actorType);
-
-        return id;
     }
 
     // все в пикселях приходит
@@ -382,16 +389,16 @@ public class EntityFactory extends BaseSystem {
     ) {
         int id = world.create(cameraArchetype);
 
-        TransformComponent transformComponent = transformMapper.get(id);
+        TransformComponent transformComponent = mappers.transformMapper.get(id);
         transformComponent.x = x;
         transformComponent.y = y;
         transformComponent.rotation = rotation;
 
         PhysicsComponent physicsComponent = createPhysicsComponent(
-            id, BodyDef.BodyType.KinematicBody, false, x, y, width, height, rotation
+            id, BodyDef.BodyType.KinematicBody, false, x, y, width, height, rotation, new ContactDataImpl(id)
         );
 
-        SecurityCameraComponent cam = cameraLogicMapper.get(id);
+        SecurityCameraComponent cam = mappers.cameraLogicMapper.get(id);
 
         // --- АВТОМАТИЧЕСКИЙ РАСЧЕТ СМЕЩЕНИЯ ИЗ ФОРМЫ ТЕЛА ---
         if (physicsComponent.body != null && !physicsComponent.body.getFixtureList().isEmpty()) {
@@ -431,8 +438,11 @@ public class EntityFactory extends BaseSystem {
             cam.viewDirectionDegrees,
             cam.fovDegrees
         );
+        // Маска: все биты (0xFFFF), кроме CATEGORY_SENSOR (~CATEGORY_SENSOR)
+        short lightMask = (short) ~CollisionType.CATEGORY_SENSOR;
+        cam.cameraLight.setContactFilter(CollisionType.CATEGORY_DEFAULT, (short) 0, lightMask);
 
-        RenderComponent renderComponent = renderMapper.get(id);
+        RenderComponent renderComponent = mappers.renderMapper.get(id);
         renderComponent.actor = userActorFactory.getCustomUiActor(actorType);
 
         return id;
@@ -450,16 +460,16 @@ public class EntityFactory extends BaseSystem {
     ) {
         int id = world.create(boxArchetype);
 
-        TransformComponent transformComponent = transformMapper.get(id);
+        TransformComponent transformComponent = mappers.transformMapper.get(id);
         transformComponent.x = x;
         transformComponent.y = y;
         transformComponent.rotation = rotation;
 
         PhysicsComponent physicsComponent = createPhysicsComponent(
-            id, BodyDef.BodyType.DynamicBody, false, x, y, width, height, rotation
+            id, BodyDef.BodyType.DynamicBody, false, x, y, width, height, rotation, new ContactDataImpl(id)
         );
 
-        RenderComponent renderComponent = renderMapper.get(id);
+        RenderComponent renderComponent = mappers.renderMapper.get(id);
         renderComponent.actor = userActorFactory.getCustomUiActor(actorType);
 
         return id;
@@ -475,7 +485,7 @@ public class EntityFactory extends BaseSystem {
         float originY,
         float rotation
     ) {
-        return createItem(actorType, x, y, width, height, originX, originY, rotation);
+        return createItem(actorType, x, y, width, height, originX, originY, rotation, triggerActionFactory.PICK_UP_ITEM); //TODO
     }
 
     public int createWireCutters(
@@ -488,7 +498,7 @@ public class EntityFactory extends BaseSystem {
         float originY,
         float rotation
     ) {
-        return createItem(actorType, x, y, width, height, originX, originY, rotation);
+        return createItem(actorType, x, y, width, height, originX, originY, rotation, triggerActionFactory.PICK_UP_ITEM);
     }
 
     public int createPump(
@@ -501,7 +511,7 @@ public class EntityFactory extends BaseSystem {
         float originY,
         float rotation
     ) {
-        return createItem(actorType, x, y, width, height, originX, originY, rotation);
+        return createItem(actorType, x, y, width, height, originX, originY, rotation, triggerActionFactory.PICK_UP_ITEM);
     }
 
     private int createItem(
@@ -512,20 +522,70 @@ public class EntityFactory extends BaseSystem {
         float height,
         float originX,
         float originY,
-        float rotation
+        float rotation,
+        TriggerAction triggerAction
     ) {
-        int id = world.create(boxArchetype);
+        int id = createDynamicObject(itemArchetype, actorType, x, y, width, height, rotation, triggerAction);
+        ItemComponent itemComponent = mappers.itemMapper.get(id);
+        itemComponent.itemId = actorType.name();
 
-        TransformComponent transformComponent = transformMapper.get(id);
+        return id;
+    }
+
+    private int createInteractableObject(
+        ActorTypeEnum actorType,
+        float x,
+        float y,
+        float width,
+        float height,
+        float originX,
+        float originY,
+        float rotation,
+        ActorTypeEnum requiredItemId,
+        TriggerAction triggerAction
+    ) {
+        int id = createDynamicObject(interactableArchetype, actorType, x, y, width, height, rotation, triggerAction);
+
+        InteractableStateComponent itemComponent = mappers.interactStateMapper.get(id);
+        itemComponent.isOpen = false;
+        itemComponent.isLocked = false;
+        itemComponent.openFrameNumber = 1;
+        itemComponent.closedFrameNumber = 0;
+        if (requiredItemId != null) {
+            itemComponent.requiredItemIdFromPayerInventory = requiredItemId.name();
+        }
+
+        return id;
+    }
+
+    private int createDynamicObject(
+        Archetype archetype,
+        ActorTypeEnum actorType,
+        float x,
+        float y,
+        float width,
+        float height,
+        float rotation,
+        TriggerAction triggerAction
+    ) {
+        int id = world.create(archetype);
+
+        TransformComponent transformComponent = mappers.transformMapper.get(id);
         transformComponent.x = x;
         transformComponent.y = y;
         transformComponent.rotation = rotation;
 
         PhysicsComponent physicsComponent = createPhysicsComponent(
-            id, BodyDef.BodyType.KinematicBody, true, x, y, width, height, rotation
+            id, BodyDef.BodyType.KinematicBody, false, x, y, width, height, rotation, new TriggerContactDataImpl(id)
         );
+        createPhysicsSensor(width, height, physicsComponent);
 
-        RenderComponent renderComponent = renderMapper.get(id);
+        TriggerComponent triggerComponent = mappers.triggerMapper.get(id);
+        triggerComponent.action = triggerAction;
+        triggerComponent.conditionType = TriggerComponent.ConditionType.ON_KEY_E;
+        triggerComponent.useType = TriggerComponent.UseType.PERSISTENCE;
+
+        RenderComponent renderComponent = mappers.renderMapper.get(id);
         renderComponent.actor = userActorFactory.getCustomUiActor(actorType);
 
         return id;
@@ -541,7 +601,7 @@ public class EntityFactory extends BaseSystem {
         float originY,
         float rotation
     ) {
-        return createItem(actorType, x, y, width, height, originX, originY, rotation);
+        return createItem(actorType, x, y, width, height, originX, originY, rotation, triggerActionFactory.TOGGLE_CONTAINER);
     }
 
     public int createIronCabinet(
@@ -554,7 +614,7 @@ public class EntityFactory extends BaseSystem {
         float originY,
         float rotation
     ) {
-        return createItem(actorType, x, y, width, height, originX, originY, rotation);
+        return createItem(actorType, x, y, width, height, originX, originY, rotation, triggerActionFactory.TOGGLE_CONTAINER);
     }
 
     private int createWeightPlate(
@@ -567,7 +627,7 @@ public class EntityFactory extends BaseSystem {
         float originY,
         float rotation
     ) {
-        return createItem(actorType, x, y, width, height, originX, originY, rotation);
+        return createItem(actorType, x, y, width, height, originX, originY, rotation, triggerActionFactory.PICK_UP_ITEM);
     }
 
     private int createBed(
@@ -582,16 +642,16 @@ public class EntityFactory extends BaseSystem {
     ) {
         int id = world.create(boxArchetype);
 
-        TransformComponent transformComponent = transformMapper.get(id);
+        TransformComponent transformComponent = mappers.transformMapper.get(id);
         transformComponent.x = x;
         transformComponent.y = y;
         transformComponent.rotation = rotation;
 
         PhysicsComponent physicsComponent = createPhysicsComponent(
-            id, BodyDef.BodyType.KinematicBody, false, x, y, width, height, rotation
+            id, BodyDef.BodyType.KinematicBody, false, x, y, width, height, rotation, new TriggerContactDataImpl(id)
         );
 
-        RenderComponent renderComponent = renderMapper.get(id);
+        RenderComponent renderComponent = mappers.renderMapper.get(id);
         renderComponent.actor = userActorFactory.getCustomUiActor(actorType);
 
         return id;
@@ -631,7 +691,8 @@ public class EntityFactory extends BaseSystem {
         float y,
         float width,
         float height,
-        float rotationDegree
+        float rotationDegree,
+        ContactData contactData
     ) {
         SimpleUtils simpleUtils = gameManager.simpleUtils;
 
@@ -665,6 +726,9 @@ public class EntityFactory extends BaseSystem {
 
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.isSensor = isSensor;
+        if (isSensor) {
+            fixtureDef.filter.categoryBits = CollisionType.CATEGORY_SENSOR;
+        }
         fixtureDef.shape = groundBox;
         fixtureDef.density = 0.5f;
         fixtureDef.friction = 0.4f;
@@ -677,9 +741,9 @@ public class EntityFactory extends BaseSystem {
 
         // 4. Привязываем id сущности к телу Box2D.
         // Это спасет вас в будущем, когда вы будете писать обработку попадания пуль во врагов в ContactListener
-        body.setUserData(isSensor ? new TriggerContactDataImpl(entityId) : new ContactDataImpl(entityId));
+        body.setUserData(contactData);
 
-        PhysicsComponent physicsComponent = physicsMapper.get(entityId);
+        PhysicsComponent physicsComponent = mappers.physicsMapper.get(entityId);
         physicsComponent.body = body;
 
         return physicsComponent;

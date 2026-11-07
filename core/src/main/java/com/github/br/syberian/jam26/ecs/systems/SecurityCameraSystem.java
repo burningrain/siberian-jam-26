@@ -8,6 +8,7 @@ import com.artemis.utils.IntBag;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.RayCastCallback;
 import com.github.br.libgdx.common.structure.GameManager;
 import com.github.br.libgdx.common.structure.SimpleUtils;
@@ -29,13 +30,18 @@ public class SecurityCameraSystem extends IteratingSystem {
     // Оптимизация GC: один переиспользуемый инстанс коллбэка для RayCast на всю систему
     private final RayCastCallback visionCallback = new RayCastCallback() {
         @Override
-        public float reportRayFixture(com.badlogic.gdx.physics.box2d.Fixture fixture, Vector2 point, Vector2 normal, float fraction) {
+        public float reportRayFixture(Fixture fixture, Vector2 point, Vector2 normal, float fraction) {
+            // Игнорируем открытые двери, зоны триггеров и сенсор самого игрока!
+            if (fixture.isSensor()) {
+                return -1f; // -1 означает "игнорировать эту фикстуру и продолжить луч дальше"
+            }
+
             SecurityCameraComponent cam = mCamera.get(currentCameraEntityId);
             if (fraction < cam.closestFraction) {
                 cam.closestFraction = fraction;
                 cam.sightedBody = fixture.getBody();
             }
-            return 1f; // Возвращаем 1, чтобы продолжить сканирование до конца отрезка
+            return fraction; // Оптимизация: обрезаем луч до ближайшего твердого препятствия
         }
     };
 

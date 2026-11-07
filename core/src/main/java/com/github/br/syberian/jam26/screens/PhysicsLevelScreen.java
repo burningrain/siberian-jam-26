@@ -19,6 +19,7 @@ import com.github.br.libgdx.common.structure.screen.statemachine.GameScreenState
 import com.github.br.libgdx.common.structure.screen.ui.CustomOrthogonalTiledMapRenderer;
 import com.github.br.syberian.jam26.EntityFactory;
 import com.github.br.syberian.jam26.IUserActorFactory;
+import com.github.br.syberian.jam26.Mappers;
 import com.github.br.syberian.jam26.Resources;
 import com.github.br.syberian.jam26.TriggerActionFactory;
 import com.github.br.syberian.jam26.UserActorFactory;
@@ -58,7 +59,7 @@ public class PhysicsLevelScreen extends AbstractTiledMapScreen<IUserActorFactory
     @Override
     public void show() {
         GameManager gameManager = getGameManager();
-        entityFactory = new EntityFactory(gameManager);
+        entityFactory = new EntityFactory();
         artemisWorld = createECS(entityFactory);
 
         super.show();
@@ -71,6 +72,9 @@ public class PhysicsLevelScreen extends AbstractTiledMapScreen<IUserActorFactory
     }
 
     private World createECS(EntityFactory entityFactory) {
+        UtilsObjectsHolder utilsObjectsHolder = new UtilsObjectsHolder();
+        utilsObjectsHolder.setGameManager(getGameManager());
+
         PhysicsContactListener contactListener = new PhysicsContactListener();
         PhysicsSystem physicsSystem = new PhysicsSystem(getGameManager(), contactListener);
         WorldConfiguration config = new WorldConfigurationBuilder()
@@ -95,7 +99,8 @@ public class PhysicsLevelScreen extends AbstractTiledMapScreen<IUserActorFactory
 
             // ФАБРИКИ И СИСТЕМЫ УПРАВЛЕНИЯ
             .with(entityFactory)
-            .with(new UtilsObjectsHolder())
+            .with(new Mappers())
+            .with(utilsObjectsHolder)
             .build();
 
         // !!! ЖЕСТКОЕ ПРАВИЛО ДЛЯ ВЕБА:
@@ -129,7 +134,6 @@ public class PhysicsLevelScreen extends AbstractTiledMapScreen<IUserActorFactory
 
         UtilsObjectsHolder objectsHolder = artemisWorld.getSystem(UtilsObjectsHolder.class);
         objectsHolder.setViewport(viewport);
-        objectsHolder.setGameManager(getGameManager());
 
         playLoopMusic();
     }

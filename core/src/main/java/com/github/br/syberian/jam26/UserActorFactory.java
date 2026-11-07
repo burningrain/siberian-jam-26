@@ -175,23 +175,23 @@ public class UserActorFactory implements IUserActorFactory {
                     atlasName, Resources.TextureRegion.HERO, Animation.PlayMode.NORMAL, 0f
                 );
             case DOOR_GRAY:
-                return delegate.createAnimatedImage(atlasName, Resources.TextureRegion.DOOR_GRAY, Animation.PlayMode.NORMAL, 0f);
+                return delegate.createAnimatedImage(atlasName, Resources.TextureRegion.DOOR_GRAY, Animation.PlayMode.NORMAL, 1f);
             case DOOR_BROWN:
-                return delegate.createAnimatedImage(atlasName, Resources.TextureRegion.DOOR_BROWN, Animation.PlayMode.NORMAL, 0f);
+                return delegate.createAnimatedImage(atlasName, Resources.TextureRegion.DOOR_BROWN, Animation.PlayMode.NORMAL, 1f);
             case KEY:
-                return delegate.createAnimatedImage(atlasName, Resources.TextureRegion.KEY, Animation.PlayMode.NORMAL, 0f);
+                return delegate.createAnimatedImage(atlasName, Resources.TextureRegion.KEY, Animation.PlayMode.NORMAL, 1f);
             case KEY_ITM:
                 return delegate.createImage(atlasName, Resources.TextureRegion.KEY_ITM);
             case MED:
-                return delegate.createAnimatedImage(atlasName, Resources.TextureRegion.MED, Animation.PlayMode.NORMAL, 0f);
+                return delegate.createAnimatedImage(atlasName, Resources.TextureRegion.MED, Animation.PlayMode.NORMAL, 1f);
             case LEVER: // РЫЧАГ
-                return delegate.createAnimatedImage(atlasName, Resources.TextureRegion.LEVER, Animation.PlayMode.NORMAL, 0f);
+                return delegate.createAnimatedImage(atlasName, Resources.TextureRegion.LEVER, Animation.PlayMode.NORMAL, 1f);
             case SECURITY:
-                return delegate.createAnimatedImage(atlasName, Resources.TextureRegion.SECURITY, Animation.PlayMode.NORMAL, 0f);
+                return delegate.createAnimatedImage(atlasName, Resources.TextureRegion.SECURITY, Animation.PlayMode.NORMAL, 1f);
             case IRON_CABINET: // железный шкаф
-                return delegate.createAnimatedImage(atlasName, Resources.TextureRegion.IRON_CABINET, Animation.PlayMode.NORMAL, 0f);
+                return delegate.createAnimatedImage(atlasName, Resources.TextureRegion.IRON_CABINET, Animation.PlayMode.NORMAL, 1f);
             case CART: // тележка
-                return delegate.createAnimatedImage(atlasName, Resources.TextureRegion.CART, Animation.PlayMode.NORMAL, 0f);
+                return delegate.createAnimatedImage(atlasName, Resources.TextureRegion.CART, Animation.PlayMode.NORMAL, 1f);
             case PUMP:
                 return delegate.createImage(atlasName, Resources.TextureRegion.PUMP);
             case TOILET:

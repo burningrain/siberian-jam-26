@@ -44,10 +44,10 @@
                 6
             ],
             "scale": 0.33,
-            "selectedLayer": 8,
+            "selectedLayer": 7,
             "viewCenter": {
-                "x": 6098.484848484848,
-                "y": 6000
+                "x": 5195.454545454546,
+                "y": 5643.939393939394
             }
         },
         "level-1.tmx#bgf": {
@@ -68,10 +68,10 @@
                 6
             ],
             "scale": 0.125,
-            "selectedLayer": 3,
+            "selectedLayer": 5,
             "viewCenter": {
                 "x": 5348,
-                "y": 6812
+                "y": 2868
             }
         },
         "physics-level-1.tmx#environment": {
