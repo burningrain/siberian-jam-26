@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><map height="100" infinite="0" nextlayerid="15" nextobjectid="156" orientation="orthogonal" renderorder="right-down" tiledversion="1.11.2" tileheight="120" tilewidth="120" version="1.10" width="100"><properties><property name="atlas" value="tileset/level-1.atlas"/></properties>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><map height="100" infinite="0" nextlayerid="16" nextobjectid="183" orientation="orthogonal" renderorder="right-down" tiledversion="1.11.2" tileheight="120" tilewidth="120" version="1.10" width="100"><properties><property name="atlas" value="tileset/level-1.atlas"/></properties>
  <tileset columns="0" firstgid="1" name="floor_and_walls" tilecount="26" tileheight="120" tilewidth="120">
   <grid height="1" orientation="orthogonal" width="1"/>
   <tile id="0">
@@ -206,12 +206,12 @@
  <group id="6" name="Room_1">
   <layer height="100" id="1" locked="1" name="walls_and_floor" width="100">
    <data compression="zlib" encoding="base64">
-   eJzt2W1PgzAUhuGq6DZdgahR4///oULCiWelbzgHDb0/XGHb6RZynkEpWGOMBQAAAAAAAAAAAAAAAAAAAHbkbfCuvE58n229rzX4Vv1O2Xpfa5Cbx0cB+1oD8igLeZSFPMpCHmUhj7KQR1nI49Ld4D6gWaGeuxasJY+HQav0ynGq68/0WKmHeij1zmGn7VGN/VLc96PPAnq1lzyk/66x7jt+rOezpoBereGcyOOcyOOckYcvi07V22lfYttjAb3aax6tk0cqC1tZHql+p/LKycOa+RzC8bFdHrHzFcfHenk8D16UXr0+eOq+cTJ2617tIQ/3+qk34fVIbFwt11dL/79L63K97GaZoseP+/lUQK/WMP5/H5Xeee9aUm/MfP0S6rn0PTS2ljzG801ovr3Wk7k8H8b6HSLfIY/r+ebzHO5cXtt8fss8YvcTZZ5OzeU1zee3ziP0+60zJrWfNa0/bp2HjYyROYI81ssjNUbW6OQRXz+cJqn6KVA/qDzk/CSsyiPnGKklj9j6w/d8T8+1Tcb3c44P5o9fsj6wznb8P8v6Qe6VyPler5lD9U7V3TVjp16TxzwPnYU+Htx+S5/1mtnNQ/+W1GPPxcljnod7XIhYvztPXR8bOi/yWJaH9Hjc6ufp+n5Hp7aSi3s/RF+/ksff89A9jOVhjb/fek7RuZHHcrH7S7HnRf9Rzx1T0/0rAAAAAAAAAAAAAAAAAAAAAAAAAAAAYCs/KRn7WA==
+   eJzt2W1PgzAUhmFUdJuug0yjxv//Q4VkJ54d+oZzUNf7wxU22i3kPJRScE3TOAAAAAAAAAAAAAAAAAAAAOCGvA7elOOJb9/ax1qDL1XvlLWPtQa5ebwXcKw1II+ykEdZyKMs5FEW8igLeZSFPM7dDe4D2gXac9eCteTxMDgovbI9tet9uq+0h2oo7Z3hTtut6vup2O+jjwJqdSt5SP2tsd03fpxnX1tArZawT+SxT+Sxj+RxDOSg85DzwSW22wJq9d/zCF2vDiaPVBausjxS9U7llZOHa6ZzCONjvTxi1yvGx3J5PA9elF593njaff2k79q1uoU87P1T34TXI7F+tdxfzT1/57bL/bLNMkX3H4/zqYBaLWE8fx+V3ny35rS3zXT9Eqq51D3Ut5Y8xutNbI1wiafm/HoYq3eI/IY8Luebz3PYuby2+fyaecSeJ8o8nZrLa5rPr51H6P8Ppk/qOGtaf1w7DxfpI3MEeSyXR6qPrNHJI75+2J2k2neB9o3KQ65Pwqk8csZILXnE1h++93t6rm0zfp8zPpg/fsj6wJnteD7L+kGelcj1Xq+ZQ+2dardrxk59Jo9pHjoLPR5svaXOes1s89D/Je2x91XkMc3DjgsRq3fnaddjQ+dFHvPykBqPW/0+XT/v6NRWcrHPQ/T9K3n8Pg9dw1gervHXW88pOjfymC/2fCn2vugv2nP71PT8CgAAAAAAAAAAAAAAAAAAAAAAAAAAAFjLNyYB+24=
   </data>
   </layer>
   <layer height="100" id="5" name="envornment" width="100">
    <data compression="zlib" encoding="base64">
-   eJzt291OwjAABtDeaLxgg3DJm5h4y3v56GYRQi3duh9gSM9Jmk2qtfZrN8piCAAAAAAAAAAAAADw2vanwvP6WrsDXDmE8L12H7iQBwCxw4jv2Qf3j0cZkwfAWRud75Lj+XwXvdYmP3OMSs4uKU3UVm7v7fOSYWkeS9voa+vtdGyTr2uTzvfOlPVRksuiK+9zOsvsPLrx3oT8upDHNG1yHmcw9boVZ7D0uleD0hjl8pgypn3XK8YbWh9LjM3hFr/rVa2Rh/XzqzQOpfrS3kEe0yzNwzjCfdW8xjZ3bHvufq+5aS/+l0fkYb/xXIbm+7ZQz7qankLerd/vfoTLM5Gc2rN4hv1HEx1rzGNofnZyzw+n1Ke2YzpVsXvPwWPIP9Pte75b45qIxXO6TY7peU6uPm5zbh613s/jv/e8H5l6DRqS5rGPXufa0ntCqf4z/P0/G3lAXm33AgAAAAAAAAAAAAAAAAAA+v0AzksQ6Q==
+   eJzt291OwjAABtDeaLxgg3DJm5h4y3v56IbAYi3dTzdgSM9Jmk2qtfZbO8piCAAAAAAAAAAAAADw2vaXwvP6WrsDXDmE8L12H/glDwBihwnfsw/uH48yJQ+AThud75Jjd76LXmuTnzlGJWeXlCZqK7f39nnJsDSPpW30tfV2ObbJ17VJr/eTkvkxJpfFqbzP6Syz8ziN9ybk54U8yrTJeZxB6boVZ7B03avB2Bjl8igZ0771iumG5scSU3O4xe96VWvkYf6cjY3DWP3Y3kEeZZbmYRzhvmqeY5s7tj13v9fctBf/yyPysN94LkPX+3aknnU1PYW8W7/f/QjnNbNvzGvP4hn2H010rDGP7pldn9zzw5L61HZKpyp272vwGPLPdPue79Y4J2LxNd0mx/Q8J1cftzk3j1rv5/Hf2+1HStegIWke++h1ri29J4zVf4a//2cjD8ir7V4AAAAAAAAAAAAAAAAAAEC/H7KcEOU=
   </data>
   </layer>
   <objectgroup color="#ffff7f" id="9" name="walls">
@@ -329,7 +329,7 @@
      <property name="is_ecs_entity" type="bool" value="true"/>
     </properties>
    </object>
-   <object height="2788.18" id="25" name="wall" width="231.821" x="6244.09" y="4564.91">
+   <object height="2431.18" id="25" name="wall" width="231.821" x="6244.09" y="4921.91">
     <properties>
      <property name="actor_type" value="WALL"/>
      <property name="is_ecs_entity" type="bool" value="true"/>
@@ -449,9 +449,15 @@
      <property name="is_ecs_entity" type="bool" value="true"/>
     </properties>
    </object>
+   <object height="242.182" id="181" name="wall" width="228.821" x="6248.09" y="4554.91">
+    <properties>
+     <property name="actor_type" value="WALL"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
   </objectgroup>
   <objectgroup color="#55aa7f" id="14" name="objects_bottom">
-   <object gid="30" height="22" id="66" name="wires" width="53" x="7436" y="6579">
+   <object gid="30" height="22" id="66" name="wires" width="53" x="7480.67" y="6557.67">
     <properties>
      <property name="actor_type" value="WIRES"/>
      <property name="is_ecs_entity" type="bool" value="true"/>
@@ -733,8 +739,20 @@
      <property name="is_ecs_entity" type="bool" value="true"/>
     </properties>
    </object>
+   <object gid="84" height="81" id="177" name="key_holder" width="42" x="5185" y="4551.5">
+    <properties>
+     <property name="actor_type" value="KEY"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object gid="69" height="120" id="178" name="BOX_HOLDER" width="110" x="5868" y="4680">
+    <properties>
+     <property name="actor_type" value="BOX_HOLDER"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
   </objectgroup>
-  <objectgroup color="#aaff7f" id="2" locked="1" name="hero">
+  <objectgroup color="#aaff7f" id="2" name="hero">
    <object gid="36" height="42" id="112" name="hero" rotation="180" width="51" x="5003" y="7005">
     <properties>
      <property name="actor_type" value="CHAR"/>
@@ -779,6 +797,48 @@
      <property name="is_ecs_entity" type="bool" value="true"/>
     </properties>
    </object>
+   <object gid="83" height="118.5" id="158" name="brown_door" width="115.5" x="7927.1" y="4801.42">
+    <properties>
+     <property name="actor_type" value="DOOR_BROWN"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object gid="83" height="118.5" id="159" name="brown_door" width="115.5" x="8043.58" y="5515.42">
+    <properties>
+     <property name="actor_type" value="DOOR_BROWN"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object gid="83" height="118.5" id="160" name="brown_door" width="115.5" x="6840.92" y="5395.42">
+    <properties>
+     <property name="actor_type" value="DOOR_BROWN"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object gid="83" height="118.5" id="161" name="brown_door" width="115.5" x="7919.58" y="6122.08">
+    <properties>
+     <property name="actor_type" value="DOOR_BROWN"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object gid="83" height="118.5" id="163" name="brown_door" width="115.5" x="6959.58" y="6838.75">
+    <properties>
+     <property name="actor_type" value="DOOR_BROWN"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object gid="83" height="118.5" id="179" name="brown_door" rotation="90" width="115.5" x="6240.25" y="4802.75">
+    <properties>
+     <property name="actor_type" value="DOOR_BROWN"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object gid="83" height="118.5" id="182" name="brown_door" rotation="90" width="115.5" x="7447.25" y="6239.75">
+    <properties>
+     <property name="actor_type" value="DOOR_BROWN"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
   </objectgroup>
   <objectgroup color="#00aaff" id="11" name="cameras">
    <object gid="81" height="62" id="50" name="camera" width="33" x="7723" y="4801">
@@ -793,31 +853,37 @@
      <property name="is_ecs_entity" type="bool" value="true"/>
     </properties>
    </object>
-   <object gid="79" height="59" id="52" name="camera" width="63" x="3514.33" y="5959.67">
+   <object gid="79" height="59" id="52" name="camera" width="63" x="3603.66" y="6135">
     <properties>
      <property name="actor_type" value="CAMERA"/>
      <property name="is_ecs_entity" type="bool" value="true"/>
     </properties>
    </object>
-   <object gid="79" height="59" id="53" name="camera" width="63" x="3512.67" y="6338.33">
-    <properties>
-     <property name="actor_type" value="CAMERA"/>
-     <property name="is_ecs_entity" type="bool" value="true"/>
-    </properties>
-   </object>
-   <object gid="2147483727" height="59" id="54" name="camera" width="63" x="6249.03" y="5959.67">
-    <properties>
-     <property name="actor_type" value="CAMERA"/>
-     <property name="is_ecs_entity" type="bool" value="true"/>
-    </properties>
-   </object>
-   <object gid="2147483727" height="59" id="55" name="camera" width="63" x="6246" y="6338.33">
+   <object gid="2147483727" height="59" id="54" name="camera" width="63" x="6179.7" y="6150.34">
     <properties>
      <property name="actor_type" value="CAMERA"/>
      <property name="is_ecs_entity" type="bool" value="true"/>
     </properties>
    </object>
    <object gid="2147483727" height="59" id="60" name="camera" width="63" x="7325" y="6571.33">
+    <properties>
+     <property name="actor_type" value="CAMERA"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object gid="2147483727" height="59" id="167" name="camera" width="63" x="7218.5" y="4940.5">
+    <properties>
+     <property name="actor_type" value="CAMERA"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object gid="2147483727" height="59" id="168" name="camera" rotation="315" width="63" x="8476.5" y="3453.17">
+    <properties>
+     <property name="actor_type" value="CAMERA"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object gid="3221225551" height="59" id="169" name="camera" rotation="135" width="63" x="7521.83" y="4446.5">
     <properties>
      <property name="actor_type" value="CAMERA"/>
      <property name="is_ecs_entity" type="bool" value="true"/>
@@ -837,7 +903,7 @@
      <property name="is_ecs_entity" type="bool" value="true"/>
     </properties>
    </object>
-   <object gid="88" height="120" id="59" name="iron_cabinet" width="89" x="6616" y="6239.67">
+   <object gid="88" height="120" id="59" name="iron_cabinet" width="89" x="6616" y="6240.67">
     <properties>
      <property name="actor_type" value="IRON_CABINET"/>
      <property name="is_ecs_entity" type="bool" value="true"/>
@@ -855,19 +921,19 @@
      <property name="is_ecs_entity" type="bool" value="true"/>
     </properties>
    </object>
-   <object gid="56" height="114.667" id="67" name="box" width="119.667" x="7437.33" y="6596.83">
+   <object gid="56" height="114.667" id="67" name="box" width="119.667" x="7559.33" y="6598.16">
     <properties>
      <property name="actor_type" value="BOX"/>
      <property name="is_ecs_entity" type="bool" value="true"/>
     </properties>
    </object>
-   <object gid="74" height="132.333" id="69" name="GATE" width="124.667" x="7796" y="3360">
+   <object gid="74" height="132.333" id="69" name="GATE" width="124.667" x="7796" y="3363">
     <properties>
      <property name="actor_type" value="GATE"/>
      <property name="is_ecs_entity" type="bool" value="true"/>
     </properties>
    </object>
-   <object gid="74" height="132.333" id="71" name="GATE" width="124.667" x="7918.17" y="3360">
+   <object gid="74" height="132.333" id="71" name="GATE" width="124.667" x="7918.17" y="3363">
     <properties>
      <property name="actor_type" value="GATE"/>
      <property name="is_ecs_entity" type="bool" value="true"/>
@@ -891,8 +957,14 @@
      <property name="is_ecs_entity" type="bool" value="true"/>
     </properties>
    </object>
+   <object gid="86" height="37" id="164" name="LEVER" width="41" x="8528.33" y="4285.67">
+    <properties>
+     <property name="actor_type" value="LEVER"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
   </objectgroup>
-  <objectgroup color="#aaaaff" id="13" locked="1" name="cups">
+  <objectgroup color="#aaaaff" id="13" name="cups">
    <object gid="54" height="19" id="65" name="cup" width="22.3333" x="8363.33" y="7024.67">
     <properties>
      <property name="actor_type" value="CUP"/>
@@ -906,12 +978,6 @@
     </properties>
    </object>
    <object gid="54" height="29" id="107" name="cup" rotation="90" width="33" x="5204.67" y="4882.83">
-    <properties>
-     <property name="actor_type" value="CUP"/>
-     <property name="is_ecs_entity" type="bool" value="true"/>
-    </properties>
-   </object>
-   <object gid="54" height="19" id="119" name="cup" width="22.3333" x="7998.17" y="6655.83">
     <properties>
      <property name="actor_type" value="CUP"/>
      <property name="is_ecs_entity" type="bool" value="true"/>

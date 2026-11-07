@@ -34,20 +34,20 @@
                 6
             ],
             "expandedObjectLayers": [
-                9,
                 12,
-                14,
-                13,
-                2,
                 10,
+                9,
+                2,
                 11,
-                6
+                6,
+                13,
+                14
             ],
-            "scale": 0.33,
-            "selectedLayer": 7,
+            "scale": 1,
+            "selectedLayer": 8,
             "viewCenter": {
-                "x": 5195.454545454546,
-                "y": 5643.939393939394
+                "x": 5118,
+                "y": 7577.5
             }
         },
         "level-1.tmx#bgf": {
@@ -62,16 +62,16 @@
         "physics-level-1.tmx": {
             "expandedObjectLayers": [
                 4,
-                2,
-                3,
                 7,
+                3,
+                2,
                 6
             ],
-            "scale": 0.125,
+            "scale": 0.33,
             "selectedLayer": 5,
             "viewCenter": {
-                "x": 5348,
-                "y": 2868
+                "x": 3454.5454545454545,
+                "y": 10868.181818181818
             }
         },
         "physics-level-1.tmx#environment": {
@@ -113,7 +113,7 @@
             "scale": 0.125,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 2772,
+                "x": 2896,
                 "y": 2812
             }
         },
@@ -130,18 +130,19 @@
     "map.tileHeight": 120,
     "map.tileWidth": 120,
     "map.width": 100,
+    "mapScene.enableWorlds": true,
     "openFiles": [
         "level-1.tmx",
-        "test-room.tmx",
-        "physics-level-1.tmx"
+        "physics-level-1.tmx",
+        "test-room.tmx"
     ],
     "project": "blind-corridor.tiled-project",
     "property.type": "bool",
     "recentFiles": [
+        "level-1.tmx",
+        "test-room.tmx",
         "physics-level-1.tmx",
         "physics-level-1_99.tmx",
-        "test-room.tmx",
-        "level-1.tmx",
         "physics-level-1_2.tmx",
         "D:/projects/perelesoq-jam-26/assets/tiled/entrance.tmx"
     ],

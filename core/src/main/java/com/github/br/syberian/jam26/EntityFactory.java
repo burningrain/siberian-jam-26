@@ -630,6 +630,45 @@ public class EntityFactory extends BaseSystem {
         return createItem(actorType, x, y, width, height, originX, originY, rotation, triggerActionFactory.PICK_UP_ITEM);
     }
 
+    public int createBoxHolder(
+        ActorTypeEnum actorType,
+        float x,
+        float y,
+        float width,
+        float height,
+        float originX,
+        float originY,
+        float rotation
+    ) {
+        return createItem(actorType, x, y, width, height, originX, originY, rotation, triggerActionFactory.PICK_UP_ITEM);
+    }
+
+    private int createLever(
+        ActorTypeEnum actorType,
+        float x,
+        float y,
+        float width,
+        float height,
+        float originX,
+        float originY,
+        float rotation
+    ) {
+        return createItem(actorType, x, y, width, height, originX, originY, rotation, triggerActionFactory.TOGGLE_CONTAINER);
+    }
+
+    private int createKeyHolder(
+        ActorTypeEnum actorType,
+        float x,
+        float y,
+        float width,
+        float height,
+        float originX,
+        float originY,
+        float rotation
+    ) {
+        return createItem(actorType, x, y, width, height, originX, originY, rotation, triggerActionFactory.TOGGLE_CONTAINER);
+    }
+
     private int createBed(
         ActorTypeEnum actorType,
         float x,
@@ -853,6 +892,12 @@ public class EntityFactory extends BaseSystem {
                 return createWall(actorType, true, x, y, width, height, originX, originY, rotation);
             case BARBELL:
                 return createWall(actorType, true, x, y, width, height, originX, originY, rotation);
+            case BOX_HOLDER:
+                return createBoxHolder(actorType, x, y, width, height, originX, originY, rotation);
+            case LEVER:
+                return createLever(actorType, x, y, width, height, originX, originY, rotation);
+            case KEY:
+                return createKeyHolder(actorType, x, y, width, height, originX, originY, rotation);
         }
 
         throw new GdxRuntimeException("createEntityFromUI: " + actorType + " is not found");

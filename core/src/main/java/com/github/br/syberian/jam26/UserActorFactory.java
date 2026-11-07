@@ -240,6 +240,8 @@ public class UserActorFactory implements IUserActorFactory {
                 return delegate.createImage(atlasName, Resources.TextureRegion.BARBELL);
             case WEIGHT_PLATE:
                 return delegate.createImage(atlasName, Resources.TextureRegion.WEIGHT_PLATE);
+            case BOX_HOLDER:
+                return delegate.createImage(atlasName, Resources.TextureRegion.BOX_HOLDER);
 
             default:
                 throw new GdxRuntimeException(

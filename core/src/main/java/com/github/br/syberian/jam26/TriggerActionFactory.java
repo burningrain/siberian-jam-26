@@ -8,15 +8,14 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Filter;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.github.br.libgdx.common.structure.GameManager;
+import com.github.br.libgdx.common.structure.screen.RestartScreen;
 import com.github.br.libgdx.common.structure.screen.ui.AnimatedImage;
 import com.github.br.syberian.jam26.ecs.components.InteractableStateComponent;
 import com.github.br.syberian.jam26.ecs.components.PhysicsComponent;
 import com.github.br.syberian.jam26.ecs.components.RenderComponent;
 import com.github.br.syberian.jam26.ecs.components.TriggerAction;
-import com.github.br.libgdx.common.structure.screen.RestartScreen;
 import com.github.br.syberian.jam26.ecs.systems.UtilsObjectsHolder;
 import com.github.br.syberian.jam26.ecs.systems.physics.CollisionType;
 import com.github.br.syberian.jam26.ecs.systems.renderer.Box2dRenderSystem;
@@ -139,6 +138,8 @@ public class TriggerActionFactory extends BaseSystem {
         return new TriggerAction() {
             @Override
             public void execute(World world, int triggerEntityId, int activatorEntityId) {
+                //fixme нужно нормально честно удалять объекты, чтобы они не попадали на отрисовку
+                world.getSystem(Box2dRenderSystem.class).setEnabled(false);
                 currentScreen.triggerExit();
             }
         };

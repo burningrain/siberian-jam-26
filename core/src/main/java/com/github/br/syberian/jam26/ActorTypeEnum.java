@@ -17,6 +17,7 @@ public enum ActorTypeEnum {
     CAMERA_2,
     BOX,
     BOX_OPEN,
+    BOX_HOLDER,
     DOOR,
 
     WALL,
@@ -35,7 +36,6 @@ public enum ActorTypeEnum {
     DOOR_GRAY,
     DOOR_BROWN,
     KEY,
-    KEY_2,
     KEY_ITM,
     MED,
     PUMP,

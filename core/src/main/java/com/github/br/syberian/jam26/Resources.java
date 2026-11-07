@@ -76,6 +76,7 @@ public interface Resources {
         String PUMPKIN = "pump";
         String BARBELL = "shtanga";
         String WEIGHT_PLATE = "blin";
+        String BOX_HOLDER = "stelaz-korob";
     }
 
     /**
