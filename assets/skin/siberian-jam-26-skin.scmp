@@ -91,6 +91,75 @@ atlasData: {
 			type: TENPATCH
 			hidden: false
 		}
+		{
+			file: D:/projects/siberian-jam-26/assets/pictures/level/oblako.png
+			bgColor: {
+				r: 1
+				g: 1
+				b: 1
+				a: 1
+			}
+			tint: null
+			tintName: null
+			name: oblako
+			tiled: false
+			minWidth: -1
+			minHeight: -1
+			customized: false
+			tenPatchData: null
+			tvgData: null
+			type: TEXTURE
+			hidden: false
+		}
+		{
+			file: D:/projects/siberian-jam-26/assets/pictures/level/oblako.png
+			bgColor: {
+				r: 1
+				g: 1
+				b: 1
+				a: 1
+			}
+			tint: null
+			tintName: null
+			name: oblako-10-patch
+			tiled: false
+			minWidth: -1
+			minHeight: -1
+			customized: false
+			tenPatchData: {
+				horizontalStretchAreas: {
+					items: [ 61, 212 ]
+					size: 2
+					ordered: true
+				}
+				verticalStretchAreas: {
+					items: [ 61, 212 ]
+					size: 2
+					ordered: true
+				}
+				contentLeft: 59
+				contentRight: 61
+				contentTop: 62
+				contentBottom: 62
+				tile: false
+				colorName: null
+				color1Name: null
+				color2Name: null
+				color3Name: null
+				color4Name: null
+				offsetX: 0
+				offsetY: 0
+				offsetXspeed: 0
+				offsetYspeed: 0
+				frameDuration: 0.03
+				regionNames: []
+				playMode: 2
+				crushMode: 0
+			}
+			tvgData: null
+			type: TENPATCH
+			hidden: false
+		}
 	]
 	fontDrawables: [
 		{
@@ -293,6 +362,26 @@ atlasData: {
 			type: FONT
 			hidden: false
 		}
+		{
+			file: D:/projects/siberian-jam-26/assets/fonts/RubikMonoOne-Regular(5).png
+			bgColor: {
+				r: 1
+				g: 1
+				b: 1
+				a: 1
+			}
+			tint: null
+			tintName: null
+			name: RubikMonoOne-Regular(5)
+			tiled: false
+			minWidth: -1
+			minHeight: -1
+			customized: false
+			tenPatchData: null
+			tvgData: null
+			type: FONT
+			hidden: false
+		}
 	]
 }
 jsonData: {
@@ -320,6 +409,16 @@ jsonData: {
 		{
 			class: com.ray3k.skincomposer.data.ColorData
 			color: {
+				r: 0.7607843
+				g: 0.7764706
+				b: 0.7882353
+				a: 1
+			}
+			name: talking_gray
+		}
+		{
+			class: com.ray3k.skincomposer.data.ColorData
+			color: {
 				r: 1
 				g: 1
 				b: 1
@@ -329,6 +428,14 @@ jsonData: {
 		}
 	]
 	fonts: [
+		{
+			class: com.ray3k.skincomposer.data.FontData
+			name: RubikMonoOne-Regular5_talking_gray
+			flip: false
+			markupEnabled: false
+			scaling: -1
+			file: D:/projects/siberian-jam-26/assets/fonts/RubikMonoOne-Regular(5).fnt
+		}
 		{
 			class: com.ray3k.skincomposer.data.FontData
 			name: RubikMonoOne-Regular_60_active
@@ -751,6 +858,33 @@ jsonData: {
 						name: font
 						optional: false
 						value: RubikMonoOne-Regular_90_active
+					}
+					fontColor: {
+						type: com.badlogic.gdx.graphics.Color
+						name: fontColor
+						optional: true
+						value: null
+					}
+					background: {
+						type: com.badlogic.gdx.scenes.scene2d.utils.Drawable
+						name: background
+						optional: true
+						value: null
+					}
+				}
+				deletable: true
+				parent: null
+			}
+			{
+				class: com.ray3k.skincomposer.data.StyleData
+				name: talking
+				clazz: com.badlogic.gdx.scenes.scene2d.ui.Label
+				properties: {
+					font: {
+						type: com.badlogic.gdx.graphics.g2d.BitmapFont
+						name: font
+						optional: false
+						value: RubikMonoOne-Regular5_talking_gray
 					}
 					fontColor: {
 						type: com.badlogic.gdx.graphics.Color

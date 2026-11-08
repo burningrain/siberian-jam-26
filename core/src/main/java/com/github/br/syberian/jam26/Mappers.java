@@ -3,6 +3,7 @@ package com.github.br.syberian.jam26;
 import com.artemis.BaseSystem;
 import com.artemis.ComponentMapper;
 import com.github.br.syberian.jam26.ecs.components.EnemyComponent;
+import com.github.br.syberian.jam26.ecs.components.FollowTheTargetComponent;
 import com.github.br.syberian.jam26.ecs.components.InteractableStateComponent;
 import com.github.br.syberian.jam26.ecs.components.ItemComponent;
 import com.github.br.syberian.jam26.ecs.components.PhysicsComponent;
@@ -28,6 +29,7 @@ public class Mappers extends BaseSystem {
     public ComponentMapper<ItemComponent> itemMapper;
 
     public ComponentMapper<InteractableStateComponent> interactStateMapper;
+    public ComponentMapper<FollowTheTargetComponent> followTheTargetMapper;
 
     @Override
     protected void processSystem() {
@@ -46,6 +48,7 @@ public class Mappers extends BaseSystem {
         cameraLogicMapper = getWorld().getMapper(SecurityCameraComponent.class);
         itemMapper = getWorld().getMapper(ItemComponent.class);
         interactStateMapper = getWorld().getMapper(InteractableStateComponent.class);
+        followTheTargetMapper = getWorld().getMapper(FollowTheTargetComponent.class);
     }
 
 }

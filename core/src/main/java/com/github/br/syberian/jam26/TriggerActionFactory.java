@@ -8,10 +8,12 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Filter;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.badlogic.gdx.scenes.scene2d.ui.Container;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.github.br.libgdx.common.structure.GameManager;
 import com.github.br.libgdx.common.structure.screen.RestartScreen;
 import com.github.br.libgdx.common.structure.screen.ui.AnimatedImage;
+import com.github.br.syberian.jam26.ecs.components.FollowTheTargetComponent;
 import com.github.br.syberian.jam26.ecs.components.InteractableStateComponent;
 import com.github.br.syberian.jam26.ecs.components.PhysicsComponent;
 import com.github.br.syberian.jam26.ecs.components.RenderComponent;
@@ -19,6 +21,7 @@ import com.github.br.syberian.jam26.ecs.components.TriggerAction;
 import com.github.br.syberian.jam26.ecs.systems.UtilsObjectsHolder;
 import com.github.br.syberian.jam26.ecs.systems.physics.CollisionType;
 import com.github.br.syberian.jam26.ecs.systems.renderer.Box2dRenderSystem;
+import com.github.tommyettinger.textra.TypingLabel;
 
 public class TriggerActionFactory extends BaseSystem {
 
@@ -55,6 +58,7 @@ public class TriggerActionFactory extends BaseSystem {
         switch (triggerType) {
             case RESTART_LEVEL:
                 return this.RESTART_LEVEL;
+
             case SHOW_MESSAGE:
                 return this.SHOW_MESSAGE;
             case PICK_UP_ITEM:
@@ -160,7 +164,35 @@ public class TriggerActionFactory extends BaseSystem {
         return new TriggerAction() {
             @Override
             public void execute(World world, int triggerEntityId, int activatorEntityId) {
-                System.out.println("ВОШЕЛ В ОБЛАСТЬ ТРИГГЕРА");
+                EntityFactory entityFactory = world.getSystem(EntityFactory.class);
+                int talkingLabelEntityId = entityFactory.createTalkingLabel(
+                    triggerEntityId,
+                    "talking_layer",
+                    8
+                );
+
+                RenderComponent renderComponent = mappers.renderMapper.get(talkingLabelEntityId);
+
+                @SuppressWarnings("unchecked")
+                Container<TypingLabel> labelContainer = (Container<TypingLabel>) renderComponent.actor;
+                TypingLabel typingLabel = labelContainer.getActor();
+
+                // 1. Устанавливаем длинный текст
+                typingLabel.setText("ЕПТА?!");
+
+                // 2. Важнейший шаг: инвалидируем иерархию, чтобы контейнер узнал об изменении размера текста внутри
+                typingLabel.invalidateHierarchy();
+                labelContainer.invalidate();
+
+                // 3. Пересчитываем размеры контейнера. Теперь он растянется вниз на столько строк, сколько занял текст
+                labelContainer.pack();
+
+                // 4. Позиционируем ровно над головой
+                FollowTheTargetComponent follow = world.getMapper(FollowTheTargetComponent.class).get(talkingLabelEntityId);
+                if (follow != null) {
+                    follow.offsetY = 32f + labelContainer.getHeight() / 5f;
+                    follow.offsetX = -labelContainer.getWidth() / 2f;
+                }
             }
         };
     }

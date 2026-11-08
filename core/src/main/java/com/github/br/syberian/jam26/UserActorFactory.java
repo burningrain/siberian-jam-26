@@ -9,8 +9,8 @@ import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.objects.TextureMapObject;
 import com.badlogic.gdx.maps.tiled.objects.TiledMapTileMapObject;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.badlogic.gdx.utils.Null;
@@ -41,7 +41,7 @@ public class UserActorFactory implements IUserActorFactory {
     }
 
     @Override
-    public Actor getActor(MapObject mapObject) {
+    public Actor createActor(String layerName, MapObject mapObject) {
         MapProperties properties = mapObject.getProperties();
 
         float x = properties.get("x", float.class);
@@ -72,14 +72,14 @@ public class UserActorFactory implements IUserActorFactory {
         Boolean isEcsEntity = properties.get(IS_ECS_ENTITY, Boolean.class);
         if (isEcsEntity != null && isEcsEntity) {
             try {
-                actor = createEcsEntity(actorTypeEnum, mapObject, x, y, width, height, originX, originY, rotationDegrees);
+                actor = createEcsEntity(actorTypeEnum, layerName, mapObject, x, y, width, height, originX, originY, rotationDegrees);
             } catch (Exception e) {
                 throw new GdxRuntimeException("UserActorFactory#createEcsEntity: object=[" + mapObject.getName() + "] " + e.getMessage());
             }
         } else {
             actor = getCustomUiActor(actorTypeEnum);
             if (actor == null) {
-                actor = delegate.getActor(mapObject);
+                actor = delegate.createActor(layerName, mapObject);
             }
         }
 
@@ -105,7 +105,9 @@ public class UserActorFactory implements IUserActorFactory {
 
     private @Null Actor createEcsEntity(
         ActorTypeEnum actorTypeEnum,
-        MapObject mapObject, float x,
+        String layerName,
+        MapObject mapObject,
+        float x,
         float y,
         float width,
         float height,
@@ -114,7 +116,18 @@ public class UserActorFactory implements IUserActorFactory {
         float rotation
     ) {
         int id = entityFactory.createEntityFromUI(
-            actorTypeEnum, mapObject, x, y, width, height, originX, originY, rotation
+            new EntityCreationData(
+                actorTypeEnum,
+                layerName,
+                mapObject,
+                x,
+                y,
+                width,
+                height,
+                originX,
+                originY,
+                rotation
+            )
         );
         World world = entityFactory.getWorld();
         ComponentMapper<RenderComponent> mapper = world.getMapper(RenderComponent.class);
@@ -143,6 +156,8 @@ public class UserActorFactory implements IUserActorFactory {
 
     public Actor getCustomUiActor(ActorTypeEnum actorType) {
         switch (actorType) {
+            case TALKING:
+                return delegate.createTypingLabel("", "talking", "oblako-10-patch", 300);
             case BOX_OPEN:
             case KOROB_OPEN:
                 return delegate.createImage(atlasName, Resources.TextureRegion.BOX_OPEN);

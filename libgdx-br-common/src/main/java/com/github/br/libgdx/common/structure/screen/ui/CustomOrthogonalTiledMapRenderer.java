@@ -198,7 +198,7 @@ public class CustomOrthogonalTiledMapRenderer extends OrthogonalTiledMapRenderer
 
             Stage stage = new Stage(viewport, getBatch());
             for (MapObject object : objects) {
-                Actor actor = actorFactory.getActor(object);
+                Actor actor = actorFactory.createActor(layer.getName(), object);
                 if (actor == null) {
                     Gdx.app.log("WARN", "layer=[" + layer.getName() +
                         "] objectName=[" + object.getName() + "] has not renderComponent"
@@ -265,6 +265,11 @@ public class CustomOrthogonalTiledMapRenderer extends OrthogonalTiledMapRenderer
             throw new IllegalArgumentException("stage [" + layerName + "] is not found");
         }
         return stage;
+    }
+
+    public void addToStage(String layerName, Actor actor) {
+        Stage stage = getStageByLayerName(layerName);
+        stage.addActor(actor);
     }
 
     public boolean isVfxEnabled() {

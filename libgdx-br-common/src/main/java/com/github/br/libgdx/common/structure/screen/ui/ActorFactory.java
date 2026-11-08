@@ -5,6 +5,6 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 
 public interface ActorFactory {
 
-    Actor getActor(MapObject object);
+    Actor createActor(String layerName, MapObject object);
 
 }

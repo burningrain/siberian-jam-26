@@ -1,0 +1,13 @@
+{
+"characters": "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгдеёжзийклмнопрстуфхцчшщъыьэюяABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789.,!?:;()-+*=/\\@#$%&{}[]<>\"'№§±←↑→↓°€£¥₽©®™✓✗•·…—–«»|\n",
+"size": 30,
+"hinting": "AutoMedium",
+"color": "talking_gray",
+"colorValue": -1027159553,
+"gamma": 1.8,
+"renderCount": 2,
+"borderGamma": 1.8,
+"kerning": true,
+"minFilter": "Linear",
+"magFilter": "Linear"
+}

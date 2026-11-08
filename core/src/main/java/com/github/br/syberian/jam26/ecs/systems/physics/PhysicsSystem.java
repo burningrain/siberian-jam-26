@@ -18,16 +18,17 @@ import com.github.br.syberian.jam26.ecs.components.DeleteIntentComponent;
 import com.github.br.syberian.jam26.ecs.components.PhysicsComponent;
 import com.github.br.syberian.jam26.ecs.components.PlayerComponent;
 import com.github.br.syberian.jam26.ecs.components.TransformComponent;
+import com.github.br.syberian.jam26.ecs.systems.UtilsObjectsHolder;
 
 import box2dLight.RayHandler;
 
 public class PhysicsSystem extends BaseSystem implements EntitySubscription.SubscriptionListener {
 
-    private final GameManager gameManager;
-
     private final World world;
 
     private RayHandler rayHandler; // для света
+
+    private GameManager gameManager;
 
     private static final float TIME_STEP = 1 / 60f;
     private static final int VELOCITY_ITERATIONS = 6;
@@ -47,8 +48,7 @@ public class PhysicsSystem extends BaseSystem implements EntitySubscription.Subs
         return rayHandler;
     }
 
-    public PhysicsSystem(GameManager gameManager, PhysicsContactListener contactListener) {
-        this.gameManager = gameManager;
+    public PhysicsSystem(PhysicsContactListener contactListener) {
         this.contactListener = contactListener;
         this.world = new World(new Vector2(0, 0), true);
     }
@@ -61,6 +61,8 @@ public class PhysicsSystem extends BaseSystem implements EntitySubscription.Subs
         getWorld().getAspectSubscriptionManager()
             .get(physicsAspect)
             .addSubscriptionListener(this);
+
+        this.gameManager = getWorld().getSystem(UtilsObjectsHolder.class).getGameManager();
 
         world.setContactListener(contactListener);
 
@@ -141,7 +143,7 @@ public class PhysicsSystem extends BaseSystem implements EntitySubscription.Subs
             transform.y = centerPixelsY - halfHeightPixels;
 
             // Переводим угол из радиан в градусы для рендерера LibGDX
-            transform.rotation = physics.body.getAngle() * MathUtils.radiansToDegrees;
+            transform.rotationDegree = physics.body.getAngle() * MathUtils.radiansToDegrees;
         }
     }
 

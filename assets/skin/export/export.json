@@ -1,5 +1,11 @@
 {
 "com.badlogic.gdx.graphics.g2d.BitmapFont": {
+	"RubikMonoOne-Regular5_talking_gray": {
+		"file": "RubikMonoOne-Regular(5).fnt",
+		"scaledSize": -1,
+		"markupEnabled": false,
+		"flip": false
+	},
 	"RubikMonoOne-Regular_60_active": {
 		"file": "RubikMonoOne-Regular(4).fnt",
 		"scaledSize": -1,
@@ -32,6 +38,12 @@
 		"b": 0.47058824,
 		"a": 1
 	},
+	"talking_gray": {
+		"r": 0.7607843,
+		"g": 0.7764706,
+		"b": 0.7882353,
+		"a": 1
+	},
 	"white": {
 		"r": 1,
 		"g": 1,
@@ -59,6 +71,26 @@
 		"regions": [],
 		"playMode": 2,
 		"crushMode": 0
+	},
+	"oblako-10-patch": {
+		"region": "oblako",
+		"horizontalStretchAreas": [ 61, 212 ],
+		"verticalStretchAreas": [ 61, 212 ],
+		"tiling": false,
+		"minWidth": 275,
+		"minHeight": 275,
+		"rightWidth": 61,
+		"leftWidth": 59,
+		"bottomHeight": 62,
+		"topHeight": 62,
+		"offsetX": 0,
+		"offsetY": 0,
+		"offsetXspeed": 0,
+		"offsetYspeed": 0,
+		"frameDuration": 0.03,
+		"regions": [],
+		"playMode": 2,
+		"crushMode": 0
 	}
 },
 "com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle": {
@@ -67,6 +99,9 @@
 	},
 	"title": {
 		"font": "RubikMonoOne-Regular_90_active"
+	},
+	"talking": {
+		"font": "RubikMonoOne-Regular5_talking_gray"
 	}
 },
 "com.badlogic.gdx.scenes.scene2d.ui.Slider$SliderStyle": {

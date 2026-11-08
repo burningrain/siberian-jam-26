@@ -24,6 +24,7 @@ import com.github.br.syberian.jam26.Resources;
 import com.github.br.syberian.jam26.TriggerActionFactory;
 import com.github.br.syberian.jam26.UserActorFactory;
 import com.github.br.syberian.jam26.ecs.systems.CameraSystem;
+import com.github.br.syberian.jam26.ecs.systems.FollowTheTargetSystem;
 import com.github.br.syberian.jam26.ecs.systems.LevelControlSystem;
 import com.github.br.syberian.jam26.ecs.systems.PlayerInputSystem;
 import com.github.br.syberian.jam26.ecs.systems.SecurityCameraSystem;
@@ -76,7 +77,7 @@ public class PhysicsLevelScreen extends AbstractTiledMapScreen<IUserActorFactory
         utilsObjectsHolder.setGameManager(getGameManager());
 
         PhysicsContactListener contactListener = new PhysicsContactListener();
-        PhysicsSystem physicsSystem = new PhysicsSystem(getGameManager(), contactListener);
+        PhysicsSystem physicsSystem = new PhysicsSystem(contactListener);
         WorldConfiguration config = new WorldConfigurationBuilder()
             .with(new TagManager())
 
@@ -90,6 +91,7 @@ public class PhysicsLevelScreen extends AbstractTiledMapScreen<IUserActorFactory
             .with(new TriggerActionFactory(this))
 
             // бизнес-логика игры
+            .with(new FollowTheTargetSystem())
             .with(new SecurityCameraSystem(getGameManager()))
             .with(new LevelControlSystem())
 

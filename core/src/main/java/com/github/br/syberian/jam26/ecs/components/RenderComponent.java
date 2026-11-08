@@ -4,5 +4,8 @@ import com.artemis.Component;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
 public class RenderComponent extends Component {
+
+    public String layerName;
     public Actor actor;
+
 }

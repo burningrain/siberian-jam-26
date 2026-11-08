@@ -17,6 +17,7 @@ import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.github.br.libgdx.common.structure.GameManager;
 import com.github.br.libgdx.common.structure.SimpleUtils;
 import com.github.br.syberian.jam26.ecs.components.EnemyComponent;
+import com.github.br.syberian.jam26.ecs.components.FollowTheTargetComponent;
 import com.github.br.syberian.jam26.ecs.components.InteractableStateComponent;
 import com.github.br.syberian.jam26.ecs.components.ItemComponent;
 import com.github.br.syberian.jam26.ecs.components.PhysicsComponent;
@@ -24,7 +25,6 @@ import com.github.br.syberian.jam26.ecs.components.PlayerComponent;
 import com.github.br.syberian.jam26.ecs.components.RenderComponent;
 import com.github.br.syberian.jam26.ecs.components.SecurityCameraComponent;
 import com.github.br.syberian.jam26.ecs.components.TransformComponent;
-import com.github.br.syberian.jam26.ecs.components.TriggerAction;
 import com.github.br.syberian.jam26.ecs.components.TriggerComponent;
 import com.github.br.syberian.jam26.ecs.systems.UtilsObjectsHolder;
 import com.github.br.syberian.jam26.ecs.systems.physics.CollisionType;
@@ -42,6 +42,7 @@ public class EntityFactory extends BaseSystem {
 
     private Archetype triggerArchetype;
     private Archetype enemyArchetype;
+    private Archetype npcArchetype;
     private Archetype wallArchetype;
     private Archetype bulletArchetype;
     private Archetype boxArchetype;
@@ -49,6 +50,8 @@ public class EntityFactory extends BaseSystem {
     private Archetype doorArchetype;
     private Archetype itemArchetype;
     private Archetype interactableArchetype;
+
+    private Archetype talkingLabelArchetype;
 
     private IUserActorFactory userActorFactory;
 
@@ -83,6 +86,13 @@ public class EntityFactory extends BaseSystem {
             .add(TransformComponent.class)
             .add(PhysicsComponent.class)
             .add(EnemyComponent.class)
+            .add(RenderComponent.class)
+            .build(world);
+
+        npcArchetype = new ArchetypeBuilder()
+            .add(TransformComponent.class)
+            .add(PhysicsComponent.class)
+            .add(TriggerComponent.class)
             .add(RenderComponent.class)
             .build(world);
 
@@ -138,10 +148,46 @@ public class EntityFactory extends BaseSystem {
             .add(TriggerComponent.class)
             .add(RenderComponent.class)
             .build(world);
+
+        talkingLabelArchetype = new ArchetypeBuilder()
+            .add(TransformComponent.class)
+            .add(FollowTheTargetComponent.class)
+            .add(RenderComponent.class)
+            .build(world);
     }
 
     @Override
     protected void processSystem() {
+    }
+
+    public int createTalkingLabel(
+        int targetId,
+        String layerName,
+        float targetHeightPixels
+    ) {
+        // Используем правильный архетип диалога
+        int id = world.create(talkingLabelArchetype);
+
+        // 1. Инициализируем трансформ (стартовые координаты не важны, система следования их сразу перезапишет)
+        TransformComponent transformComponent = mappers.transformMapper.get(id);
+        transformComponent.x = 0;
+        transformComponent.y = 0;
+        transformComponent.rotationDegree = 0;
+
+        // 2. Настраиваем рендер и кастомный слой
+        RenderComponent renderComponent = mappers.renderMapper.get(id);
+        renderComponent.layerName = layerName;
+        renderComponent.actor = userActorFactory.getCustomUiActor(ActorTypeEnum.TALKING);
+
+        // 3. Настраиваем следование
+        FollowTheTargetComponent followComp = mappers.followTheTargetMapper.get(id);
+        followComp.targetId = targetId;
+        // Центрируем облачко по горизонтали (если нужно) и поднимаем его над головой NPC на его высоту + небольшой запас
+        followComp.offsetX = -renderComponent.actor.getWidth() / 4f;
+        followComp.offsetY = targetHeightPixels + 10f; // 10 пикселей зазора над головой
+
+
+        return id;
     }
 
     /**
@@ -153,59 +199,31 @@ public class EntityFactory extends BaseSystem {
         TriggerType triggerType,
         TriggerComponent.UseType useType,
         TriggerComponent.ConditionType conditionType,
-        float x,
-        float y,
-        float width,
-        float height,
-        float originX,
-        float originY,
-        float rotation
+        EntityCreationData creationData
     ) {
         int id = world.create(triggerArchetype);
 
-        TransformComponent transformComponent = mappers.transformMapper.get(id);
-        transformComponent.x = x;
-        transformComponent.y = y;
-        transformComponent.rotation = rotation;
+        TransformComponent transformComponent = createTransformComponent(creationData, id);
 
         PhysicsComponent physicsComponent = createPhysicsComponent(
-            id, BodyDef.BodyType.StaticBody, true, x, y, width, height, rotation, new TriggerContactDataImpl(id)
+            id, BodyDef.BodyType.StaticBody, true, creationData, new TriggerContactDataImpl(id)
         );
 
-        TriggerComponent trigger = mappers.triggerMapper.get(id);
-        trigger.conditionType = conditionType;
-        trigger.useType = useType;
-
-        // Передаем кастомный код текстом/логикой:
-        TriggerActionFactory triggerActionFactory = getWorld().getSystem(TriggerActionFactory.class);
-        trigger.action = triggerActionFactory.create(triggerType);
+        createTriggerComponent(triggerType, useType, conditionType, id);
 
         return id;
     }
 
-    public int createPlayer(
-        ActorTypeEnum actorType,
-        float x,
-        float y,
-        float width,
-        float height,
-        float originX,
-        float originY,
-        float rotation
-    ) {
-        SimpleUtils simpleUtils = gameManager.simpleUtils;
+    public int createPlayer(EntityCreationData creationData) {
         int id = world.create(playerArchetype);
 
-        TransformComponent transformComponent = mappers.transformMapper.get(id);
-        transformComponent.x = x;
-        transformComponent.y = y;
-        transformComponent.rotation = rotation;
+        createTransformComponent(creationData, id);
 
         PhysicsComponent physicsComponent = createPhysicsComponent(
-            id, BodyDef.BodyType.DynamicBody, false, x, y, width, height, rotation, new PlayerContactDataImpl(id)
+            id, BodyDef.BodyType.DynamicBody, false, creationData, new PlayerContactDataImpl(id)
         );
 
-        createPhysicsSensor(width, height, physicsComponent);
+        createPhysicsSensor(creationData.width, creationData.height, physicsComponent);
 
         PlayerComponent playerComponent = mappers.playerMapper.get(id);
 
@@ -213,189 +231,113 @@ public class EntityFactory extends BaseSystem {
 //        AnimationComponent animationComponent = animationMapper.get(id);
 //        animationComponent.simpleAnimationComponent = AnimationFactory.createHero();
 
-        RenderComponent renderComponent = mappers.renderMapper.get(id);
-        renderComponent.actor = userActorFactory.getCustomUiActor(actorType);
+        RenderComponent renderComponent = createRenderComponent(creationData, id);
 
         return id;
     }
 
-    private void createPhysicsSensor(
-        float width,
-        float height,
-        PhysicsComponent physicsComponent
-    ) {
-        SimpleUtils simpleUtils = gameManager.simpleUtils;
-        // сенсор для столкновений и триггеров
-
-        Body body = physicsComponent.body;
-        PolygonShape sensorShape = new PolygonShape();
-        sensorShape.setAsBox(
-            simpleUtils.convertPixelsToMetres(width / 2 * 1.3f),
-            simpleUtils.convertPixelsToMetres(height / 2 * 1.3f)
-        );
-
-        FixtureDef sensorDef = new FixtureDef();
-        sensorDef.shape = sensorShape;
-        sensorDef.isSensor = true;
-        sensorDef.filter.categoryBits = CollisionType.CATEGORY_SENSOR;
-
-        Fixture sensorFixture = body.createFixture(sensorDef);
-
-        sensorShape.dispose();
-    }
-
-    private int createEnemy(
-        ActorTypeEnum actorType,
-        float x,
-        float y,
-        float width,
-        float height,
-        float originX,
-        float originY,
-        float rotation
-    ) {
+    private int createEnemy(EntityCreationData creationData) {
         int id = world.create(enemyArchetype);
 
-        TransformComponent transformComponent = mappers.transformMapper.get(id);
-        transformComponent.x = x;
-        transformComponent.y = y;
-        transformComponent.rotation = rotation;
+        createTransformComponent(creationData, id);
 
         PhysicsComponent physicsComponent = createPhysicsComponent(
-            id, BodyDef.BodyType.DynamicBody, false, x, y, width, height, rotation, new TriggerContactDataImpl(id)
+            id,
+            BodyDef.BodyType.DynamicBody,
+            false,
+            creationData,
+            new TriggerContactDataImpl(id)
         );
 
         //TODO пока анимации нету
 //        AnimationComponent animationComponent = animationMapper.get(id);
 //        animationComponent.simpleAnimationComponent = AnimationFactory.createHero();
 
-        RenderComponent renderComponent = mappers.renderMapper.get(id);
-        renderComponent.actor = userActorFactory.getCustomUiActor(actorType);
+        RenderComponent renderComponent = createRenderComponent(creationData, id);
 
         return id;
     }
 
-    private int createNpc(
-        ActorTypeEnum actorType,
-        float x,
-        float y,
-        float width,
-        float height,
-        float originX,
-        float originY,
-        float rotation
-    ) {
-        int id = world.create(enemyArchetype);
+    private int createNpc(EntityCreationData creationData) {
+        int id = world.create(npcArchetype);
 
-        TransformComponent transformComponent = mappers.transformMapper.get(id);
-        transformComponent.x = x;
-        transformComponent.y = y;
-        transformComponent.rotation = rotation;
+        createTransformComponent(creationData, id);
 
         PhysicsComponent physicsComponent = createPhysicsComponent(
-            id, BodyDef.BodyType.DynamicBody, false, x, y, width, height, rotation, new TriggerContactDataImpl(id)
+            id,
+            BodyDef.BodyType.DynamicBody,
+            false,
+            creationData,
+            new TriggerContactDataImpl(id)
+        );
+        createPhysicsSensor(creationData.width, creationData.height, physicsComponent);
+
+        TriggerComponent triggerComponent = createTriggerComponent(
+            TriggerType.SHOW_MESSAGE,
+            TriggerComponent.UseType.PERSISTENCE,
+            TriggerComponent.ConditionType.ON_KEY_E,
+            id
         );
 
         //TODO пока анимации нету
 //        AnimationComponent animationComponent = animationMapper.get(id);
 //        animationComponent.simpleAnimationComponent = AnimationFactory.createHero();
 
-        RenderComponent renderComponent = mappers.renderMapper.get(id);
-        renderComponent.actor = userActorFactory.getCustomUiActor(actorType);
+        RenderComponent renderComponent = createRenderComponent(creationData, id);
 
         return id;
     }
 
-    public int createWall(
-        ActorTypeEnum actorType,
-        boolean isVisible,
-        float x,
-        float y,
-        float width,
-        float height,
-        float originX,
-        float originY,
-        float rotation
-    ) {
+    public int createWall(EntityCreationData creationData, boolean isVisible) {
         int id = world.create(wallArchetype);
 
-        TransformComponent transformComponent = mappers.transformMapper.get(id);
-        transformComponent.x = x;
-        transformComponent.y = y;
-        transformComponent.rotation = rotation;
+        createTransformComponent(creationData, id);
 
         PhysicsComponent physicsComponent = createPhysicsComponent(
-            id, BodyDef.BodyType.StaticBody, false, x, y, width, height, rotation, new ContactDataImpl(id)
+            id, BodyDef.BodyType.StaticBody, false, creationData, new ContactDataImpl(id)
         );
 
         if (isVisible) {
-            RenderComponent renderComponent = mappers.renderMapper.get(id);
-            renderComponent.actor = userActorFactory.getCustomUiActor(actorType);
+            RenderComponent renderComponent = createRenderComponent(creationData, id);
         }
 
         return id;
     }
 
-    public int createBullet(
-        ActorTypeEnum actorType,
-        Vector2 direction,
-        float x,
-        float y,
-        float width,
-        float height,
-        float originX,
-        float originY,
-        float rotation
-    ) {
+    public int createBullet(EntityCreationData creationData) {
         int id = world.create(bulletArchetype);
 
-        TransformComponent transformComponent = mappers.transformMapper.get(id);
-        transformComponent.x = x;
-        transformComponent.y = y;
-        transformComponent.rotation = rotation;
+        createTransformComponent(creationData, id);
 
         PhysicsComponent physicsComponent = createPhysicsComponent(
-            id, BodyDef.BodyType.DynamicBody, false, x, y, width, height, rotation, new TriggerContactDataImpl(id)
+            id,
+            BodyDef.BodyType.DynamicBody,
+            false,
+            creationData,
+            new TriggerContactDataImpl(id)
         );
 
         return id;
     }
 
-    public int createDoor(
-        ActorTypeEnum actorType,
-        float x,
-        float y,
-        float width,
-        float height,
-        float originX,
-        float originY,
-        float rotation
-    ) {
+    public int createDoor(EntityCreationData creationData) {
         return createInteractableObject(
-            actorType, x, y, width, height, originX, originY, rotation, null, triggerActionFactory.TOGGLE_DOOR
+            creationData, null, TriggerType.TOGGLE_DOOR
         );
     }
 
     // все в пикселях приходит
-    public int createCamera(
-        ActorTypeEnum actorType,
-        float x,
-        float y,
-        float width,
-        float height,
-        float originX,
-        float originY,
-        float rotation
-    ) {
+    public int createCamera(EntityCreationData creationData) {
         int id = world.create(cameraArchetype);
 
-        TransformComponent transformComponent = mappers.transformMapper.get(id);
-        transformComponent.x = x;
-        transformComponent.y = y;
-        transformComponent.rotation = rotation;
+        createTransformComponent(creationData, id);
 
         PhysicsComponent physicsComponent = createPhysicsComponent(
-            id, BodyDef.BodyType.KinematicBody, false, x, y, width, height, rotation, new ContactDataImpl(id)
+            id,
+            BodyDef.BodyType.KinematicBody,
+            false,
+            creationData,
+            new ContactDataImpl(id)
         );
 
         SecurityCameraComponent cam = mappers.cameraLogicMapper.get(id);
@@ -442,109 +384,55 @@ public class EntityFactory extends BaseSystem {
         short lightMask = (short) ~CollisionType.CATEGORY_SENSOR;
         cam.cameraLight.setContactFilter(CollisionType.CATEGORY_DEFAULT, (short) 0, lightMask);
 
-        RenderComponent renderComponent = mappers.renderMapper.get(id);
-        renderComponent.actor = userActorFactory.getCustomUiActor(actorType);
+        RenderComponent renderComponent = createRenderComponent(creationData, id);
 
         return id;
     }
 
-    public int createBox(
-        ActorTypeEnum actorType,
-        float x,
-        float y,
-        float width,
-        float height,
-        float originX,
-        float originY,
-        float rotation
-    ) {
+    public int createBox(EntityCreationData creationData) {
         int id = world.create(boxArchetype);
 
-        TransformComponent transformComponent = mappers.transformMapper.get(id);
-        transformComponent.x = x;
-        transformComponent.y = y;
-        transformComponent.rotation = rotation;
+        createTransformComponent(creationData, id);
 
         PhysicsComponent physicsComponent = createPhysicsComponent(
-            id, BodyDef.BodyType.DynamicBody, false, x, y, width, height, rotation, new ContactDataImpl(id)
+            id,
+            BodyDef.BodyType.DynamicBody,
+            false,
+            creationData,
+            new ContactDataImpl(id)
         );
 
-        RenderComponent renderComponent = mappers.renderMapper.get(id);
-        renderComponent.actor = userActorFactory.getCustomUiActor(actorType);
+        RenderComponent renderComponent = createRenderComponent(creationData, id);
 
         return id;
     }
 
-    public int createWires(
-        ActorTypeEnum actorType,
-        float x,
-        float y,
-        float width,
-        float height,
-        float originX,
-        float originY,
-        float rotation
-    ) {
-        return createItem(actorType, x, y, width, height, originX, originY, rotation, triggerActionFactory.PICK_UP_ITEM); //TODO
+    public int createWires(EntityCreationData creationData) {
+        return createItem(creationData, TriggerType.PICK_UP_ITEM); //TODO
     }
 
-    public int createWireCutters(
-        ActorTypeEnum actorType,
-        float x,
-        float y,
-        float width,
-        float height,
-        float originX,
-        float originY,
-        float rotation
-    ) {
-        return createItem(actorType, x, y, width, height, originX, originY, rotation, triggerActionFactory.PICK_UP_ITEM);
+    public int createWireCutters(EntityCreationData creationData) {
+        return createItem(creationData, TriggerType.PICK_UP_ITEM);
     }
 
-    public int createPump(
-        ActorTypeEnum actorType,
-        float x,
-        float y,
-        float width,
-        float height,
-        float originX,
-        float originY,
-        float rotation
-    ) {
-        return createItem(actorType, x, y, width, height, originX, originY, rotation, triggerActionFactory.PICK_UP_ITEM);
+    public int createPump(EntityCreationData creationData) {
+        return createItem(creationData, TriggerType.PICK_UP_ITEM);
     }
 
-    private int createItem(
-        ActorTypeEnum actorType,
-        float x,
-        float y,
-        float width,
-        float height,
-        float originX,
-        float originY,
-        float rotation,
-        TriggerAction triggerAction
-    ) {
-        int id = createDynamicObject(itemArchetype, actorType, x, y, width, height, rotation, triggerAction);
+    private int createItem(EntityCreationData creationData, TriggerType triggerType) {
+        int id = createDynamicObject(itemArchetype, creationData, triggerType);
         ItemComponent itemComponent = mappers.itemMapper.get(id);
-        itemComponent.itemId = actorType.name();
+        itemComponent.itemId = creationData.actorType.name();
 
         return id;
     }
 
     private int createInteractableObject(
-        ActorTypeEnum actorType,
-        float x,
-        float y,
-        float width,
-        float height,
-        float originX,
-        float originY,
-        float rotation,
+        EntityCreationData creationData,
         ActorTypeEnum requiredItemId,
-        TriggerAction triggerAction
+        TriggerType triggerType
     ) {
-        int id = createDynamicObject(interactableArchetype, actorType, x, y, width, height, rotation, triggerAction);
+        int id = createDynamicObject(interactableArchetype, creationData, triggerType);
 
         InteractableStateComponent itemComponent = mappers.interactStateMapper.get(id);
         itemComponent.isOpen = false;
@@ -560,195 +448,107 @@ public class EntityFactory extends BaseSystem {
 
     private int createDynamicObject(
         Archetype archetype,
-        ActorTypeEnum actorType,
-        float x,
-        float y,
-        float width,
-        float height,
-        float rotation,
-        TriggerAction triggerAction
+        EntityCreationData creationData,
+        TriggerType triggerType
     ) {
         int id = world.create(archetype);
 
-        TransformComponent transformComponent = mappers.transformMapper.get(id);
-        transformComponent.x = x;
-        transformComponent.y = y;
-        transformComponent.rotation = rotation;
+        createTransformComponent(creationData, id);
 
         PhysicsComponent physicsComponent = createPhysicsComponent(
-            id, BodyDef.BodyType.KinematicBody, false, x, y, width, height, rotation, new TriggerContactDataImpl(id)
+            id,
+            BodyDef.BodyType.KinematicBody,
+            false,
+            creationData,
+            new TriggerContactDataImpl(id)
         );
-        createPhysicsSensor(width, height, physicsComponent);
+        createPhysicsSensor(creationData.width, creationData.height, physicsComponent);
 
-        TriggerComponent triggerComponent = mappers.triggerMapper.get(id);
-        triggerComponent.action = triggerAction;
-        triggerComponent.conditionType = TriggerComponent.ConditionType.ON_KEY_E;
-        triggerComponent.useType = TriggerComponent.UseType.PERSISTENCE;
+        TriggerComponent triggerComponent = createTriggerComponent(
+            triggerType,
+            TriggerComponent.UseType.PERSISTENCE,
+            TriggerComponent.ConditionType.ON_KEY_E,
+            id
+        );
 
-        RenderComponent renderComponent = mappers.renderMapper.get(id);
-        renderComponent.actor = userActorFactory.getCustomUiActor(actorType);
+        RenderComponent renderComponent = createRenderComponent(creationData, id);
 
         return id;
     }
 
-    public int createMed(
-        ActorTypeEnum actorType,
-        float x,
-        float y,
-        float width,
-        float height,
-        float originX,
-        float originY,
-        float rotation
-    ) {
-        return createItem(actorType, x, y, width, height, originX, originY, rotation, triggerActionFactory.TOGGLE_CONTAINER);
+    public int createMed(EntityCreationData creationData) {
+        return createItem(creationData, TriggerType.TOGGLE_CONTAINER);
     }
 
-    public int createIronCabinet(
-        ActorTypeEnum actorType,
-        float x,
-        float y,
-        float width,
-        float height,
-        float originX,
-        float originY,
-        float rotation
-    ) {
-        return createItem(actorType, x, y, width, height, originX, originY, rotation, triggerActionFactory.TOGGLE_CONTAINER);
+    public int createIronCabinet(EntityCreationData creationData) {
+        return createItem(creationData, TriggerType.TOGGLE_CONTAINER);
     }
 
-    private int createWeightPlate(
-        ActorTypeEnum actorType,
-        float x,
-        float y,
-        float width,
-        float height,
-        float originX,
-        float originY,
-        float rotation
-    ) {
-        return createItem(actorType, x, y, width, height, originX, originY, rotation, triggerActionFactory.PICK_UP_ITEM);
+    private int createWeightPlate(EntityCreationData creationData) {
+        return createItem(creationData, TriggerType.PICK_UP_ITEM);
     }
 
-    public int createBoxHolder(
-        ActorTypeEnum actorType,
-        float x,
-        float y,
-        float width,
-        float height,
-        float originX,
-        float originY,
-        float rotation
-    ) {
-        return createItem(actorType, x, y, width, height, originX, originY, rotation, triggerActionFactory.PICK_UP_ITEM);
+    public int createBoxHolder(EntityCreationData creationData) {
+        return createItem(creationData, TriggerType.PICK_UP_ITEM);
     }
 
-    private int createLever(
-        ActorTypeEnum actorType,
-        float x,
-        float y,
-        float width,
-        float height,
-        float originX,
-        float originY,
-        float rotation
-    ) {
-        return createItem(actorType, x, y, width, height, originX, originY, rotation, triggerActionFactory.TOGGLE_CONTAINER);
+    private int createLever(EntityCreationData creationData) {
+        return createItem(creationData, TriggerType.TOGGLE_CONTAINER);
     }
 
-    private int createKeyHolder(
-        ActorTypeEnum actorType,
-        float x,
-        float y,
-        float width,
-        float height,
-        float originX,
-        float originY,
-        float rotation
-    ) {
-        return createItem(actorType, x, y, width, height, originX, originY, rotation, triggerActionFactory.TOGGLE_CONTAINER);
+    private int createKeyHolder(EntityCreationData creationData) {
+        return createItem(creationData, TriggerType.TOGGLE_CONTAINER);
     }
 
-    private int createBed(
-        ActorTypeEnum actorType,
-        float x,
-        float y,
-        float width,
-        float height,
-        float originX,
-        float originY,
-        float rotation
-    ) {
+    private int createBed(EntityCreationData creationData) {
         int id = world.create(boxArchetype);
 
-        TransformComponent transformComponent = mappers.transformMapper.get(id);
-        transformComponent.x = x;
-        transformComponent.y = y;
-        transformComponent.rotation = rotation;
+        createTransformComponent(creationData, id);
 
         PhysicsComponent physicsComponent = createPhysicsComponent(
-            id, BodyDef.BodyType.KinematicBody, false, x, y, width, height, rotation, new TriggerContactDataImpl(id)
+            id,
+            BodyDef.BodyType.KinematicBody,
+            false,
+            creationData,
+            new TriggerContactDataImpl(id)
         );
 
-        RenderComponent renderComponent = mappers.renderMapper.get(id);
-        renderComponent.actor = userActorFactory.getCustomUiActor(actorType);
+        RenderComponent renderComponent = createRenderComponent(creationData, id);
 
         return id;
     }
 
-    public int createBedWhite(
-        ActorTypeEnum actorType,
-        float x,
-        float y,
-        float width,
-        float height,
-        float originX,
-        float originY,
-        float rotation
-    ) {
-        return createBed(actorType, x, y, width, height, originX, originY, rotation);
+    public int createBedWhite(EntityCreationData creationData) {
+        return createBed(creationData);
     }
 
-    public int createBedGreen(
-        ActorTypeEnum actorType,
-        float x,
-        float y,
-        float width,
-        float height,
-        float originX,
-        float originY,
-        float rotation
-    ) {
-        return createBed(actorType, x, y, width, height, originX, originY, rotation);
+    public int createBedGreen(EntityCreationData creationData) {
+        return createBed(creationData);
     }
 
     private PhysicsComponent createPhysicsComponent(
         int entityId,
         BodyDef.BodyType bodyType,
         boolean isSensor,
-        float x,
-        float y,
-        float width,
-        float height,
-        float rotationDegree,
+        EntityCreationData creationData,
         ContactData contactData
     ) {
         SimpleUtils simpleUtils = gameManager.simpleUtils;
 
         // 1. Вычисляем половины размеров, так как setAsBox принимает полупериметр
-        float halfWidth = width / 2f;
-        float halfHeight = height / 2f;
+        float halfWidth = creationData.width / 2f;
+        float halfHeight = creationData.height / 2f;
 
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = bodyType;
 
-        float angleRad = rotationDegree * MathUtils.degreesToRadians;
-        float deltaX = width / 2f * MathUtils.cos(angleRad) - height / 2f * MathUtils.sin(angleRad);
-        float deltaY = width / 2f * MathUtils.sin(angleRad) + height / 2f * MathUtils.cos(angleRad);
+        float angleRad = creationData.rotation * MathUtils.degreesToRadians;
+        float deltaX = creationData.width / 2f * MathUtils.cos(angleRad) - creationData.height / 2f * MathUtils.sin(angleRad);
+        float deltaY = creationData.width / 2f * MathUtils.sin(angleRad) + creationData.height / 2f * MathUtils.cos(angleRad);
         // 2. Смещаем точку спавна из левого нижнего угла в геометрический центр объекта
         bodyDef.position.set(
-            simpleUtils.convertPixelsToMetres(x + deltaX),
-            simpleUtils.convertPixelsToMetres(y + deltaY)
+            simpleUtils.convertPixelsToMetres(creationData.x + deltaX),
+            simpleUtils.convertPixelsToMetres(creationData.y + deltaY)
         );
         bodyDef.angle = angleRad;
 
@@ -792,26 +592,19 @@ public class EntityFactory extends BaseSystem {
         this.userActorFactory = userActorFactory;
     }
 
-    public int createEntityFromUI(
-        ActorTypeEnum actorType,
-        MapObject mapObject,
-        float x,
-        float y,
-        float width,
-        float height,
-        float originX,
-        float originY,
-        float rotation
-    ) {
+    public int createEntityFromUI(EntityCreationData creationData) {
+        MapObject mapObject = creationData.mapObject;
+        ActorTypeEnum actorType = creationData.actorType;
+
         MapProperties properties = mapObject.getProperties();
 
         switch (actorType) {
             case HERO:
             case CHAR:
             case CHAR_1:
-                return createPlayer(actorType, x, y, width, height, originX, originY, rotation);
+                return createPlayer(creationData);
             case NPC:
-                return createNpc(actorType, x, y, width, height, originX, originY, rotation);
+                return createNpc(creationData);
             case TRIGGER:
                 String triggerType = properties.get("trigger_type", String.class);
                 String useType = properties.get("use_type", String.class);
@@ -828,79 +621,138 @@ public class EntityFactory extends BaseSystem {
                     throw new GdxRuntimeException("TRIGGER params are not valid");
                 }
 
-                return createTrigger(triggerTypeEnum, useTypeEnum, conditionTypeEnum, x, y, width, height, originX, originY, rotation);
+                return createTrigger(triggerTypeEnum, useTypeEnum, conditionTypeEnum, creationData);
             case ENEMY:
-                return createEnemy(actorType, x, y, width, height, originX, originY, rotation);
+                return createEnemy(creationData);
             case BOX_OPEN:
             case KOROB_OPEN:
-                return createBox(actorType, x, y, width, height, originX, originY, rotation);
+                return createBox(creationData);
             case BOX:
             case KOROB:
-                return createBox(actorType, x, y, width, height, originX, originY, rotation);
+                return createBox(creationData);
             case CAMERA:
             case CAM_1:
-                return createCamera(actorType, x, y, width, height, originX, originY, rotation);
+                return createCamera(creationData);
             case CAMERA_2:
             case CAM_2: // TODO это камера, которая смотрит прямо на игрока
-                return createCamera(actorType, x, y, width, height, originX, originY, rotation);
+                return createCamera(creationData);
             case BULLET:
-                return createBullet(actorType, new Vector2(), x, y, width, height, originX, originY, rotation);
+                return createBullet(creationData);
             case WALL:
-                return createWall(actorType, false, x, y, width, height, originX, originY, rotation);
+                return createWall(creationData, false);
             case DOOR:
             case DOOR_BROWN:
             case DOOR_GRAY:
-                return createDoor(actorType, x, y, width, height, originX, originY, rotation);
+                return createDoor(creationData);
             case WIRES:
-                return createWires(actorType, x, y, width, height, originX, originY, rotation);
+                return createWires(creationData);
             case WIRE_CUTTERS:
-                return createWireCutters(actorType, x, y, width, height, originX, originY, rotation);
+                return createWireCutters(creationData);
             case PUMPKIN:
             case PUMP:
-                return createPump(actorType, x, y, width, height, originX, originY, rotation);
+                return createPump(creationData);
             case WEIGHT_PLATE:
-                return createWeightPlate(actorType, x, y, width, height, originX, originY, rotation);
+                return createWeightPlate(creationData);
             case TOILET:
-                return createWall(actorType, true, x, y, width, height, originX, originY, rotation);
+                return createWall(creationData, true);
             case SINK:
-                return createWall(actorType, true, x, y, width, height, originX, originY, rotation);
+                return createWall(creationData, true);
             case TABLE:
-                return createBox(actorType, x, y, width, height, originX, originY, rotation);
+                return createBox(creationData);
             case CHAIR:
-                return createBox(actorType, x, y, width, height, originX, originY, rotation);
+                return createBox(creationData);
             case BED_WHITE:
-                return createBedWhite(actorType, x, y, width, height, originX, originY, rotation);
+                return createBedWhite(creationData);
             case BED_GREEN:
-                return createBedGreen(actorType, x, y, width, height, originX, originY, rotation);
+                return createBedGreen(creationData);
             case COOLER:
-                return createBox(actorType, x, y, width, height, originX, originY, rotation);
+                return createBox(creationData);
             case SPORT_BENCH:
             case FID_SPORT_BENCH:
             case DINING_BENCH:
-                return createWall(actorType, true, x, y, width, height, originX, originY, rotation);
+                return createWall(creationData, true);
             case CUP:
-                return createBox(actorType, x, y, width, height, originX, originY, rotation);
+                return createBox(creationData);
             case MED:
-                return createMed(actorType, x, y, width, height, originX, originY, rotation);
+                return createMed(creationData);
             case IRON_CABINET:
-                return createIronCabinet(actorType, x, y, width, height, originX, originY, rotation);
+                return createIronCabinet(creationData);
             case CART:
-                return createIronCabinet(actorType, x, y, width, height, originX, originY, rotation);
+                return createIronCabinet(creationData);
             case SECURITY_MONITORS:
-                return createWall(actorType, true, x, y, width, height, originX, originY, rotation);
+                return createWall(creationData, true);
             case GATE:
-                return createWall(actorType, true, x, y, width, height, originX, originY, rotation);
+                return createWall(creationData, true);
             case BARBELL:
-                return createWall(actorType, true, x, y, width, height, originX, originY, rotation);
+                return createWall(creationData, true);
             case BOX_HOLDER:
-                return createBoxHolder(actorType, x, y, width, height, originX, originY, rotation);
+                return createBoxHolder(creationData);
             case LEVER:
-                return createLever(actorType, x, y, width, height, originX, originY, rotation);
+                return createLever(creationData);
             case KEY:
-                return createKeyHolder(actorType, x, y, width, height, originX, originY, rotation);
+                return createKeyHolder(creationData);
         }
 
         throw new GdxRuntimeException("createEntityFromUI: " + actorType + " is not found");
+    }
+
+    private TransformComponent createTransformComponent(EntityCreationData creationData, int id) {
+        TransformComponent transformComponent = mappers.transformMapper.get(id);
+        transformComponent.x = creationData.x;
+        transformComponent.y = creationData.y;
+        transformComponent.rotationDegree = creationData.rotation;
+
+        return transformComponent;
+    }
+
+    private void createPhysicsSensor(
+        float width,
+        float height,
+        PhysicsComponent physicsComponent
+    ) {
+        SimpleUtils simpleUtils = gameManager.simpleUtils;
+        // сенсор для столкновений и триггеров
+
+        Body body = physicsComponent.body;
+        PolygonShape sensorShape = new PolygonShape();
+        sensorShape.setAsBox(
+            simpleUtils.convertPixelsToMetres(width / 2 * 1.3f),
+            simpleUtils.convertPixelsToMetres(height / 2 * 1.3f)
+        );
+
+        FixtureDef sensorDef = new FixtureDef();
+        sensorDef.shape = sensorShape;
+        sensorDef.isSensor = true;
+        sensorDef.filter.categoryBits = CollisionType.CATEGORY_SENSOR;
+
+        Fixture sensorFixture = body.createFixture(sensorDef);
+
+        sensorShape.dispose();
+    }
+
+    private TriggerComponent createTriggerComponent(
+        TriggerType triggerType,
+        TriggerComponent.UseType useType,
+        TriggerComponent.ConditionType conditionType,
+        int entityId
+    ) {
+        TriggerComponent trigger = mappers.triggerMapper.get(entityId);
+        trigger.conditionType = conditionType;
+        trigger.useType = useType;
+
+        // Передаем кастомный код текстом/логикой:
+        TriggerActionFactory triggerActionFactory = getWorld().getSystem(TriggerActionFactory.class);
+        trigger.action = triggerActionFactory.create(triggerType);
+
+        return trigger;
+    }
+
+    private RenderComponent createRenderComponent(EntityCreationData creationData, int id) {
+        RenderComponent renderComponent = mappers.renderMapper.get(id);
+        renderComponent.actor = userActorFactory.getCustomUiActor(creationData.actorType);
+        renderComponent.layerName = creationData.layerName;
+
+        return renderComponent;
     }
 
 }

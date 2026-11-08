@@ -2,27 +2,48 @@ package com.github.br.syberian.jam26.ecs.systems.renderer;
 
 import com.artemis.Aspect;
 import com.artemis.BaseSystem;
+import com.artemis.ComponentMapper;
+import com.artemis.EntitySubscription;
 import com.artemis.utils.IntBag;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.profiling.GLProfiler;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.github.br.libgdx.common.structure.GameSettings;
 import com.github.br.libgdx.common.structure.screen.ui.CustomOrthogonalTiledMapRenderer;
 import com.github.br.syberian.jam26.ecs.components.PhysicsComponent;
+import com.github.br.syberian.jam26.ecs.components.RenderComponent;
 import com.github.br.syberian.jam26.ecs.components.TransformComponent;
 import com.github.br.syberian.jam26.ecs.systems.UtilsObjectsHolder;
 
-public abstract class RenderSystem extends BaseSystem {
+public abstract class RenderSystem extends BaseSystem implements EntitySubscription.SubscriptionListener {
 
     private CustomOrthogonalTiledMapRenderer renderer;
     private GLProfiler profiler;
+
+    protected ComponentMapper<TransformComponent> mTransform;
+    protected ComponentMapper<RenderComponent> mRender;
 
     public void init(CustomOrthogonalTiledMapRenderer renderer) {
         this.renderer = renderer;
 
         this.profiler = new GLProfiler(Gdx.graphics);
+    }
+
+    public CustomOrthogonalTiledMapRenderer getRenderer() {
+        return renderer;
+    }
+
+    @Override
+    protected void initialize() {
+        this.mTransform = getWorld().getMapper(TransformComponent.class);
+        this.mRender = getWorld().getMapper(RenderComponent.class);
+
+        getWorld().getAspectSubscriptionManager()
+            .get(Aspect.all(TransformComponent.class, RenderComponent.class))
+            .addSubscriptionListener(this);
     }
 
     @Override
@@ -77,7 +98,7 @@ public abstract class RenderSystem extends BaseSystem {
 
     protected void updateEntities() {
         IntBag entities = getWorld().getAspectSubscriptionManager()
-            .get(Aspect.all(PhysicsComponent.class, TransformComponent.class))
+            .get(Aspect.all(TransformComponent.class, RenderComponent.class))
             .getEntities();
         for (int i = 0; i < entities.size(); i++) {
             int entityId = entities.get(i);
@@ -85,6 +106,56 @@ public abstract class RenderSystem extends BaseSystem {
         }
     }
 
-    protected abstract void process(int entityId);
+    protected void process(int entityId) {
+        TransformComponent transform = mTransform.get(entityId);
+        RenderComponent render = mRender.get(entityId);
+
+        if (render == null) {
+            return;
+        }
+
+        Actor actor = render.actor;
+        if (actor == null) {
+            return;
+        }
+
+        float width = actor.getWidth();
+        float height = actor.getHeight();
+
+        // Точка вращения (Origin) в box2d по центру, поэтому и у актора так ставим
+        actor.setOrigin(width / 2f, height / 2f);
+
+        actor.setPosition(
+            transform.x,
+            transform.y
+        );
+        actor.setRotation(transform.rotationDegree);
+    }
+
+    @Override
+    public void inserted(IntBag entities) {
+        for (int i = 0; i < entities.size(); i++) {
+            int entityId = entities.get(i);
+            RenderComponent render = mRender.get(entityId);
+
+            // Если у сущности есть Actor и указано имя слоя, автоматически добавляем его на сцену карты
+            if (render != null && render.actor != null && render.layerName != null) {
+                getRenderer().addToStage(render.layerName, render.actor);
+            }
+        }
+    }
+
+    @Override
+    public void removed(IntBag entities) {
+        for (int i = 0; i < entities.size(); i++) {
+            int entityId = entities.get(i);
+            RenderComponent render = mRender.get(entityId);
+
+            // Заодно закрываем ваш старый FIXME: автоматически удаляем Actor со сцены при уничтожении сущности!
+            if (render != null && render.actor != null) {
+                render.actor.remove();
+            }
+        }
+    }
 
 }

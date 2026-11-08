@@ -7,14 +7,17 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.ui.Container;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.github.tommyettinger.textra.TypingLabel;
+import com.ray3k.tenpatch.TenPatchDrawable;
 
 public class DefaultActorFactory implements ActorFactory {
 
@@ -36,6 +39,7 @@ public class DefaultActorFactory implements ActorFactory {
     public static final String PLAY_MODE = "play_mode";
     public static final String TEXT = "text";
     public static final String STYLE_NAME = "style_name";
+    public static final String BACKGROUND_9_PATCH = "background_9_patch";
     public static final String FRAME_DURATION = "frame_duration";
 
     private final Skin skin;
@@ -47,7 +51,7 @@ public class DefaultActorFactory implements ActorFactory {
     }
 
     @Override
-    public Actor getActor(MapObject object) {
+    public Actor createActor(String layerName, MapObject object) {
         String name = object.getName();
         MapProperties properties = object.getProperties();
 
@@ -80,8 +84,8 @@ public class DefaultActorFactory implements ActorFactory {
                 return createTypingLabel(
                     properties.get(TEXT, String.class),
                     properties.get(STYLE_NAME, String.class),
-                    properties.get(WIDTH, float.class),
-                    properties.get(HEIGHT, float.class)
+                    properties.get(BACKGROUND_9_PATCH, String.class),
+                    properties.get(WIDTH, float.class)
                 );
 
             case ActorType.IMAGE_BUTTON:
@@ -119,16 +123,32 @@ public class DefaultActorFactory implements ActorFactory {
         return label;
     }
 
-    public TypingLabel createTypingLabel(String buttonText, String styleName, float width, float height) {
-        //TODO сам текст нужно брать из файлика локализации !!!
+    public Container<TypingLabel> createTypingLabel(
+        String buttonText,
+        String styleName,
+        String background9patch,
+        float width
+    ) {
         TypingLabel label = new TypingLabel(buttonText, skin, styleName);
         label.setAlignment(Align.topLeft);
-        label.setWidth(width);
-        label.setHeight(height);
-
         label.setWrap(true);
 
-        return label;
+        Container<TypingLabel> container = new Container<>(label);
+        Drawable background = skin.getDrawable(background9patch);
+
+        // Защита: сбрасываем min-размеры до нуля прямо в коде, чтобы 32x32 из JSON не ломали pack()
+        background.setMinWidth(0);
+        background.setMinHeight(0);
+        container.setBackground(background);
+
+        // Фиксируем ширину (300). Без этого setWrap(true) не сможет понять, где переносить длинные слова!
+        container.width(width);
+
+        // Уменьшаем боковые отступы. 80f — слишком много для ширины 300.
+        // Поставьте значения поменьше, чтобы у текста было пространство для разметки.
+        container.pad(32f, 64f, 32f, 64f);
+
+        return container;
     }
 
     public AnimatedImage createAnimatedImage(String atlasName, String regionName, Animation.PlayMode playMode, float frameDuration) {

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><map height="100" infinite="0" nextlayerid="16" nextobjectid="183" orientation="orthogonal" renderorder="right-down" tiledversion="1.11.2" tileheight="120" tilewidth="120" version="1.10" width="100"><properties><property name="atlas" value="tileset/level-1.atlas"/></properties>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><map height="100" infinite="0" nextlayerid="17" nextobjectid="185" orientation="orthogonal" renderorder="right-down" tiledversion="1.11.2" tileheight="120" tilewidth="120" version="1.10" width="100"><properties><property name="atlas" value="tileset/level-1.atlas"/></properties>
  <tileset columns="0" firstgid="1" name="floor_and_walls" tilecount="26" tileheight="120" tilewidth="120">
   <grid height="1" orientation="orthogonal" width="1"/>
   <tile id="0">
@@ -619,13 +619,13 @@
      <property name="is_ecs_entity" type="bool" value="true"/>
     </properties>
    </object>
-   <object gid="28" height="115" id="109" name="bed_white" rotation="-90" width="81" x="3715.5" y="7058.5">
+   <object gid="28" height="115" id="109" name="bed_white" rotation="-90" width="81" x="3716" y="7058.5">
     <properties>
      <property name="actor_type" value="BED_WHITE"/>
      <property name="is_ecs_entity" type="bool" value="true"/>
     </properties>
    </object>
-   <object gid="28" height="115" id="110" name="bed_white" rotation="-90" width="81" x="3714.5" y="7182.5">
+   <object gid="28" height="115" id="110" name="bed_white" rotation="-90" width="81" x="3716" y="7182.5">
     <properties>
      <property name="actor_type" value="BED_WHITE"/>
      <property name="is_ecs_entity" type="bool" value="true"/>
@@ -751,6 +751,12 @@
      <property name="is_ecs_entity" type="bool" value="true"/>
     </properties>
    </object>
+   <object gid="28" height="115" id="184" name="bed_white" rotation="-90" width="81" x="3716" y="7303.5">
+    <properties>
+     <property name="actor_type" value="BED_WHITE"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
   </objectgroup>
   <objectgroup color="#aaff7f" id="2" name="hero">
    <object gid="36" height="42" id="112" name="hero" rotation="180" width="51" x="5003" y="7005">
@@ -839,6 +845,12 @@
      <property name="is_ecs_entity" type="bool" value="true"/>
     </properties>
    </object>
+   <object gid="83" height="118.5" id="183" name="brown_door" rotation="90" width="115.5" x="3960.25" y="6961.75">
+    <properties>
+     <property name="actor_type" value="DOOR_BROWN"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
   </objectgroup>
   <objectgroup color="#00aaff" id="11" name="cameras">
    <object gid="81" height="62" id="50" name="camera" width="33" x="7723" y="4801">
@@ -891,7 +903,7 @@
    </object>
   </objectgroup>
   <objectgroup color="#55ff7f" id="12" name="objects_top">
-   <object gid="85" height="102" id="57" name="med" width="62" x="3601" y="7311.67">
+   <object gid="85" height="102" id="57" name="med" width="62" x="3815.67" y="6759.67">
     <properties>
      <property name="actor_type" value="MED"/>
      <property name="is_ecs_entity" type="bool" value="true"/>
@@ -983,6 +995,11 @@
      <property name="is_ecs_entity" type="bool" value="true"/>
     </properties>
    </object>
+  </objectgroup>
+  <objectgroup id="16" name="talking_layer">
+   <properties>
+    <property name="is_object_layer" type="bool" value="true"/>
+   </properties>
   </objectgroup>
  </group>
 </map>

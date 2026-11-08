@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.github.br.libgdx.common.structure.GameSettings;
 import com.github.br.libgdx.common.structure.screen.ui.CustomOrthogonalTiledMapRenderer;
@@ -16,7 +15,7 @@ import com.github.br.syberian.jam26.ecs.systems.physics.PhysicsSystem;
 
 import box2dLight.RayHandler;
 
-@All({TransformComponent.class})
+@All({TransformComponent.class, RenderComponent.class})
 public class Box2dRenderSystem extends RenderSystem {
 
     private Box2DDebugRenderer debugRenderer;
@@ -51,41 +50,13 @@ public class Box2dRenderSystem extends RenderSystem {
 
     @Override
     protected void initialize() {
-        this.mTransform = getWorld().getMapper(TransformComponent.class);
-        this.mRender = getWorld().getMapper(RenderComponent.class);
+        super.initialize();
     }
 
     @Override
     protected void render(Viewport viewport, OrthographicCamera camera, GameSettings gameSettings) {
         super.render(viewport, camera, gameSettings);
         renderBox2dLight(camera, gameSettings);
-    }
-
-    @Override
-    protected void process(int entityId) {
-        TransformComponent transform = mTransform.get(entityId);
-        RenderComponent render = mRender.get(entityId);
-
-        if (render == null) {
-            return;
-        }
-
-        Actor actor = render.actor;
-        if (actor == null) {
-            return;
-        }
-
-        float width = actor.getWidth();
-        float height = actor.getHeight();
-
-        // Точка вращения (Origin) в box2d по центру, поэтому и у актора так ставим
-        actor.setOrigin(width / 2f, height / 2f);
-
-        actor.setPosition(
-            transform.x,
-            transform.y
-        );
-        actor.setRotation(transform.rotation);
     }
 
     public void renderBox2dLight(OrthographicCamera camera, GameSettings gameSettings) {
