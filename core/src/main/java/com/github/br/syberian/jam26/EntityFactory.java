@@ -3,6 +3,9 @@ package com.github.br.syberian.jam26;
 import com.artemis.Archetype;
 import com.artemis.ArchetypeBuilder;
 import com.artemis.BaseSystem;
+import com.artemis.ComponentMapper;
+import com.artemis.managers.TagManager;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.math.MathUtils;
@@ -13,7 +16,9 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.GdxRuntimeException;
+import com.badlogic.gdx.utils.Null;
 import com.github.br.libgdx.common.structure.GameManager;
 import com.github.br.libgdx.common.structure.SimpleUtils;
 import com.github.br.syberian.jam26.ecs.components.EnemyComponent;
@@ -59,11 +64,6 @@ public class EntityFactory extends BaseSystem {
     private TriggerActionFactory triggerActionFactory;
 
     private Mappers mappers;
-
-    @Override
-    public com.artemis.World getWorld() {
-        return world;
-    }
 
     @Override
     protected void initialize() {
@@ -592,19 +592,22 @@ public class EntityFactory extends BaseSystem {
         this.userActorFactory = userActorFactory;
     }
 
-    public int createEntityFromUI(EntityCreationData creationData) {
+    public Actor createEntityFromUI(EntityCreationData creationData) {
         MapObject mapObject = creationData.mapObject;
         ActorTypeEnum actorType = creationData.actorType;
 
         MapProperties properties = mapObject.getProperties();
 
+        int entityId;
         switch (actorType) {
             case HERO:
             case CHAR:
             case CHAR_1:
-                return createPlayer(creationData);
+                entityId = createPlayer(creationData);
+                break;
             case NPC:
-                return createNpc(creationData);
+                entityId = createNpc(creationData);
+                break;
             case TRIGGER:
                 String triggerType = properties.get("trigger_type", String.class);
                 String useType = properties.get("use_type", String.class);
@@ -621,79 +624,136 @@ public class EntityFactory extends BaseSystem {
                     throw new GdxRuntimeException("TRIGGER params are not valid");
                 }
 
-                return createTrigger(triggerTypeEnum, useTypeEnum, conditionTypeEnum, creationData);
+                entityId = createTrigger(triggerTypeEnum, useTypeEnum, conditionTypeEnum, creationData);
+                break;
             case ENEMY:
-                return createEnemy(creationData);
+                entityId = createEnemy(creationData);
+                break;
             case BOX_OPEN:
             case KOROB_OPEN:
-                return createBox(creationData);
+                entityId = createBox(creationData);
+                break;
             case BOX:
             case KOROB:
-                return createBox(creationData);
+                entityId = createBox(creationData);
+                break;
             case CAMERA:
             case CAM_1:
-                return createCamera(creationData);
+                entityId = createCamera(creationData);
+                break;
             case CAMERA_2:
             case CAM_2: // TODO это камера, которая смотрит прямо на игрока
-                return createCamera(creationData);
+                entityId = createCamera(creationData);
+                break;
             case BULLET:
-                return createBullet(creationData);
+                entityId = createBullet(creationData);
+                break;
             case WALL:
-                return createWall(creationData, false);
+                entityId = createWall(creationData, false);
+                break;
             case DOOR:
             case DOOR_BROWN:
             case DOOR_GRAY:
-                return createDoor(creationData);
+                entityId = createDoor(creationData);
+                break;
             case WIRES:
-                return createWires(creationData);
+                entityId = createWires(creationData);
+                break;
             case WIRE_CUTTERS:
-                return createWireCutters(creationData);
+                entityId = createWireCutters(creationData);
+                break;
             case PUMPKIN:
             case PUMP:
-                return createPump(creationData);
+                entityId = createPump(creationData);
+                break;
             case WEIGHT_PLATE:
-                return createWeightPlate(creationData);
+                entityId = createWeightPlate(creationData);
+                break;
             case TOILET:
-                return createWall(creationData, true);
+                entityId = createWall(creationData, true);
+                break;
             case SINK:
-                return createWall(creationData, true);
+                entityId = createWall(creationData, true);
+                break;
             case TABLE:
-                return createBox(creationData);
+                entityId = createBox(creationData);
+                break;
             case CHAIR:
-                return createBox(creationData);
+                entityId = createBox(creationData);
+                break;
             case BED_WHITE:
-                return createBedWhite(creationData);
+                entityId = createBedWhite(creationData);
+                break;
             case BED_GREEN:
-                return createBedGreen(creationData);
+                entityId = createBedGreen(creationData);
+                break;
             case COOLER:
-                return createBox(creationData);
+                entityId = createBox(creationData);
+                break;
             case SPORT_BENCH:
             case FID_SPORT_BENCH:
             case DINING_BENCH:
-                return createWall(creationData, true);
+                entityId = createWall(creationData, true);
+                break;
             case CUP:
-                return createBox(creationData);
+                entityId = createBox(creationData);
+                break;
             case MED:
-                return createMed(creationData);
+                entityId = createMed(creationData);
+                break;
             case IRON_CABINET:
-                return createIronCabinet(creationData);
+                entityId = createIronCabinet(creationData);
+                break;
             case CART:
-                return createIronCabinet(creationData);
+                entityId = createIronCabinet(creationData);
+                break;
             case SECURITY_MONITORS:
-                return createWall(creationData, true);
+                entityId = createWall(creationData, true);
+                break;
             case GATE:
-                return createWall(creationData, true);
+                entityId = createWall(creationData, true);
+                break;
             case BARBELL:
-                return createWall(creationData, true);
+                entityId = createWall(creationData, true);
+                break;
             case BOX_HOLDER:
-                return createBoxHolder(creationData);
+                entityId = createBoxHolder(creationData);
+                break;
             case LEVER:
-                return createLever(creationData);
+                entityId = createLever(creationData);
+                break;
             case KEY:
-                return createKeyHolder(creationData);
+                entityId = createKeyHolder(creationData);
+                break;
+            default:
+                throw new GdxRuntimeException("createEntityFromUI: " + actorType + " is not found");
         }
 
-        throw new GdxRuntimeException("createEntityFromUI: " + actorType + " is not found");
+        String tag = creationData.tag;
+        if (tag != null) {
+            TagManager tagManager = world.getSystem(TagManager.class);
+            // Защита от дубликатов: в Artemis один тег может принадлежать только ОДНОЙ сущности.
+            // Если на карте случайно назвали два объекта одинаково, выкидываем понятную ошибку.
+            if (tagManager.getEntityId(tag) != -1) {
+                throw new GdxRuntimeException("Entity with tag [" + tag + "] have already registered in TagManager");
+            }
+
+            tagManager.register(tag, entityId);
+        }
+
+        return getActor(actorType, entityId);
+    }
+
+    private @Null Actor getActor(ActorTypeEnum actorType, int entityId) {
+        ComponentMapper<RenderComponent> mapper = world.getMapper(RenderComponent.class);
+        RenderComponent renderComponent = mapper.get(entityId);
+        if (renderComponent == null || renderComponent.actor == null) {
+            Gdx.app.log("WARN", "UserActorFactory#createEcsEntity, actorTypeEnum=" +
+                actorType + " render component is null");
+            return null;
+        }
+
+        return renderComponent.actor;
     }
 
     private TransformComponent createTransformComponent(EntityCreationData creationData, int id) {

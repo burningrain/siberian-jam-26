@@ -730,6 +730,7 @@
    <object gid="36" height="42" id="134" name="npc" rotation="180" width="51" x="5965.06" y="6763.15">
     <properties>
      <property name="actor_type" value="NPC"/>
+     <property name="ecs_tag" value="cellmate"/>
      <property name="is_ecs_entity" type="bool" value="true"/>
     </properties>
    </object>

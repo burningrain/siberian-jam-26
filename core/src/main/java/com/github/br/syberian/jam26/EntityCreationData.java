@@ -5,6 +5,7 @@ import com.badlogic.gdx.maps.MapObject;
 public class EntityCreationData {
 
     public ActorTypeEnum actorType;
+    public String tag;
     public String layerName;
     public MapObject mapObject;
     public float x;
@@ -17,6 +18,7 @@ public class EntityCreationData {
 
     public EntityCreationData(
         ActorTypeEnum actorType,
+        String tag,
         String layerName,
         MapObject mapObject,
         float x,
@@ -28,6 +30,7 @@ public class EntityCreationData {
         float rotation
     ) {
         this.actorType = actorType;
+        this.tag = tag;
         this.layerName = layerName;
         this.mapObject = mapObject;
         this.x = x;

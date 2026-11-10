@@ -10,7 +10,6 @@ import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.objects.TextureMapObject;
 import com.badlogic.gdx.maps.tiled.objects.TiledMapTileMapObject;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.badlogic.gdx.utils.Null;
@@ -24,6 +23,7 @@ public class UserActorFactory implements IUserActorFactory {
 
 
     public static final String IS_ECS_ENTITY = "is_ecs_entity";
+    public static final String ECS_TAG = "ecs_tag";
     private final DefaultActorFactory delegate;
 
     private final Skin skin;
@@ -71,8 +71,9 @@ public class UserActorFactory implements IUserActorFactory {
         Actor actor = null;
         Boolean isEcsEntity = properties.get(IS_ECS_ENTITY, Boolean.class);
         if (isEcsEntity != null && isEcsEntity) {
+            String tag = properties.get(ECS_TAG, String.class);
             try {
-                actor = createEcsEntity(actorTypeEnum, layerName, mapObject, x, y, width, height, originX, originY, rotationDegrees);
+                actor = createEcsEntity(actorTypeEnum, tag, layerName, mapObject, x, y, width, height, originX, originY, rotationDegrees);
             } catch (Exception e) {
                 throw new GdxRuntimeException("UserActorFactory#createEcsEntity: object=[" + mapObject.getName() + "] " + e.getMessage());
             }
@@ -105,6 +106,7 @@ public class UserActorFactory implements IUserActorFactory {
 
     private @Null Actor createEcsEntity(
         ActorTypeEnum actorTypeEnum,
+        String tag,
         String layerName,
         MapObject mapObject,
         float x,
@@ -115,9 +117,10 @@ public class UserActorFactory implements IUserActorFactory {
         float originY,
         float rotation
     ) {
-        int id = entityFactory.createEntityFromUI(
+        return entityFactory.createEntityFromUI(
             new EntityCreationData(
                 actorTypeEnum,
+                tag,
                 layerName,
                 mapObject,
                 x,
@@ -129,19 +132,6 @@ public class UserActorFactory implements IUserActorFactory {
                 rotation
             )
         );
-        World world = entityFactory.getWorld();
-        ComponentMapper<RenderComponent> mapper = world.getMapper(RenderComponent.class);
-        if (mapper == null) {
-            throw new IllegalStateException("forgot RenderComponent for actorType=" + actorTypeEnum);
-        }
-        RenderComponent renderComponent = mapper.get(id);
-        if (renderComponent == null || renderComponent.actor == null) {
-            Gdx.app.log("WARN", "UserActorFactory#createEcsEntity, actorTypeEnum=" +
-                actorTypeEnum + " render component is null");
-            return null;
-        }
-
-        return renderComponent.actor;
     }
 
     private static @NonNull ActorTypeEnum getActorTypeEnum(String actorType) {
