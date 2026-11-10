@@ -30,6 +30,7 @@ import com.github.br.syberian.jam26.ecs.systems.PlayerInputSystem;
 import com.github.br.syberian.jam26.ecs.systems.SecurityCameraSystem;
 import com.github.br.syberian.jam26.ecs.systems.TriggerSystem;
 import com.github.br.syberian.jam26.ecs.systems.UtilsObjectsHolder;
+import com.github.br.syberian.jam26.ecs.systems.cutscene.CutsceneSystem;
 import com.github.br.syberian.jam26.ecs.systems.physics.PhysicsContactListener;
 import com.github.br.syberian.jam26.ecs.systems.physics.PhysicsSystem;
 import com.github.br.syberian.jam26.ecs.systems.renderer.Box2dRenderSystem;
@@ -81,15 +82,13 @@ public class PhysicsLevelScreen extends AbstractTiledMapScreen<IUserActorFactory
         WorldConfiguration config = new WorldConfigurationBuilder()
             .with(new TagManager())
 
+            .with(new CutsceneSystem())
             // Сбор ввода игрока
             .with(new PlayerInputSystem(getGameManager()))
 
             // физика
             .with(contactListener)
             .with(physicsSystem)
-            .with(new TriggerSystem())
-            .with(new TriggerActionFactory(this))
-
             // бизнес-логика игры
             .with(new FollowTheTargetSystem())
             .with(new SecurityCameraSystem(getGameManager()))
@@ -103,6 +102,9 @@ public class PhysicsLevelScreen extends AbstractTiledMapScreen<IUserActorFactory
             .with(entityFactory)
             .with(new Mappers())
             .with(utilsObjectsHolder)
+            .with(new TriggerActionFactory(this))
+
+            .with(new TriggerSystem()) // должна быть самой последней, ибо рестартует уровень!
             .build();
 
         // !!! ЖЕСТКОЕ ПРАВИЛО ДЛЯ ВЕБА:

@@ -80,6 +80,8 @@ public class Main extends AbstractSimpleGame<UserFactoryImpl> {
         builder.setDebugBox2d(Constants.IS_DEBUG_BOX2D);
         builder.setActiveGlProfiler(Constants.IS_GL_PROFILE_ACTIVE);
         builder.setPpu(Constants.PPM);
+
+        builder.setGamePlaySettings(new GamePlaySettingsImpl());
     }
 
 }

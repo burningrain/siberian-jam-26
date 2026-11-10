@@ -11,14 +11,19 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.scenes.scene2d.ui.Container;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.github.br.libgdx.common.structure.GameManager;
+import com.github.br.libgdx.common.structure.GamePlaySettings;
 import com.github.br.libgdx.common.structure.screen.RestartScreen;
 import com.github.br.libgdx.common.structure.screen.ui.AnimatedImage;
+import com.github.br.syberian.jam26.ecs.components.CutsceneComponent;
 import com.github.br.syberian.jam26.ecs.components.FollowTheTargetComponent;
 import com.github.br.syberian.jam26.ecs.components.InteractableStateComponent;
 import com.github.br.syberian.jam26.ecs.components.PhysicsComponent;
 import com.github.br.syberian.jam26.ecs.components.RenderComponent;
 import com.github.br.syberian.jam26.ecs.components.TriggerAction;
 import com.github.br.syberian.jam26.ecs.systems.UtilsObjectsHolder;
+import com.github.br.syberian.jam26.ecs.systems.cutscene.step.MoveToStep;
+import com.github.br.syberian.jam26.ecs.systems.cutscene.step.SayStep;
+import com.github.br.syberian.jam26.ecs.systems.cutscene.step.WaitStep;
 import com.github.br.syberian.jam26.ecs.systems.physics.CollisionType;
 import com.github.br.syberian.jam26.ecs.systems.renderer.Box2dRenderSystem;
 import com.github.tommyettinger.textra.TypingLabel;
@@ -164,35 +169,24 @@ public class TriggerActionFactory extends BaseSystem {
         return new TriggerAction() {
             @Override
             public void execute(World world, int triggerEntityId, int activatorEntityId) {
-                EntityFactory entityFactory = world.getSystem(EntityFactory.class);
-                int talkingLabelEntityId = entityFactory.createTalkingLabel(
-                    triggerEntityId,
-                    "talking_layer",
-                    8
-                );
+                // 1. Блокируем ввод игрока
+                GamePlaySettingsImpl gamePlaySettings = (GamePlaySettingsImpl) gameManager.gameSettings.getGamePlaySettings();
+                gamePlaySettings.setDialogueActive(true);
 
-                RenderComponent renderComponent = mappers.renderMapper.get(talkingLabelEntityId);
+                // 2. Создаем динамическую сущность режиссера сценария
+                int cutsceneEntityId = world.create();
+                CutsceneComponent cutscene = world.getMapper(CutsceneComponent.class).create(cutsceneEntityId);
 
-                @SuppressWarnings("unchecked")
-                Container<TypingLabel> labelContainer = (Container<TypingLabel>) renderComponent.actor;
-                TypingLabel typingLabel = labelContainer.getActor();
+                // Достаем ID нужного NPC (например, из свойств триггера или подписки)
+                int npcEntityId = triggerEntityId;
 
-                // 1. Устанавливаем длинный текст
-                typingLabel.setText("ЕПТА?!");
-
-                // 2. Важнейший шаг: инвалидируем иерархию, чтобы контейнер узнал об изменении размера текста внутри
-                typingLabel.invalidateHierarchy();
-                labelContainer.invalidate();
-
-                // 3. Пересчитываем размеры контейнера. Теперь он растянется вниз на столько строк, сколько занял текст
-                labelContainer.pack();
-
-                // 4. Позиционируем ровно над головой
-                FollowTheTargetComponent follow = world.getMapper(FollowTheTargetComponent.class).get(talkingLabelEntityId);
-                if (follow != null) {
-                    follow.offsetY = 32f + labelContainer.getHeight() / 5f;
-                    follow.offsetX = -labelContainer.getWidth() / 2f;
-                }
+                // 3. РЕЖИССУРА: Набиваем сценарий по порядку выполнения!
+                cutscene.steps.add(new SayStep(npcEntityId, "Стоять! Ты кто такой?!"));
+                cutscene.steps.add(new SayStep(activatorEntityId, "Я просто мимо проходил..."));
+                cutscene.steps.add(new WaitStep(1.0f)); // Драматическая пауза в секунду
+                cutscene.steps.add(new SayStep(npcEntityId, "Сюда иди, разбираться будем!"));
+                cutscene.steps.add(new MoveToStep(npcEntityId, 500f, 300f)); // Идет в координаты комнаты
+                cutscene.steps.add(new SayStep(npcEntityId, "Давай быстрее."));
             }
         };
     }
