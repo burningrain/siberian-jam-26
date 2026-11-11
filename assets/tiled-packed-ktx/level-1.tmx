@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><map height="100" infinite="0" nextlayerid="17" nextobjectid="185" orientation="orthogonal" renderorder="right-down" tiledversion="1.11.2" tileheight="120" tilewidth="120" version="1.10" width="100"><properties><property name="atlas" value="tileset/level-1.atlas"/></properties>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><map height="100" infinite="0" nextlayerid="19" nextobjectid="185" orientation="orthogonal" renderorder="right-down" tiledversion="1.11.2" tileheight="120" tilewidth="120" version="1.10" width="100"><properties><property name="atlas" value="tileset/level-1.atlas"/></properties>
  <tileset columns="0" firstgid="1" name="floor_and_walls" tilecount="26" tileheight="120" tilewidth="120">
   <grid height="1" orientation="orthogonal" width="1"/>
   <tile id="0">
@@ -997,9 +997,19 @@
     </properties>
    </object>
   </objectgroup>
+  <objectgroup id="18" name="box2d_light">
+   <properties>
+    <property name="is_custom_layer_renderer" type="bool" value="true"/>
+   </properties>
+  </objectgroup>
   <objectgroup id="16" name="talking_layer">
    <properties>
     <property name="is_object_layer" type="bool" value="true"/>
+   </properties>
+  </objectgroup>
+  <objectgroup id="17" name="inventory_layer">
+   <properties>
+    <property name="is_ui_layer" type="bool" value="true"/>
    </properties>
   </objectgroup>
  </group>

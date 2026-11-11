@@ -3,8 +3,8 @@ package com.github.br.syberian.jam26;
 public enum ActorTypeEnum {
 
     // COMMON
-    TALKING,
     TRIGGER,
+    TALKING,
     // COMMON
 
     // TEST

@@ -34,14 +34,14 @@
                 6
             ],
             "expandedObjectLayers": [
-                12,
-                2,
-                11,
                 6,
-                10,
+                11,
                 13,
+                10,
+                12,
+                14,
                 9,
-                14
+                2
             ],
             "scale": 0.5,
             "selectedLayer": 9,
@@ -61,17 +61,17 @@
         },
         "physics-level-1.tmx": {
             "expandedObjectLayers": [
-                3,
+                6,
                 7,
                 4,
-                2,
-                6
+                3,
+                2
             ],
             "scale": 0.33,
-            "selectedLayer": 5,
+            "selectedLayer": 1,
             "viewCenter": {
-                "x": 4868.181818181818,
-                "y": 12062.121212121212
+                "x": 4013.636363636364,
+                "y": 11677.272727272728
             }
         },
         "physics-level-1.tmx#environment": {
@@ -137,7 +137,7 @@
         "test-room.tmx"
     ],
     "project": "blind-corridor.tiled-project",
-    "property.type": "string",
+    "property.type": "bool",
     "recentFiles": [
         "level-1.tmx",
         "test-room.tmx",

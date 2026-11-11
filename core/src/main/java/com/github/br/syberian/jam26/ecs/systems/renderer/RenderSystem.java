@@ -13,7 +13,6 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.github.br.libgdx.common.structure.GameSettings;
 import com.github.br.libgdx.common.structure.screen.ui.CustomOrthogonalTiledMapRenderer;
-import com.github.br.syberian.jam26.ecs.components.PhysicsComponent;
 import com.github.br.syberian.jam26.ecs.components.RenderComponent;
 import com.github.br.syberian.jam26.ecs.components.TransformComponent;
 import com.github.br.syberian.jam26.ecs.systems.UtilsObjectsHolder;
@@ -28,11 +27,10 @@ public abstract class RenderSystem extends BaseSystem implements EntitySubscript
 
     public void init(CustomOrthogonalTiledMapRenderer renderer) {
         this.renderer = renderer;
-
         this.profiler = new GLProfiler(Gdx.graphics);
     }
 
-    public CustomOrthogonalTiledMapRenderer getRenderer() {
+    protected CustomOrthogonalTiledMapRenderer getRenderer() {
         return renderer;
     }
 

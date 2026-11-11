@@ -14,6 +14,7 @@ import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.github.br.libgdx.common.structure.GameSettings;
 import com.github.br.libgdx.common.structure.screen.ui.ActorFactory;
+import com.github.br.libgdx.common.structure.screen.ui.CustomLayerRenderer;
 import com.github.br.libgdx.common.structure.screen.ui.CustomOrthogonalTiledMapRenderer;
 import com.github.br.libgdx.common.structure.screen.ui.vfx.VfxEffectPooledFactory;
 
@@ -83,6 +84,7 @@ public abstract class AbstractTiledMapUiScreen<A extends ActorFactory, V extends
         vfxEffectPoolFactory = createVfxEffectPoolFactory(assetManager, gameSettings);
         fixBleeding(tiledMap);
         renderer = new CustomOrthogonalTiledMapRenderer(
+            createCustomLayerRenderer(),
             actorFactory,
             viewport,
             tiledMap,
@@ -95,6 +97,8 @@ public abstract class AbstractTiledMapUiScreen<A extends ActorFactory, V extends
 
         afterShow(tiledMap, renderer, viewport, actorFactory, vfxEffectPoolFactory);
     }
+
+    protected abstract CustomLayerRenderer createCustomLayerRenderer();
 
     //TODO быстрофикс - на пиксель растягиваем каждый тайл, чтобы зазоры не были видны
     //TODO я не знаю откуда они!

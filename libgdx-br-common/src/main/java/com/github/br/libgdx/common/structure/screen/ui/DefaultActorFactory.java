@@ -13,11 +13,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.github.tommyettinger.textra.TypingLabel;
-import com.ray3k.tenpatch.TenPatchDrawable;
 
 public class DefaultActorFactory implements ActorFactory {
 
@@ -178,6 +178,12 @@ public class DefaultActorFactory implements ActorFactory {
         }
 
         return button;
+    }
+
+    public Actor createInventoryHUD() {
+        Table inventoryTable = new Table();
+        inventoryTable.left().top();
+        return inventoryTable;
     }
 
 }

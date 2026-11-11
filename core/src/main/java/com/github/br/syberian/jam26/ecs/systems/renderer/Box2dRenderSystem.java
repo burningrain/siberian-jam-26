@@ -1,16 +1,19 @@
 package com.github.br.syberian.jam26.ecs.systems.renderer;
 
-import com.artemis.ComponentMapper;
 import com.artemis.annotations.All;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.github.br.libgdx.common.structure.GameManager;
 import com.github.br.libgdx.common.structure.GameSettings;
+import com.github.br.libgdx.common.structure.screen.ui.CustomLayerRenderer;
 import com.github.br.libgdx.common.structure.screen.ui.CustomOrthogonalTiledMapRenderer;
 import com.github.br.syberian.jam26.ecs.components.RenderComponent;
 import com.github.br.syberian.jam26.ecs.components.TransformComponent;
+import com.github.br.syberian.jam26.ecs.systems.UtilsObjectsHolder;
 import com.github.br.syberian.jam26.ecs.systems.physics.PhysicsSystem;
 
 import box2dLight.RayHandler;
@@ -21,11 +24,15 @@ public class Box2dRenderSystem extends RenderSystem {
     private Box2DDebugRenderer debugRenderer;
     private final World box2dWorld;
 
-    // Выделяем память под матрицу один раз, чтобы не мусорить в куче (GC) каждый кадр
     private final Matrix4 debugMatrix = new Matrix4();
 
-    protected ComponentMapper<TransformComponent> mTransform;
-    protected ComponentMapper<RenderComponent> mRender;
+    private GameManager gameManager;
+    private final CustomLayerRenderer customLayerRenderer = new CustomLayerRenderer() {
+        @Override
+        public void render(MapLayer layer, Viewport viewport) {
+            renderBox2dLight((OrthographicCamera) viewport.getCamera(), gameManager.gameSettings);
+        }
+    };
 
     public Box2dRenderSystem(World box2dWorld) {
         this.box2dWorld = box2dWorld;
@@ -51,12 +58,9 @@ public class Box2dRenderSystem extends RenderSystem {
     @Override
     protected void initialize() {
         super.initialize();
-    }
 
-    @Override
-    protected void render(Viewport viewport, OrthographicCamera camera, GameSettings gameSettings) {
-        super.render(viewport, camera, gameSettings);
-        renderBox2dLight(camera, gameSettings);
+        UtilsObjectsHolder utilsObjectsHolder = getWorld().getSystem(UtilsObjectsHolder.class);
+        gameManager = utilsObjectsHolder.getGameManager();
     }
 
     public void renderBox2dLight(OrthographicCamera camera, GameSettings gameSettings) {
@@ -75,6 +79,10 @@ public class Box2dRenderSystem extends RenderSystem {
     @Override
     protected void dispose() {
         debugRenderer.dispose();
+    }
+
+    public CustomLayerRenderer getCustomLayerRenderer() {
+        return customLayerRenderer;
     }
 
 }

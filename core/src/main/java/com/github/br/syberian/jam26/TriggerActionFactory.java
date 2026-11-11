@@ -8,16 +8,16 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Filter;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
-import com.badlogic.gdx.scenes.scene2d.ui.Container;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.github.br.libgdx.common.structure.GameManager;
-import com.github.br.libgdx.common.structure.GamePlaySettings;
 import com.github.br.libgdx.common.structure.screen.RestartScreen;
 import com.github.br.libgdx.common.structure.screen.ui.AnimatedImage;
 import com.github.br.syberian.jam26.ecs.components.CutsceneComponent;
-import com.github.br.syberian.jam26.ecs.components.FollowTheTargetComponent;
+import com.github.br.syberian.jam26.ecs.components.DeleteIntentComponent;
 import com.github.br.syberian.jam26.ecs.components.InteractableStateComponent;
+import com.github.br.syberian.jam26.ecs.components.ItemComponent;
 import com.github.br.syberian.jam26.ecs.components.PhysicsComponent;
+import com.github.br.syberian.jam26.ecs.components.PlayerComponent;
 import com.github.br.syberian.jam26.ecs.components.RenderComponent;
 import com.github.br.syberian.jam26.ecs.components.TriggerAction;
 import com.github.br.syberian.jam26.ecs.systems.UtilsObjectsHolder;
@@ -26,7 +26,6 @@ import com.github.br.syberian.jam26.ecs.systems.cutscene.step.SayStep;
 import com.github.br.syberian.jam26.ecs.systems.cutscene.step.WaitStep;
 import com.github.br.syberian.jam26.ecs.systems.physics.CollisionType;
 import com.github.br.syberian.jam26.ecs.systems.renderer.Box2dRenderSystem;
-import com.github.tommyettinger.textra.TypingLabel;
 
 public class TriggerActionFactory extends BaseSystem {
 
@@ -86,6 +85,23 @@ public class TriggerActionFactory extends BaseSystem {
             @Override
             public void execute(World world, int triggerEntityId, int activatorEntityId) {
 
+            }
+        };
+    }
+
+    private TriggerAction createPickUpItemAction() {
+        return new TriggerAction() {
+            @Override
+            public void execute(World world, int triggerEntityId, int activatorEntityId) {
+                PlayerComponent player = mappers.playerMapper.get(activatorEntityId);
+                ItemComponent item = mappers.itemMapper.get(triggerEntityId);
+
+                if (player == null || item == null) return;
+
+                // кладем в инвентарь
+                if (player.inventoryData.addItem(item.itemId)) {
+                    world.getMapper(DeleteIntentComponent.class).create(triggerEntityId);
+                }
             }
         };
     }
@@ -187,15 +203,6 @@ public class TriggerActionFactory extends BaseSystem {
                 cutscene.steps.add(new SayStep(npcEntityId, "Сюда иди, разбираться будем!"));
                 cutscene.steps.add(new MoveToStep(npcEntityId, 500f, 300f)); // Идет в координаты комнаты
                 cutscene.steps.add(new SayStep(npcEntityId, "Давай быстрее."));
-            }
-        };
-    }
-
-    private TriggerAction createPickUpItemAction() {
-        return new TriggerAction() {
-            @Override
-            public void execute(World world, int triggerEntityId, int activatorEntityId) {
-                //TODO физически удалить предмет, добавить его в инвентарь героя
             }
         };
     }

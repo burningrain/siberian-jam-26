@@ -16,6 +16,7 @@ import com.github.br.libgdx.common.structure.artemis.EmptyInjector;
 import com.github.br.libgdx.common.structure.screen.AbstractTiledMapScreen;
 import com.github.br.libgdx.common.structure.screen.RestartScreen;
 import com.github.br.libgdx.common.structure.screen.statemachine.GameScreenState;
+import com.github.br.libgdx.common.structure.screen.ui.CustomLayerRenderer;
 import com.github.br.libgdx.common.structure.screen.ui.CustomOrthogonalTiledMapRenderer;
 import com.github.br.syberian.jam26.EntityFactory;
 import com.github.br.syberian.jam26.IUserActorFactory;
@@ -66,6 +67,12 @@ public class PhysicsLevelScreen extends AbstractTiledMapScreen<IUserActorFactory
 
         super.show();
         Gdx.app.log("DEBUG", "Screen [" + this.getClass().getSimpleName() + " is loaded");
+    }
+
+    @Override
+    protected CustomLayerRenderer createCustomLayerRenderer() {
+        Box2dRenderSystem box2dRenderSystem = artemisWorld.getSystem(Box2dRenderSystem.class);
+        return box2dRenderSystem.getCustomLayerRenderer();
     }
 
     @Override

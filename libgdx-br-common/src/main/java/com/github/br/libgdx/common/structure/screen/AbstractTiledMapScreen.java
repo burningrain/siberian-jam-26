@@ -11,6 +11,7 @@ import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.github.br.libgdx.common.structure.GameSettings;
 import com.github.br.libgdx.common.structure.screen.ui.ActorFactory;
+import com.github.br.libgdx.common.structure.screen.ui.CustomLayerRenderer;
 import com.github.br.libgdx.common.structure.screen.ui.CustomOrthogonalTiledMapRenderer;
 
 import workaround.ktx.tiled.TmxUtils;
@@ -59,6 +60,7 @@ public abstract class AbstractTiledMapScreen<A extends ActorFactory> extends Abs
         actorFactory = createActionFactory(gameSkin, assetManager, gameSettings);
         fixBleeding(tiledMap);
         renderer = new CustomOrthogonalTiledMapRenderer(
+            createCustomLayerRenderer(),
             actorFactory,
             viewport,
             tiledMap,
@@ -67,6 +69,8 @@ public abstract class AbstractTiledMapScreen<A extends ActorFactory> extends Abs
 
         afterShow(tiledMap, renderer, viewport, actorFactory);
     }
+
+    protected abstract CustomLayerRenderer createCustomLayerRenderer();
 
     protected abstract A createActionFactory(Skin gameSkin, AssetManager assetManager, GameSettings gameSettings);
 

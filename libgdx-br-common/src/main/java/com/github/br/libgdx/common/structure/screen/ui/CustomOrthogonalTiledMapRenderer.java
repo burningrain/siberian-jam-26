@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -16,10 +17,13 @@ import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapImageLayer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.badlogic.gdx.utils.ObjectMap;
+import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.crashinvaders.vfx.VfxManager;
 import com.crashinvaders.vfx.effects.ChainVfxEffect;
@@ -27,9 +31,13 @@ import com.github.br.libgdx.common.structure.screen.ui.vfx.VfxEffectPooledFactor
 
 public class CustomOrthogonalTiledMapRenderer extends OrthogonalTiledMapRenderer {
 
+    public static final String IS_CUSTOM_LAYER_RENDERER = "is_custom_layer_renderer";
+    public static final String IS_UI_LAYER = "is_ui_layer";
     public static final String IS_OBJECT_LAYER = "is_object_layer";
     public static final String IS_VFX_EFFECT_ENABLED = "is_vfx_effect_enabled";
     public static final String VFX_LAYER_EFFECT = "vfx_layer_effect";
+
+    private final Matrix4 tmpMatrix = new Matrix4();
 
     private final ObjectMap<String, Stage> stages = new ObjectMap<>();
     private final Viewport viewport;
@@ -37,19 +45,22 @@ public class CustomOrthogonalTiledMapRenderer extends OrthogonalTiledMapRenderer
     private final InputMultiplexer inputMultiplexer;
 
     private final VfxEffectPooledFactory vfxEffectPooledFactory;
+    private final CustomLayerRenderer customLayerRenderer;
     private VfxManager vfxManager;
     private boolean isVfxEnabled;
 
     public CustomOrthogonalTiledMapRenderer(
+        CustomLayerRenderer customLayerRenderer,
         ActorFactory actorFactory,
         Viewport viewport,
         TiledMap map,
         float unitScale
     ) {
-        this(actorFactory, viewport, map, unitScale, false, null, 0, 0);
+        this(customLayerRenderer, actorFactory, viewport, map, unitScale, false, null, 0, 0);
     }
 
     public CustomOrthogonalTiledMapRenderer(
+        CustomLayerRenderer customLayerRenderer,
         ActorFactory actorFactory,
         Viewport viewport,
         TiledMap map,
@@ -60,6 +71,7 @@ public class CustomOrthogonalTiledMapRenderer extends OrthogonalTiledMapRenderer
         int bufferHeight
     ) {
         super(map, unitScale);
+        this.customLayerRenderer = customLayerRenderer;
         this.isVfxEnabled = isVfxEnabled;
         this.vfxEffectPooledFactory = vfxEffectPooledFactory;
         this.viewport = viewport;
@@ -121,11 +133,56 @@ public class CustomOrthogonalTiledMapRenderer extends OrthogonalTiledMapRenderer
 
     @Override
     public void renderObjects(MapLayer layer) {
-        // Рендерим Stage
+        MapProperties properties = layer.getProperties();
+        Boolean isCustomLayerRenderer = properties.get(IS_CUSTOM_LAYER_RENDERER, Boolean.class);
+        if (isCustomLayerRenderer != null && isCustomLayerRenderer) {
+            renderLayerWithCustomRenderer(layer);
+        } else {
+            renderObjectLayer(layer);
+        }
+    }
+
+    protected void renderLayerWithCustomRenderer(MapLayer layer) {
+        if (this.customLayerRenderer == null) {
+            throw new GdxRuntimeException("You need set customLayerRenderer!");
+        }
+
+        boolean wasDrawing = batch.isDrawing();
+        if (wasDrawing) {
+            batch.end();
+        }
+
+        this.customLayerRenderer.render(layer, viewport);
+
+        if (wasDrawing) {
+            batch.begin();
+        }
+    }
+
+    private void renderObjectLayer(MapLayer layer) {
         Stage stage = getStageByLayerName(layer.getName());
-        stage.getViewport().apply();
+        Viewport stageViewport = stage.getViewport();
+
+        boolean isCustomViewport = (stageViewport != this.viewport);
+        if (isCustomViewport) {
+            if (batch.isDrawing()) {
+                batch.flush();
+            }
+
+            tmpMatrix.set(batch.getProjectionMatrix());
+            stageViewport.apply(true);
+            batch.setProjectionMatrix(stageViewport.getCamera().combined);
+        }
+
         stage.act(Gdx.graphics.getDeltaTime());
         stage.getRoot().draw(batch, 1f);
+
+        if (isCustomViewport) {
+            if (batch.isDrawing()) {
+                batch.flush();
+            }
+            batch.setProjectionMatrix(tmpMatrix);
+        }
     }
 
     public void updateOffsetsForGroupLayer(String[] layerName, float offsetX, float offsetY) {
@@ -191,12 +248,16 @@ public class CustomOrthogonalTiledMapRenderer extends OrthogonalTiledMapRenderer
 
             MapObjects objects = layer.getObjects();
             MapProperties layerProperties = layer.getProperties();
+            Boolean isUiLayer = layerProperties.get(IS_UI_LAYER, Boolean.class);
             Boolean isObjectLayer = layerProperties.get(IS_OBJECT_LAYER, Boolean.class);
-            if (Boolean.TRUE != isObjectLayer && (objects == null || objects.getCount() == 0)) {
+            if (Boolean.TRUE != isUiLayer &&
+                Boolean.TRUE != isObjectLayer &&
+                (objects == null || objects.getCount() == 0)
+            ) {
                 continue;
             }
 
-            Stage stage = new Stage(viewport, getBatch());
+            Stage stage = createStage(isUiLayer);
             for (MapObject object : objects) {
                 Actor actor = actorFactory.createActor(layer.getName(), object);
                 if (actor == null) {
@@ -213,6 +274,22 @@ public class CustomOrthogonalTiledMapRenderer extends OrthogonalTiledMapRenderer
             stages.put(layer.getName(), stage);
             inputMultiplexer.addProcessor(stage);
         }
+    }
+
+    private Stage createStage(Boolean isUiLayer) {
+        Stage stage;
+        if (Boolean.TRUE.equals(isUiLayer)) {
+            // Создаём отдельный статичный Viewport с собственной камерой для HUD
+            Viewport layerViewport = new ExtendViewport(
+                viewport.getWorldWidth(),
+                viewport.getWorldHeight(),
+                new OrthographicCamera()
+            );
+            stage = new Stage(layerViewport, getBatch());
+        } else {
+            stage = new Stage(viewport, getBatch());
+        }
+        return stage;
     }
 
     public InputProcessor getInputProcessor() {

@@ -1,8 +1,5 @@
 package com.github.br.syberian.jam26;
 
-import com.artemis.ComponentMapper;
-import com.artemis.World;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.maps.MapObject;
@@ -15,7 +12,6 @@ import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.badlogic.gdx.utils.Null;
 import com.github.br.libgdx.common.structure.screen.ui.ActorUtils;
 import com.github.br.libgdx.common.structure.screen.ui.DefaultActorFactory;
-import com.github.br.syberian.jam26.ecs.components.RenderComponent;
 
 import org.jspecify.annotations.NonNull;
 
