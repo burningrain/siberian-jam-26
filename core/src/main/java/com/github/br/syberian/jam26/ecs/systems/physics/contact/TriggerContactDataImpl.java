@@ -19,4 +19,9 @@ public class TriggerContactDataImpl implements ContactData {
         return isDeleted;
     }
 
+    @Override
+    public void setDeleted(boolean deleted) {
+        isDeleted = deleted;
+    }
+
 }

@@ -32,7 +32,7 @@ import com.github.br.libgdx.common.structure.screen.ui.vfx.VfxEffectPooledFactor
 public class CustomOrthogonalTiledMapRenderer extends OrthogonalTiledMapRenderer {
 
     public static final String IS_CUSTOM_LAYER_RENDERER = "is_custom_layer_renderer";
-    public static final String IS_UI_LAYER = "is_ui_layer";
+    public static final String IS_HUD_LAYER = "is_hud_layer";
     public static final String IS_OBJECT_LAYER = "is_object_layer";
     public static final String IS_VFX_EFFECT_ENABLED = "is_vfx_effect_enabled";
     public static final String VFX_LAYER_EFFECT = "vfx_layer_effect";
@@ -163,24 +163,34 @@ public class CustomOrthogonalTiledMapRenderer extends OrthogonalTiledMapRenderer
         Stage stage = getStageByLayerName(layer.getName());
         Viewport stageViewport = stage.getViewport();
 
-        boolean isCustomViewport = (stageViewport != this.viewport);
-        if (isCustomViewport) {
+        MapProperties properties = layer.getProperties();
+        boolean isUi = Boolean.TRUE.equals(properties.get(IS_HUD_LAYER, Boolean.class));
+
+        if (isUi) {
             if (batch.isDrawing()) {
                 batch.flush();
             }
-
+            // 1. Запоминаем текущую матрицу игровой камеры
             tmpMatrix.set(batch.getProjectionMatrix());
+
+            // 2. Включаем статичный UI-вьюпорт (true центрирует камеру так, что (0,0) в левом нижнем углу)
             stageViewport.apply(true);
             batch.setProjectionMatrix(stageViewport.getCamera().combined);
+        } else {
+            // Для обычных игровых слоёв гарантируем актуальную матрицу игровой камеры
+            batch.setProjectionMatrix(this.viewport.getCamera().combined);
         }
 
         stage.act(Gdx.graphics.getDeltaTime());
         stage.getRoot().draw(batch, 1f);
 
-        if (isCustomViewport) {
+        if (isUi) {
             if (batch.isDrawing()) {
                 batch.flush();
             }
+            // 3. Возвращаем OpenGL glViewport на игровой (isCenterCamera должен совпадать с твоим GameSettings)
+            //TODO this.viewport.apply(isCenterCamera);
+            // 4. Возвращаем точную матрицу игровой камеры, которая была до UI-слоя
             batch.setProjectionMatrix(tmpMatrix);
         }
     }
@@ -224,8 +234,17 @@ public class CustomOrthogonalTiledMapRenderer extends OrthogonalTiledMapRenderer
             vfxManager.resize(width, height);
         }
 
+        if (customLayerRenderer != null) {
+            customLayerRenderer.resize(viewport, width, height);
+        }
+
+        //TODO здесь происходит ресайз HUD-экрана, что дико выглядит
         for (Stage stage : stages.values()) {
-            stage.getViewport().update(width, height, true);
+            if (stage.getViewport() != this.viewport) {
+                //FIXME здесь надо прокинуть нормально параметр
+                //FIXME сейчас перезатирает то, что в com.github.br.libgdx.common.structure.screen.AbstractTiledMapScreen.resize
+                stage.getViewport().update(width, height, true);
+            }
         }
     }
 
@@ -248,7 +267,7 @@ public class CustomOrthogonalTiledMapRenderer extends OrthogonalTiledMapRenderer
 
             MapObjects objects = layer.getObjects();
             MapProperties layerProperties = layer.getProperties();
-            Boolean isUiLayer = layerProperties.get(IS_UI_LAYER, Boolean.class);
+            Boolean isUiLayer = layerProperties.get(IS_HUD_LAYER, Boolean.class);
             Boolean isObjectLayer = layerProperties.get(IS_OBJECT_LAYER, Boolean.class);
             if (Boolean.TRUE != isUiLayer &&
                 Boolean.TRUE != isObjectLayer &&

@@ -3,6 +3,7 @@ package com.github.br.syberian.jam26;
 public enum ActorTypeEnum {
 
     // COMMON
+    INVENTORY_HUD,
     TRIGGER,
     TALKING,
     // COMMON

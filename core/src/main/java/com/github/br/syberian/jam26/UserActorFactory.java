@@ -18,6 +18,7 @@ import org.jspecify.annotations.NonNull;
 public class UserActorFactory implements IUserActorFactory {
 
 
+    public static final String IS_IGNORE_ACTOR_SETTINGS = "is_ignore_actor_settings";
     public static final String IS_ECS_ENTITY = "is_ecs_entity";
     public static final String ECS_TAG = "ecs_tag";
     private final DefaultActorFactory delegate;
@@ -80,7 +81,8 @@ public class UserActorFactory implements IUserActorFactory {
             }
         }
 
-        if (actor != null) {
+        Boolean isIgnoreActorSettings = properties.get(IS_IGNORE_ACTOR_SETTINGS, Boolean.class);
+        if (actor != null && !(isIgnoreActorSettings != null && isIgnoreActorSettings)) {
             actor.setX(x);
             actor.setY(y);
             actor.setWidth(width);
@@ -142,6 +144,8 @@ public class UserActorFactory implements IUserActorFactory {
 
     public Actor getCustomUiActor(ActorTypeEnum actorType) {
         switch (actorType) {
+            case INVENTORY_HUD:
+                return delegate.createInventoryHUD();
             case TALKING:
                 return delegate.createTypingLabel("", "talking", "oblako-10-patch", 300);
             case BOX_OPEN:

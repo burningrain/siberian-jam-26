@@ -34,20 +34,22 @@
                 6
             ],
             "expandedObjectLayers": [
-                6,
-                11,
-                13,
-                10,
-                12,
-                14,
                 9,
-                2
+                2,
+                19,
+                10,
+                17,
+                6,
+                13,
+                11,
+                14,
+                12
             ],
-            "scale": 0.5,
-            "selectedLayer": 9,
+            "scale": 1,
+            "selectedLayer": 5,
             "viewCenter": {
-                "x": 6065,
-                "y": 6000
+                "x": 5818.5,
+                "y": 6673.5
             }
         },
         "level-1.tmx#bgf": {
@@ -61,17 +63,17 @@
         },
         "physics-level-1.tmx": {
             "expandedObjectLayers": [
-                6,
-                7,
+                2,
                 4,
+                6,
                 3,
-                2
+                7
             ],
-            "scale": 0.33,
-            "selectedLayer": 1,
+            "scale": 0.25,
+            "selectedLayer": 5,
             "viewCenter": {
-                "x": 4013.636363636364,
-                "y": 11677.272727272728
+                "x": 7918,
+                "y": 2338
             }
         },
         "physics-level-1.tmx#environment": {
@@ -114,7 +116,7 @@
             "selectedLayer": 1,
             "viewCenter": {
                 "x": 3004,
-                "y": 3000
+                "y": 2996
             }
         },
         "test-room.tmx#environment": {
@@ -137,7 +139,7 @@
         "test-room.tmx"
     ],
     "project": "blind-corridor.tiled-project",
-    "property.type": "bool",
+    "property.type": "string",
     "recentFiles": [
         "level-1.tmx",
         "test-room.tmx",

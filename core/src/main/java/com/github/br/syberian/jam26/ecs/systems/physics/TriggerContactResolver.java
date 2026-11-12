@@ -31,26 +31,28 @@ public class TriggerContactResolver implements PhysicsContactResolver<TriggerCon
     }
 
     private void handleTriggerContact(Contact contact, TriggerContactDataImpl triggerData, ContactData objectData, boolean isBegin) {
+        if (triggerData == null || triggerData.isDeleted()) return;
         if (objectData == null || objectData.isDeleted()) return;
 
         if (objectData instanceof PlayerContactDataImpl) {
-            // Безопасно вытаскиваем entityId игрока (предполагаем, что ContactDataImpl хранит его)
             int playerId = objectData.getEntityId();
             int triggerId = triggerData.getEntityId();
 
-            ComponentMapper<TriggerContactComponent> mContact = ecsWorld.getMapper(TriggerContactComponent.class);
+            // Дополнительная страховка на случай, если сущность уже удалена из Artemis
+            if (!ecsWorld.getEntityManager().isActive(triggerId) || !ecsWorld.getEntityManager().isActive(playerId)) {
+                return;
+            }
 
+            ComponentMapper<TriggerContactComponent> mContact = ecsWorld.getMapper(TriggerContactComponent.class);
             if (isBegin) {
-                // Вешаем компонент контакта на триггер
                 TriggerContactComponent contactComp = mContact.create(triggerId);
                 contactComp.activatorEntityId = playerId;
             } else {
-                // Удаляем компонент контакта, игрок вышел
                 mContact.remove(triggerId);
             }
-
         }
     }
+
 
     @Override
     public void preSolve(Contact contact, Manifold oldManifold, TriggerContactDataImpl myContact, Body myBody, Body object, ContactData objectContact) {

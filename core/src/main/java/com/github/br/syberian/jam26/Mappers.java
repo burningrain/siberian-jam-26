@@ -4,6 +4,7 @@ import com.artemis.BaseSystem;
 import com.artemis.ComponentMapper;
 import com.github.br.syberian.jam26.ecs.components.EnemyComponent;
 import com.github.br.syberian.jam26.ecs.components.FollowTheTargetComponent;
+import com.github.br.syberian.jam26.ecs.components.HudComponent;
 import com.github.br.syberian.jam26.ecs.components.InteractableStateComponent;
 import com.github.br.syberian.jam26.ecs.components.ItemComponent;
 import com.github.br.syberian.jam26.ecs.components.PhysicsComponent;
@@ -31,6 +32,8 @@ public class Mappers extends BaseSystem {
     public ComponentMapper<InteractableStateComponent> interactStateMapper;
     public ComponentMapper<FollowTheTargetComponent> followTheTargetMapper;
 
+    public ComponentMapper<HudComponent> hudInventoryMapper;
+
     @Override
     protected void processSystem() {
     }
@@ -49,6 +52,7 @@ public class Mappers extends BaseSystem {
         itemMapper = getWorld().getMapper(ItemComponent.class);
         interactStateMapper = getWorld().getMapper(InteractableStateComponent.class);
         followTheTargetMapper = getWorld().getMapper(FollowTheTargetComponent.class);
+        hudInventoryMapper = getWorld().getMapper(HudComponent.class);
     }
 
 }

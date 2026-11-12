@@ -13,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.github.br.libgdx.common.structure.GameSettings;
 import com.github.br.libgdx.common.structure.screen.ui.CustomOrthogonalTiledMapRenderer;
+import com.github.br.syberian.jam26.ecs.components.HudComponent;
 import com.github.br.syberian.jam26.ecs.components.RenderComponent;
 import com.github.br.syberian.jam26.ecs.components.TransformComponent;
 import com.github.br.syberian.jam26.ecs.systems.UtilsObjectsHolder;
@@ -24,6 +25,8 @@ public abstract class RenderSystem extends BaseSystem implements EntitySubscript
 
     protected ComponentMapper<TransformComponent> mTransform;
     protected ComponentMapper<RenderComponent> mRender;
+
+    protected ComponentMapper<HudComponent> mHud;
 
     public void init(CustomOrthogonalTiledMapRenderer renderer) {
         this.renderer = renderer;
@@ -38,6 +41,7 @@ public abstract class RenderSystem extends BaseSystem implements EntitySubscript
     protected void initialize() {
         this.mTransform = getWorld().getMapper(TransformComponent.class);
         this.mRender = getWorld().getMapper(RenderComponent.class);
+        this.mHud = getWorld().getMapper(HudComponent.class);
 
         getWorld().getAspectSubscriptionManager()
             .get(Aspect.all(TransformComponent.class, RenderComponent.class))
@@ -105,6 +109,11 @@ public abstract class RenderSystem extends BaseSystem implements EntitySubscript
     }
 
     protected void process(int entityId) {
+        if (mHud.has(entityId)) {
+            // для HUD не выравниваются UI-акторы
+            return;
+        }
+
         TransformComponent transform = mTransform.get(entityId);
         RenderComponent render = mRender.get(entityId);
 

@@ -7,4 +7,6 @@ public interface CustomLayerRenderer {
 
     void render(MapLayer layer, Viewport viewport);
 
+    void resize(Viewport viewport, int width, int height);
+
 }

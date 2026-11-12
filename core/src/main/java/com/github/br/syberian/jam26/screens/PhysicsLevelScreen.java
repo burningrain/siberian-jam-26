@@ -26,6 +26,7 @@ import com.github.br.syberian.jam26.TriggerActionFactory;
 import com.github.br.syberian.jam26.UserActorFactory;
 import com.github.br.syberian.jam26.ecs.systems.CameraSystem;
 import com.github.br.syberian.jam26.ecs.systems.FollowTheTargetSystem;
+import com.github.br.syberian.jam26.ecs.systems.HudInventorySystem;
 import com.github.br.syberian.jam26.ecs.systems.LevelControlSystem;
 import com.github.br.syberian.jam26.ecs.systems.PlayerInputSystem;
 import com.github.br.syberian.jam26.ecs.systems.SecurityCameraSystem;
@@ -35,7 +36,6 @@ import com.github.br.syberian.jam26.ecs.systems.cutscene.CutsceneSystem;
 import com.github.br.syberian.jam26.ecs.systems.physics.PhysicsContactListener;
 import com.github.br.syberian.jam26.ecs.systems.physics.PhysicsSystem;
 import com.github.br.syberian.jam26.ecs.systems.renderer.Box2dRenderSystem;
-import com.github.br.syberian.jam26.ui.fx.CustomVfxEffectPooledFactoryImpl;
 
 public class PhysicsLevelScreen extends AbstractTiledMapScreen<IUserActorFactory>
     implements RestartScreen {
@@ -102,6 +102,7 @@ public class PhysicsLevelScreen extends AbstractTiledMapScreen<IUserActorFactory
             .with(new LevelControlSystem())
 
             // Отрисовка
+            .with(new HudInventorySystem())
             .with(new CameraSystem())
             .with(new Box2dRenderSystem(physicsSystem.getBox2dWorld()))
 
@@ -145,6 +146,9 @@ public class PhysicsLevelScreen extends AbstractTiledMapScreen<IUserActorFactory
 
         UtilsObjectsHolder objectsHolder = artemisWorld.getSystem(UtilsObjectsHolder.class);
         objectsHolder.setViewport(viewport);
+
+        HudInventorySystem hudInventorySystem = artemisWorld.getSystem(HudInventorySystem.class);
+        hudInventorySystem.setUserActorFactory(actorFactory);
 
         playLoopMusic();
     }

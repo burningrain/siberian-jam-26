@@ -23,6 +23,7 @@ import com.github.br.libgdx.common.structure.GameManager;
 import com.github.br.libgdx.common.structure.SimpleUtils;
 import com.github.br.syberian.jam26.ecs.components.EnemyComponent;
 import com.github.br.syberian.jam26.ecs.components.FollowTheTargetComponent;
+import com.github.br.syberian.jam26.ecs.components.HudComponent;
 import com.github.br.syberian.jam26.ecs.components.InteractableStateComponent;
 import com.github.br.syberian.jam26.ecs.components.ItemComponent;
 import com.github.br.syberian.jam26.ecs.components.PhysicsComponent;
@@ -44,7 +45,7 @@ import box2dLight.ConeLight;
 public class EntityFactory extends BaseSystem {
 
     private Archetype playerArchetype;
-
+    private Archetype hudInventoryArchetype;
     private Archetype triggerArchetype;
     private Archetype enemyArchetype;
     private Archetype npcArchetype;
@@ -75,12 +76,18 @@ public class EntityFactory extends BaseSystem {
         UtilsObjectsHolder utilsObjectsHolder = getWorld().getSystem(UtilsObjectsHolder.class);
         gameManager = utilsObjectsHolder.getGameManager();
 
+        hudInventoryArchetype = new ArchetypeBuilder()
+            .add(HudComponent.class)
+            .add(RenderComponent.class)
+            .build(world);
+
         playerArchetype = new ArchetypeBuilder()
             .add(TransformComponent.class)
             .add(PhysicsComponent.class)
             .add(PlayerComponent.class)
             .add(RenderComponent.class)
             .build(world);
+
 
         enemyArchetype = new ArchetypeBuilder()
             .add(TransformComponent.class)
@@ -214,6 +221,12 @@ public class EntityFactory extends BaseSystem {
         return id;
     }
 
+    public int createInventoryHud(EntityCreationData creationData) {
+        int id = world.create(hudInventoryArchetype);
+        createRenderComponent(creationData, id);
+        return id;
+    }
+
     public int createPlayer(EntityCreationData creationData) {
         int id = world.create(playerArchetype);
 
@@ -273,7 +286,7 @@ public class EntityFactory extends BaseSystem {
         createPhysicsSensor(creationData.width, creationData.height, physicsComponent);
 
         TriggerComponent triggerComponent = createTriggerComponent(
-            TriggerType.SHOW_MESSAGE,
+            TriggerType.SHOW_NPC_DIALOG,
             TriggerComponent.UseType.PERSISTENCE,
             TriggerComponent.ConditionType.ON_KEY_E,
             id
@@ -600,6 +613,9 @@ public class EntityFactory extends BaseSystem {
 
         int entityId;
         switch (actorType) {
+            case INVENTORY_HUD:
+                entityId = createInventoryHud(creationData);
+                break;
             case HERO:
             case CHAR:
             case CHAR_1:

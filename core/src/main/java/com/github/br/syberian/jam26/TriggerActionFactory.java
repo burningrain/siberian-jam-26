@@ -2,6 +2,7 @@ package com.github.br.syberian.jam26;
 
 import com.artemis.BaseSystem;
 import com.artemis.World;
+import com.artemis.managers.TagManager;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -10,6 +11,7 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.github.br.libgdx.common.structure.GameManager;
+import com.github.br.libgdx.common.structure.GamePlaySettings;
 import com.github.br.libgdx.common.structure.screen.RestartScreen;
 import com.github.br.libgdx.common.structure.screen.ui.AnimatedImage;
 import com.github.br.syberian.jam26.ecs.components.CutsceneComponent;
@@ -30,7 +32,7 @@ import com.github.br.syberian.jam26.ecs.systems.renderer.Box2dRenderSystem;
 public class TriggerActionFactory extends BaseSystem {
 
     public final TriggerAction RESTART_LEVEL = createRestartLevelAction();
-    public final TriggerAction SHOW_MESSAGE = createShowMessageAction();
+    public final TriggerAction SHOW_MESSAGE = createShowNpcDialogAction();
     public final TriggerAction PICK_UP_ITEM = createPickUpItemAction();
     public final TriggerAction EXIT_TRIGGER = createTriggerExitAction();
     public final TriggerAction TOGGLE_DOOR = createToggleDoorAction();
@@ -63,7 +65,7 @@ public class TriggerActionFactory extends BaseSystem {
             case RESTART_LEVEL:
                 return this.RESTART_LEVEL;
 
-            case SHOW_MESSAGE:
+            case SHOW_NPC_DIALOG:
                 return this.SHOW_MESSAGE;
             case PICK_UP_ITEM:
                 return this.PICK_UP_ITEM;
@@ -181,7 +183,7 @@ public class TriggerActionFactory extends BaseSystem {
         };
     }
 
-    private TriggerAction createShowMessageAction() {
+    private TriggerAction createShowNpcDialogAction() {
         return new TriggerAction() {
             @Override
             public void execute(World world, int triggerEntityId, int activatorEntityId) {
@@ -194,15 +196,23 @@ public class TriggerActionFactory extends BaseSystem {
                 CutsceneComponent cutscene = world.getMapper(CutsceneComponent.class).create(cutsceneEntityId);
 
                 // Достаем ID нужного NPC (например, из свойств триггера или подписки)
-                int npcEntityId = triggerEntityId;
+                TagManager tagManager = world.getSystem(TagManager.class);
+                int npcEntityId = tagManager.getEntityId("cellmate");
 
                 // 3. РЕЖИССУРА: Набиваем сценарий по порядку выполнения!
-                cutscene.steps.add(new SayStep(npcEntityId, "Стоять! Ты кто такой?!"));
-                cutscene.steps.add(new SayStep(activatorEntityId, "Я просто мимо проходил..."));
+                cutscene.steps.add(new SayStep(activatorEntityId, "Эй ты там! Не знаешь код от двери охраны?"));
+                cutscene.steps.add(new MoveToStep(npcEntityId, 5910f, 5340f));
+                cutscene.steps.add(new SayStep(npcEntityId, "Знаю"));
                 cutscene.steps.add(new WaitStep(1.0f)); // Драматическая пауза в секунду
-                cutscene.steps.add(new SayStep(npcEntityId, "Сюда иди, разбираться будем!"));
-                cutscene.steps.add(new MoveToStep(npcEntityId, 500f, 300f)); // Идет в координаты комнаты
-                cutscene.steps.add(new SayStep(npcEntityId, "Давай быстрее."));
+                cutscene.steps.add(new SayStep(activatorEntityId, "И какой код?"));
+
+                int randomNumber = MathUtils.random(1000, 9999);
+                gamePlaySettings.setDoorCode(randomNumber);
+
+                cutscene.steps.add(new SayStep(npcEntityId, randomNumber + ""));
+                cutscene.steps.add(new SayStep(activatorEntityId, "Спасибо, сочтемся!"));
+                cutscene.steps.add(new SayStep(npcEntityId, "Буду ждать"));
+                cutscene.steps.add(new MoveToStep(npcEntityId, 5910f, 4840f));
             }
         };
     }

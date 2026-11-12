@@ -1066,7 +1066,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup color="#ff00ff" id="6" name="triggers" locked="1">
+ <objectgroup color="#ff00ff" id="6" name="triggers">
   <object id="9" name="EXIT_TRIGGER" x="8460.54" y="618.728" width="285.116" height="711.427" rotation="359.227">
    <properties>
     <property name="actor_type" value="TRIGGER"/>

@@ -19,6 +19,7 @@ import com.github.br.syberian.jam26.ecs.components.PhysicsComponent;
 import com.github.br.syberian.jam26.ecs.components.PlayerComponent;
 import com.github.br.syberian.jam26.ecs.components.TransformComponent;
 import com.github.br.syberian.jam26.ecs.systems.UtilsObjectsHolder;
+import com.github.br.syberian.jam26.ecs.systems.physics.contact.ContactData;
 
 import box2dLight.RayHandler;
 
@@ -170,10 +171,14 @@ public class PhysicsSystem extends BaseSystem implements EntitySubscription.Subs
 
     private void destroyPhysicsBody(int entityId) {
         PhysicsComponent physics = mPhysics.get(entityId);
-        // Защита: если тело уже удалено вручную при рестарте, метод просто ничего не сделает
         if (physics != null && physics.body != null) {
+            Object userData = physics.body.getUserData();
+            if (userData instanceof ContactData) {
+                ((ContactData) userData).setDeleted(true);
+            }
+
+            world.destroyBody(physics.body); // Синхронно вызовет ContactListener.endContact(), где мы уже защищены флагом isDeleted == true
             physics.body.setUserData(null);
-            world.destroyBody(physics.body);
             physics.body = null;
         }
     }

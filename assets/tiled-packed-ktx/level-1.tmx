@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><map height="100" infinite="0" nextlayerid="19" nextobjectid="185" orientation="orthogonal" renderorder="right-down" tiledversion="1.11.2" tileheight="120" tilewidth="120" version="1.10" width="100"><properties><property name="atlas" value="tileset/level-1.atlas"/></properties>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><map height="100" infinite="0" nextlayerid="20" nextobjectid="191" orientation="orthogonal" renderorder="right-down" tiledversion="1.11.2" tileheight="120" tilewidth="120" version="1.10" width="100"><properties><property name="atlas" value="tileset/level-1.atlas"/></properties>
  <tileset columns="0" firstgid="1" name="floor_and_walls" tilecount="26" tileheight="120" tilewidth="120">
   <grid height="1" orientation="orthogonal" width="1"/>
   <tile id="0">
@@ -341,13 +341,13 @@
      <property name="is_ecs_entity" type="bool" value="true"/>
     </properties>
    </object>
-   <object height="230.182" id="27" name="wall" width="837.821" x="5042.09" y="6484.91">
+   <object height="236.849" id="27" name="wall" width="837.821" x="5042.09" y="6481.58">
     <properties>
      <property name="actor_type" value="WALL"/>
      <property name="is_ecs_entity" type="bool" value="true"/>
     </properties>
    </object>
-   <object height="239.515" id="28" name="wall" width="253.821" x="6002.09" y="6479.58">
+   <object height="237.515" id="28" name="wall" width="253.821" x="6002.09" y="6481.58">
     <properties>
      <property name="actor_type" value="WALL"/>
      <property name="is_ecs_entity" type="bool" value="true"/>
@@ -450,6 +450,12 @@
     </properties>
    </object>
    <object height="242.182" id="181" name="wall" width="228.821" x="6248.09" y="4554.91">
+    <properties>
+     <property name="actor_type" value="WALL"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
+   <object height="123.515" id="190" name="wall" width="121.821" x="5881.09" y="6482.24">
     <properties>
      <property name="actor_type" value="WALL"/>
      <property name="is_ecs_entity" type="bool" value="true"/>
@@ -727,7 +733,7 @@
      <property name="is_ecs_entity" type="bool" value="true"/>
     </properties>
    </object>
-   <object gid="36" height="42" id="134" name="npc" rotation="180" width="51" x="5965.06" y="6763.15">
+   <object gid="36" height="42" id="134" name="npc" rotation="180" width="51" x="5961.06" y="7252.15">
     <properties>
      <property name="actor_type" value="NPC"/>
      <property name="ecs_tag" value="cellmate"/>
@@ -777,7 +783,7 @@
    <object gid="82" height="125.667" id="63" name="gray_door" width="117.333" x="5882.33" y="6606.33">
     <properties>
      <property name="actor_type" value="DOOR_GRAY"/>
-     <property name="is_ecs_entity" type="bool" value="true"/>
+     <property name="is_ecs_entity" type="bool" value="false"/>
     </properties>
    </object>
    <object gid="82" height="125.667" id="152" name="gray_door" width="117.333" x="4921.33" y="6607.83">
@@ -976,6 +982,12 @@
      <property name="is_ecs_entity" type="bool" value="true"/>
     </properties>
    </object>
+   <object gid="56" height="114.667" id="188" name="box" width="119.667" x="5160.17" y="5872.67">
+    <properties>
+     <property name="actor_type" value="BOX"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+    </properties>
+   </object>
   </objectgroup>
   <objectgroup color="#aaaaff" id="13" name="cups">
    <object gid="54" height="19" id="65" name="cup" width="22.3333" x="8363.33" y="7024.67">
@@ -997,6 +1009,17 @@
     </properties>
    </object>
   </objectgroup>
+  <objectgroup color="#ff55ff" id="19" name="triggers">
+   <object height="110" id="187" width="214" x="5836" y="6367">
+    <properties>
+     <property name="actor_type" value="TRIGGER"/>
+     <property name="condition_type" value="ON_ENTER"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+     <property name="trigger_type" value="SHOW_NPC_DIALOG"/>
+     <property name="use_type" value="ONE_TIME"/>
+    </properties>
+   </object>
+  </objectgroup>
   <objectgroup id="18" name="box2d_light">
    <properties>
     <property name="is_custom_layer_renderer" type="bool" value="true"/>
@@ -1009,8 +1032,16 @@
   </objectgroup>
   <objectgroup id="17" name="inventory_layer">
    <properties>
-    <property name="is_ui_layer" type="bool" value="true"/>
+    <property name="is_hud_layer" type="bool" value="true"/>
    </properties>
+   <object height="392" id="185" width="482" x="2964" y="5896">
+    <properties>
+     <property name="actor_type" value="INVENTORY_HUD"/>
+     <property name="ecs_tag" value="HUD_INVENTORY"/>
+     <property name="is_ecs_entity" type="bool" value="true"/>
+     <property name="is_ignore_actor_settings" type="bool" value="true"/>
+    </properties>
+   </object>
   </objectgroup>
  </group>
 </map>

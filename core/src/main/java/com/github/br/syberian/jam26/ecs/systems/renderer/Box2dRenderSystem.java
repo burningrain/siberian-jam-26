@@ -27,10 +27,16 @@ public class Box2dRenderSystem extends RenderSystem {
     private final Matrix4 debugMatrix = new Matrix4();
 
     private GameManager gameManager;
+
+    // важно, чтобы ссылка уже была. порядок инициализации такой, что ортогональный уже ждет наличие ссылки
     private final CustomLayerRenderer customLayerRenderer = new CustomLayerRenderer() {
         @Override
         public void render(MapLayer layer, Viewport viewport) {
             renderBox2dLight((OrthographicCamera) viewport.getCamera(), gameManager.gameSettings);
+        }
+
+        @Override
+        public void resize(Viewport viewport, int width, int height) {
         }
     };
 

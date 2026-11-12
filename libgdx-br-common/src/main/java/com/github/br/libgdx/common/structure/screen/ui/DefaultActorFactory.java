@@ -181,9 +181,17 @@ public class DefaultActorFactory implements ActorFactory {
     }
 
     public Actor createInventoryHUD() {
-        Table inventoryTable = new Table();
-        inventoryTable.left().top();
-        return inventoryTable;
+        Table rootTable = new Table();
+        rootTable.setFillParent(true);
+        rootTable.top().left();
+
+        Table slotsTable = new Table();
+        slotsTable.left();
+        slotsTable.setName("slots_table");
+
+        rootTable.add(slotsTable).padTop(32f).padLeft(32f);
+
+        return rootTable;
     }
 
 }

@@ -6,4 +6,6 @@ public interface ContactData {
 
     boolean isDeleted();
 
+    void setDeleted(boolean deleted);
+
 }
