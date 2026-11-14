@@ -588,6 +588,11 @@ public class EntityFactory extends BaseSystem {
         // лучше поставить поменьше, например 0.1f. Но можете оставить как вам нравится.
         fixtureDef.restitution = 0.1f;
 
+        if (bodyType == BodyDef.BodyType.DynamicBody) {
+            bodyDef.linearDamping = 26.0f;  // Сопротивление скольжению (ящик быстро остановится после толчка)
+            bodyDef.angularDamping = 16.0f; // Сопротивление вращению (ящик перестанет крутиться как волчок)
+        }
+
         body.createFixture(fixtureDef);
         groundBox.dispose();
 

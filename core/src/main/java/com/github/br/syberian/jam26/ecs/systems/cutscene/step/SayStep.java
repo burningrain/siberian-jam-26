@@ -3,6 +3,7 @@ package com.github.br.syberian.jam26.ecs.systems.cutscene.step;
 import com.artemis.World;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.scenes.scene2d.ui.Container;
 import com.github.br.syberian.jam26.EntityFactory;
 import com.github.br.syberian.jam26.ecs.components.FollowTheTargetComponent;
@@ -14,11 +15,14 @@ import com.github.tommyettinger.textra.TypingLabel;
 public class SayStep implements CutsceneStep {
     private final int targetEntityId;
     private final String text;
+
+    private final Sound sound;
     private int labelEntityId = -1;
 
-    public SayStep(int targetEntityId, String text) {
+    public SayStep(int targetEntityId, String text, Sound sound) {
         this.targetEntityId = targetEntityId;
         this.text = text;
+        this.sound = sound;
     }
 
     @Override
@@ -42,6 +46,8 @@ public class SayStep implements CutsceneStep {
             follow.offsetY = 32f + labelContainer.getHeight() / 5f;
             follow.offsetX = -labelContainer.getWidth() / 2f;
         }
+
+        sound.play();
     }
 
     @Override

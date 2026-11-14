@@ -3,6 +3,7 @@ package com.github.br.syberian.jam26.screens;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.SkinLoader;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -40,7 +41,13 @@ public class PhysicsLevelScreenLoader implements AssetsLoader {
         // animation
         //assetManager.load(Resources.ANIMATION_ATLAS, TextureAtlas.class);
 
+        // music
         assetManager.load(levelThemeLoopMusic, Music.class);
+
+        // sound
+        assetManager.load(Resources.Sound.OPEN_METAL_DOOR, Sound.class);
+        assetManager.load(Resources.Sound.CLOSE_METAL_DOOR, Sound.class);
+        assetManager.load(Resources.Sound.TALK, Sound.class);
     }
 
     @Override
@@ -51,6 +58,10 @@ public class PhysicsLevelScreenLoader implements AssetsLoader {
         assetManager.unload(Resources.Atlases.GAME_OBJECTS);
 
         assetManager.unload(levelThemeLoopMusic);
+
+        assetManager.unload(Resources.Sound.OPEN_METAL_DOOR);
+        assetManager.unload(Resources.Sound.CLOSE_METAL_DOOR);
+        assetManager.unload(Resources.Sound.TALK);
     }
 
 }

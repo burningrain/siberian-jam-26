@@ -12,8 +12,11 @@ public interface Resources {
         String MENU_THEME = "music/menu_mus.mp3";
     }
 
-    interface SoundFx {
+    interface Sound {
+        String OPEN_METAL_DOOR = "sounds/open_metal_door.wav";
+        String CLOSE_METAL_DOOR = "sounds/close_metal_door.wav";
 
+        String TALK = "sounds/talk.wav";
     }
 
     interface Tmx {

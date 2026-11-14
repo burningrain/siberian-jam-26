@@ -3,6 +3,7 @@ package com.github.br.syberian.jam26;
 import com.artemis.BaseSystem;
 import com.artemis.World;
 import com.artemis.managers.TagManager;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -11,7 +12,7 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.github.br.libgdx.common.structure.GameManager;
-import com.github.br.libgdx.common.structure.GamePlaySettings;
+import com.github.br.libgdx.common.structure.audio.AudioAssetManager;
 import com.github.br.libgdx.common.structure.screen.RestartScreen;
 import com.github.br.libgdx.common.structure.screen.ui.AnimatedImage;
 import com.github.br.syberian.jam26.ecs.components.CutsceneComponent;
@@ -115,6 +116,12 @@ public class TriggerActionFactory extends BaseSystem {
                 InteractableStateComponent interactComponent = mappers.interactStateMapper.get(triggerEntityId);
                 interactComponent.isOpen = !interactComponent.isOpen;
 
+                String soundTitle = interactComponent.isOpen ?
+                    Resources.Sound.OPEN_METAL_DOOR : Resources.Sound.CLOSE_METAL_DOOR;
+                AudioAssetManager audioAssetManager = gameManager.audioAssetManager;
+                Sound sound = audioAssetManager.getSound(soundTitle);
+                sound.play();
+
                 PhysicsComponent physicsComponent = mappers.physicsMapper.get(triggerEntityId);
                 RenderComponent renderComponent = mappers.renderMapper.get(triggerEntityId);
                 AnimatedImage animatedImage = (AnimatedImage) renderComponent.actor;
@@ -154,7 +161,7 @@ public class TriggerActionFactory extends BaseSystem {
                 // Вместо этого делайте твердую фикстуру сенсором:
                 mainFixture.setSensor(interactComponent.isOpen);
                 Filter filter = mainFixture.getFilterData();
-                filter.categoryBits = interactComponent.isOpen?
+                filter.categoryBits = interactComponent.isOpen ?
                     CollisionType.CATEGORY_SENSOR : CollisionType.CATEGORY_DEFAULT;
                 mainFixture.setFilterData(filter);
             }
@@ -200,18 +207,21 @@ public class TriggerActionFactory extends BaseSystem {
                 int npcEntityId = tagManager.getEntityId("cellmate");
 
                 // 3. РЕЖИССУРА: Набиваем сценарий по порядку выполнения!
-                cutscene.steps.add(new SayStep(activatorEntityId, "Эй ты там! Не знаешь код от двери охраны?"));
+                AudioAssetManager audioAssetManager = gameManager.audioAssetManager;
+                Sound sound = audioAssetManager.getSound(Resources.Sound.TALK);
+
+                cutscene.steps.add(new SayStep(activatorEntityId, "Эй ты там! Не знаешь код от двери охраны?", sound));
                 cutscene.steps.add(new MoveToStep(npcEntityId, 5910f, 5340f));
-                cutscene.steps.add(new SayStep(npcEntityId, "Знаю"));
+                cutscene.steps.add(new SayStep(npcEntityId, "Знаю", sound));
                 cutscene.steps.add(new WaitStep(1.0f)); // Драматическая пауза в секунду
-                cutscene.steps.add(new SayStep(activatorEntityId, "И какой код?"));
+                cutscene.steps.add(new SayStep(activatorEntityId, "И какой код?", sound));
 
                 int randomNumber = MathUtils.random(1000, 9999);
                 gamePlaySettings.setDoorCode(randomNumber);
 
-                cutscene.steps.add(new SayStep(npcEntityId, randomNumber + ""));
-                cutscene.steps.add(new SayStep(activatorEntityId, "Спасибо, сочтемся!"));
-                cutscene.steps.add(new SayStep(npcEntityId, "Буду ждать"));
+                cutscene.steps.add(new SayStep(npcEntityId, randomNumber + "", sound));
+                cutscene.steps.add(new SayStep(activatorEntityId, "Спасибо, сочтемся!", sound));
+                cutscene.steps.add(new SayStep(npcEntityId, "Буду ждать", sound));
                 cutscene.steps.add(new MoveToStep(npcEntityId, 5910f, 4840f));
             }
         };
